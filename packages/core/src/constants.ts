@@ -32,71 +32,23 @@ import { FormElementType } from './types';
 /**
  * A list of field types used in the application forms.
  */
-export const fields = [
-  'text',
-  'email',
-  'tel',
-  'password',
-  'checkbox',
-  'hidden',
-  'radio',
-  'url',
-  'textarea',
-  'color',
-  'number',
-  'range',
-  'date',
-  'week',
-  'datetime',
-  'time',
-  'daterange',
-  'ritchtext',
-  'select',
-  'file',
-  'list',
-  'static',
-];
+export const fields: string[] = [];
 
 /**
  * A list of other form-related elements used in the application.
  */
-export const otherElements = ['button', 'group', 'row', 'tabs'];
+export const otherElements: string[] = [];
 
 /**
  * A combined list of all form-related elements.
  */
-export const formElements = [...fields, ...otherElements];
+export const formElements: string[] = [];
 
 /**
  * A mapping of form element types to their constructor functions.
  */
 export const elementConstructors: { [key in FormElementType]?: new (a: any, b: any, c: any) => any } = {
-  /*  text: TextField,
-    email: EmailField,
-    tel: TelField,
-    password: PasswordField,
-    checkbox: CheckboxField,
-    hidden: HiddenField,
-    radio: RadioField,
-    url: UrlField,
-    textarea: TextareaField,
-    color: ColorField,
-    number: NumberField,
-    range: RangeField,
-    date: DateField,
-    week: WeekField,
-    datetime: DatetimeField,
-    time: TimeField,
-    daterange: DaterangeField,
-    ritchtext: RitchtextField,
-    select: SelectField,
-    file: FileField,
-    list: ListField,
-    static: StaticField,
-    button: Button,
-    group: Group,
-    row: Row,
-    tabs: Tabs,*/
+
 };
 
 /**
@@ -117,8 +69,9 @@ export const LICENSE_STATE = {
  */
 export const RELEASE_DATE = '2023-09-23';
 
-export const registerConstructor = (type: string, key: string, constructor: any, isField: boolean) => {
+export const registerConstructor = (type: string, constructor: any, isField: boolean) => {
   if (isField && !fields.includes(type)) fields.push(type);
   else if (!otherElements.includes(type)) otherElements.push(type);
-  elementConstructors[key] = constructor;
+  formElements.push(type);
+  elementConstructors[type] = constructor;
 };

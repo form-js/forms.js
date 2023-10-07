@@ -15,8 +15,6 @@ import { Schema } from './types.js';
 import { Group } from './group.js';
 import { Row } from './row.js';
 import { Button } from './button.js';
-//import { Tab } from './tab.js';
-//import { ListField } from './fields/listField.js';
 export class Form {
   public options: FormOptions = {
     id: '',
@@ -170,10 +168,7 @@ export class Form {
    * @param list - if has list parent - optional.
    * @param key - list key - optional.
    */
-  private buildField(
-    options: any,
-    parent: HTMLElement,
-  ): void {
+  private buildField(options: any, parent: HTMLElement): void {
     const optionsDupe = {
       ...options,
     };
@@ -196,10 +191,7 @@ export class Form {
    * @param options - Configuration options for the field.
    * @param parent - Parent HTML element to append the field to.
    */
-  private buildGroup(
-    options: GroupOptions,
-    parent: HTMLElement,
-  ): void {
+  private buildGroup(options: GroupOptions, parent: HTMLElement): void {
     const Constructor = elementConstructors[options.type];
     if (!Constructor) throw new Error(`Unknown type: ${options.type}`);
     const wrapper = this.createWrapper(parent);
@@ -209,7 +201,6 @@ export class Form {
 
     const newParent: HTMLElement = Constructed.getContainer();
     this.buildSchema(options.schema, newParent);
-
   }
 
   /**
@@ -217,10 +208,7 @@ export class Form {
    * @param options - Configuration options for the row.
    * @param parent - Parent HTML element to append the row to.
    */
-  private buildRow(
-    options: RowOptions,
-    parent: HTMLElement,
-  ) {
+  private buildRow(options: RowOptions, parent: HTMLElement) {
     const Constructor = elementConstructors[options.type];
     if (!Constructor) throw new Error(`Unknown type: ${options.type}`);
     const wrapper = this.createWrapper(parent);
