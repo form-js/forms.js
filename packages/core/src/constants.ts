@@ -47,9 +47,7 @@ export const formElements: string[] = [];
 /**
  * A mapping of form element types to their constructor functions.
  */
-export const elementConstructors: { [key in FormElementType]?: new (a: any, b: any, c: any) => any } = {
-
-};
+export const elementConstructors: { [key in FormElementType]?: new (a: any, b: any, c: any) => any } = {};
 
 /**
  * License contants.

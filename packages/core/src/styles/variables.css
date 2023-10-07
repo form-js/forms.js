@@ -1,0 +1,14 @@
+html {
+    --formsjs-primary-color: rgb(0, 119, 255);
+    --formsjs-primary-focus-color: rgb(0 100 220);
+    --formsjs-error-color: rgb(178,34,34);
+    --formsjs-disabled-color: rgb(97, 97, 97);
+    --formsjs-disabled-focus-color: rgb(150, 150, 150);
+    --formsjs-background-color: rgb(255, 255, 255);
+    --formsjs-border-radius: .5rem;
+    --formsjs-border-width: 1px;
+}
+
+html.dark{
+    --formsjs-background-color: rgb(62, 62, 62);
+}

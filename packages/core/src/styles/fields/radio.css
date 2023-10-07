@@ -1,0 +1,60 @@
+.form-field.radio {
+    padding-top: .25rem;
+}
+
+.form-input-radio {
+    position: relative;
+    cursor: pointer;
+    height: 0;  
+    width: 0;
+}
+
+.form-input-radio::before {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: var(--formsjs-background-color);
+    border-radius: 50%;
+    content: "";
+}
+
+.form-input-radio:checked::before {
+    background-color: var(--formsjs-primary-color); 
+}
+
+.form-error .form-input-radio:checked::before, .form-error .form-input-radio::before{
+    background-color: var(--formsjs-error-color); 
+}
+
+.form-input-radio:disabled::before, .form-input-radio:disabled:checked::before {
+    background-color: var(--formsjs-disabled-color);
+}
+
+.form-input-radio:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+  
+.form-input-radio:checked:after {
+    display: block;
+}
+
+.form-input-radio:after {
+    left: 5px;
+    top: -15px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: var(--formsjs-background-color);
+}
+
+.form-input-radio:disabled:after{
+    background-color: solid var(--formsjs-disabled-focus-color);
+}
+
+.form-field.radio .form-field-label{
+    margin-bottom: .5rem;
+}

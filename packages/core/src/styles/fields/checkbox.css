@@ -1,0 +1,119 @@
+.form-field.checkbox{
+    padding-top: .25rem;
+}
+
+.is-toggle .form-input-checkbox{
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.form-field.checkbox.is-toggle .form-field-label{
+    padding-top: 16px;
+}
+
+.is-toggle label{
+    position: relative;
+}
+
+.is-toggle .form-input-checkbox:before, .is-toggle .form-input-checkbox:after{
+    content: none;
+}
+
+.is-toggle .toggle-slider {
+    width: 60px;
+    height: 34px;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--formsjs-disabled-color);
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: var(--formsjs-border-radius);
+}
+  
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--formsjs-background-color);
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: var(--formsjs-border-radius);
+}
+  
+.is-toggle .form-input-checkbox:checked + .toggle-slider {
+    background-color: var(--formsjs-primary-color);
+}
+  
+.is-toggle .form-input-checkbox:focus + .toggle-slider {
+    box-shadow: 0 0 1px var(--formsjs-primary-color);
+}
+  
+.is-toggle .form-input-checkbox:checked + .toggle-slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+.form-input-checkbox {
+    position: relative;
+    cursor: pointer;
+    height: 0;  
+    width: 0;
+}
+
+.form-input-checkbox::before {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: var(--formsjs-background-color);
+    border-radius: var(--formsjs-border-radius);
+    content: "";
+}
+
+.form-input-checkbox:checked::before {
+    background-color: var(--formsjs-primary-color); 
+}
+
+.form-error .form-input-checkbox:checked::before, .form-error .form-input-checkbox::before{
+    background-color: var(--formsjs-error-color); 
+}
+
+.form-input-checkbox:disabled::before {
+    background-color: var(--formsjs-disabled-color);
+}
+
+.form-input-checkbox:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+  
+.form-input-checkbox:checked:after {
+    display: block;
+}
+
+.form-input-checkbox:after {
+    left: 9px;
+    top: -16px;
+    width: 7px;
+    height: 15px;
+    border: solid var(--formsjs-background-color);
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.form-input-checkbox:disabled:after{
+    border: solid var(--formsjs-disabled-focus-color);
+}

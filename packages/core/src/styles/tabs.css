@@ -1,0 +1,113 @@
+.form-tabs-body > .tab-body{
+    display: none;
+}
+
+.form-tabs-body > .tab-body.active{
+    display: block;
+}
+
+/* Wizzard */
+
+.form-tabs .form-tabs-header{
+    display: flex;
+    margin-bottom: 1.5rem;
+}
+
+.form-tabs .form-tabs-header > .tab-header{
+    position: relative;
+    width: 100%;
+    padding: .75rem 1rem;
+    background-color: var(--formsjs-background-color);
+    text-align: center;
+    font-weight: bold;
+}
+
+.form-tabs .form-tabs-header > .tab-header:not(:last-child){
+    border-right: var(--formsjs-border-width) solid rgba(0, 0, 0, .2) !important;
+}
+
+.form-tabs .form-tabs-header > .tab-header:first-child{
+    border-top-left-radius: var(--formsjs-border-radius);
+    border-bottom-left-radius: var(--formsjs-border-radius);
+}
+
+.form-tabs .form-tabs-header > .tab-header:last-child{
+    border-top-right-radius: var(--formsjs-border-radius);
+    border-bottom-right-radius: var(--formsjs-border-radius);
+}
+
+.form-tabs .form-tabs-header:not(.strict) > .tab-header:hover, .form-tabs .form-tabs-header > .tab-header.validated:hover{
+    cursor: pointer;
+    background-color: var(--formsjs-primary-focus-color);
+    border-color:  var(--formsjs-primary-focus-color);
+}
+
+.form-tabs .form-tabs-header > .tab-header.active{
+    background-color: var(--formsjs-primary-color);
+    border-color:  var(--formsjs-primary-color);
+}
+
+.form-tabs .form-tabs-header > .tab-header.active::after{
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    content: "";
+    width: 0; 
+    height: 0; 
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid var(--formsjs-primary-color);
+}
+
+.form-tabs .form-tabs-header > .tab-header.active:hover::after{
+    border-top: 15px solid var(--formsjs-primary-focus-color);
+}
+
+.form-tabs .form-tabs-header > .tab-header.error.active{
+    background-color: var(--formsjs-error-color);
+    border-color:  var(--formsjs-error-color);
+}
+
+.form-tabs .form-tabs-header > .tab-header.error::after{
+    border-top: 15px solid var(--formsjs-error-color);
+}
+
+.form-tabs .form-tabs-header > .tab-header.error{
+    border-color:  var(--formsjs-error-color);
+}
+
+.form-tabs .form-tabs-header > .tab-header.disabled, .form-tabs .form-tabs-header > .tab-header.active.disabled{
+    background-color: var(--formsjs-disabled-color);
+    border-color:  var(--formsjs-disabled-color);
+}
+
+.form-tabs .form-tabs-header > .tab-header.disabled:hover, .form-tabs .form-tabs-header > .tab-header.active.disabled:hover{
+    cursor: not-allowed;
+}
+
+@media screen and (max-width: 768px) {
+    .form-tabs .form-tabs-header{
+        flex-wrap: wrap;
+    }
+
+    .form-tabs .form-tabs-header > .tab-header:first-child{
+        border-top-right-radius: var(--formsjs-border-radius);
+        border-top-left-radius: var(--formsjs-border-radius);
+        border-bottom-left-radius: 0;
+    }
+    
+    .form-tabs .form-tabs-header > .tab-header:last-child{
+        border-bottom-left-radius: var(--formsjs-border-radius);
+        border-bottom-right-radius: var(--formsjs-border-radius);
+        border-top-right-radius: 0;
+    }
+
+    .form-tabs .form-tabs-header > .tab-header:not(:last-child){
+        border-right: none !important;
+    }
+
+    .form-tabs .form-tabs-header > .tab-header.active::after{
+        content: none;
+    }
+}

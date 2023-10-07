@@ -1,0 +1,55 @@
+@import "./flatpickr.css";
+
+.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day.selected.inRange, .flatpickr-day.startRange.inRange, .flatpickr-day.endRange.inRange, .flatpickr-day.selected:focus, .flatpickr-day.startRange:focus, .flatpickr-day.endRange:focus, .flatpickr-day.selected:hover, .flatpickr-day.startRange:hover, .flatpickr-day.endRange:hover, .flatpickr-day.selected.prevMonthDay, .flatpickr-day.startRange.prevMonthDay, .flatpickr-day.endRange.prevMonthDay, .flatpickr-day.selected.nextMonthDay, .flatpickr-day.startRange.nextMonthDay, .flatpickr-day.endRange.nextMonthDay{
+    background: var(--formsjs-primary-color);
+    border-color: var(--formsjs-primary-color);
+}
+
+span.flatpickr-day.selected:hover{
+    background: var(--formsjs-primary-color);
+    border-color: var(--formsjs-primary-color);
+}
+
+.flatpickr-day.today:hover, .flatpickr-day.today:focus{
+    background: var(--formsjs-primary-focus-color);
+}
+
+span.flatpickr-day.inRange{
+    box-shadow: none;
+}
+
+span.flatpickr-day.today:not(.selected), span.flatpickr-day.prevMonthDay.today:not(.selected), span.flatpickr-day.nextMonthDay.today:not(.selected){
+    border-bottom-color: var(--formsjs-primary-focus-color);
+}
+
+span.flatpickr-day.today:not(.selected):hover, span.flatpickr-day.prevMonthDay.today:not(.selected):hover, span.flatpickr-day.nextMonthDay.today:not(.selected):hover{
+    border-color: var(--formsjs-primary-focus-color);
+}
+
+.flatpickr-calendar{
+    color: currentColor;
+    background-color: var(--formsjs-background-color);
+}
+
+.flatpickr-day, .flatpickr-time input, .flatpickr-day.flatpickr-disabled, .flatpickr-day.flatpickr-disabled:hover, .flatpickr-day.prevMonthDay, .flatpickr-day.nextMonthDay, .flatpickr-day.notAllowed, .flatpickr-day.notAllowed.prevMonthDay, .flatpickr-day.notAllowed.nextMonthDay{
+    color: currentColor;
+}
+
+.flatpickr-months .flatpickr-month, .flatpickr-months .flatpickr-prev-month, .flatpickr-months .flatpickr-next-month, .flatpickr-time .flatpickr-time-separator, .flatpickr-time .flatpickr-am-pm{
+    color: currentColor;
+    fill: currentColor;
+}
+
+.flatpickr-day.inRange, .flatpickr-day.prevMonthDay.inRange, .flatpickr-day.nextMonthDay.inRange, .flatpickr-day.today.inRange, .flatpickr-day.prevMonthDay.today.inRange, .flatpickr-day.nextMonthDay.today.inRange, .flatpickr-day:hover, .flatpickr-day.prevMonthDay:hover, .flatpickr-day.nextMonthDay:hover, .flatpickr-day:focus, .flatpickr-day.prevMonthDay:focus, .flatpickr-day.nextMonthDay:focus{
+    background-color: var(--formsjs-primary-color);
+    border-color: var(--formsjs-primary-color);
+}
+
+.flatpickr-time input:hover, .flatpickr-time .flatpickr-am-pm:hover, .flatpickr-time input:focus, .flatpickr-time .flatpickr-am-pm:focus{
+    background-color: var(--formsjs-background-color);
+}
+
+.flatpickr-time .numInputWrapper span.arrowUp:after, .flatpickr-time .numInputWrapper span.arrowDown:after{
+    border-bottom-color: currentColor;
+    border-top-color: currentColor;
+}

@@ -1,5 +1,5 @@
 {
-    "name": "@forms.js/core",
+    "name": "formsjs",
     "version": "1.0.0",
     "description": "Javascript form generator that builds forms based on passed object",
     "module": "lib/index.js",
@@ -16,6 +16,10 @@
         ".": {
             "import": "./lib/index.js",
             "require": "./lib/cjs/index.js"
+        },
+        "./css/index.css": {
+          "import": "./src/styles/index.css",
+          "require": "./src/styles/index.css"
         }
     },
     "repository": {

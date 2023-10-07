@@ -1,4 +1,5 @@
 export * from './checkboxField';
+export * from './colorField';
 export * from './dateField';
 export * from './datetimeField';
 export * from './emailField';

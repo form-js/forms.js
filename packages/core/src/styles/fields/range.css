@@ -1,0 +1,76 @@
+.form-input-range{
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.form-input-range::-webkit-slider-runnable-track {
+    background-color: var(--formsjs-background-color);
+    border-radius: var(--formsjs-border-radius);
+    height: 0.5rem;
+}
+
+.form-input-range:disabled::-webkit-slider-runnable-track {
+    background-color: var(--formsjs-disabled-color);
+}
+
+.form-input-range::-moz-range-track {
+    background-color: var(--formsjs-background-color);
+    border-radius: var(--formsjs-border-radius);
+    height: 0.5rem;
+}
+
+.form-input-range:disabled::-moz-range-track {
+    background-color: var(--formsjs-disabled-color);
+}
+
+.form-input-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -8px;
+    background-color: var(--formsjs-primary-color);
+    height: 1.5rem;
+    width: 1.5rem; 
+    border-radius: 50%;   
+}
+
+.form-input-range:focus::-webkit-slider-thumb {
+    background-color: var(--formsjs-primary-focus-color);
+}
+
+.form-input-range:disabled::-webkit-slider-thumb, .form-input-range:focus:disabled::-webkit-slider-thumb {
+    background-color: var(--formsjs-disabled-focus-color);
+}
+
+.form-input-range::-moz-range-thumb {
+    border: none;
+    border-radius: 0;
+    background-color: var(--formsjs-primary-color);
+    height: 1.5rem;
+    width: 1.5rem; 
+    border-radius: 50%;   
+}
+
+.form-input-range:focus::-moz-range-thumb {
+    background-color: var(--formsjs-primary-focus-color);
+}
+
+.form-input-range:disabled::-moz-range-thumb,  .form-input-range:focus:disabled::-moz-range-thumb{
+    background-color: var(--formsjs-disabled-focus-color);
+}
+
+.form-input-range-value{
+    padding: 0.5rem;
+    border-radius: var(--formsjs-border-radius);
+    background-color: var(--formsjs-background-color);
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.form-field.range{
+    position: relative;
+}

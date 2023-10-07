@@ -1,0 +1,10 @@
+@import "./filepond.css";
+
+.filepond--drop-label, .filepond--panel-top.filepond--panel-root, .filepond--panel-center.filepond--panel-root, .filepond--panel-bottom.filepond--panel-root{
+    background-color: var(--formsjs-background-color);
+    color: currentColor;
+}
+
+.form-field.file .form-input{
+    overflow: hidden;
+}

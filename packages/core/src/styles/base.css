@@ -1,0 +1,51 @@
+.form-field-validation, .form-tab-validation{
+    color: var(--formsjs-error-color);
+}
+
+.form-tab-validation{
+    margin-bottom: 1rem;
+}
+
+.form-field{
+    margin-bottom: 1rem;
+}
+
+.form-field-container{
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.form-input, .form-input-select{
+    width: 100%;
+    border-radius: var(--formsjs-border-radius);
+    background-color: var(--formsjs-background-color);
+}
+
+.form-input, .form-input-select{
+    border-width: var(--formsjs-border-width);
+    border-color: transparent;
+    border-style: solid;
+}
+
+.form-input{
+    padding: .25rem .5rem;
+}
+
+.form-error .form-input,.form-error .form-input:focus,.form-error .form-input-select,.form-error .form-input-select:focus{
+    border-color: var(--formsjs-error-color);
+}
+
+.form-input:focus, .form-input-select:focus{
+    border-color: var(--formsjs-primary-color);
+    outline: none;
+}
+
+.form-input:disabled{
+    background-color: var(--formsjs-disabled-color);
+    border-color: var(--formsjs-disabled-color);
+}
+
+.form-input:disabled:hover{
+    cursor: not-allowed;
+}

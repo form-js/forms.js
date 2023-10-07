@@ -1,0 +1,37 @@
+@import "./tom-select.css";
+
+.ts-control{
+    border-color: transparent;
+}
+
+.ts-dropdown, .ts-control, .ts-control input{
+    color: currentColor;
+}
+
+.ts-control, .ts-wrapper.single.input-active .ts-control, .full .ts-control{
+    background: transparent;
+    border-radius: var(--formsjs-border-radius);
+}
+  
+.form-error .ts-control{
+    border-color: var(--formsjs-error-color) !important;
+}
+
+.ts-wrapper.input-active .ts-control{
+    border-color: var(--formsjs-primary-color);
+}
+
+.ts-wrapper .ts-control, .ts-wrapper .ts-control {
+    padding-right: 1.5rem;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 20 20'%3e%3cpath stroke='%235C6B8A' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right .5rem center;
+    background-size: 1.5em 1.5em;
+    print-color-adjust: exact;
+}
+
+.ts-dropdown{
+    background-color: var(--formsjs-background-color);
+    color: currentColor;
+    border: none;
+}

@@ -1,0 +1,48 @@
+.form-input-color{
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: none;
+    border-radius: var(--formsjs-border-radius);
+    border: 0;
+    cursor: pointer;
+    height: 3rem;
+    padding: 0;
+    width: 3rem;
+}
+
+.form-error .form-input-color{
+    border-width: var(--formsjs-border-width);
+    border-color: var(--formsjs-error-color);
+    border-style: solid;
+}
+
+.form-input-color:disabled{
+    cursor: not-allowed;
+    border-width: var(--formsjs-border-width);
+    border-color: var(--formsjs-disabled-color);
+    border-style: solid;
+}
+
+.form-input-color:focus{
+    outline: none;
+}
+
+::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+  
+::-webkit-color-swatch{
+    border: 0;
+    border-radius: var(--formsjs-border-radius);
+}
+
+::-moz-color-swatch,
+::-moz-focus-inner{
+    border: 0;
+    border-radius: var(--formsjs-border-radius);
+}
+
+::-moz-focus-inner{
+    padding: 0;
+}

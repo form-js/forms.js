@@ -1,0 +1,9 @@
+@import 'filepond/dist/filepond.min.css';
+
+.filepond--credits{
+    display: none;
+}
+
+.filepond--root{
+    margin-bottom: .5rem;
+}

@@ -1,0 +1,72 @@
+@import "./quill.css";
+
+.form-error .ql-toolbar.ql-snow{
+    border-width: var(--formsjs-border-width);
+    border-top-color: var(--formsjs-error-color);
+    border-left-color: var(--formsjs-error-color);
+    border-right-color: var(--formsjs-error-color);
+}
+
+.ql-toolbar.ql-snow{
+    border-top-left-radius: var(--formsjs-border-radius);
+    border-top-right-radius: var(--formsjs-border-radius);
+    background-color: var(--formsjs-background-color);
+    border-color: transparent;
+}
+
+.form-input-ritchtext{
+    border-bottom-left-radius: var(--formsjs-border-radius);
+    border-bottom-right-radius: var(--formsjs-border-radius);
+    background-color: var(--formsjs-background-color);
+}
+
+.form-error .ql-container.ql-snow{
+    border-width: var(--formsjs-border-width);
+    border-bottom-color: var(--formsjs-error-color);
+    border-left-color: var(--formsjs-error-color);
+    border-right-color: var(--formsjs-error-color);   
+}
+
+.ql-toolbar.ql-snow{
+    border-color: transparent;
+}
+
+.ql-container.ql-snow{
+    border-color: transparent;
+}
+
+.ql-snow.ql-toolbar button:hover, .ql-snow .ql-toolbar button:hover, .ql-snow.ql-toolbar button:focus, .ql-snow .ql-toolbar button:focus, .ql-snow.ql-toolbar button.ql-active, .ql-snow .ql-toolbar button.ql-active, .ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow .ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active, .ql-snow .ql-toolbar .ql-picker-label.ql-active, .ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow .ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-item.ql-selected, .ql-snow .ql-toolbar .ql-picker-item.ql-selected{
+    color: var(--formsjs-primary-color);
+}
+
+.ql-snow.ql-toolbar button:hover .ql-stroke, .ql-snow .ql-toolbar button:hover .ql-stroke, .ql-snow.ql-toolbar button:focus .ql-stroke, .ql-snow .ql-toolbar button:focus .ql-stroke, .ql-snow.ql-toolbar button.ql-active .ql-stroke, .ql-snow .ql-toolbar button.ql-active .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke, .ql-snow.ql-toolbar button:hover .ql-stroke-miter, .ql-snow .ql-toolbar button:hover .ql-stroke-miter, .ql-snow.ql-toolbar button:focus .ql-stroke-miter, .ql-snow .ql-toolbar button:focus .ql-stroke-miter, .ql-snow.ql-toolbar button.ql-active .ql-stroke-miter, .ql-snow .ql-toolbar button.ql-active .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter{
+    stroke: var(--formsjs-primary-color);
+}
+
+.ql-snow.ql-toolbar button:hover .ql-fill, .ql-snow .ql-toolbar button:hover .ql-fill, .ql-snow.ql-toolbar button:focus .ql-fill, .ql-snow .ql-toolbar button:focus .ql-fill, .ql-snow.ql-toolbar button.ql-active .ql-fill, .ql-snow .ql-toolbar button.ql-active .ql-fill, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-fill, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-fill, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-fill, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-fill, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-fill, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-fill, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-fill, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-fill, .ql-snow.ql-toolbar button:hover .ql-stroke.ql-fill, .ql-snow .ql-toolbar button:hover .ql-stroke.ql-fill, .ql-snow.ql-toolbar button:focus .ql-stroke.ql-fill, .ql-snow .ql-toolbar button:focus .ql-stroke.ql-fill, .ql-snow.ql-toolbar button.ql-active .ql-stroke.ql-fill, .ql-snow .ql-toolbar button.ql-active .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill{
+    fill: var(--formsjs-primary-color);
+}
+
+.ql-snow .ql-picker{
+    color: currentColor;
+}
+
+.ql-snow.ql-toolbar button, .ql-snow .ql-toolbar button, .ql-snow.ql-toolbar button, .ql-snow .ql-toolbar button, .ql-snow.ql-toolbar .ql-picker-label, .ql-snow .ql-toolbar .ql-picker-label, .ql-snow.ql-toolbar .ql-picker-item, .ql-snow .ql-toolbar .ql-picker-item, .ql-snow.ql-toolbar .ql-picker-item.ql-selected, .ql-snow .ql-toolbar .ql-picker-item.ql-selected{
+    color: currentColor;
+}
+
+.ql-snow.ql-toolbar button .ql-stroke, .ql-snow .ql-toolbar button .ql-stroke, .ql-snow.ql-toolbar button .ql-stroke, .ql-snow .ql-toolbar button .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label .ql-stroke, .ql-snow .ql-toolbar .ql-picker-label .ql-stroke, .ql-snow.ql-toolbar .ql-picker-item .ql-stroke, .ql-snow .ql-toolbar .ql-picker-item .ql-stroke, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke, .ql-snow.ql-toolbar button .ql-stroke-miter, .ql-snow .ql-toolbar button .ql-stroke-miter, .ql-snow.ql-toolbar button .ql-stroke-miter, .ql-snow .ql-toolbar button .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-label .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-label .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-item .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-item .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter{
+    stroke: currentColor;
+}
+
+.ql-snow.ql-toolbar button .ql-fill, .ql-snow .ql-toolbar button .ql-fill, .ql-snow.ql-toolbar button .ql-fill, .ql-snow .ql-toolbar button .ql-fill, .ql-snow.ql-toolbar .ql-picker-label .ql-fill, .ql-snow .ql-toolbar .ql-picker-label .ql-fill, .ql-snow.ql-toolbar .ql-picker-item .ql-fill, .ql-snow .ql-toolbar .ql-picker-item .ql-fill, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-fill, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-fill, .ql-snow.ql-toolbar button .ql-stroke.ql-fill, .ql-snow .ql-toolbar button .ql-stroke.ql-fill, .ql-snow.ql-toolbar button .ql-stroke.ql-fill, .ql-snow .ql-toolbar button .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-label .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-label .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-item .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-item .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill{
+    fill: currentColor;
+}
+
+.ql-snow .ql-picker-options{
+    background-color: var(--formsjs-background-color);
+}
+
+.ql-editor{
+    max-height: 50vh;
+}
