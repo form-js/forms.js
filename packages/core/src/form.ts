@@ -1,11 +1,13 @@
 import {
   LICENSE_STATE,
   PACKAGE_LICENSE_URL,
+  costructorTypes,
   elementConstructors,
   licensePlateClass,
   licensePlateStyle,
 } from './constants.js';
 import {
+  getFormElementType,
   getLicenseText,
   handleInvalidLicenseLog,
   isField,
@@ -18,7 +20,7 @@ import {
   usesLicensedFetures,
 } from './utils.js';
 import { FieldOptions, FormOptions, GroupOptions, TabsOptions } from './interfaces.js';
-import { Schema } from './types.js';
+import { FormElement, FormElementType, Schema } from './types.js';
 import { Group } from './group.js';
 import { Button } from './button.js';
 import { StringMap } from 'quill';
@@ -117,16 +119,7 @@ export class Form {
     key: string | null = null,
   ) {
     schema.forEach((options: any) => {
-      /*switch (options.type) {
-        case 'group':
-          this.buildGroup(options, parent, groupId, listId, key);
-          break;
-        case 'row':
-          this.buildRow(options, parent);
-          break;
-        default:
-          this.buildField(options, parent, groupId, listId, key);
-      }*/
+      this.buildElement(options, parent, groupId, listId, key);
     });
   }
 
@@ -189,51 +182,30 @@ export class Form {
     const Constructor = elementConstructors[options.type];
     if (!Constructor) throw new Error(`Unknown type: ${options.type}`);
     const wrapper = this.createWrapper(parent);
-    const Constructed: typeof Constructor = new Constructor(wrapper, this, duplicatedOptions);
-  }
+    const Constructed: FormElement = new Constructor(wrapper, this, duplicatedOptions);
 
-  /**
-   * Builds a field for the form based on provided options.
-   * @param options - Configuration options for the field.
-   * @param parent - Parent HTML element to append the field to.
-   * @param group - if has group parent - optional.
-   * @param list - if has list parent - optional.
-   * @param key - list key - optional.
-   */
-  private buildField(
-    options: any,
-    parent: HTMLElement,
-    groupId: string | null,
-    listId: string | null,
-    key: string | null,
-  ): void {
-    const duplicatedOptions = {
-      ...options,
-    };
-
-    const Constructor = elementConstructors[options.type];
-    if (!Constructor) throw new Error(`Unknown type: ${options.type}`);
-    const wrapper = this.createWrapper(parent);
-    const Constructed = new Constructor(wrapper, this, duplicatedOptions);
-
-    this._fields[options.id] = Constructed;
-  }
-
-  /**
-   * Builds a field for the form based on provided options.
-   * @param options - Configuration options for the field.
-   * @param parent - Parent HTML element to append the field to.
-   */
-  private buildGroup(options: GroupOptions, parent: HTMLElement): void {
-    const Constructor = elementConstructors[options.type];
-    if (!Constructor) throw new Error(`Unknown type: ${options.type}`);
-    const wrapper = this.createWrapper(parent);
-    const Constructed: Group = new Constructor(wrapper, this, options);
-
-    this._groups[options.id] = Constructed;
-
-    const newParent: HTMLElement | null = Constructed.getContainer();
-    this.buildSchema(options.schema, newParent ?? parent);
+    const formElementType: string | null = getFormElementType(options.type);
+    switch (formElementType) {
+      case costructorTypes.button:
+        this._buttons[options.id] = Constructed;
+        break;
+      case costructorTypes.group:
+        this._groups[options.id] = Constructed;
+        const newParent: HTMLElement | null = Constructed.getContainer();
+        
+        if (newParent) {
+          let schemaGroup = groupId;
+          if (options.prefixSchema) {
+            schemaGroup = Constructed.getId();
+          }
+          
+          this.buildSchema(options.schema, newParent, schemaGroup, listId, key);
+        }
+        break;
+      case costructorTypes.field:
+        this._fields[options.id] = Constructed;
+        break;
+    }
   }
 
   /**

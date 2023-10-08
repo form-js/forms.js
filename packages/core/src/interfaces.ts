@@ -238,7 +238,3 @@ export interface Field {
   _parent: HTMLElement;
   _form: Form;
 }
-
-type FormElement = {
-  new (parent: HTMLElement, form: Form, options: any): any;
-};

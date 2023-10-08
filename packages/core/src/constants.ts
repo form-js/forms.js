@@ -14,14 +14,28 @@ export const licensePlateStyle =
 export const fields: string[] = [];
 
 /**
- * A list of other form-related elements used in the application.
+ * A list of other group-related elements used in the application.
  */
-export const otherElements: string[] = [];
+export const groups: string[] = [];
+
+/**
+ * A list of other button-related elements used in the application.
+ */
+export const buttons: string[] = [];
 
 /**
  * A combined list of all form-related elements.
  */
 export const formElements: string[] = [];
+
+/**
+ * Construcor types, determnine where will be new instances saved
+ */
+export const costructorTypes = {
+  field: 'field',
+  group: 'group',
+  button: 'button',
+};
 
 /**
  * A mapping of form element types to their constructor functions.
@@ -49,9 +63,19 @@ export const LICENSE_STATE = {
 export const RELEASE_DATE = '2023-09-23';
 
 /* Register new constructor */
-export const registerConstructor = (type: string, constructor: any, isField: boolean) => {
-  if (isField && !fields.includes(type)) fields.push(type);
-  else if (!otherElements.includes(type)) otherElements.push(type);
+export const registerConstructor = (type: string, constructor: any, constructorT: string) => {
+  switch (constructorT) {
+    case costructorTypes.button:
+      buttons.push(type);
+      break;
+    case costructorTypes.group:
+      groups.push(type);
+      break;
+    case costructorTypes.field:
+      fields.push(type);
+      break;
+  }
+  
   formElements.push(type);
   elementConstructors[type] = constructor;
 };

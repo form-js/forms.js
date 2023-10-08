@@ -1,7 +1,7 @@
 import { RadioField } from './fields/radioField';
 import { DatetimeField } from './fields/datetimeField';
 import { Button } from './button';
-import { registerConstructor } from './constants';
+import { costructorTypes, registerConstructor } from './constants';
 import {
   CheckboxField,
   ColorField,
@@ -22,30 +22,28 @@ import {
   WeekField,
 } from './fields';
 import { Group } from './group';
-import { Row } from './row';
 
-registerConstructor('group', Group, false);
-registerConstructor('row', Row, false);
-registerConstructor('button', Button, false);
-registerConstructor('checkbox', CheckboxField, true);
-registerConstructor('color', ColorField, true);
-registerConstructor('date', DateField, true);
-registerConstructor('datetime', DatetimeField, true);
-registerConstructor('email', EmailField, true);
-registerConstructor('file', FileField, true);
-registerConstructor('hidden', HiddenField, true);
-registerConstructor('number', NumberField, true);
-registerConstructor('password', PasswordField, true);
-registerConstructor('radio', RadioField, true);
-registerConstructor('range', RangeField, true);
-registerConstructor('select', SelectField, true);
-registerConstructor('static', StaticField, true);
-registerConstructor('tel', TelField, true);
-registerConstructor('textarea', TextareaField, true);
-registerConstructor('text', TextField, true);
-registerConstructor('time', TimeField, true);
-registerConstructor('url', UrlField, true);
-registerConstructor('week', WeekField, true);
+registerConstructor('group', Group, costructorTypes.group);
+registerConstructor('button', Button, costructorTypes.button);
+registerConstructor('checkbox', CheckboxField, costructorTypes.field);
+registerConstructor('color', ColorField, costructorTypes.field);
+registerConstructor('date', DateField, costructorTypes.field);
+registerConstructor('datetime', DatetimeField, costructorTypes.field);
+registerConstructor('email', EmailField, costructorTypes.field);
+registerConstructor('file', FileField, costructorTypes.field);
+registerConstructor('hidden', HiddenField, costructorTypes.field);
+registerConstructor('number', NumberField, costructorTypes.field);
+registerConstructor('password', PasswordField, costructorTypes.field);
+registerConstructor('radio', RadioField, costructorTypes.field);
+registerConstructor('range', RangeField, costructorTypes.field);
+registerConstructor('select', SelectField, costructorTypes.field);
+registerConstructor('static', StaticField, costructorTypes.field);
+registerConstructor('tel', TelField, costructorTypes.field);
+registerConstructor('textarea', TextareaField, costructorTypes.field);
+registerConstructor('text', TextField, costructorTypes.field);
+registerConstructor('time', TimeField, costructorTypes.field);
+registerConstructor('url', UrlField, costructorTypes.field);
+registerConstructor('week', WeekField, costructorTypes.field);
 
 export { Form } from './form.js';
 export { setLicenseKey } from './utils.js';

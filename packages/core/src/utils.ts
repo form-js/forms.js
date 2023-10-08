@@ -1,4 +1,14 @@
-import { LICENSE_STATE, OS_LICENSE_KEYS, RELEASE_DATE, UPGRADE_WINDOW, elementConstructors, fields } from './constants';
+import {
+  LICENSE_STATE,
+  OS_LICENSE_KEYS,
+  RELEASE_DATE,
+  UPGRADE_WINDOW,
+  buttons,
+  costructorTypes,
+  elementConstructors,
+  fields,
+  groups,
+} from './constants';
 import { Group } from './group';
 import { GroupOptions } from './interfaces';
 import { Schema } from './types';
@@ -80,6 +90,36 @@ export const objectToFormData = (obj: any, form?: FormData, namespace?: string):
  */
 export const isField = (type: string): boolean => {
   return fields.includes(type);
+};
+
+/**
+ * Determines if a given type is a field type as per the predefined list.
+ * @param type - The type string to check.
+ * @returns - True if the type is a group type, false otherwise.
+ */
+export const isGroup = (type: string): boolean => {
+  return groups.includes(type);
+};
+
+/**
+ * Determines if a given type is a field type as per the predefined list.
+ * @param type - The type string to check.
+ * @returns - True if the type is a button type, false otherwise.
+ */
+export const isButton = (type: string): boolean => {
+  return buttons.includes(type);
+};
+
+/**
+ * Determines a type of form element.
+ * @param type - The type string to check.
+ * @returns - type of element from costructorTypes or null if not found.
+ */
+export const getFormElementType = (type: string): string | null => {
+  if (isField(type)) return costructorTypes.field;
+  if (isGroup(type)) return costructorTypes.group;
+  if (isButton(type)) return costructorTypes.button;
+  return null;
 };
 
 /**
