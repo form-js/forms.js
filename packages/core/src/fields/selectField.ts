@@ -94,7 +94,7 @@ export class SelectField extends Field {
         typeof option.value === 'string' &&
         this.options.default &&
         Array.isArray(this.options.default) &&
-        this.options.default?.findIndex(val => val === option.value) >= 0
+        this.options.default?.findIndex((val) => val === option.value) >= 0
       ) {
         optionElement.setAttribute('selected', 'true');
       } else if (this.options.default && this.options.default === option.value) {

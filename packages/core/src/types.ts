@@ -1,3 +1,4 @@
+import { FieldOptions, NumberFieldOptions, RadioFieldOptions } from './interfaces';
 import { fields, formElements } from './constants';
 
 export type Schema = object[];
@@ -17,4 +18,4 @@ export type FieldType = (typeof fields)[number];
 
 export type FormElementType = (typeof formElements)[number];
 
-export type FieldValue = null | string | number | object | string[] | number[] | object[] | File | boolean;
+export type FieldValue = null | string | number | object | string[] | number[] | object[] | File | boolean | symbol;

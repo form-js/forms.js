@@ -1,4 +1,10 @@
-import { LICENSE_STATE, elementConstructors } from './constants.js';
+import {
+  LICENSE_STATE,
+  PACKAGE_LICENSE_URL,
+  elementConstructors,
+  licensePlateClass,
+  licensePlateStyle,
+} from './constants.js';
 import {
   getLicenseText,
   handleInvalidLicenseLog,
@@ -11,11 +17,11 @@ import {
   transformFieldName,
   usesLicensedFetures,
 } from './utils.js';
-import { ElementOptions, FieldOptions, FormOptions, GroupOptions, RowOptions, TabsOptions } from './interfaces.js';
+import { FieldOptions, FormOptions, GroupOptions, TabsOptions } from './interfaces.js';
 import { Schema } from './types.js';
 import { Group } from './group.js';
-import { Row } from './row.js';
 import { Button } from './button.js';
+import { StringMap } from 'quill';
 export class Form {
   public options: FormOptions = {
     id: '',
@@ -32,23 +38,21 @@ export class Form {
   private _id: string = '';
   private _isValid: boolean | null = null;
   private _errors: string[] = [];
-  private _fields: any = {};
-  private _groups: any = {};
-  private _rows: any = {};
-  private _elements: any = {};
+  private _fields: Record<string, any> = {};
+  private _groups: Record<string, any> = {};
+  private _buttons: Record<string, any> = {};
+  private _data: Record<string, any> = {};
   private _saveProgress: boolean = false;
   private _licenseState: number = LICENSE_STATE.INVALID;
-  private _buttons: any = {};
   private _schema: Schema = [];
-  private _data: any = {};
-  private _dataPrefixMap: {
-    [key: string]: {
+  private _dataPrefixMap: Record<
+    string,
+    {
       id: string;
       dataKey: string;
       key: string | null; // will be null when group
-    };
-  } = {};
-
+    }
+  > = {};
   /**
    * Constructs a new Form instance.
    * @param parentId - The ID of the parent element.
@@ -108,21 +112,21 @@ export class Form {
   public buildSchema(
     schema: Schema,
     parent: HTMLElement,
-    //    group: Group | null = null,
-    //    list: ListField | null = null,
-    //    key: string | null = null,
+    groupId: string | null = null,
+    listId: string | null = null,
+    key: string | null = null,
   ) {
     schema.forEach((options: any) => {
-      switch (options.type) {
+      /*switch (options.type) {
         case 'group':
-          this.buildGroup(options, parent);
+          this.buildGroup(options, parent, groupId, listId, key);
           break;
         case 'row':
           this.buildRow(options, parent);
           break;
         default:
-          this.buildField(options, parent);
-      }
+          this.buildField(options, parent, groupId, listId, key);
+      }*/
     });
   }
 
@@ -164,6 +168,31 @@ export class Form {
   }
 
   /**
+   * Builds a element for the form based on provided options.
+   * @param options - Configuration options for the field.
+   * @param parent - Parent HTML element to append the field to.
+   * @param groupId - if has group parent - optional.
+   * @param listId - if has list parent - optional.
+   * @param key - list key - optional.
+   */
+  private buildElement(
+    options: any,
+    parent: HTMLElement,
+    groupId: string | null,
+    listId: string | null,
+    key: string | null,
+  ): void {
+    const duplicatedOptions = {
+      ...options,
+    };
+
+    const Constructor = elementConstructors[options.type];
+    if (!Constructor) throw new Error(`Unknown type: ${options.type}`);
+    const wrapper = this.createWrapper(parent);
+    const Constructed: typeof Constructor = new Constructor(wrapper, this, duplicatedOptions);
+  }
+
+  /**
    * Builds a field for the form based on provided options.
    * @param options - Configuration options for the field.
    * @param parent - Parent HTML element to append the field to.
@@ -171,15 +200,21 @@ export class Form {
    * @param list - if has list parent - optional.
    * @param key - list key - optional.
    */
-  private buildField(options: any, parent: HTMLElement): void {
-    const optionsDupe = {
+  private buildField(
+    options: any,
+    parent: HTMLElement,
+    groupId: string | null,
+    listId: string | null,
+    key: string | null,
+  ): void {
+    const duplicatedOptions = {
       ...options,
     };
 
     const Constructor = elementConstructors[options.type];
     if (!Constructor) throw new Error(`Unknown type: ${options.type}`);
     const wrapper = this.createWrapper(parent);
-    const Constructed = new Constructor(wrapper, this, optionsDupe);
+    const Constructed = new Constructor(wrapper, this, duplicatedOptions);
 
     this._fields[options.id] = Constructed;
   }
@@ -202,31 +237,11 @@ export class Form {
   }
 
   /**
-   * Constructs a row structure for the form based on provided options.
-   * @param options - Configuration options for the row.
-   * @param parent - Parent HTML element to append the row to.
-   */
-  private buildRow(options: RowOptions, parent: HTMLElement) {
-    const Constructor = elementConstructors[options.type];
-    if (!Constructor) throw new Error(`Unknown type: ${options.type}`);
-    const wrapper = this.createWrapper(parent);
-    const Constructed: Row = new Constructor(wrapper, this, options);
-
-    this._rows[options.id] = Constructed;
-
-    const newParent: HTMLElement | null = Constructed.getRow();
-    if (newParent) this.buildSchema(options.schema, newParent ?? parent);
-  }
-
-  /**
    * Updates all elements of the form (groups, rows, fields, buttons).
    */
   async update(): Promise<void> {
     Object.keys(this._groups).forEach((key: string) => {
       this._groups[key].update();
-    });
-    Object.keys(this._rows).forEach((key: string) => {
-      this._rows[key].update();
     });
     Object.keys(this._fields).forEach((key: string) => {
       this._fields[key].update();
@@ -363,24 +378,6 @@ export class Form {
   }
 
   /**
-   * Fetches a specified group from the form by ID.
-   * @param id - The ID of the desired group.
-   * @returns The group with the specified ID or undefined.
-   */
-  getRows(): any {
-    return this._rows;
-  }
-
-  /**
-   * Fetches a specified row from the form by ID.
-   * @param id - The ID of the desired row.
-   * @returns The row with the specified ID or undefined.
-   */
-  getRow(id: string): Row | undefined {
-    return this._rows[id];
-  }
-
-  /**
    * Fetches save progress option.
    * @returns Boolean.
    */
@@ -421,11 +418,11 @@ export class Form {
     Object.keys(this._groups).forEach((key: string) => {
       this._groups[key].reset();
     });
-    Object.keys(this._rows).forEach((key: string) => {
-      this._rows[key].reset();
-    });
     Object.keys(this._fields).forEach((key: string) => {
       this._fields[key].reset();
+    });
+    Object.keys(this._buttons).forEach((key: string) => {
+      this._buttons[key].reset();
     });
   }
 
@@ -480,10 +477,9 @@ export class Form {
 
   private createInvalidElement() {
     const invalid = document.createElement('a');
-    invalid.setAttribute('href', '#');
-    invalid.className = 'license-plate';
-    invalid.style.cssText =
-      'position: fixed !important; font-weight: bold; font-size: .8rem;  bottom: 1rem !important;  left: 1rem !important;  background: #fff;  border: 2px solid red;  padding: .5rem;  border-radius: 0.15rem;  z-index: 99999 !important;  display: inline-flex !important;  align-items: center;  color: red;  text-decoration: none;  transition: 0.2s linear;';
+    invalid.setAttribute('href', PACKAGE_LICENSE_URL);
+    invalid.className = licensePlateClass;
+    invalid.style.cssText = licensePlateStyle;
     const text = document.createElement('span');
     text.innerText = getLicenseText(this._licenseState);
     mountElement(text, invalid);

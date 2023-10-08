@@ -13,12 +13,7 @@ export interface FormOptions {
   className?: string;
 }
 
-export interface ElementOptions {
-  id: string;
-  type: string;
-}
-
-export interface GroupOptions extends ElementOptions {
+export interface GroupOptions {
   id: string;
   label?: string;
   type: 'group';
@@ -28,7 +23,7 @@ export interface GroupOptions extends ElementOptions {
   schema: Schema;
 }
 
-export interface TabsOptions extends ElementOptions {
+export interface TabsOptions {
   id: string;
   type: 'tabs';
   conditions?: (data: any) => boolean;
@@ -37,7 +32,7 @@ export interface TabsOptions extends ElementOptions {
   strict?: boolean;
 }
 
-export interface TabOptions extends ElementOptions {
+export interface TabOptions {
   id: string;
   label: string;
   conditions?: (data: any) => boolean;
@@ -45,17 +40,7 @@ export interface TabOptions extends ElementOptions {
   disabled?: ((data: any) => boolean) | boolean;
   schema: Schema;
 }
-
-export interface RowOptions extends ElementOptions {
-  id: string;
-  label?: string;
-  type: 'row';
-  conditions?: (data: any) => boolean;
-  className?: string;
-  schema: Schema;
-}
-
-export interface ButtonOptions extends ElementOptions {
+export interface ButtonOptions {
   id: string;
   template: string;
   buttonType: 'submit' | 'reset' | 'button';
@@ -65,7 +50,7 @@ export interface ButtonOptions extends ElementOptions {
   className?: string;
 }
 
-export interface FieldOptions extends ElementOptions {
+export interface FieldOptions {
   id: string;
   name?: string;
   label?: string;
@@ -80,7 +65,7 @@ export interface FieldOptions extends ElementOptions {
   className?: string;
 }
 
-export interface ListFieldOptions extends FieldOptions {
+export interface ListFieldOptions {
   id: string;
   label?: string;
   type: 'list';
@@ -93,7 +78,7 @@ export interface ListFieldOptions extends FieldOptions {
   listAddTemplate?: string;
   schema: Schema;
 }
-export interface StaticFieldOptions extends ElementOptions {
+export interface StaticFieldOptions {
   id: string;
   type: 'static';
   conditions?: (value: any, data: any) => boolean;
@@ -198,7 +183,7 @@ export interface RitchtextFieldOptions extends FieldOptions {
   options?: object;
 }
 
-export interface HiddenFieldOptions extends ElementOptions {
+export interface HiddenFieldOptions {
   id: string;
   type: string;
   name?: string;
@@ -253,3 +238,7 @@ export interface Field {
   _parent: HTMLElement;
   _form: Form;
 }
+
+type FormElement = {
+  new (parent: HTMLElement, form: Form, options: any): any;
+};

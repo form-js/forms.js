@@ -2,6 +2,12 @@ import { Form } from './form';
 import { FieldOptions } from './interfaces';
 import { FormElementType } from './types';
 
+export const PACKAGE_LICENSE_URL = '#';
+
+export const licensePlateClass = '#';
+export const licensePlateStyle =
+  'position: fixed !important; font-weight: bold; font-size: .8rem;  bottom: 1rem !important;  left: 1rem !important;  background: #fff;  border: 2px solid red;  padding: .5rem;  border-radius: 0.15rem;  z-index: 99999 !important;  display: inline-flex !important;  align-items: center;  color: red;  text-decoration: none;  transition: 0.2s linear;';
+
 /**
  * A list of field types used in the application forms.
  */
