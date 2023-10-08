@@ -77,7 +77,7 @@ export class RangeField extends Field {
 
   async reset(): Promise<void> {
     localStorage.removeItem(this.getSaveKey());
-    this.setValue(this.options.default, false);
+    this.setValue(this.options.default ?? null, false);
     this.updateRangeValues();
     this.update();
   }

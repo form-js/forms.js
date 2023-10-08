@@ -90,10 +90,16 @@ export class SelectField extends Field {
     this.options.optionsList?.forEach((option: Option) => {
       const optionElement: HTMLOptionElement = document.createElement('option');
       optionElement.setAttribute('value', option.value);
-      if (this.options.default && Array.isArray(this.options.default) && this.options.default.includes(option.value))
+      if (
+        typeof option.value === 'string' &&
+        this.options.default &&
+        Array.isArray(this.options.default) &&
+        this.options.default?.findIndex(val => val === option.value) >= 0
+      ) {
         optionElement.setAttribute('selected', 'true');
-      else if (this.options.default && this.options.default === option.value)
+      } else if (this.options.default && this.options.default === option.value) {
         optionElement.setAttribute('selected', 'true');
+      }
       if (option.disabled) optionElement.setAttribute('disabled', String(option.disabled));
       optionElement.innerText = option.label;
       this.inputElement?.append(optionElement);

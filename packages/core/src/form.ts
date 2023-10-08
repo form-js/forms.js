@@ -9,8 +9,9 @@ import {
   processLicenseKey,
   setLicenseKey,
   transformFieldName,
+  usesLicensedFetures,
 } from './utils.js';
-import { FormOptions, GroupOptions, RowOptions, TabsOptions } from './interfaces.js';
+import { ElementOptions, FieldOptions, FormOptions, GroupOptions, RowOptions, TabsOptions } from './interfaces.js';
 import { Schema } from './types.js';
 import { Group } from './group.js';
 import { Row } from './row.js';
@@ -34,6 +35,7 @@ export class Form {
   private _fields: any = {};
   private _groups: any = {};
   private _rows: any = {};
+  private _elements: any = {};
   private _saveProgress: boolean = false;
   private _licenseState: number = LICENSE_STATE.INVALID;
   private _buttons: any = {};
@@ -90,6 +92,7 @@ export class Form {
 
   /* processes license */
   private processLicense(): void {
+    if (!usesLicensedFetures) return;
     if (this.options.licenseKey) setLicenseKey(this.options.licenseKey);
     this._licenseState = processLicenseKey();
     if (!this.hasValidLicense()) {
@@ -179,11 +182,6 @@ export class Form {
     const Constructed = new Constructor(wrapper, this, optionsDupe);
 
     this._fields[options.id] = Constructed;
-
-    //List field fallback to properly init the form data object;
-    if (isListField(options.type)) {
-      Constructed.initialize();
-    }
   }
 
   /**
@@ -195,12 +193,12 @@ export class Form {
     const Constructor = elementConstructors[options.type];
     if (!Constructor) throw new Error(`Unknown type: ${options.type}`);
     const wrapper = this.createWrapper(parent);
-    const Constructed = new Constructor(wrapper, this, options);
+    const Constructed: Group = new Constructor(wrapper, this, options);
 
     this._groups[options.id] = Constructed;
 
-    const newParent: HTMLElement = Constructed.getContainer();
-    this.buildSchema(options.schema, newParent);
+    const newParent: HTMLElement | null = Constructed.getContainer();
+    this.buildSchema(options.schema, newParent ?? parent);
   }
 
   /**
@@ -212,12 +210,12 @@ export class Form {
     const Constructor = elementConstructors[options.type];
     if (!Constructor) throw new Error(`Unknown type: ${options.type}`);
     const wrapper = this.createWrapper(parent);
-    const Constructed = new Constructor(wrapper, this, options);
+    const Constructed: Row = new Constructor(wrapper, this, options);
 
     this._rows[options.id] = Constructed;
 
     const newParent: HTMLElement | null = Constructed.getRow();
-    if (newParent) this.buildSchema(options.schema, newParent);
+    if (newParent) this.buildSchema(options.schema, newParent ?? parent);
   }
 
   /**

@@ -16,3 +16,5 @@ export type Option = {
 export type FieldType = (typeof fields)[number];
 
 export type FormElementType = (typeof formElements)[number];
+
+export type FieldValue = null | string | number | object | string[] | number[] | object[] | File | boolean;

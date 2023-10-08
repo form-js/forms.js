@@ -1,5 +1,5 @@
 import { Form } from './form.js';
-import { FieldType, HTMLElementEvent, Option, Schema } from './types.js';
+import { FieldType, FieldValue, HTMLElementEvent, Option, Schema } from './types.js';
 
 export interface FormOptions {
   id: string;
@@ -13,7 +13,12 @@ export interface FormOptions {
   className?: string;
 }
 
-export interface GroupOptions {
+export interface ElementOptions {
+  id: string;
+  type: string;
+}
+
+export interface GroupOptions extends ElementOptions {
   id: string;
   label?: string;
   type: 'group';
@@ -23,7 +28,59 @@ export interface GroupOptions {
   schema: Schema;
 }
 
-export interface ListFieldOptions {
+export interface TabsOptions extends ElementOptions {
+  id: string;
+  type: 'tabs';
+  conditions?: (data: any) => boolean;
+  className?: string;
+  tabs: TabOptions[];
+  strict?: boolean;
+}
+
+export interface TabOptions extends ElementOptions {
+  id: string;
+  label: string;
+  conditions?: (data: any) => boolean;
+  validation?: (fields: string[], form: Form) => true | string;
+  disabled?: ((data: any) => boolean) | boolean;
+  schema: Schema;
+}
+
+export interface RowOptions extends ElementOptions {
+  id: string;
+  label?: string;
+  type: 'row';
+  conditions?: (data: any) => boolean;
+  className?: string;
+  schema: Schema;
+}
+
+export interface ButtonOptions extends ElementOptions {
+  id: string;
+  template: string;
+  buttonType: 'submit' | 'reset' | 'button';
+  type: 'button';
+  conditions?: (data: any) => boolean;
+  click?: (event: MouseEvent, data: FormData) => void;
+  className?: string;
+}
+
+export interface FieldOptions extends ElementOptions {
+  id: string;
+  name?: string;
+  label?: string;
+  type: FieldType;
+  required?: ((value: any, data: any) => boolean) | boolean;
+  change?: (value: any) => void;
+  validation?: (value: any, data: any, required: boolean) => true | string;
+  conditions?: (value: any, data: any) => boolean;
+  disabled?: ((value: any, data: any) => boolean) | boolean;
+  debounce?: number;
+  default?: FieldValue;
+  className?: string;
+}
+
+export interface ListFieldOptions extends FieldOptions {
   id: string;
   label?: string;
   type: 'list';
@@ -36,60 +93,7 @@ export interface ListFieldOptions {
   listAddTemplate?: string;
   schema: Schema;
 }
-
-export interface TabsOptions {
-  id: string;
-  type: 'tabs';
-  conditions?: (data: any) => boolean;
-  className?: string;
-  tabs: TabOptions[];
-  strict?: boolean;
-}
-
-export interface TabOptions {
-  id: string;
-  label: string;
-  conditions?: (data: any) => boolean;
-  validation?: (fields: string[], form: Form) => true | string;
-  disabled?: ((data: any) => boolean) | boolean;
-  schema: Schema;
-}
-
-export interface RowOptions {
-  id: string;
-  label?: string;
-  type: 'row';
-  conditions?: (data: any) => boolean;
-  className?: string;
-  schema: Schema;
-}
-
-export interface ButtonOptions {
-  id: string;
-  template: string;
-  buttonType: 'submit' | 'reset' | 'button';
-  type: 'button';
-  conditions?: (data: any) => boolean;
-  click?: (event: HTMLElementEvent<HTMLButtonElement>, data: FormData) => void;
-  className?: string;
-}
-
-export interface FieldOptions {
-  id: string;
-  name?: string;
-  label?: string;
-  type: FieldType;
-  required?: ((value: any, data: any) => boolean) | boolean;
-  change?: (value: any) => void;
-  validation?: (value: any, data: any, required: boolean) => true | string;
-  conditions?: (value: any, data: any) => boolean;
-  disabled?: ((value: any, data: any) => boolean) | boolean;
-  debounce?: number;
-  default?: unknown;
-  className?: string;
-}
-
-export interface StaticFieldOptions {
+export interface StaticFieldOptions extends ElementOptions {
   id: string;
   type: 'static';
   conditions?: (value: any, data: any) => boolean;
@@ -97,7 +101,7 @@ export interface StaticFieldOptions {
   className?: string;
 }
 
-export interface CheckboxFieldOptions {
+export interface CheckboxFieldOptions extends FieldOptions {
   id: string;
   name?: string;
   label?: string;
@@ -112,7 +116,7 @@ export interface CheckboxFieldOptions {
   toggle?: boolean;
 }
 
-export interface DateFieldOptions {
+export interface DateFieldOptions extends FieldOptions {
   id: string;
   name?: string;
   label?: string;
@@ -128,7 +132,7 @@ export interface DateFieldOptions {
   enhance?: boolean;
 }
 
-export interface TextareaFieldOptions {
+export interface TextareaFieldOptions extends FieldOptions {
   id: string;
   name?: string;
   label?: string;
@@ -143,7 +147,7 @@ export interface TextareaFieldOptions {
   default?: string | null;
 }
 
-export interface SelectFieldOptions {
+export interface SelectFieldOptions extends FieldOptions {
   id: string;
   name?: string;
   label?: string;
@@ -161,7 +165,7 @@ export interface SelectFieldOptions {
   enhance?: boolean;
 }
 
-export interface FileFieldOptions {
+export interface FileFieldOptions extends FieldOptions {
   id: string;
   name?: string;
   label?: string;
@@ -179,7 +183,7 @@ export interface FileFieldOptions {
   accept?: string;
 }
 
-export interface RitchtextFieldOptions {
+export interface RitchtextFieldOptions extends FieldOptions {
   id: string;
   name?: string;
   label?: string;
@@ -194,13 +198,14 @@ export interface RitchtextFieldOptions {
   options?: object;
 }
 
-export interface HiddenFieldOptions {
+export interface HiddenFieldOptions extends ElementOptions {
   id: string;
+  type: string;
   name?: string;
   default?: unknown;
 }
 
-export interface NumberFieldOptions {
+export interface NumberFieldOptions extends FieldOptions {
   id: string;
   name?: string;
   label?: string;
@@ -217,7 +222,7 @@ export interface NumberFieldOptions {
   className?: string;
 }
 
-export interface RadioFieldOptions {
+export interface RadioFieldOptions extends FieldOptions {
   id: string;
   name?: string;
   label?: string;

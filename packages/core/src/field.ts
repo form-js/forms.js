@@ -1,7 +1,7 @@
 import { Form } from './form.js';
 import { debounce, generateFieldSaveKey, mountElement, unmountElement } from './utils.js';
 import { FieldOptions } from './interfaces.js';
-import { HTMLElementEvent } from './types.js';
+import { FieldValue, HTMLElementEvent } from './types.js';
 
 export class Field {
   public options: FieldOptions = {
@@ -20,6 +20,7 @@ export class Field {
   public containerElement: HTMLElement | null = null;
   public labelElement: HTMLElement | null = null;
   public validationElement: HTMLElement | null = null;
+  public hasScheme: boolean = false;
 
   private _id: string;
   private _parent: HTMLElement;
@@ -71,24 +72,9 @@ export class Field {
    * Sets the value of the field and updates the associated input element if applicable.
    * @param value - The value to set.
    */
-  setValue(value: any, save: boolean = true): void {
+  setValue(value: FieldValue, save: boolean = true): void {
     this._value = value;
     this.syncValue();
-    if (this.inputElement) {
-      if (
-        (this.inputElement instanceof HTMLInputElement || this.inputElement instanceof HTMLTextAreaElement) &&
-        this._type !== 'file' &&
-        this._type !== 'checkbox' &&
-        this._type !== 'radio'
-      )
-        this.inputElement.value = this._value;
-      else if (this._type === 'checkbox') {
-        if (this._value) this.inputElement.setAttribute('checked', this._value);
-        else this.inputElement.removeAttribute('checked');
-      } else if (this._type === 'radio') {
-        //TODO
-      }
-    }
     this._form.setData(this._id, value);
     if (save) this.save();
   }
@@ -308,7 +294,7 @@ export class Field {
         return;
       }
     }
-    this.setValue(this.options.default, false);
+    this.setValue(this.options.default ?? null, false);
   }
 
   /** Resets the field to its initial state. */

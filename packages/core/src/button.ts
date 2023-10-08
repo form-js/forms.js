@@ -89,7 +89,7 @@ export class Button {
     this.buttonElement.setAttribute('id', this._id);
     this.buttonElement.setAttribute('type', this.options.buttonType);
     this.buttonElement.innerHTML = this.options.template;
-    this.buttonElement.addEventListener('click', (event: any): void => this.onClick(event));
+    this.buttonElement.addEventListener('click', (event: MouseEvent): void => this.onClick(event));
   }
 
   /** Set up GUI elements for the button. */
@@ -126,7 +126,7 @@ export class Button {
    * Click event handler for the button.
    * @param event - The click event.
    */
-  onClick(event: HTMLElementEvent<HTMLButtonElement>) {
+  onClick(event: MouseEvent) {
     if (this.options.click) this.options.click(event, this._form.getData());
   }
 

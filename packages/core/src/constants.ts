@@ -1,32 +1,5 @@
-import { isField } from './utils';
-import { Button } from './button';
-/* import {
-    CheckboxField,
-    ColorField,
-    DateField,
-    DaterangeField,
-    DatetimeField,
-    EmailField,
-    FileField,
-    HiddenField,
-    NumberField,
-    PasswordField,
-    RadioField,
-    RangeField,
-    RitchtextField,
-    SelectField,
-    TelField,
-    TextField,
-    TextareaField,
-    TimeField,
-    UrlField,
-    WeekField,
-    ListField,
-    StaticField,
-} from './fields';*/
-import { Group } from './group';
-import { Row } from './row';
-//import { Tabs } from './tabs';
+import { Form } from './form';
+import { FieldOptions } from './interfaces';
 import { FormElementType } from './types';
 
 /**
@@ -47,7 +20,9 @@ export const formElements: string[] = [];
 /**
  * A mapping of form element types to their constructor functions.
  */
-export const elementConstructors: { [key in FormElementType]?: new (a: any, b: any, c: any) => any } = {};
+export const elementConstructors: {
+  [key in FormElementType]?: new (a: HTMLElement, b: Form, c: FieldOptions) => any;
+} = {};
 
 /**
  * License contants.
@@ -67,6 +42,7 @@ export const LICENSE_STATE = {
  */
 export const RELEASE_DATE = '2023-09-23';
 
+/* Register new constructor */
 export const registerConstructor = (type: string, constructor: any, isField: boolean) => {
   if (isField && !fields.includes(type)) fields.push(type);
   else if (!otherElements.includes(type)) otherElements.push(type);

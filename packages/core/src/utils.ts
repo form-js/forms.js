@@ -4,6 +4,7 @@ import { GroupOptions } from './interfaces';
 import { Schema } from './types';
 
 let LICENSE_KEY: string | null = null;
+let USES_LICENSED_FETURES: boolean = false;
 
 /**
  * Creates a debounced function that delays invoking the provided callback.
@@ -122,18 +123,6 @@ export const createWrapper = (parent: HTMLElement): HTMLElement => {
 };
 
 /**
- * Builds a field for the form based on provided options.
- * @param options - Configuration options for the field.
- * @param parent - Parent HTML element to append the field to.
- */
-export const constructGroup = (options: GroupOptions, parent: HTMLElement): Group => {
-  const Constructor = elementConstructors[options.type];
-  if (!Constructor) throw new Error(`Unknown type: ${options.type}`);
-  const wrapper = createWrapper(parent);
-  return new Constructor(wrapper, this, options);
-};
-
-/**
  * Transform field name to match list field anotation.
  * @param parentId - id of parent list field.
  * @param key - unique key to define list.
@@ -210,4 +199,12 @@ export const handleInvalidLicenseLog = (license: number): void => {
     console.error('forms.js license key is outdated, please update your license key');
   }
   console.error('***********************************************');
+};
+
+export const usesLicensedFetures = (): boolean => {
+  return USES_LICENSED_FETURES;
+};
+
+export const useLicensedFetures = (): void => {
+  USES_LICENSED_FETURES = true;
 };
