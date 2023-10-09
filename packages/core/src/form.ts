@@ -195,8 +195,8 @@ export class Form {
           this.assignToListField(listId, key, Constructed, formElementType, options.id);
         } else this._groups[options.id] = Constructed;
         // if group has schema
-        if (options.schema) {
-          const newParent: HTMLElement | null = Constructed.getContainer();
+        if (options.schema && Constructed.getSchemaContainer) {
+          const newParent: HTMLElement | null = Constructed.getSchemaContainer();
           if (newParent) {
             this.buildSchema(
               options.schema,
@@ -216,7 +216,13 @@ export class Form {
     }
   }
 
-  private assignToListField(listId: string, key: string, constructed: FormElement, formElementType: string, id: string) {
+  private assignToListField(
+    listId: string,
+    key: string,
+    constructed: FormElement,
+    formElementType: string,
+    id: string,
+  ) {
     const list = this.getField(listId);
     if (!list) return;
     switch (formElementType) {
@@ -230,7 +236,6 @@ export class Form {
         list.assignField(id, key, constructed);
         break;
     }
-
   }
 
   /**

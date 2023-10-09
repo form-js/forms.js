@@ -12,6 +12,7 @@ export class Group {
     schema: [],
   };
   public containerElement: HTMLElement | null = null;
+  public schemaContainerElement: HTMLElement | null = null;
   public labelElement: HTMLElement | null = null;
 
   // Private properties
@@ -62,6 +63,11 @@ export class Group {
     return this.containerElement;
   }
 
+  /** Returns the that group schema should be build in. */
+  getSchemaContainer(): HTMLElement | null {
+    return this.schemaContainerElement;
+  }
+
   /** Returns the group type. */
   getType(): string {
     return this._type;
@@ -76,8 +82,16 @@ export class Group {
   createContainerElement(): void {
     // Container element
     this.containerElement = document.createElement('div');
-    this.containerElement.className = this.options.className!;
-    this.containerElement.setAttribute('id', this._id);
+    this.containerElement.className = 'form-group-container';
+    this.containerElement.setAttribute('id', this._id + '_group_container');
+  }
+
+  /** Creates and sets up the container element for the group. */
+  createSchemaContainerElement(): void {
+    // Container element
+    this.schemaContainerElement = document.createElement('div');
+    this.schemaContainerElement.className = this.options.className!;
+    this.schemaContainerElement.setAttribute('id', this._id);
   }
 
   /** Creates and sets up the label element for the group. */
@@ -93,9 +107,12 @@ export class Group {
   /** Initializes the GUI components of the group. */
   onGui(): void {
     this.createContainerElement();
+    this.createSchemaContainerElement();
     this.createLabelElement();
     if (this.containerElement && this.labelElement && this.options.label)
       mountElement(this.labelElement, this.containerElement);
+    if (this.containerElement && this.schemaContainerElement)
+      mountElement(this.schemaContainerElement, this.containerElement);
   }
 
   /** Mounts the group to the DOM. */

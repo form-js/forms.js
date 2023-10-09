@@ -49,3 +49,13 @@
 .form-input:disabled:hover{
     cursor: not-allowed;
 }
+
+.form-row{
+    display: flex;
+    width: 100%;
+    gap: .75rem;
+}
+
+.form-row div{
+    width: 100%;
+}

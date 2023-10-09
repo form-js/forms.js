@@ -24,8 +24,7 @@ export type FieldValue = null | string | number | object | string[] | number[] |
 export type FormElement = {
   new (parent: HTMLElement, form: Form, options: any): any;
   getId(): string;
-  getContainer(): HTMLElement | null;
-  getTabs?(): Record<string, FormTab>;
+  getSchemaContainer?(): HTMLElement | null;
 };
 
 export type FormTab = {
