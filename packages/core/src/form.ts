@@ -20,7 +20,7 @@ import {
   usesLicensedFetures,
 } from './utils.js';
 import { FieldOptions, FormOptions, GroupOptions, TabsOptions } from './interfaces.js';
-import { FormElement, FormElementType, Schema } from './types.js';
+import { FormElement, FormElementType, FormTab, Schema } from './types.js';
 import { Group } from './group.js';
 import { Button } from './button.js';
 import { StringMap } from 'quill';
@@ -191,15 +191,18 @@ export class Form {
         break;
       case costructorTypes.group:
         this._groups[options.id] = Constructed;
-        const newParent: HTMLElement | null = Constructed.getContainer();
-        
-        if (newParent) {
-          let schemaGroup = groupId;
-          if (options.prefixSchema) {
-            schemaGroup = Constructed.getId();
+        // if group has schema
+        if (options.schema) {
+          const newParent: HTMLElement | null = Constructed.getContainer();
+          if (newParent) {
+            this.buildSchema(
+              options.schema,
+              newParent,
+              options.prefixSchema ? Constructed.getId() : groupId,
+              listId,
+              key,
+            );
           }
-          
-          this.buildSchema(options.schema, newParent, schemaGroup, listId, key);
         }
         break;
       case costructorTypes.field:

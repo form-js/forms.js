@@ -75,7 +75,7 @@ export const registerConstructor = (type: string, constructor: any, constructorT
       fields.push(type);
       break;
   }
-  
+
   formElements.push(type);
   elementConstructors[type] = constructor;
 };

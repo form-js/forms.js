@@ -25,4 +25,10 @@ export type FormElement = {
   new (parent: HTMLElement, form: Form, options: any): any;
   getId(): string;
   getContainer(): HTMLElement | null;
+  getTabs?(): Record<string, FormTab>;
+};
+
+export type FormTab = {
+  getBody(): HTMLElement | null;
+  getSchema(): Schema;
 };
