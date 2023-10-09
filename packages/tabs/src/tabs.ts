@@ -336,10 +336,10 @@ export class Tabs {
 }
 
 export interface TabsOptions {
-    id: string;
-    type: 'tabs';
-    conditions?: (data: any) => boolean;
-    className?: string;
-    tabs: TabOptions[];
-    strict?: boolean;
-  }
+  id: string;
+  type: 'tabs';
+  conditions?: (data: any) => boolean;
+  className?: string;
+  tabs: TabOptions[];
+  strict?: boolean;
+}

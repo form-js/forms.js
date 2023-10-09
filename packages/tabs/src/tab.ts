@@ -1,4 +1,12 @@
-import { Field, Form, extractFieldsFromSchema, mountElement, unmountElement, fields, Schema } from '../node_modules/formsjs/lib/index';
+import {
+  Field,
+  Form,
+  extractFieldsFromSchema,
+  mountElement,
+  unmountElement,
+  fields,
+  Schema,
+} from '../node_modules/formsjs/lib/index';
 import { Tabs } from './tabs';
 
 export class Tab {
@@ -317,10 +325,10 @@ export class Tab {
 }
 
 export interface TabOptions {
-    id: string;
-    label: string;
-    conditions?: (data: any) => boolean;
-    validation?: (fields: string[], form: Form) => true | string;
-    disabled?: ((data: any) => boolean) | boolean;
-    schema: Schema;
-  }
+  id: string;
+  label: string;
+  conditions?: (data: any) => boolean;
+  validation?: (fields: string[], form: Form) => true | string;
+  disabled?: ((data: any) => boolean) | boolean;
+  schema: Schema;
+}
