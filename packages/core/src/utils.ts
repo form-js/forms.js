@@ -233,7 +233,7 @@ export const getLicenseText = (license: number): string => {
 
 export const handleInvalidLicenseLog = (license: number): void => {
   console.error('***********************************************');
-  if (license === LICENSE_STATE.OUTDATED) {
+  if (license === LICENSE_STATE.INVALID) {
     console.error('forms.js license key is invalid, please use a valid license key');
   } else {
     console.error('forms.js license key is outdated, please update your license key');
