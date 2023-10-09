@@ -23,23 +23,6 @@ export interface GroupOptions {
   schema: Schema;
 }
 
-export interface TabsOptions {
-  id: string;
-  type: 'tabs';
-  conditions?: (data: any) => boolean;
-  className?: string;
-  tabs: TabOptions[];
-  strict?: boolean;
-}
-
-export interface TabOptions {
-  id: string;
-  label: string;
-  conditions?: (data: any) => boolean;
-  validation?: (fields: string[], form: Form) => true | string;
-  disabled?: ((data: any) => boolean) | boolean;
-  schema: Schema;
-}
 export interface ButtonOptions {
   id: string;
   template: string;

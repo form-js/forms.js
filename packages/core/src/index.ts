@@ -46,4 +46,7 @@ registerConstructor('url', UrlField, costructorTypes.field);
 registerConstructor('week', WeekField, costructorTypes.field);
 
 export { Form } from './form.js';
-export { setLicenseKey } from './utils.js';
+export { setLicenseKey, mountElement, unmountElement, extractFieldsFromSchema, useLicensedFetures } from './utils.js';
+export { Field } from './field.js';
+export { fields, buttons, groups, registerConstructor, costructorTypes } from './constants.js';
+export { Schema } from './types.js';

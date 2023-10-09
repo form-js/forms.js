@@ -18,11 +18,10 @@ import {
   transformFieldName,
   usesLicensedFetures,
 } from './utils.js';
-import { FieldOptions, FormOptions, GroupOptions, TabsOptions } from './interfaces.js';
-import { FormElement, FormElementType, FormTab, Schema } from './types.js';
+import { FormOptions } from './interfaces.js';
+import { FormElement, Schema } from './types.js';
 import { Group } from './group.js';
 import { Button } from './button.js';
-import { StringMap } from 'quill';
 export class Form {
   public options: FormOptions = {
     id: '',

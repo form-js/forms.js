@@ -1,7 +1,7 @@
 {
-    "name": "formsjs",
+    "name": "formsjs-tabs",
     "version": "1.0.0",
-    "description": "Javascript form generator that builds forms based on passed object",
+    "description": "Tabs component for @formsjs package",
     "module": "lib/index.js",
     "type": "module",
     "files": [
@@ -32,13 +32,11 @@
         "forms js",
         "form generator",
         "form builder",
-        "input",
-        "javascript",
-        "buider",
-        "generator"
+        "tabs",
+        "wizzard"
     ],
     "author": "",
-    "license": "MIT",
+    "license": "3 LICENSED CHECK LICENSE DOCKS",
     "bugs": {
         "url": "https://github.com/form-js/forms.js/issues"
     },
