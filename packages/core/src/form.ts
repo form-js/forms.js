@@ -10,7 +10,6 @@ import {
   getFormElementType,
   getLicenseText,
   handleInvalidLicenseLog,
-  isField,
   isListField,
   mountElement,
   objectToFormData,
@@ -187,10 +186,14 @@ export class Form {
     const formElementType: string | null = getFormElementType(options.type);
     switch (formElementType) {
       case costructorTypes.button:
-        this._buttons[options.id] = Constructed;
+        if (listId && key) {
+          this.assignToListField(listId, key, Constructed, formElementType, options.id);
+        } else this._buttons[options.id] = Constructed;
         break;
       case costructorTypes.group:
-        this._groups[options.id] = Constructed;
+        if (listId && key) {
+          this.assignToListField(listId, key, Constructed, formElementType, options.id);
+        } else this._groups[options.id] = Constructed;
         // if group has schema
         if (options.schema) {
           const newParent: HTMLElement | null = Constructed.getContainer();
@@ -206,9 +209,28 @@ export class Form {
         }
         break;
       case costructorTypes.field:
-        this._fields[options.id] = Constructed;
+        if (listId && key) {
+          this.assignToListField(listId, key, Constructed, formElementType, options.id);
+        } else this._groups[options.id] = Constructed;
         break;
     }
+  }
+
+  private assignToListField(listId: string, key: string, constructed: FormElement, formElementType: string, id: string) {
+    const list = this.getField(listId);
+    if (!list) return;
+    switch (formElementType) {
+      case costructorTypes.button:
+        list.assignButton(id, key, constructed);
+        break;
+      case costructorTypes.group:
+        list.assignGroup(id, key, constructed);
+        break;
+      case costructorTypes.field:
+        list.assignField(id, key, constructed);
+        break;
+    }
+
   }
 
   /**
