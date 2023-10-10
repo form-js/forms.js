@@ -22,6 +22,7 @@ import {
   WeekField,
 } from './fields';
 import { Group } from './group';
+import { PluginSettings } from './types.js';
 
 registerConstructor('group', Group, costructorTypes.group);
 registerConstructor('button', Button, costructorTypes.button);
@@ -45,8 +46,12 @@ registerConstructor('time', TimeField, costructorTypes.field);
 registerConstructor('url', UrlField, costructorTypes.field);
 registerConstructor('week', WeekField, costructorTypes.field);
 
+export const usePlugin = (settings: PluginSettings) => {
+  registerConstructor(settings.type, settings.constructor, settings.constructorType, settings.licensed ?? false);
+}
+
 export { Form } from './form.js';
 export { setLicenseKey, mountElement, unmountElement, extractFieldsFromSchema, useLicensedFetures } from './utils.js';
 export { Field } from './field.js';
-export { fields, buttons, groups, registerConstructor, costructorTypes } from './constants.js';
+export { fields, buttons, groups, costructorTypes } from './constants.js';
 export { Schema } from './types.js';

@@ -22,7 +22,7 @@ export type FormElementType = (typeof formElements)[number];
 export type FieldValue = null | string | number | object | string[] | number[] | object[] | File | boolean | symbol;
 
 export type FormElement = {
-  new (parent: HTMLElement, form: Form, options: any): any;
+  new(parent: HTMLElement, form: Form, options: any): any;
   getId(): string;
   getSchemaContainer?(): HTMLElement | null;
 };
@@ -31,3 +31,10 @@ export type FormTab = {
   getBody(): HTMLElement | null;
   getSchema(): Schema;
 };
+
+export type PluginSettings = {
+  type: string;
+  constructor: any;
+  constructorType: string;
+  licensed?: boolean;
+}

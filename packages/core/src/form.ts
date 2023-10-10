@@ -96,7 +96,7 @@ export class Form {
 
   /* processes license */
   private processLicense(): void {
-    if (!usesLicensedFetures) return;
+    if (!usesLicensedFetures()) return;
     if (this.options.licenseKey) setLicenseKey(this.options.licenseKey);
     this._licenseState = processLicenseKey();
     if (!this.hasValidLicense()) {
@@ -176,7 +176,7 @@ export class Form {
     const duplicatedOptions = {
       ...options,
     };
-
+    
     const Constructor = elementConstructors[options.type];
     if (!Constructor) throw new Error(`Unknown type: ${options.type}`);
     const wrapper = this.createWrapper(parent);
@@ -473,7 +473,7 @@ export class Form {
     if (this.options.method) this._formElement.setAttribute('method', this.options.method);
     this._formElement.addEventListener('submit', (event: Event) => this.submit(event, this));
     this._formElement.addEventListener('reset', this.reset);
-    if (!this.hasValidLicense()) this.createInvalidElement();
+    if (usesLicensedFetures() && !this.hasValidLicense()) this.createInvalidElement();
   }
 
   private createInvalidElement() {

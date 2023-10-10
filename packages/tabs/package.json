@@ -16,10 +16,6 @@
         ".": {
             "import": "./lib/index.js",
             "require": "./lib/cjs/index.js"
-        },
-        "./css/index.css": {
-          "import": "./src/styles/index.css",
-          "require": "./src/styles/index.css"
         }
     },
     "repository": {
