@@ -32,7 +32,7 @@ export class Field {
   private _isVisible: boolean = true;
   private _saveKey: string;
   private _vMessage: string | null = null;
-  private _value: any;
+  private _value: FieldValue = null;
   private _type: string;
 
   /**
@@ -88,7 +88,7 @@ export class Field {
       (this.inputElement instanceof HTMLInputElement || this.inputElement instanceof HTMLTextAreaElement) &&
       this.inputElement.value !== this._value
     ) {
-      this.inputElement.value = this._value;
+      this.inputElement.value = String(this._value);
     }
   }
 
@@ -96,7 +96,7 @@ export class Field {
    * Gets the current value of the field.
    * @returns The value of the field.
    */
-  getValue(): any {
+  getValue(): FieldValue {
     return this._value;
   }
 
@@ -288,8 +288,8 @@ export class Field {
   /** Load the fields value from local stroage. */
   load(): void {
     if (this._form.savesProgress() && this._form.hasValidLicense()) {
-      const value: any = localStorage.getItem(this._saveKey);
-      if (value !== undefined) {
+      const value: string | null = localStorage.getItem(this._saveKey);
+      if (value !== null) {
         this.setValue(JSON.parse(value), false);
         return;
       }

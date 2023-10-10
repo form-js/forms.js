@@ -19,10 +19,10 @@ export type FieldType = (typeof fields)[number];
 
 export type FormElementType = (typeof formElements)[number];
 
-export type FieldValue = null | string | number | object | string[] | number[] | object[] | File | boolean | symbol;
+export type FieldValue = null | string | number | object | string[] | number[] | object[] | File | boolean | symbol | Record<string, any>;
 
 export type FormElement = {
-  new(parent: HTMLElement, form: Form, options: any): any;
+  new(parent: HTMLElement, form: Form, options: Record<string, any>): any;
   getId(): string;
   getSchemaContainer?(): HTMLElement | null;
 };
@@ -34,7 +34,7 @@ export type FormTab = {
 
 export type PluginSettings = {
   type: string;
-  constructor: any;
+  constructor: Function;
   constructorType: string;
   licensed?: boolean;
 }
