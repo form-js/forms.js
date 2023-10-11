@@ -1,6 +1,7 @@
 import { Form } from '../form.js';
 import { generateFieldSaveKey, mountElement, unmountElement } from '../utils.js';
 import { FieldOptions } from '../interfaces.js';
+import { FieldValue } from '../types.js';
 
 export class HiddenField {
   public options: FieldOptions = {
@@ -18,7 +19,7 @@ export class HiddenField {
   private _parent: HTMLElement;
   private _form: Form;
   private _saveKey: string;
-  private _value: any;
+  private _value: FieldValue = null;
   private _type: string;
 
   constructor(parent: HTMLElement, form: Form, options: FieldOptions) {
@@ -42,7 +43,7 @@ export class HiddenField {
     this.update();
   }
 
-  private setValue(value: any, save: boolean = true): void {
+  private setValue(value: FieldValue, save: boolean = true): void {
     this._value = value;
     this.syncValue();
     this._form.setData(this._id, value);
@@ -54,7 +55,7 @@ export class HiddenField {
    */
   syncValue(): void {
     if (this.inputElement && this.inputElement instanceof HTMLInputElement && this.inputElement.value !== this._value) {
-      this.inputElement.value = this._value;
+      this.inputElement.value = String(this._value);
     }
   }
 
@@ -122,12 +123,12 @@ export class HiddenField {
         return;
       }
     }
-    this.setValue(this.options.default, false);
+    this.setValue(this.options.default ?? null, false);
   }
 
   async reset(): Promise<void> {
     localStorage.removeItem(this._saveKey);
-    this.setValue(this.options.default, false);
+    this.setValue(this.options.default ?? null, false);
     this.update();
   }
 

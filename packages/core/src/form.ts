@@ -19,7 +19,7 @@ import {
   usesLicensedFetures,
 } from './utils.js';
 import { FormOptions } from './interfaces.js';
-import { FormElement, Schema } from './types.js';
+import { FieldValue, FormElement, Schema, FormData } from './types.js';
 import { Group } from './group.js';
 import { Button } from './button.js';
 export class Form {
@@ -41,7 +41,7 @@ export class Form {
   private _fields: Record<string, any> = {};
   private _groups: Record<string, any> = {};
   private _buttons: Record<string, any> = {};
-  private _data: Record<string, any> = {};
+  private _data: FormData = {};
   private _saveProgress: boolean = false;
   private _licenseState: number = LICENSE_STATE.INVALID;
   private _schema: Schema = [];
@@ -176,7 +176,7 @@ export class Form {
     const duplicatedOptions = {
       ...options,
     };
-    
+
     const Constructor = elementConstructors[options.type];
     if (!Constructor) throw new Error(`Unknown type: ${options.type}`);
     const wrapper = this.createWrapper(parent);
@@ -275,7 +275,7 @@ export class Form {
    * @param value - The value to set.
    * @param prefixes - Optional prefixes for the data.
    */
-  setData(id: string, value: any): void {
+  setData(id: string, value: FieldValue): void {
     // Check if the ID exists in the map
     if (this._dataPrefixMap.hasOwnProperty(id)) {
       this.setDataFromMap(id, value);
@@ -308,7 +308,7 @@ export class Form {
     }
   }
 
-  private setSimpleData(id: string, value: any) {
+  private setSimpleData(id: string, value: FieldValue) {
     this._data[id] = value;
   }
 
@@ -340,7 +340,7 @@ export class Form {
    * Retrieves all data from the form.
    * @returns The form's data.
    */
-  getData(): any {
+  getData(): FormData {
     return this._data;
   }
 
@@ -374,7 +374,7 @@ export class Form {
    * @param id - The ID of the desired group.
    * @returns The group with the specified ID or undefined.
    */
-  getGroup(id: string): Group | undefined {
+  getGroup(id: string): any {
     return this._groups[id];
   }
 

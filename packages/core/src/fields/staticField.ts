@@ -1,6 +1,7 @@
 import { Form } from '../form.js';
 import { generateFieldSaveKey, mountElement, unmountElement } from '../utils.js';
 import { StaticFieldOptions } from '../interfaces.js';
+import { FieldValue } from '../types.js';
 
 export class StaticField {
   public options: StaticFieldOptions = {
@@ -18,7 +19,7 @@ export class StaticField {
   private _isMounted: boolean = false;
   private _isVisible: boolean = true;
   private _saveKey: string;
-  private _value: any;
+  private _value: string | null = null;
   private _type: string;
 
   /**
@@ -169,8 +170,8 @@ export class StaticField {
   /** Load the fields value from local stroage. */
   load(): void {
     if (this._form.savesProgress() && this._form.hasValidLicense()) {
-      const value: any = localStorage.getItem(this._saveKey);
-      if (value !== undefined) {
+      const value: string | null = localStorage.getItem(this._saveKey);
+      if (value !== null) {
         this.setTemplate(JSON.parse(value), false);
         return;
       }

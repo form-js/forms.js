@@ -1,11 +1,11 @@
 import { Form } from './form.js';
-import { FieldType, FieldValue, HTMLElementEvent, Option, Schema } from './types.js';
+import { FieldType, FieldValue, HTMLElementEvent, Option, Schema, FormData } from './types.js';
 
 export interface FormOptions {
   id: string;
   saveProgress?: boolean;
   useFormData?: boolean;
-  submit?: (data: any) => void;
+  submit?: (data: FormData) => void;
   schema: Schema;
   action?: string | null;
   method?: 'get' | 'post' | null;
@@ -17,7 +17,7 @@ export interface GroupOptions {
   id: string;
   label?: string;
   type: 'group';
-  conditions?: (data: any) => boolean;
+  conditions?: (data: FormData) => boolean;
   prefixSchema?: boolean;
   className?: string;
   schema: Schema;
@@ -28,7 +28,7 @@ export interface ButtonOptions {
   template: string;
   buttonType: 'submit' | 'reset' | 'button';
   type: 'button';
-  conditions?: (data: any) => boolean;
+  conditions?: (data: FormData) => boolean;
   click?: (event: MouseEvent, data: FormData) => void;
   className?: string;
 }
@@ -38,11 +38,11 @@ export interface FieldOptions {
   name?: string;
   label?: string;
   type: FieldType;
-  required?: ((value: any, data: any) => boolean) | boolean;
-  change?: (value: any) => void;
-  validation?: (value: any, data: any, required: boolean) => true | string;
-  conditions?: (value: any, data: any) => boolean;
-  disabled?: ((value: any, data: any) => boolean) | boolean;
+  required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
+  change?: (value: FieldValue) => void;
+  validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
+  conditions?: (value: FieldValue, data: FormData) => boolean;
+  disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   debounce?: number;
   default?: FieldValue;
   className?: string;
@@ -52,7 +52,7 @@ export interface ListFieldOptions {
   id: string;
   label?: string;
   type: 'list';
-  conditions?: (data: any) => boolean;
+  conditions?: (data: FormData) => boolean;
   buildButtons?: boolean;
   className?: string;
   listRemoveClassName?: string;
@@ -64,7 +64,7 @@ export interface ListFieldOptions {
 export interface StaticFieldOptions {
   id: string;
   type: 'static';
-  conditions?: (value: any, data: any) => boolean;
+  conditions?: (value: FieldValue, data: FormData) => boolean;
   template: string;
   className?: string;
 }
@@ -74,11 +74,11 @@ export interface CheckboxFieldOptions extends FieldOptions {
   name?: string;
   label?: string;
   type: 'checkbox';
-  required?: ((value: any, data: any) => boolean) | boolean;
-  change?: (value: any) => void;
-  validation?: (value: any, data: any, required: boolean) => true | string;
-  conditions?: (value: any, data: any) => boolean;
-  disabled?: ((value: any, data: any) => boolean) | boolean;
+  required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
+  change?: (value: FieldValue) => void;
+  validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
+  conditions?: (value: FieldValue, data: FormData) => boolean;
+  disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   default?: boolean | null;
   className?: string;
   toggle?: boolean;
@@ -89,11 +89,11 @@ export interface DateFieldOptions extends FieldOptions {
   name?: string;
   label?: string;
   type: 'date' | 'week' | 'datetime' | 'time' | 'daterange';
-  required?: ((value: any, data: any) => boolean) | boolean;
-  change?: (value: any) => void;
-  validation?: (value: any, data: any, required: boolean) => true | string;
-  conditions?: (value: any, data: any) => boolean;
-  disabled?: ((value: any, data: any) => boolean) | boolean;
+  required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
+  change?: (value: FieldValue) => void;
+  validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
+  conditions?: (value: FieldValue, data: FormData) => boolean;
+  disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   className?: string;
   default?: string | Date | null;
   options?: object;
@@ -106,11 +106,11 @@ export interface TextareaFieldOptions extends FieldOptions {
   label?: string;
   type: 'textarea';
   rows?: number;
-  required?: ((value: any, data: any) => boolean) | boolean;
-  change?: (value: any) => void;
-  validation?: (value: any, data: any, required: boolean) => true | string;
-  conditions?: (value: any, data: any) => boolean;
-  disabled?: ((value: any, data: any) => boolean) | boolean;
+  required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
+  change?: (value: FieldValue) => void;
+  validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
+  conditions?: (value: FieldValue, data: FormData) => boolean;
+  disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   className?: string;
   default?: string | null;
 }
@@ -120,11 +120,11 @@ export interface SelectFieldOptions extends FieldOptions {
   name?: string;
   label?: string;
   type: 'select';
-  required?: ((value: any, data: any) => boolean) | boolean;
-  change?: (value: any) => void;
-  validation?: (value: any, data: any, required: boolean) => true | string;
-  conditions?: (value: any, data: any) => boolean;
-  disabled?: ((value: any, data: any) => boolean) | boolean;
+  required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
+  change?: (value: FieldValue) => void;
+  validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
+  conditions?: (value: FieldValue, data: FormData) => boolean;
+  disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   optionsList?: Option[];
   className?: string;
   default?: string | string[] | object | object[] | null;
@@ -138,11 +138,11 @@ export interface FileFieldOptions extends FieldOptions {
   name?: string;
   label?: string;
   type: 'file';
-  required?: ((value: any, data: any) => boolean) | boolean;
-  change?: (value: any) => void;
-  validation?: (value: any, data: any, required: boolean) => true | string;
-  conditions?: (value: any, data: any) => boolean;
-  disabled?: ((value: any, data: any) => boolean) | boolean;
+  required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
+  change?: (value: FieldValue) => void;
+  validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
+  conditions?: (value: FieldValue, data: FormData) => boolean;
+  disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   className?: string;
   options?: object;
   debounce?: number;
@@ -156,11 +156,11 @@ export interface RitchtextFieldOptions extends FieldOptions {
   name?: string;
   label?: string;
   type: 'ritchtext';
-  required?: ((value: any, data: any) => boolean) | boolean;
-  change?: (value: any) => void;
-  validation?: (value: any, data: any, required: boolean) => true | string;
-  conditions?: (value: any, data: any) => boolean;
-  disabled?: ((value: any, data: any) => boolean) | boolean;
+  required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
+  change?: (value: FieldValue) => void;
+  validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
+  conditions?: (value: FieldValue, data: FormData) => boolean;
+  disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   className?: string;
   default?: string | null;
   options?: object;
@@ -181,11 +181,11 @@ export interface NumberFieldOptions extends FieldOptions {
   max?: number;
   step?: number;
   type: 'number' | 'range';
-  required?: ((value: any, data: any) => boolean) | boolean;
-  change?: (value: any) => void;
-  validation?: (value: any, data: any, required: boolean) => true | string;
-  conditions?: (value: any, data: any) => boolean;
-  disabled?: ((value: any, data: any) => boolean) | boolean;
+  required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
+  change?: (value: FieldValue) => void;
+  validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
+  conditions?: (value: FieldValue, data: FormData) => boolean;
+  disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   default?: number | null;
   className?: string;
 }
@@ -196,11 +196,11 @@ export interface RadioFieldOptions extends FieldOptions {
   label?: string;
   type: 'radio';
   schema: RadioFieldItemOptions[];
-  required?: ((value: any, data: any) => boolean) | boolean;
-  change?: (value: any) => void;
-  validation?: (value: any, data: any, required: boolean) => true | string;
-  conditions?: (value: any, data: any) => boolean;
-  disabled?: ((value: any, data: any) => boolean) | boolean;
+  required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
+  change?: (value: FieldValue) => void;
+  validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
+  conditions?: (value: FieldValue, data: FormData) => boolean;
+  disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   default?: string | null;
   className?: string;
 }

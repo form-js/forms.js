@@ -32,7 +32,7 @@ export class CheckboxField extends Field {
   syncValue(): void {
     if (this.inputElement && this.inputElement instanceof HTMLInputElement) {
       if (this.getValue() && !this.inputElement.hasAttribute('checked'))
-        this.inputElement.setAttribute('checked', this.getValue());
+        this.inputElement.setAttribute('checked', String(this.getValue()));
       else if (!this.getValue() && this.inputElement.hasAttribute('checked'))
         this.inputElement.removeAttribute('checked');
     }

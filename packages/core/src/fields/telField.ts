@@ -9,7 +9,7 @@ export class TelField extends Field {
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return 'This field is required';
-      if (value && !value.match(this._telFormat)) return 'Not a valid telephone number.';
+      if (value && typeof value === 'string' && !value.match(this._telFormat)) return 'Not a valid telephone number.';
       return true;
     },
     default: null,

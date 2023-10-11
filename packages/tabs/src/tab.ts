@@ -7,6 +7,7 @@ import {
   fields,
   Schema,
 } from '../node_modules/formsjs/lib/index';
+import { FormData } from '../node_modules/formsjs/lib/types';
 import { Tabs } from './tabs';
 
 export class Tab {
@@ -327,8 +328,8 @@ export class Tab {
 export interface TabOptions {
   id: string;
   label: string;
-  conditions?: (data: any) => boolean;
+  conditions?: (data: FormData) => boolean;
   validation?: (fields: string[], form: Form) => true | string;
-  disabled?: ((data: any) => boolean) | boolean;
+  disabled?: ((data: FormData) => boolean) | boolean;
   schema: Schema;
 }

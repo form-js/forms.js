@@ -9,6 +9,8 @@ export type HTMLElementEvent<T extends HTMLElement> = Event & {
   target: T;
 };
 
+export type FormData = Record<string, any>;
+
 export type Option = {
   value: string;
   label: string;
@@ -19,10 +21,23 @@ export type FieldType = (typeof fields)[number];
 
 export type FormElementType = (typeof formElements)[number];
 
-export type FieldValue = null | string | number | object | string[] | number[] | object[] | File | boolean | symbol | Record<string, any>;
+export type FieldValue =
+  | null
+  | string
+  | number
+  | object
+  | []
+  | string[]
+  | number[]
+  | object[]
+  | File
+  | boolean
+  | symbol
+  | Record<string, any>
+  | Record<string, any>[];
 
 export type FormElement = {
-  new(parent: HTMLElement, form: Form, options: Record<string, any>): any;
+  new (parent: HTMLElement, form: Form, options: Record<string, any>): any;
   getId(): string;
   getSchemaContainer?(): HTMLElement | null;
 };
@@ -34,7 +49,9 @@ export type FormTab = {
 
 export type PluginSettings = {
   type: string;
-  constructor: Function;
+  constructor: pluginConstructor;
   constructorType: string;
   licensed?: boolean;
-}
+};
+
+export type pluginConstructor = new (a: HTMLElement, b: Form, c: any) => any;

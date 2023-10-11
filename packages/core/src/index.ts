@@ -48,7 +48,7 @@ registerConstructor('week', WeekField, costructorTypes.field);
 
 export const usePlugin = (settings: PluginSettings) => {
   registerConstructor(settings.type, settings.constructor, settings.constructorType, settings.licensed ?? false);
-}
+};
 
 export { Form } from './form.js';
 export { setLicenseKey, mountElement, unmountElement, extractFieldsFromSchema, useLicensedFetures } from './utils.js';

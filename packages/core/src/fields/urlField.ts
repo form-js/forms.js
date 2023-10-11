@@ -9,7 +9,7 @@ export class UrlField extends Field {
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return 'This field is required';
-      if (value && !value.match(this._urlFormat)) return 'Not a valid url address.';
+      if (value && typeof value === 'string' && !value.match(this._urlFormat)) return 'Not a valid url address.';
       return true;
     },
     default: null,

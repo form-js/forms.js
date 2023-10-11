@@ -3,7 +3,7 @@ const TomSelect = (TomSelectNamespace as any).default;
 import { Field } from '../field.js';
 import { Form } from '../form.js';
 import { SelectFieldOptions } from '../interfaces.js';
-import { HTMLElementEvent, Option } from '../types.js';
+import { FieldValue, HTMLElementEvent, Option } from '../types.js';
 import { debounce, mountElement } from '../utils.js';
 
 export class SelectField extends Field {
@@ -43,10 +43,11 @@ export class SelectField extends Field {
    */
   syncValue(): void {
     if (this.inputElement && this.inputElement instanceof HTMLSelectElement && this.options.enhance === false) {
-      const value = this.getValue();
+      const value: FieldValue = this.getValue();
 
       for (let option of this.inputElement.options) {
-        const hasValue = Array.isArray(value) ? value.includes(option.value) : value === option.value;
+        const hasValue =
+          value && Array.isArray(value) ? value?.some((val) => val === option.value) : value === option.value;
         if (hasValue && !option.hasAttribute('selected')) option.setAttribute('selected', '');
         if (!hasValue && option.hasAttribute('selected')) option.removeAttribute('selected');
       }

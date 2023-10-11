@@ -9,7 +9,7 @@ export class EmailField extends Field {
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return 'This field is required';
-      if (value && !value.match(this._mailFormat)) return 'Not a valid email address.';
+      if (value && typeof value === 'string' && !value.match(this._mailFormat)) return 'Not a valid email address.';
       return true;
     },
     default: null,

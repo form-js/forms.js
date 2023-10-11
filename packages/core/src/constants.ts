@@ -1,6 +1,6 @@
 import { Form } from './form';
 import { FieldOptions } from './interfaces';
-import { FormElementType } from './types';
+import { FormElementType, pluginConstructor } from './types';
 import { useLicensedFetures } from './utils';
 
 export const PACKAGE_LICENSE_URL = '#';
@@ -42,7 +42,7 @@ export const costructorTypes = {
  * A mapping of form element types to their constructor functions.
  */
 export const elementConstructors: {
-  [key in FormElementType]?: new (a: HTMLElement, b: Form, c: FieldOptions) => any;
+  [key in FormElementType]?: pluginConstructor;
 } = {};
 
 /**
@@ -64,7 +64,12 @@ export const LICENSE_STATE = {
 export const RELEASE_DATE = '2023-09-23';
 
 /* Register new constructor */
-export const registerConstructor = (type: string, constructor: any, constructorT: string, licensed:boolean = false) => {
+export const registerConstructor = (
+  type: string,
+  constructor: pluginConstructor,
+  constructorT: string,
+  licensed: boolean = false,
+) => {
   switch (constructorT) {
     case costructorTypes.button:
       buttons.push(type);
@@ -76,9 +81,8 @@ export const registerConstructor = (type: string, constructor: any, constructorT
       fields.push(type);
       break;
   }
-  
-  if(licensed) useLicensedFetures();
 
-  elementConstructors[type] = constructor;;
-  
+  if (licensed) useLicensedFetures();
+
+  elementConstructors[type] = constructor;
 };

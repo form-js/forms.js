@@ -1,4 +1,5 @@
 import { Form, mountElement, unmountElement } from '../node_modules/formsjs/lib/index';
+import { FormData } from '../node_modules/formsjs/lib/types';
 import { TabOptions } from './tab';
 import { Tab } from './tab.js';
 
@@ -338,7 +339,7 @@ export class Tabs {
 export interface TabsOptions {
   id: string;
   type: 'tabs';
-  conditions?: (data: any) => boolean;
+  conditions?: (data: FormData) => boolean;
   className?: string;
   tabs: TabOptions[];
   strict?: boolean;
