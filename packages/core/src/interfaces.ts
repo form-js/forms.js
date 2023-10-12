@@ -48,19 +48,6 @@ export interface FieldOptions {
   className?: string;
 }
 
-export interface ListFieldOptions {
-  id: string;
-  label?: string;
-  type: 'list';
-  conditions?: (data: FormData) => boolean;
-  buildButtons?: boolean;
-  className?: string;
-  listRemoveClassName?: string;
-  listAddClassName?: string;
-  listRemoveTemplate?: string;
-  listAddTemplate?: string;
-  schema: Schema;
-}
 export interface StaticFieldOptions {
   id: string;
   type: 'static';

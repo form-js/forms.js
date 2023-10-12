@@ -51,7 +51,9 @@ export const usePlugin = (settings: PluginSettings) => {
 };
 
 export { Form } from './form.js';
-export { setLicenseKey, mountElement, unmountElement, extractFieldsFromSchema, useLicensedFetures } from './utils.js';
+export { Button } from './button.js';
+export { ButtonOptions } from './interfaces.js';
+export { setLicenseKey, mountElement, unmountElement, extractFieldsFromSchema, useLicensedFetures, generateFieldSaveKey } from './utils.js';
 export { Field } from './field.js';
 export { fields, buttons, groups, costructorTypes } from './constants.js';
-export { Schema } from './types.js';
+export { Schema, FormData } from './types.js';
