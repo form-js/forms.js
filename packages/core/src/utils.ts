@@ -246,7 +246,5 @@ export const usesLicensedFetures = (): boolean => {
 };
 
 export const useLicensedFetures = (): void => {
-  console.log(USES_LICENSED_FETURES);
-
   USES_LICENSED_FETURES = true;
 };

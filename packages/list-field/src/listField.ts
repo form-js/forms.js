@@ -66,7 +66,6 @@ export class ListField {
 
   addListRow(defkey: string | null = null, save: boolean = true): string {
     const key = defkey || String(Date.now());
-    console.log(key);
     this._keys.push(key);
     this._fields[key] = {};
     this._groups[key] = {};
@@ -78,9 +77,7 @@ export class ListField {
     return key;
   }
 
-  removeListRow(key: string, save: boolean = true): void {
-    console.log(this._groups[key]['form-list-' + key + '-group']);
-    
+  removeListRow(key: string, save: boolean = true): void {    
     if (this._groups[key]) {
       this._groups[key]['form-list-' + key + '-group']?.destroy();
       delete this._fields[key];
@@ -160,8 +157,6 @@ export class ListField {
       className: this.options.listRemoveClassName!,
       template: this.options.listRemoveTemplate!,
       click: () => {
-        console.log(this._fields[key]);
-
         if (!this._fields[key] || typeof this._fields[key] !== 'object') return;
         Object.keys(this._fields[key]).forEach((id: string) => {
           this._fields[key][id].reset();
@@ -288,9 +283,13 @@ export class ListField {
     this.refreshLists();
   }
 
-  refreshLists() {
+  async refreshLists() {
     this.removeAllLists();
-    this.addListRow();
+    //timeout to prevent overaping deletion and creating o new list
+    setTimeout(()=>{
+        this.addListRow();
+    }, 25);
+
   }
 
   private cascadeLoad() {

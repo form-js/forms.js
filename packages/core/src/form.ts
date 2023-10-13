@@ -211,13 +211,6 @@ export class Form {
         if (listId && key) {
           this.assignToListField(listId, key, Constructed, formElementType, options.id);
         } else this._fields[options.id] = Constructed;
-
-        console.log(this._fields[options.id]);
-        
-
-        /*if (isListField(options.type)) {
-          Constructed.initialize();
-        }*/
         break;
     }
   }
@@ -230,10 +223,6 @@ export class Form {
     id: string,
   ) {
     const list = this._fields[listId];
-    console.log(listId);
-    console.log(key);
-    console.log(list);
-    
     if (!list) return;
     switch (formElementType) {
       case costructorTypes.button:
