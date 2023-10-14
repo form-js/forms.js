@@ -77,7 +77,11 @@ export class ListField {
     return key;
   }
 
-  removeListRow(key: string, save: boolean = true): void {    
+  /** Removes a list row based on key
+   * @param key - Key of new list. 
+   * @param save - boolean determines if changes will be saved into local storage. 
+  */
+  removeListRow(key: string, save: boolean = true): void {
     if (this._groups[key]) {
       this._groups[key]['form-list-' + key + '-group']?.destroy();
       delete this._fields[key];
@@ -148,6 +152,10 @@ export class ListField {
     return this._isVisible;
   }
 
+  /** Prepares a schema for new list
+   * @param key - Key of new list. 
+   * @returns Schema
+   */
   private newListSchema(key: string): Schema {
     const schema = [...this.options.schema];
     const removeButton = {
@@ -286,8 +294,8 @@ export class ListField {
   async refreshLists() {
     this.removeAllLists();
     //timeout to prevent overaping deletion and creating o new list
-    setTimeout(()=>{
-        this.addListRow();
+    setTimeout(() => {
+      this.addListRow();
     }, 25);
 
   }
