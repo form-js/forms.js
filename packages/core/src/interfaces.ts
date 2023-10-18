@@ -185,13 +185,3 @@ export interface RadioFieldItemOptions {
   value: string;
 }
 
-export interface Field {
-  options: FieldOptions;
-  inputElement?: HTMLElement;
-  containerElement?: HTMLElement;
-  labelElement?: HTMLElement;
-  validationElement?: HTMLElement;
-  _id: string;
-  _parent: HTMLElement;
-  _form: Form;
-}
