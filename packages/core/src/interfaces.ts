@@ -138,20 +138,7 @@ export interface FileFieldOptions extends FieldOptions {
   accept?: string;
 }
 
-export interface RitchtextFieldOptions extends FieldOptions {
-  id: string;
-  name?: string;
-  label?: string;
-  type: 'ritchtext';
-  required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
-  change?: (value: FieldValue) => void;
-  validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
-  conditions?: (value: FieldValue, data: FormData) => boolean;
-  disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
-  className?: string;
-  default?: string | null;
-  options?: object;
-}
+
 
 export interface HiddenFieldOptions {
   id: string;

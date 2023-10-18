@@ -56,4 +56,4 @@ export { ButtonOptions } from './interfaces.js';
 export { setLicenseKey, mountElement, unmountElement, extractFieldsFromSchema, useLicensedFetures, generateFieldSaveKey } from './utils.js';
 export { Field } from './field.js';
 export { fields, buttons, groups, costructorTypes } from './constants.js';
-export { Schema, FormData } from './types.js';
+export { Schema, FormData, FieldValue } from './types.js';
