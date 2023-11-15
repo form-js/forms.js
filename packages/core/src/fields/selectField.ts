@@ -101,7 +101,8 @@ export class SelectField extends Field {
       } else if (this.options.default && this.options.default === option.value) {
         optionElement.setAttribute('selected', 'true');
       }
-      if (option.disabled) optionElement.setAttribute('disabled', String(option.disabled));
+      //@ts-ignore
+      if (option.disabled) optionElement.setAttribute('disabled', option.disabled);
       optionElement.innerText = option.label;
       this.inputElement?.append(optionElement);
     });
