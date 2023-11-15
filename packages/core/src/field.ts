@@ -53,7 +53,7 @@ export class Field {
   /**
    * Merge default options with provided options.
    *
-   * @param {TabOptions} options - Options to merge with defaults.
+   * @param {FieldOptions} options - Options to merge with defaults.
    */
   initializeOptions(options: FieldOptions): void {
     this.options = Object.assign({}, this.options, options);
@@ -70,7 +70,7 @@ export class Field {
 
   /**
    * Sets the value of the field and updates the associated input element if applicable.
-   * @param value - The value to set.
+   * @param {FieldValue} value - The value to set.
    */
   setValue(value: FieldValue, save: boolean = true): void {
     this._value = value;
@@ -182,6 +182,7 @@ export class Field {
     this.inputElement.setAttribute('type', this._type);
     //@ts-ignore
     if (this.options.default) this.inputElement.setAttribute('value', this.options.default);
+    if (this.options.placeholder) this.inputElement.setAttribute('placeholder', this.options.placeholder);
     this.inputElement.className = this.options.className!;
   }
 

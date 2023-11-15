@@ -87,6 +87,7 @@ export class SelectField extends Field {
     this.inputElement.setAttribute('name', this.options.name || this.getId());
     this.inputElement.setAttribute('type', this.getType());
     if (this.options.multiple) this.inputElement.setAttribute('multiple', '');
+    if (this.options.placeholder) this.inputElement.setAttribute('placeholder', this.options.placeholder);
     this.inputElement.className = this.options.className!;
     this.options.optionsList?.forEach((option: Option) => {
       const optionElement: HTMLOptionElement = document.createElement('option');

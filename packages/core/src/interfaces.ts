@@ -43,6 +43,7 @@ export interface FieldOptions {
   validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
   conditions?: (value: FieldValue, data: FormData) => boolean;
   disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
+  placeholder?: string;
   debounce?: number;
   default?: FieldValue;
   className?: string;
@@ -81,6 +82,7 @@ export interface DateFieldOptions extends FieldOptions {
   validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
   conditions?: (value: FieldValue, data: FormData) => boolean;
   disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
+  placeholder?: string;
   className?: string;
   default?: string | Date | null;
   options?: object;
@@ -98,6 +100,7 @@ export interface TextareaFieldOptions extends FieldOptions {
   validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
   conditions?: (value: FieldValue, data: FormData) => boolean;
   disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
+  placeholder?: string;
   className?: string;
   default?: string | null;
 }
@@ -112,6 +115,7 @@ export interface SelectFieldOptions extends FieldOptions {
   validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
   conditions?: (value: FieldValue, data: FormData) => boolean;
   disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
+  placeholder?: string;
   optionsList?: Option[];
   className?: string;
   default?: string | string[] | object | object[] | null;
@@ -130,6 +134,7 @@ export interface FileFieldOptions extends FieldOptions {
   validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
   conditions?: (value: FieldValue, data: FormData) => boolean;
   disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
+  placeholder?: string;
   className?: string;
   options?: object;
   debounce?: number;
@@ -160,6 +165,7 @@ export interface NumberFieldOptions extends FieldOptions {
   validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
   conditions?: (value: FieldValue, data: FormData) => boolean;
   disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
+  placeholder?: string;
   default?: number | null;
   className?: string;
 }

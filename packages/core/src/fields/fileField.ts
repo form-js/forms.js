@@ -52,6 +52,7 @@ export class FileField extends Field {
     this.inputElement.setAttribute('id', this.getId());
     this.inputElement.setAttribute('name', this.options.name || this.getId());
     this.inputElement.setAttribute('type', this.getType());
+    if (this.options.placeholder) this.inputElement.setAttribute('placeholder', this.options.placeholder);
     this.inputElement.className = this.options.className!;
     if (this.options.multiple && !this.options.enhance) this.inputElement.setAttribute('multiple', 'true');
     if (this.options.accept) this.inputElement.setAttribute('accept', this.options.accept);

@@ -61,5 +61,6 @@ export class TimeField extends Field {
     this.inputElement.setAttribute('name', this.options.name || this.getId());
     this.inputElement.setAttribute('type', this.options.enhance ? 'text' : 'time');
     this.inputElement.className = this.options.className!;
+    if (this.options.placeholder) this.inputElement.setAttribute('placeholder', this.options.placeholder);
   }
 }

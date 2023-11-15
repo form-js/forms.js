@@ -24,6 +24,7 @@ export class TextareaField extends Field {
     if (this.options.rows) this.inputElement.setAttribute('rows', String(this.options.rows));
     this.inputElement.setAttribute('type', this.getType());
     this.inputElement.className = this.options.className!;
+    if (this.options.placeholder) this.inputElement.setAttribute('placeholder', this.options.placeholder);
   }
 
   constructor(parent: HTMLElement, form: Form, options: TextareaFieldOptions) {
