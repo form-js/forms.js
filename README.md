@@ -1,5 +1,7 @@
+add accessability
+get rid of any types
 render function for static field that could be overwritten
-placeholders
-box input, adress input and more
-move interfaces into class files
-adress field, server side select
+box input, adress input, server side select, capcha, ...
+form onchange method?
+form success submit messages??? - not needed i think
+containers for vuejs, react and angular

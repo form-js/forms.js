@@ -1,5 +1,5 @@
 {
-    "name": "formsjs",
+    "name": "@forms.js/core",
     "version": "1.0.0",
     "description": "Javascript form generator that builds forms based on passed object",
     "module": "lib/index.js",
