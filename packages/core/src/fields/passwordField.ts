@@ -11,7 +11,7 @@ export class PasswordField extends Field {
       if (required && !value) return 'This field is required';
       return true;
     },
-    default: null,
+    default: "",
     className: 'form-input',
   };
 
