@@ -26,7 +26,7 @@
 ### NPM
 
 ```bash
-npm i @formsjs/core
+npm i @forms.js/core
 ```
 
 ### JS DELIVR
@@ -42,7 +42,7 @@ npm i @formsjs/core
 ### Usage
 
 ```js
-import { Form } from '@formsjs/core';
+import { Form } from '@forms.js/core';
 
 const options = {
     id: "form",
@@ -58,7 +58,7 @@ const form = new Form("form-element", options);
 ### CSS
 
 ```css
-@import '@formsjs/core/css/index.css'
+@import '@forms.js/core/css/index.css'
 ```
 
 <h2 id="license">License</h2>
