@@ -39,7 +39,28 @@ npm i @formsjs/core
 <script src="https://cdn.jsdelivr.net/npm/@formsjs/core/lib/index.js"></script>
 ```
 
+### Usage
+
+```js
+import { Form } from '@formsjs/core';
+
+const options = {
+    id: "form",
+    schema: [
+        ...
+    ],
+}
+
+const form = new Form("form-element", options);
+
+```
+
+### CSS
+
+```css
+@import '@formsjs/core/css/index.css'
+```
+
 <h2 id="license">License</h2>
 
-There are multiple licenses applied to the formsjs package. The core package is MIT licensed.
-The full features and premium fields have 3 applicable licenses There is a commertial license for commertial use and also license for GPLv3 open-source projects and license for Non-Commercial Use.
+Core bundle released under MIT license. This license permits a wide range of use, including free use in commercial projects, assuming all copyright headers are preserved. [Read the license terms](https://opensource.org/license/mit/)
