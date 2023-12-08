@@ -33,10 +33,10 @@ npm i @forms.js/core
 
 ```html
 <link
-  href="https://cdn.jsdelivr.net/npm/@formsjs/core/src/css/index.css"
+  href="https://cdn.jsdelivr.net/npm/@forms.js/core/src/css/index.css"
   rel="stylesheet"
 />
-<script src="https://cdn.jsdelivr.net/npm/@formsjs/core/lib/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@forms.js/core/lib/index.js"></script>
 ```
 
 ### Usage
