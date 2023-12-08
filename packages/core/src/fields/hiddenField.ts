@@ -43,11 +43,19 @@ export class HiddenField {
     this.update();
   }
 
-  private setValue(value: FieldValue, save: boolean = true): void {
+  public setValue(value: FieldValue, save: boolean = true): void {
     this._value = value;
     this.syncValue();
     this._form.setData(this._id, value);
     if (save) this.save();
+  }
+
+  /**
+   * Gets the current value of the field.
+   * @returns The value of the field.
+   */
+  getValue(): FieldValue {
+    return this._value;
   }
 
   /**
@@ -94,6 +102,14 @@ export class HiddenField {
 
   getType() {
     return this._type;
+  }
+
+  /**
+   * Gets the form to which this field belongs.
+   * @returns The form instance.
+  */
+  getForm(): Form {
+    return this._form;
   }
 
   onGui() {

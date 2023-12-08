@@ -1,5 +1,5 @@
-import * as TomSelectNamespace from 'tom-select';
-const TomSelect = (TomSelectNamespace as any).default;
+import TomSelect, * as TomSelectNamespace from 'tom-select';
+const TomSelectInitiator = (TomSelectNamespace as any).default;
 import { Field } from '../field.js';
 import { Form } from '../form.js';
 import { SelectFieldOptions } from '../interfaces.js';
@@ -61,13 +61,13 @@ export class SelectField extends Field {
     if (this.inputElement) this.inputElement.addEventListener('change', debounce(this.change, 25, this));
   }
 
-  getTomselect() {
+  getTomselect(): TomSelect {
     return this._tomselect;
   }
 
   initTomselect(): void {
     if (this.inputElement && this.options.enhance)
-      this._tomselect = new TomSelect(this.inputElement, this.options.options || {});
+      this._tomselect = new TomSelectInitiator(this.inputElement, this.options.options || {});
   }
 
   handleDisabled() {

@@ -109,6 +109,7 @@ export class StaticField {
    * @param template is a html valid string.
    */
   setTemplate(template: string, save: boolean = true): void {
+    this._value = template;
     if (this.staticElement) this.staticElement.innerHTML = template;
     if (save) this.save();
   }

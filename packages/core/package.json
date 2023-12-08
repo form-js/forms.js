@@ -1,7 +1,7 @@
 {
     "name": "@forms.js/core",
     "version": "1.0.0",
-    "description": "Javascript form generator that builds forms based on passed object",
+    "description": "Javascript form generator that streamlines web forms",
     "module": "lib/index.js",
     "type": "module",
     "files": [
@@ -19,8 +19,8 @@
             "require": "./lib/cjs/index.js"
         },
         "./css/index.css": {
-            "import": "./src/styles/index.css",
-            "require": "./src/styles/index.css"
+            "import": "./src/css/index.css",
+            "require": "./src/css/index.css"
         }
     },
     "repository": {
@@ -43,7 +43,7 @@
     "bugs": {
         "url": "https://github.com/form-js/forms.js/issues"
     },
-    "homepage": "https://github.com/form-js/forms.js#readme",
+    "homepage": "https://formsjs.io/",
     "devDependencies": {
         "@types/jest": "^29.5.6",
         "@types/quill": "^2.0.10",
