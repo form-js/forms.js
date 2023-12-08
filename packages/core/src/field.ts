@@ -181,7 +181,6 @@ export class Field {
     this.inputElement.setAttribute('name', this.options.name || this._id);
     this.inputElement.setAttribute('type', this._type);
     //@ts-ignore
-    if (this.options.default) this.inputElement.setAttribute('value', this.options.default);
     if (this.options.placeholder) this.inputElement.setAttribute('placeholder', this.options.placeholder);
     this.inputElement.className = this.options.className!;
   }
