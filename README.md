@@ -1,6 +1,6 @@
 <h1 id="introduction">
     <a href="https://formsjs.io/" target="_blank">
-        <img alt="Forms.js" style="margin: 0 auto" src="/images/banner.png" />
+        <img alt="Forms.js" style="margin: 0 auto" src="https://formsjs.io/images/banner.png" />
     </a>
 </h1>
 
