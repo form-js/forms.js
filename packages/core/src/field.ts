@@ -12,7 +12,7 @@ export class Field {
       if (required && !value) return 'This field is required';
       return true;
     },
-    default: null,
+    default: "",
     debounce: 200,
     className: 'form-input',
   };
