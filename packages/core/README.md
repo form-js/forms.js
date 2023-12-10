@@ -33,7 +33,7 @@ npm i @forms.js/core
 
 ```html
 <link
-  href="https://cdn.jsdelivr.net/npm/@forms.js/core/src/css/index.css"
+  href="https://cdn.jsdelivr.net/npm/@forms.js/core/css/index.css"
   rel="stylesheet"
 />
 <script src="https://cdn.jsdelivr.net/npm/@forms.js/core/lib/index.js"></script>
