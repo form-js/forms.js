@@ -65,8 +65,12 @@ const form = new Form("form-element", options);
     Take a look at official documentation!
 </a>
 
+<h2 id="license">Contributing</h2>
+
+<p class="text-lg mb-4">If you want to contribute look at <a class="link" target="_blank" href="https://github.com/form-js/forms.js/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
+
 <h2 id="license">License</h2>
 
 <a href="https://formsjs.io/documentation/v1/licensing" target="_blank">
-    Take a look at licensing on the official documentation
+    Take a look at licensing on the official documentation.
 </a>
