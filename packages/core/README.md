@@ -61,6 +61,12 @@ const form = new Form("form-element", options);
 @import '@forms.js/core/css/index.css'
 ```
 
+<iframe height="400" style="width: 100%;" scrolling="no" title="forms.js - login form" src="https://codepen.io/trilmatic/embed/yLZrNQJ?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/trilmatic/pen/yLZrNQJ">
+  forms.js - login form</a> by Trilmatic (<a href="https://codepen.io/trilmatic">@trilmatic</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
 <h2 id="license">License</h2>
 
 Core bundle released under MIT license. This license permits a wide range of use, including free use in commercial projects, assuming all copyright headers are preserved. [Read the license terms](https://opensource.org/license/mit/)
