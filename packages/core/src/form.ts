@@ -180,9 +180,17 @@ export class Form {
     const Constructor = elementConstructors[options.type];
     if (!Constructor) throw new Error(`Unknown type: ${options.type}`);
     const wrapper = this.createWrapper(parent);
+    const formElementType: string | null = getFormElementType(options.type);
+
+    if(listId && key && formElementType === costructorTypes.field){
+      this.mapFieldToDataPrefix(options, listId, key);
+    }
+    if(groupId && formElementType === costructorTypes.field){
+      this.mapFieldToDataPrefix(options, groupId, null);
+    }
+
     const Constructed: FormElement = new Constructor(wrapper, this, duplicatedOptions);
 
-    const formElementType: string | null = getFormElementType(options.type);
     switch (formElementType) {
       case costructorTypes.button:
         if (listId && key) {
@@ -210,7 +218,9 @@ export class Form {
       case costructorTypes.field:
         if (listId && key) {
           this.assignToListField(listId, key, Constructed, formElementType, options.id);
-        } else this._fields[options.id] = Constructed;
+        } else{          
+          this._fields[options.id] = Constructed; 
+        }
         break;
     }
   }
@@ -471,7 +481,7 @@ export class Form {
     this._formElement.className = this.options.className!;
     if (this.options.action) this._formElement.setAttribute('action', this.options.action);
     if (this.options.method) this._formElement.setAttribute('method', this.options.method);
-    this._formElement.addEventListener('submit', (event: Event) => this.submit(event, this));
+    this._formElement.addEventListener('submit', (event: SubmitEvent) => this.submit(event, this));
     this._formElement.addEventListener('reset', this.reset);
     if (usesLicensedFetures() && !this.hasValidLicense()) this.createInvalidElement();
   }
@@ -492,7 +502,7 @@ export class Form {
    * @param event - The event that triggered the submission.
    * @param form - The current form instance.
    */
-  submit(event: Event, form: Form): void {
+  submit(event: SubmitEvent, form: Form): void {
     event.preventDefault();
     form.validate();
     if (!form.isFormValid()) {
