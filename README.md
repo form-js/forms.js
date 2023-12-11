@@ -26,23 +26,23 @@
 ### NPM
 
 ```bash
-npm i @formsjs/core
+npm i @forms.js/core
 ```
 
 ### JS DELIVR
 
 ```html
 <link
-  href="https://cdn.jsdelivr.net/npm/@formsjs/core/src/css/index.css"
+  href="https://cdn.jsdelivr.net/npm/@forms.js/core/css/index.css"
   rel="stylesheet"
 />
-<script src="https://cdn.jsdelivr.net/npm/@formsjs/core/lib/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@forms.js/core/lib/index.js"></script>
 ```
 
 ### Usage
 
 ```js
-import { Form } from '@formsjs/core';
+import { Form } from '@forms.js/core';
 
 const options = {
     id: "form",
@@ -58,9 +58,15 @@ const form = new Form("form-element", options);
 ### CSS
 
 ```css
-@import '@formsjs/core/css/index.css'
+@import '@forms.js/core/css/index.css'
 ```
+
+<a href="https://formsjs.io/documentation/v1/getting-started" target="_blank">
+    Take a look at official documentation!
+</a>
 
 <h2 id="license">License</h2>
 
-Core bundle released under MIT license. This license permits a wide range of use, including free use in commercial projects, assuming all copyright headers are preserved. [Read the license terms](https://opensource.org/license/mit/)
+<a href="https://formsjs.io/documentation/v1/licensing" target="_blank">
+    Take a look at licensing on the official documentation
+</a>
