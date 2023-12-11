@@ -442,7 +442,7 @@ export class Form {
    */
   validate(): void {
     Object.keys(this._fields).forEach((key: string) => {
-      if (this._fields[key].validate) this._fields[key].validate();
+      if (typeof this._fields[key].validate === 'function') this._fields[key].validate();
     });
   }
 
@@ -452,7 +452,7 @@ export class Form {
   save(): void {
     if (!this._saveProgress || !this.hasValidLicense()) return;
     Object.keys(this._fields).forEach((key: string) => {
-      this._fields[key].save();
+      if (typeof this._fields[key].save === 'function') this._fields[key].save();
     });
     Object.keys(this._groups).forEach((key: string) => {
       if (typeof this._groups[key].save === 'function') this._groups[key].save();
@@ -465,10 +465,10 @@ export class Form {
   load(): void {
     if (!this._saveProgress || !this.hasValidLicense()) return;
     Object.keys(this._fields).forEach((key: string) => {
-      this._fields[key].load();
+      if (typeof this._groups[key].load === 'function') this._fields[key].load();
     });
     Object.keys(this._groups).forEach((key: string) => {
-      if (typeof this._groups[key].save === 'function') this._groups[key].load();
+      if (typeof this._groups[key].load === 'function') this._groups[key].load();
     });
   }
 
