@@ -3,13 +3,12 @@ const flatpickr = (flatpickerNamespace as any).default;
 import { Field } from '../field.js';
 import { Form } from '../form.js';
 import { DateFieldOptions } from '../interfaces.js';
-import * as _weekSelectPlugin from 'flatpickr/dist/plugins/weekSelect/weekSelect.js';
-const weekSelectPlugin: (options: object) => void = _weekSelectPlugin as any;
+import weekSelectPlugin from 'flatpickr/dist/plugins/weekSelect/weekSelect.js';
 
 export class WeekField extends Field {
   public options: DateFieldOptions = {
     id: '',
-    type: 'date',
+    type: 'week',
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return 'This field is required';
@@ -19,7 +18,7 @@ export class WeekField extends Field {
     enhance: true,
     options: {
       altInput: true,
-      plugins: [weekSelectPlugin({})],
+      plugins: [weekSelectPlugin()],
     },
   };
 
