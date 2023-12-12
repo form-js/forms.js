@@ -16,7 +16,7 @@ export class TelField extends Field {
     className: 'form-input',
   };
 
-  private _telFormat = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+  private _telFormat = /^\+[1-9]\d{1,14}$/;
 
   constructor(parent: HTMLElement, form: Form, options: FieldOptions) {
     super(parent, form, options);
