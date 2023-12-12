@@ -12,7 +12,7 @@ export class RangeField extends Field {
       if (required && !value && value !== 0) return 'This field is required';
       return true;
     },
-    default: null,
+    default: 0,
     className: 'form-input-range',
   };
 
@@ -74,6 +74,16 @@ export class RangeField extends Field {
       if (this.inputElement && this.valueElement)
         this.inputElement.style.paddingRight = this.valueElement.clientWidth + 5 + 'px';
     }, 10);
+  }
+
+  /**
+   * Initializes the field, resetting it and binding change events.
+   */
+  async initialize(): Promise<void> {
+    this.load();
+    this.update();
+    this.bindChange();
+    this.updateRangeValues();
   }
 
   async reset(): Promise<void> {
