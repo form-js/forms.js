@@ -18,6 +18,8 @@ export class WeekField extends Field {
     enhance: true,
     options: {
       altInput: true,
+      dateFormat: "Y-W",
+      altFormat: "W, Y",
       plugins: [weekSelectPlugin()],
     },
   };
