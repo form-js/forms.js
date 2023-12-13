@@ -42,10 +42,8 @@ export class FileField extends Field {
   }
 
   /**
- * Merge default options with provided options.
- *
- * @param {FieldOptions} options - Options to merge with defaults.
- */
+   * Merge default options with provided options.
+   */
   initializeOptions(options: FileFieldOptions): void {
     this.options = Object.assign({}, {
       ...this.options, ...{
@@ -57,7 +55,9 @@ export class FileField extends Field {
   /**
    * Synchronizes fields value with input element
    */
-  syncValue(): void { }
+  syncValue(): void {
+    // no way to sync files
+  }
 
   createInputElement() {
     // Input element

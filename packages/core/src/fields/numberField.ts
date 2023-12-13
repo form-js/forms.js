@@ -24,8 +24,8 @@ export class NumberField extends Field {
   }
 
     /**
-   * Initializes the field, resetting it and binding change events.
-   */
+     * Initializes the field, resetting it and binding change events.
+     */
     async initialize(): Promise<void> {
       this.load();
       this.update();

@@ -148,9 +148,9 @@ export class Form {
     }
 
     this._dataPrefixMap[newId] = {
-      id: id,
+      id,
       dataKey: options.id,
-      key: key,
+      key,
     };
 
     if (key) {

@@ -88,7 +88,7 @@ export class Field {
       (this.inputElement instanceof HTMLInputElement || this.inputElement instanceof HTMLTextAreaElement) &&
       this.inputElement.value !== this._value
     ) {
-      //@ts-ignore
+      // @ts-ignore
       this.inputElement.value = this._value;
     }
   }
@@ -180,7 +180,7 @@ export class Field {
     this.inputElement.setAttribute('id', this._id);
     this.inputElement.setAttribute('name', this.options.name || this._id);
     this.inputElement.setAttribute('type', this._type);
-    //@ts-ignore
+    // @ts-ignore
     if (this.options.placeholder) this.inputElement.setAttribute('placeholder', this.options.placeholder);
     this.inputElement.className = this.options.className!;
   }

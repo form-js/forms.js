@@ -68,7 +68,7 @@ export class RangeField extends Field {
   updateRangeValues() {
     if (this.minElement && this.options.min !== undefined) this.minElement.innerText = String(this.options.min);
     if (this.maxElement && this.options.max !== undefined) this.maxElement.innerText = String(this.options.max);
-    //@ts-ignore
+    // @ts-ignore
     if (this.valueElement) this.valueElement.innerText = this.getValue();
     setTimeout(() => {
       if (this.inputElement && this.valueElement)

@@ -45,7 +45,7 @@ export class SelectField extends Field {
     if (this.inputElement && this.inputElement instanceof HTMLSelectElement && this.options.enhance === false) {
       const value: FieldValue = this.getValue();
 
-      for (let option of this.inputElement.options) {
+      for (const option of this.inputElement.options) {
         const hasValue =
           value && Array.isArray(value) ? value?.some((val) => val === option.value) : value === option.value;
         if (hasValue && !option.hasAttribute('selected')) option.setAttribute('selected', '');
@@ -104,7 +104,7 @@ export class SelectField extends Field {
       } else if (this.options.default && this.options.default === option.value) {
         optionElement.setAttribute('selected', 'true');
       }
-      //@ts-ignore
+      // @ts-ignore
       if (option.disabled) optionElement.setAttribute('disabled', option.disabled);
       optionElement.innerText = option.label;
       this.inputElement?.append(optionElement);

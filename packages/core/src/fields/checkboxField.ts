@@ -32,7 +32,7 @@ export class CheckboxField extends Field {
   syncValue(): void {
     if (this.inputElement && this.inputElement instanceof HTMLInputElement) {
       if (this.getValue() && !this.inputElement.hasAttribute('checked')){
-            //@ts-ignore
+            // @ts-ignore
             this.inputElement.setAttribute('checked', this.getValue());
       }
       else if (!this.getValue() && this.inputElement.hasAttribute('checked'))
@@ -69,7 +69,7 @@ export class CheckboxField extends Field {
     this.inputElement.setAttribute('id', this.getId());
     this.inputElement.setAttribute('name', this.options.name || this.getId());
     this.inputElement.setAttribute('type', this.getType());
-    //@ts-ignore
+    // @ts-ignore
     if (this.options.default) this.inputElement.setAttribute('checked', this.options.default);
     this.inputElement.className = this.options.className!;
   }

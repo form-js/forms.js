@@ -63,7 +63,7 @@ export class HiddenField {
    */
   syncValue(): void {
     if (this.inputElement && this.inputElement instanceof HTMLInputElement && this.inputElement.value !== this._value) {
-      //@ts-ignore
+      // @ts-ignore
       this.inputElement.value = this._value;
     }
   }
@@ -106,8 +106,7 @@ export class HiddenField {
 
   /**
    * Gets the form to which this field belongs.
-   * @returns The form instance.
-  */
+   */
   getForm(): Form {
     return this._form;
   }
