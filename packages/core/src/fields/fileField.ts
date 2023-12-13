@@ -2,7 +2,6 @@ import * as FilePond from 'filepond';
 import { Field } from '../field.js';
 import { Form } from '../form.js';
 import { FileFieldOptions } from '../interfaces.js';
-import { HTMLElementEvent } from '../types.js';
 import { debounce } from '../utils.js';
 
 export class FileField extends Field {
@@ -85,6 +84,7 @@ export class FileField extends Field {
       if (!this._filepond) return;
       this._filepond.on('addfile', (error: any, file: FilePond.FilePondFile) => {
         if (error) return;
+        console.log(this._filepond!.getFiles());
         const files: FilePond.FilePondFile[] = this._filepond!.getFiles();
         this.filePondChange(files);
       });

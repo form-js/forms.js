@@ -33,6 +33,7 @@ export type FieldValue =
   | object[]
   | File
   | File[]
+  | FileList
   | boolean
   | symbol
   | Record<string, any>
@@ -67,4 +68,4 @@ export type PluginSettings = {
   licensed?: boolean;
 };
 
-export type pluginConstructor = new (a: HTMLElement, b: Form, c: any) => FormElement;
+export type pluginConstructor = new (a: HTMLElement, b: Form, c: any) => any;
