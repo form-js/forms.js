@@ -25,7 +25,7 @@ export class FileField extends Field {
     },
   };
 
-  private _filepond: any;
+  private _filepond: FilePond.FilePond | null = null;
 
   constructor(parent: HTMLElement, form: Form, options: FileFieldOptions) {
     super(parent, form, options);
@@ -42,9 +42,22 @@ export class FileField extends Field {
   }
 
   /**
+ * Merge default options with provided options.
+ *
+ * @param {FieldOptions} options - Options to merge with defaults.
+ */
+  initializeOptions(options: FileFieldOptions): void {
+    this.options = Object.assign({}, {
+      ...this.options, ...{
+        options: { allowMultiple: options.multiple, }
+      }
+    }, options);
+  }
+
+  /**
    * Synchronizes fields value with input element
    */
-  syncValue(): void {}
+  syncValue(): void { }
 
   createInputElement() {
     // Input element
@@ -69,33 +82,34 @@ export class FileField extends Field {
 
   bindChange() {
     if (this.options.enhance) {
-      this._filepond.on('addfile', (error: any, file: any) => {
+      if (!this._filepond) return;
+      this._filepond.on('addfile', (error: any, file: FilePond.FilePondFile) => {
         if (error) return;
-        const files = this._filepond.getFile();
-        this.change(files);
+        const files: FilePond.FilePondFile[] = this._filepond!.getFiles();
+        this.filePondChange(files);
       });
-      this._filepond.on('removefile', (error: any, file: any) => {
+      this._filepond.on('removefile', (error: any, file: FilePond.FilePondFile) => {
         if (error) return;
-        const files = this._filepond.getFile();
-        this.change(files);
+        const files: FilePond.FilePondFile[] = this._filepond!.getFiles();
+        this.filePondChange(files);
       });
-      this._filepond.on('updatefiles', (error: any, file: any) => {
+      this._filepond.on('updatefiles', (error: any, file: FilePond.FilePondFile) => {
         if (error) return;
-        const files = this._filepond.getFile();
-        this.change(files);
+        const files: FilePond.FilePondFile[] = this._filepond!.getFiles();
+        this.filePondChange(files);
       });
     } else {
-      this.inputElement?.addEventListener('change', debounce(this.coreChange, this.options.debounce!, this));
+      this.inputElement?.addEventListener('change', debounce(this.change, this.options.debounce!, this));
     }
   }
 
-  change(files: any): void {
+  filePondChange(files: FilePond.FilePondFile[]): void {
     this.setValue(files);
     if (this.options.change) this.options.change(this.getValue());
     this.validate();
   }
 
-  coreChange(event: any): void {
+  change(event: any): void {
     if (event.target.files) this.change(event.target.files);
   }
 }

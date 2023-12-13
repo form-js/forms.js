@@ -1,4 +1,4 @@
-import QuillNamespace from 'quill';
+import QuillNamespace, { Quill } from 'quill';
 const Quill: any = QuillNamespace;
 import { Form, Field, mountElement, FormData, FieldValue } from '../node_modules/formsjs/lib/index';
 
@@ -35,7 +35,7 @@ export class RitchtextField extends Field {
 
   public editorElement: HTMLElement | null = null;
   public inputElement: HTMLInputElement | null = null;
-  private _editor: any;
+  private _editor: Quill | null = null;
 
   constructor(parent: HTMLElement, form: Form, options: RitchtextFieldOptions) {
     super(parent, form, options);
@@ -63,6 +63,7 @@ export class RitchtextField extends Field {
   }
 
   bindChange() {
+    if(!this._editor) return;
     this._editor.on('text-change', () => {
       if (this.inputElement && this._editor) {
         this.inputElement.value = this._editor.root.innerHTML;
@@ -115,8 +116,10 @@ export class RitchtextField extends Field {
 
   syncValue() {
     if (!this._editor) return;
-    if (JSON.stringify(this._editor.root.innerHTML) !== JSON.stringify(this.getValue())) {
-      const delta = this._editor.clipboard.convert(this.getValue());
+    const value = this.getValue();
+    if (value && JSON.stringify(this._editor.root.innerHTML) !== JSON.stringify(value)) {
+      
+      const delta = this._editor.clipboard.convert(value);
       const hasFocus = this._editor.hasFocus();
       this._editor.updateContents(delta, 'silent');
       if (hasFocus) this._editor.focus();
@@ -126,7 +129,7 @@ export class RitchtextField extends Field {
   /** Load the fields value from local stroage. */
   load(): void {
     if (this.getForm().savesProgress() && this.getForm().hasValidLicense()) {
-      const value: any = localStorage.getItem(this.getSaveKey());
+      const value: string | null = localStorage.getItem(this.getSaveKey());
       if (value) {
         const parsed = JSON.parse(value);
         this.setValue(parsed, false);

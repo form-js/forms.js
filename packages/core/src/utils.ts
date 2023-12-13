@@ -144,7 +144,7 @@ export const isListField = (type: string): boolean => {
  */
 export const extractFieldsFromSchema = (schema: Schema): string[] => {
   let fieldsList: string[] = [];
-  schema.forEach((options: any) => {
+  schema.forEach((options: Record<string, any>) => {
     if (fields.includes(options.type)) fieldsList.push(options.id);
     else if (options.schema) fieldsList = [...fields, ...extractFieldsFromSchema(options.schema)];
   });

@@ -134,8 +134,8 @@ export class HiddenField {
   /** Load the fields value from local stroage. */
   load(): void {
     if (this._form.savesProgress() && this._form.hasValidLicense()) {
-      const value: any = localStorage.getItem(this._saveKey);
-      if (value !== undefined) {
+      const value: string | null = localStorage.getItem(this._saveKey);
+      if (value) {
         this.setValue(JSON.parse(value), false);
         return;
       }

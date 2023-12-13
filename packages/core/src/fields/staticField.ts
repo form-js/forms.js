@@ -60,7 +60,7 @@ export class StaticField {
    * Gets the current value of the field.
    * @returns The value of the field.
    */
-  getValue(): any {
+  getValue(): string | null {
     return this._value;
   }
 

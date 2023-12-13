@@ -22,7 +22,7 @@ export class SelectField extends Field {
     options: {},
   };
 
-  private _tomselect: any;
+  private _tomselect: TomSelect | null = null;
 
   constructor(parent: HTMLElement, form: Form, options: SelectFieldOptions) {
     super(parent, form, options);
@@ -52,8 +52,10 @@ export class SelectField extends Field {
         if (!hasValue && option.hasAttribute('selected')) option.removeAttribute('selected');
       }
     } else if (this.options.enhance === true && this._tomselect) {
-      const value = this.getValue();
-      if (value !== this._tomselect.getValue()) this._tomselect.setValue(value, true);
+      const value: FieldValue = this.getValue();
+      if (value !== this._tomselect.getValue()){
+        if(typeof value === 'string' || Array.isArray(value)) this._tomselect.setValue(value, true);
+      }
     }
   }
 
@@ -61,7 +63,7 @@ export class SelectField extends Field {
     if (this.inputElement) this.inputElement.addEventListener('change', debounce(this.change, 25, this));
   }
 
-  getTomselect(): TomSelect {
+  getTomselect(): TomSelect | null {
     return this._tomselect;
   }
 

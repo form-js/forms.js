@@ -1,3 +1,4 @@
+import { FlatpickrFn } from 'flatpickr/dist/types/instance.js';
 import * as flatpickerNamespace from 'flatpickr';
 const flatpickr = (flatpickerNamespace as any).default;
 import { Form, Field } from '../node_modules/formsjs/lib/index';
@@ -19,7 +20,7 @@ export class DaterangeField extends Field {
     },
   };
 
-  private _flatpickr: any;
+  private _flatpickr: FlatpickrFn | null = null;
 
   constructor(parent: HTMLElement, form: Form, options: DateFieldOptions) {
     super(parent, form, options);

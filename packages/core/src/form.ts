@@ -18,10 +18,11 @@ import {
   transformFieldName,
   usesLicensedFetures,
 } from './utils.js';
-import { FormOptions } from './interfaces.js';
+import { FieldOptions, FormOptions } from './interfaces.js';
 import { FieldValue, FormElement, Schema, FormData } from './types.js';
 import { Group } from './group.js';
 import { Button } from './button.js';
+import { Field } from './field.js';
 export class Form {
   public options: FormOptions = {
     id: '',
@@ -38,9 +39,9 @@ export class Form {
   private _id: string = '';
   private _isValid: boolean | null = null;
   private _errors: string[] = [];
-  private _fields: Record<string, any> = {};
-  private _groups: Record<string, any> = {};
-  private _buttons: Record<string, any> = {};
+  private _fields: Record<string, FormElement> = {};
+  private _groups: Record<string, FormElement> = {};
+  private _buttons: Record<string, FormElement> = {};
   private _data: FormData = {};
   private _saveProgress: boolean = false;
   private _licenseState: number = LICENSE_STATE.INVALID;
@@ -116,7 +117,7 @@ export class Form {
     listId: string | null = null,
     key: string | null = null,
   ) {
-    schema.forEach((options: any) => {
+    schema.forEach((options: Record<string, any>) => {
       this.buildElement(options, parent, groupId, listId, key);
     });
   }
@@ -140,7 +141,7 @@ export class Form {
     return wrapper;
   }
 
-  private mapFieldToDataPrefix(options: any, id: string, key: string | null = null): void {
+  private mapFieldToDataPrefix(options: Record<string, any>, id: string, key: string | null = null): void {
     let newId = options.id;
     if (key) {
       newId = transformFieldName(id, key, options.id);
@@ -167,7 +168,7 @@ export class Form {
    * @param key - list key - optional.
    */
   private buildElement(
-    options: any,
+    options: Record<string, any>,
     parent: HTMLElement,
     groupId: string | null,
     listId: string | null,
@@ -233,7 +234,7 @@ export class Form {
     id: string,
   ) {
     const list = this._fields[listId];
-    if (!list) return;
+    if (!list || !list.assignButton || !list.assignGroup || !list.assignField) return;
     switch (formElementType) {
       case costructorTypes.button:
         list.assignButton(id, key, constructed);
@@ -267,7 +268,7 @@ export class Form {
    * @param id - The ID of the desired field.
    * @returns The field with the specified ID or undefined.
    */
-  getField(id: string) {
+  getField(id: string): FormElement | undefined {
     return this._fields[id];
   }
 
@@ -295,7 +296,7 @@ export class Form {
     this.update();
   }
 
-  private setDataFromMap(id: string, value: any) {
+  private setDataFromMap(id: string, value: FieldValue) {
     const fieldMapping = this._dataPrefixMap[id];
     const { dataKey, key, id: prefixDataId } = fieldMapping;
 
@@ -304,7 +305,7 @@ export class Form {
 
     if (key) {
       const list = this.getField(prefixDataId);
-      if (!list) return;
+      if (!list || !list.getKeyIndex) return;
       const prefixId = list.getId();
       const keyIndex = list.getKeyIndex(key);
       this.ensureDataStructureExists(prefixId, keyIndex);
@@ -358,7 +359,7 @@ export class Form {
    * Retrieves all data from the form.
    * @returns The form's data.
    */
-  getButtons(): any {
+  getButtons(): Record<string, FormElement> {
     return this._buttons;
   }
 
@@ -367,7 +368,7 @@ export class Form {
    * @param id - The ID of the desired button.
    * @returns The button with the specified ID or undefined.
    */
-  getButton(id: string): Button | undefined {
+  getButton(id: string): FormElement | undefined {
     return this._buttons[id];
   }
 
@@ -375,7 +376,7 @@ export class Form {
    * Fetches all groups present in the form.
    * @returns The groups.
    */
-  getGroups(): any {
+  getGroups(): Record<string, FormElement> {
     return this._groups;
   }
 
@@ -384,7 +385,7 @@ export class Form {
    * @param id - The ID of the desired group.
    * @returns The group with the specified ID or undefined.
    */
-  getGroup(id: string): any {
+  getGroup(id: string): FormElement | undefined {
     return this._groups[id];
   }
 
@@ -427,13 +428,16 @@ export class Form {
   reset(event?: Event): void {
     if (event) event.preventDefault();
     Object.keys(this._groups).forEach((key: string) => {
-      this._groups[key].reset();
+      const group = this._groups[key];
+      if(group.reset && typeof group.reset === 'function') group.reset();
     });
     Object.keys(this._fields).forEach((key: string) => {
-      this._fields[key].reset();
+      const field = this._fields[key];
+      if(field.reset && typeof field.reset === 'function') field.reset();
     });
     Object.keys(this._buttons).forEach((key: string) => {
-      this._buttons[key].reset();
+      const button = this._buttons[key];
+      if(button.reset && typeof button.reset === 'function') button.reset();
     });
   }
 
@@ -442,7 +446,8 @@ export class Form {
    */
   validate(): void {
     Object.keys(this._fields).forEach((key: string) => {
-      if (typeof this._fields[key].validate === 'function') this._fields[key].validate();
+      const field = this._fields[key];
+      if (field.validate && typeof field.validate === 'function') field.validate();
     });
   }
 
@@ -452,10 +457,12 @@ export class Form {
   save(): void {
     if (!this._saveProgress || !this.hasValidLicense()) return;
     Object.keys(this._fields).forEach((key: string) => {
-      if (typeof this._fields[key].save === 'function') this._fields[key].save();
+      const field = this._fields[key];
+      if (field.save && typeof field.save === 'function') field.save();
     });
     Object.keys(this._groups).forEach((key: string) => {
-      if (typeof this._groups[key].save === 'function') this._groups[key].save();
+      const group = this._groups[key];
+      if (group.save && typeof group.save === 'function') group.save();
     });
   }
 
@@ -465,10 +472,12 @@ export class Form {
   load(): void {
     if (!this._saveProgress || !this.hasValidLicense()) return;
     Object.keys(this._fields).forEach((key: string) => {
-      if (typeof this._groups[key].load === 'function') this._fields[key].load();
+      const field = this._fields[key];
+      if (field.load && typeof field.load === 'function') field.load();
     });
     Object.keys(this._groups).forEach((key: string) => {
-      if (typeof this._groups[key].load === 'function') this._groups[key].load();
+      const group = this._groups[key];
+      if (group.load && typeof group.load === 'function') group.load();
     });
   }
 

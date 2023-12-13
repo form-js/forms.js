@@ -4,6 +4,7 @@ import { Field } from '../field.js';
 import { Form } from '../form.js';
 import { DateFieldOptions } from '../interfaces.js';
 import weekSelectPlugin from 'flatpickr/dist/plugins/weekSelect/weekSelect.js';
+import { FlatpickrFn } from 'flatpickr/dist/types/instance.js';
 
 export class WeekField extends Field {
   public options: DateFieldOptions = {
@@ -24,7 +25,7 @@ export class WeekField extends Field {
     },
   };
 
-  private _flatpickr: any;
+  private _flatpickr: FlatpickrFn | null = null;
 
   constructor(parent: HTMLElement, form: Form, options: DateFieldOptions) {
     super(parent, form, options);
