@@ -1,8 +1,24 @@
 import { FlatpickrFn } from 'flatpickr/dist/types/instance.js';
 import * as flatpickerNamespace from 'flatpickr';
 const flatpickr = (flatpickerNamespace as any).default;
-import { Form, Field } from '../node_modules/formsjs/lib/index';
-import { DateFieldOptions } from '../node_modules/formsjs/lib/interfaces';
+import { Form, Field, FieldValue, FormData } from '@forms.js/core';
+
+export interface DateFieldOptions {
+  id: string;
+  name?: string;
+  label?: string;
+  type: 'date' | 'week' | 'datetime' | 'time' | 'daterange';
+  required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
+  change?: (value: FieldValue) => void;
+  validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
+  conditions?: (value: FieldValue, data: FormData) => boolean;
+  disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
+  placeholder?: string;
+  className?: string;
+  default?: string | Date | null;
+  options?: object;
+  enhance?: boolean;
+}
 
 export class DaterangeField extends Field {
   public options: DateFieldOptions = {

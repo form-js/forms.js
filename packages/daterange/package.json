@@ -4,6 +4,7 @@
     "description": "Daterange field component for @formsjs package",
     "module": "lib/index.js",
     "type": "module",
+    "types": "lib/index.d.ts",
     "files": [
         "lib/**/*"
     ],

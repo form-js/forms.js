@@ -1,6 +1,5 @@
 import { DaterangeField } from './daterangeField';
-import { costructorTypes } from '../node_modules/formsjs/lib/constants';
-import { PluginSettings } from '../node_modules/formsjs/lib/types';
+import { costructorTypes, PluginSettings } from '@forms.js/core';
 
 export const pluginSettings: PluginSettings = {
   type: 'daterange',

@@ -4,6 +4,7 @@
     "description": "Javascript form generator that streamlines web forms",
     "module": "lib/index.js",
     "type": "module",
+    "types": "lib/index.d.ts",
     "files": [
         "lib/**/*",
         "css/**/*"
