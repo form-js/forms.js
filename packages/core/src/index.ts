@@ -50,7 +50,7 @@ export const usePlugin = (settings: PluginSettings) => {
   registerConstructor(settings.type, settings.constructor, settings.constructorType, settings.licensed ?? false);
 };
 
-export { Form } from './form.js';
+import Form from './form';
 export { Button } from './button.js';
 export { ButtonOptions, FieldOptions } from './interfaces.js';
 export { setLicenseKey, mountElement, unmountElement, extractFieldsFromSchema, useLicensedFetures, generateFieldSaveKey } from './utils.js';
