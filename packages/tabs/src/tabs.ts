@@ -1,5 +1,4 @@
-import { Form, mountElement, unmountElement } from '../node_modules/formsjs/lib/index';
-import { FormData } from '../node_modules/formsjs/lib/types';
+import { Form, mountElement, unmountElement, FormData } from '@forms.js/core';
 import { TabOptions } from './tab';
 import { Tab } from './tab.js';
 
@@ -173,7 +172,7 @@ export class Tabs {
    * @returns An array of IDs of the allowed tabs.
    */
   getAllowedTabs(): string[] {
-    let allowedTabs: string[] = [];
+    const allowedTabs: string[] = [];
     this._tabsList.forEach((options: TabOptions) => {
       const tab: Tab = this._tabs[options.id];
       if (!tab.isDisabled()) allowedTabs.push(tab.getId());

@@ -4,11 +4,11 @@ import {
   extractFieldsFromSchema,
   mountElement,
   unmountElement,
-  fields,
   Schema,
-} from '../node_modules/formsjs/lib/index';
-import { FormData } from '../node_modules/formsjs/lib/types';
+  FormData
+} from '@forms.js/core';
 import { Tabs } from './tabs';
+import { FormElement } from '@forms.js/core/lib/types';
 
 export class Tab {
   public options: TabOptions = {
@@ -18,7 +18,8 @@ export class Tab {
     validation: (fields: string[], form: Form): true | string => {
       return (
         fields.every((id) => {
-          const field: Field = form.getField(id);
+          const field: FormElement | undefined = form.getField(id);
+          if(!field?.validate || typeof field.validate !== 'function') return;
           return field && field.validate();
         }) || ''
       );

@@ -48,6 +48,7 @@
         "typescript": "^5.1.6"
     },
     "dependencies": {
+        "@forms.js/core": "^1.0.13",
         "filepond": "^4.30.4",
         "flatpickr": "^4.6.13",
         "install": "^0.13.0",

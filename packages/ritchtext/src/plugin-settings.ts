@@ -1,6 +1,5 @@
 import { RitchtextField } from './ritchtextField';
-import { costructorTypes } from '../node_modules/formsjs/lib/constants';
-import { PluginSettings } from '../node_modules/formsjs/lib/types';
+import { PluginSettings, costructorTypes } from '@forms.js/core';
 
 export const pluginSettings: PluginSettings = {
   type: 'daterange',

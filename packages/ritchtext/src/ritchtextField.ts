@@ -1,6 +1,6 @@
-import QuillNamespace, { Quill } from 'quill';
+import QuillNamespace, { Quill as QuillEditor } from 'quill';
 const Quill: any = QuillNamespace;
-import { Form, Field, mountElement, FormData, FieldValue } from '../node_modules/formsjs/lib/index';
+import { Form, Field, mountElement, FormData, FieldValue } from '@forms.js/core';
 
 export class RitchtextField extends Field {
   public options: RitchtextFieldOptions = {
@@ -35,7 +35,7 @@ export class RitchtextField extends Field {
 
   public editorElement: HTMLElement | null = null;
   public inputElement: HTMLInputElement | null = null;
-  private _editor: Quill | null = null;
+  private _editor: QuillEditor | null = null;
 
   constructor(parent: HTMLElement, form: Form, options: RitchtextFieldOptions) {
     super(parent, form, options);
@@ -118,7 +118,7 @@ export class RitchtextField extends Field {
     if (!this._editor) return;
     const value = this.getValue();
     if (value && JSON.stringify(this._editor.root.innerHTML) !== JSON.stringify(value)) {
-      
+      // @ts-ignore
       const delta = this._editor.clipboard.convert(value);
       const hasFocus = this._editor.hasFocus();
       this._editor.updateContents(delta, 'silent');
@@ -133,19 +133,19 @@ export class RitchtextField extends Field {
       if (value) {
         const parsed = JSON.parse(value);
         this.setValue(parsed, false);
-        //this.preloadValueToEditor(parsed);
+        // this.preloadValueToEditor(parsed);
         return;
       }
     }
     this.setValue(this.options.default || '', false);
-    //this.preloadValueToEditor(this.options.default || '');
+    // this.preloadValueToEditor(this.options.default || '');
   }
 
   /** Resets the field to its initial state. */
   async reset(): Promise<void> {
     localStorage.removeItem(this.getSaveKey());
     this.setValue(this.options.default || '', false);
-    //this.preloadValueToEditor(this.options.default || '');
+    // this.preloadValueToEditor(this.options.default || '');
     this.update();
   }
 }

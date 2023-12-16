@@ -1,4 +1,4 @@
-import { Form, mountElement, unmountElement, Button, generateFieldSaveKey, ButtonOptions, FormData, Schema } from '../node_modules/formsjs/lib/index';
+import { Form, mountElement, unmountElement, Button, generateFieldSaveKey, ButtonOptions, FormData, Schema } from '@forms.js/core';
 
 export class ListField {
   // Public properties
@@ -80,7 +80,7 @@ export class ListField {
   /** Removes a list row based on key
    * @param key - Key of new list. 
    * @param save - boolean determines if changes will be saved into local storage. 
-  */
+   */
   removeListRow(key: string, save: boolean = true): void {
     if (this._groups[key]) {
       this._groups[key]['form-list-' + key + '-group']?.destroy();
@@ -293,7 +293,7 @@ export class ListField {
 
   async refreshLists() {
     this.removeAllLists();
-    //timeout to prevent overaping deletion and creating o new list
+    // timeout to prevent overaping deletion and creating o new list
     setTimeout(() => {
       this.addListRow();
     }, 25);
