@@ -84,7 +84,6 @@ export class FileField extends Field {
       if (!this._filepond) return;
       this._filepond.on('addfile', (error: any, file: FilePond.FilePondFile) => {
         if (error) return;
-        console.log(this._filepond!.getFiles());
         const files: FilePond.FilePondFile[] = this._filepond!.getFiles();
         this.filePondChange(files);
       });
