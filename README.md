@@ -76,3 +76,6 @@ const form = new Form("form-element", options);
 <a href="https://formsjs.io/documentation/v1/licensing" target="_blank">
     Take a look at licensing on the official documentation.
 </a>
+
+<h3 align="left">Support main DEV:</h3>
+<p><a href="https://www.buymeacoffee.com/trilmatic"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="trilmatic" /></a></p><br><br>
