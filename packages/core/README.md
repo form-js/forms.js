@@ -70,3 +70,6 @@ const form = new Form("form-element", options);
 <h2 id="license">License</h2>
 
 Core bundle released under MIT license. This license permits a wide range of use, including free use in commercial projects, assuming all copyright headers are preserved. [Read the license terms](https://opensource.org/license/mit/)
+
+<h3 align="left">Support phe project:</h3>
+<p><a href="https://www.buymeacoffee.com/trilmatic"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="trilmatic" /></a></p><br><br>
