@@ -1,9 +1,10 @@
 {
-    "name": "formsjs-tabs",
+    "name": "@forms.js/tabs",
     "version": "1.0.0",
-    "description": "Tabs component for @formsjs package",
+    "description": "Tabs component for @forms.js package",
     "module": "lib/index.js",
     "type": "module",
+    "types": "lib/index.d.ts",
     "files": [
         "lib/**/*"
     ],
@@ -36,7 +37,7 @@
     "bugs": {
         "url": "https://github.com/form-js/forms.js/issues"
     },
-    "homepage": "https://github.com/form-js/forms.js#readme",
+    "homepage": "https://formsjs.io/",
     "devDependencies": {
         "@types/jest": "^29.5.2",
         "@types/quill": "^2.0.10",

@@ -1,7 +1,7 @@
 {
-    "name": "formsjs-daterange-field",
+    "name": "@forms.js/daterange-field",
     "version": "1.0.0",
-    "description": "Daterange field component for @formsjs package",
+    "description": "Daterange field component for @forms.js package",
     "module": "lib/index.js",
     "type": "module",
     "types": "lib/index.d.ts",
@@ -37,7 +37,7 @@
     "bugs": {
         "url": "https://github.com/form-js/forms.js/issues"
     },
-    "homepage": "https://github.com/form-js/forms.js#readme",
+    "homepage": "https://formsjs.io/",
     "devDependencies": {
         "@types/jest": "^29.5.2",
         "@types/quill": "^2.0.10",
