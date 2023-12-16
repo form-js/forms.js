@@ -1,4 +1,4 @@
-import { Form } from '../form.js';
+import Form from '../form.js';
 import { generateFieldSaveKey, mountElement, unmountElement } from '../utils.js';
 import { FieldOptions } from '../interfaces.js';
 import { FieldValue } from '../types.js';

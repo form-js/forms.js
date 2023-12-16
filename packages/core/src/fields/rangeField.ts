@@ -1,5 +1,5 @@
 import { Field } from '../field.js';
-import { Form } from '../form.js';
+import Form from '../form.js';
 import { NumberFieldOptions } from '../interfaces.js';
 import { mountElement } from '../utils.js';
 

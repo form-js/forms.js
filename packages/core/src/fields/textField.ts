@@ -1,5 +1,5 @@
 import { Field } from '../field.js';
-import { Form } from '../form.js';
+import Form from '../form.js';
 import { FieldOptions } from '../interfaces.js';
 
 export class TextField extends Field {
