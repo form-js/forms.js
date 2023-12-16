@@ -23,7 +23,7 @@ import { FieldValue, FormElement, Schema, FormData } from './types.js';
 import { Group } from './group.js';
 import { Button } from './button.js';
 import { Field } from './field.js';
-export class Form {
+export default class Form {
   public options: FormOptions = {
     id: '',
     saveProgress: false,

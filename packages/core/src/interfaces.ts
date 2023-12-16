@@ -1,4 +1,4 @@
-import { Form } from './form.js';
+import  Form  from './form.js';
 import { FieldType, FieldValue, HTMLElementEvent, Option, Schema, FormData } from './types.js';
 
 export interface FormOptions {
