@@ -29,8 +29,8 @@
         "forms js",
         "form generator",
         "form builder",
-        "tabs",
-        "wizzard"
+        "daterange",
+        "range"
     ],
     "author": "",
     "license": "3 LICENSED CHECK LICENSE DOCKS",

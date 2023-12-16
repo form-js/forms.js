@@ -1,5 +1,5 @@
 {
-    "name": "@forms.js/daterange-field",
+    "name": "@forms.js/ritchtext-field",
     "version": "1.0.0",
     "description": "Daterange field component for @forms.js package",
     "module": "lib/index.js",
@@ -24,13 +24,12 @@
         "url": "git+https://github.com/form-js/forms.js"
     },
     "keywords": [
-        "form",
-        "forms",
+        "forms.js",
         "forms js",
         "form generator",
         "form builder",
-        "tabs",
-        "wizzard"
+        "ritchtext",
+        "ritchtext field"
     ],
     "author": "",
     "license": "3 LICENSED CHECK LICENSE DOCKS",
