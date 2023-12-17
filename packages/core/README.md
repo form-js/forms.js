@@ -12,6 +12,9 @@
     Official documentation
 </a>
 
+<h3 align="left">Support the project:</h3>
+<p><a href="https://ko-fi.com/formsjs"> <img align="left" src="https://cdn.ko-fi.com/cdn/kofi3.png?v=3" height="50" width="210" alt="myaccount" /></a></p><br><br>
+
 <h2 id="features">Features</h2>
 
 - **Usability - create complex forms in 5 minutes**
