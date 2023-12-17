@@ -1,5 +1,5 @@
 <h1 id="introduction">
-    <a href="https://formsjs.io/" target="_blank">
+    <a align="center" href="https://formsjs.io/" target="_blank">
         <img alt="Forms.js" style="margin: 0 auto" src="https://formsjs.io/images/banner.png" />
     </a>
 </h1>
@@ -8,7 +8,7 @@
 
 ### Forms.js is a highly versatile, flexible, and lightweight JavaScript library that simplifies the process of form creation and management. Leveraging the power of JSON data input, it programmatically generates dynamic forms, enabling developers to create sophisticated, interactive, and user-friendly forms with ease.
 
-<a href="https://formsjs.io/documentation/v1/getting-started" target="_blank">
+<a style="font-size: 1.5rem;" href="https://formsjs.io/documentation/v1/getting-started" target="_blank">
     Official documentation
 </a>
 
