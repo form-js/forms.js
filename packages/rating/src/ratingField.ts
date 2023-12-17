@@ -16,7 +16,8 @@ export interface RatingFieldOptions {
 }
 
 export class RatingField extends Field {
-  public ratingStars: HTMLInputElement[] = [];
+  public ratingStars: HTMLDivElement | null = null;
+  private starsValueList: number[] = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
 
   public options: RatingFieldOptions = {
     id: '',
@@ -42,15 +43,6 @@ export class RatingField extends Field {
     this.update();
   }
 
-  /**
- * Event handler for the input element's change event.
- */
-  ratingChange(rating: number): void {
-    this.setValue(rating);
-    this.validate();
-    if (this.options.change) this.options.change(this.getValue());
-  }
-
   /** Handles GUI element creation and mounting. */
   onGui() {
     this.createContainerElement();
@@ -58,26 +50,37 @@ export class RatingField extends Field {
     this.createLabelElement();
     this.createValidationElement();
     // Append elements
+    if (this.labelElement && this.ratingStars) mountElement(this.ratingStars, this.labelElement);
     if (this.labelElement && this.validationElement) mountElement(this.validationElement, this.labelElement);
     if (this.containerElement && this.labelElement) mountElement(this.labelElement, this.containerElement);
   }
 
-  createRatingElements() {
-    /*or (let i = 1; i <= 5; i++) {
-      const element = document.createElement('div');
-      element.className = 'rating-star';
-      element.innerHTML = this.options.starEmpty ?? '';
-      this.ratingStars.push(element);
-      this.bindStarFunctions(element, i);
-      this.ratingElement.append(element);
-    }*/
+  private getRadioName(name: string, value: number): string {
+    return name + '_rating_' + String(value);
   }
 
-  createInputElement() {
-    // Input element
-    this.inputElement = document.createElement('input');
-    this.inputElement.setAttribute('id', this.getId());
-    this.inputElement.setAttribute('name', this.options.name || this.getId());
-    this.inputElement.setAttribute('type', 'hidden');
+  createRatingElements() {
+    const element = document.createElement('div');
+    element.className = 'rating-stars';
+    this.starsValueList.forEach((value: number) => {
+      if(!Number.isInteger(value) && !this.options.allowHalfStar) return;
+      const name = this.options.name ? this.getRadioName(this.options.name, value) : this.getRadioName(this.getId(), value);
+      const input = document.createElement('input');
+      input.setAttribute('id', this.getId());
+      input.setAttribute('name', name);
+      input.setAttribute('type', 'radio');
+      input.addEventListener('change', (e: any)=>{
+        console.log("change");
+        
+        this.change(e)
+      });
+      const label = document.createElement('label');
+      label.setAttribute('for', name);
+      label.setAttribute('title', value + ' stars');
+      label.className = Number.isInteger(value) ? 'full' : 'half';
+      mountElement(input, element);
+      mountElement(label, element);
+    });
+    this.ratingStars = element;
   }
 }
