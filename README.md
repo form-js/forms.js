@@ -77,5 +77,5 @@ const form = new Form("form-element", options);
     Take a look at licensing on the official documentation.
 </a>
 
-<h3 align="left">Support phe project:</h3>
-<p><a href="https://www.buymeacoffee.com/trilmatic"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="trilmatic" /></a></p><br><br>
+<h3 align="left">Support the project:</h3>
+<p><a href="https://ko-fi.com/formsjs"> <img align="left" src="https://cdn.ko-fi.com/cdn/kofi3.png?v=3" height="50" width="210" alt="myaccount" /></a></p><br><br>
