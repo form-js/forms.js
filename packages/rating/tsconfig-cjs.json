@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "ES2015",
+      "removeComments": true,
+      "moduleResolution": "Node",
+      "allowJs": true,
+      "checkJs": true,
+      "declaration": true,
+      "outDir": "./lib/cjs",
+      "esModuleInterop": true,
+      "strict": true
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", "**/__tests__/*"]
+  }
