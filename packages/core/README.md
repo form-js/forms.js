@@ -9,7 +9,7 @@
 ### Forms.js is a highly versatile, flexible, and lightweight JavaScript library that simplifies the process of form creation and management. Leveraging the power of JSON data input, it programmatically generates dynamic forms, enabling developers to create sophisticated, interactive, and user-friendly forms with ease.
 
 <a href="https://formsjs.io/documentation/v1/getting-started" target="_blank">
-    <p style="font-size: 1.5rem;">Official documentation</p>
+    <h3>Official documentation</h3>
 </a>
 
 <h3 align="left">Support the project:</h3>
@@ -67,7 +67,7 @@ const form = new Form("form-element", options);
 ```
 
 <a href="https://formsjs.io/documentation/v1/getting-started" target="_blank">
-    Take a look at official documentation!
+    <h3>Take a look at official documentation!</h3>
 </a>
 
 <h2 id="license">License</h2>
