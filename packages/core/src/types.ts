@@ -1,6 +1,6 @@
 import { FieldOptions, NumberFieldOptions, RadioFieldOptions } from './interfaces';
 import { costructorTypes, fields, formElements } from './constants';
-import  Form  from './form';
+import { Form } from './form.js';
 import { FilePondFile } from 'filepond';
 
 export type Schema = object[];
