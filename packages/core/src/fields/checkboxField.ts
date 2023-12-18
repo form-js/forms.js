@@ -1,5 +1,5 @@
 import { Field } from '../field.js';
-import Form from '../form.js';
+import { Form } from '../form.js';
 import { CheckboxFieldOptions } from '../interfaces.js';
 import { HTMLElementEvent } from '../types.js';
 import { mountElement } from '../utils.js';

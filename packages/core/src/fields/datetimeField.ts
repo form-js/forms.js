@@ -1,7 +1,7 @@
 import * as flatpickerNamespace from 'flatpickr';
 const flatpickr = (flatpickerNamespace as any).default;
 import { Field } from '../field.js';
-import Form from '../form.js';
+import { Form } from '../form.js';
 import { DateFieldOptions } from '../interfaces.js';
 
 export class DatetimeField extends Field {

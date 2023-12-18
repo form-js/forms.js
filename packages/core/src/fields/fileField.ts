@@ -1,6 +1,6 @@
 import * as FilePond from 'filepond';
 import { Field } from '../field.js';
-import Form from '../form.js';
+import { Form } from '../form.js';
 import { FileFieldOptions } from '../interfaces.js';
 import { debounce } from '../utils.js';
 
