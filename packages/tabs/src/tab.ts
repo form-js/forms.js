@@ -148,6 +148,8 @@ export class Tab {
   createHeaderElement(): void {
     this.headerElement = document.createElement('div');
     this.headerElement.setAttribute('id', this._id + '_header');
+    this.headerElement.setAttribute('role', 'tab');
+    this.headerElement.setAttribute('aria-controls', this._id + '_body');
     this.headerElement.className = 'tab-header';
     this.headerElement.innerHTML = this.options.label;
   }
@@ -159,6 +161,8 @@ export class Tab {
     this.bodyElement = document.createElement('div');
     this.bodyElement.className = 'tab-body';
     this.bodyElement.setAttribute('id', this._id + '_body');
+    this.bodyElement.setAttribute('aria-labelledby', this._id + '_header');
+    this.bodyElement.setAttribute('role', 'tabpanel');
   }
 
   /**
@@ -311,6 +315,8 @@ export class Tab {
   activate(): void {
     if (!this._isVisible || this._isDisabled) return;
     this.headerElement?.classList.add('active');
+    this.headerElement?.setAttribute('aria-selected', 'true');
+    this.headerElement?.removeAttribute('hidden');
     this.bodyElement?.classList.add('active');
     this._isActive = true;
   }
@@ -321,6 +327,8 @@ export class Tab {
   deactivate(): void {
     if (!this._isVisible || this._isDisabled) return;
     this.headerElement?.classList.remove('active');
+    this.headerElement?.removeAttribute('aria-selected');
+    this.headerElement?.setAttribute('hidden', 'true');
     this.bodyElement?.classList.remove('active');
     this._isActive = false;
   }

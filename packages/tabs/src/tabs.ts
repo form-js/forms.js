@@ -188,6 +188,7 @@ export class Tabs {
     this.headerElement.className = 'form-tabs-header';
     if (this.options.strict) this.headerElement.className += ' strict';
     this.headerElement.setAttribute('id', this._id + '_tabs_header');
+    this.headerElement.setAttribute('role', 'tablist');
   }
 
   /**
