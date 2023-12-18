@@ -62,11 +62,11 @@ export class RatingField extends Field {
     if (this.containerElement && this.labelElement) mountElement(this.labelElement, this.containerElement);
   }
 
-  private updateSelection(){
+  private updateSelection() {
     this.ratingIcons.forEach((icon: HTMLSpanElement, i: number) => {
-      if(i < Number(this.getValue())){
+      if (i < Number(this.getValue())) {
         icon.classList.add('selected');
-      }else{
+      } else {
         icon.classList.remove('selected');
       }
     });
@@ -85,7 +85,7 @@ export class RatingField extends Field {
 
   private stopHighlight() {
     this.ratingIcons.forEach((icon: HTMLSpanElement, i: number) => {
-        icon.classList.remove('highlight');
+      icon.classList.remove('highlight');
     });
   }
 
@@ -100,6 +100,7 @@ export class RatingField extends Field {
       input.setAttribute('value', String(value));
       input.setAttribute('type', 'radio');
       input.addEventListener('change', (e: any) => {
+        if (this.isDisabled()) return;
         this.change(e);
         this.updateSelection();
       });
@@ -116,6 +117,7 @@ export class RatingField extends Field {
       label.setAttribute('for', this.getId() + '_rating_' + String(value));
       label.setAttribute('title', value + ' stars');
       label.addEventListener('mouseover', (e: any) => {
+        if (this.isDisabled()) return;
         this.highlightStars(index);
       });
       label.addEventListener('mouseout', (e: any) => {

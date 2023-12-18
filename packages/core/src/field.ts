@@ -261,8 +261,14 @@ export class Field {
 
   /** Handles the visibility of the field. */
   handleDisabled(): void {
-    if (this._isDisabled) this.inputElement?.setAttribute('disabled', 'true');
-    else this.inputElement?.removeAttribute('disabled');
+    if (this._isDisabled) {
+      this.containerElement?.classList.add('field-disabled');
+      this.inputElement?.setAttribute('disabled', 'true');
+    }
+    else {
+      this.inputElement?.removeAttribute('disabled');
+      this.containerElement?.classList.remove('field-disabled');
+    }
   }
 
   /** Handles the required state of the field. */

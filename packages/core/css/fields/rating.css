@@ -25,7 +25,7 @@
   display: none;
 }
 
-.form-field.rating .rating-stars span.highlight.selected .full {
+.form-field.rating .rating-stars span.highlight.selected .full, .form-field.rating .form-error .rating-stars span.highlight.selected .full {
   color: var(--formsjs-primary-focus-color);
   display: inline;
 }
@@ -38,4 +38,10 @@
 .form-field.rating .rating-stars span.selected .empty {
   display: none;
 }
+
+.form-field.rating .form-error .rating-stars span.selected .full {
+  color: var(--formsjs-error-color);
+}
+
+
 
