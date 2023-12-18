@@ -1,4 +1,4 @@
-import  Form  from './form.js';
+import { Form } from './form.js';
 import { mountElement, unmountElement } from './utils.js';
 import { GroupOptions } from './interfaces.js';
 
