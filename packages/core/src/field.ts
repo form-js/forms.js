@@ -244,11 +244,15 @@ export class Field {
         this.validationElement.innerText = this._vMessage;
         this.validationElement.style.display = 'block';
       }
+      this.inputElement?.setAttribute('aria-invalid', 'true');
+      this.inputElement?.setAttribute('aria-describedby', this.validationElement?.getAttribute('id') || '');
     } else {
       if (this.validationElement) {
         this.validationElement.style.display = 'none';
       }
       this.labelElement?.classList.remove('form-error');
+      this.inputElement?.removeAttribute('aria-invalid');
+      this.inputElement?.removeAttribute('aria-describedby');
     }
     this._form.updateError(this._id, this._isValid);
   }

@@ -102,6 +102,8 @@ export class RadioField extends Field {
     if (!this.getValidity()) {
       this.inputElements.forEach((el) => {
         el?.classList.add('form-error');
+        el?.setAttribute('aria-invalid', 'true');
+        el?.setAttribute('aria-describedby', this.validationElement?.getAttribute('id') || '');
       });
       const vMessage = this.getValidationMessage();
       if (this.validationElement && vMessage) {
@@ -114,6 +116,8 @@ export class RadioField extends Field {
       }
       this.inputElements.forEach((el) => {
         el?.classList.remove('form-error');
+        el?.removeAttribute('aria-invalid');
+        el?.removeAttribute('aria-describedby');
       });
     }
     const form = this.getForm();
