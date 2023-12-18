@@ -1,14 +1,41 @@
 .form-field.rating .rating-stars{
   display: flex;
   gap: .25rem;
-  color: var(--formsjs-disabled-color)
 }
 
-.form-field.rating .rating-stars input { /*display: none;*/ } 
+.form-field.rating .rating-stars > input { display: none; } 
 
 .form-field.rating .rating-stars span { 
+  color: var(--formsjs-disabled-color);
   display: block;
   width: 2rem; 
   height: 2rem 
-} 
+}
+
+.form-field.rating .rating-stars span .full {
+  display: none;
+}
+
+.form-field.rating .rating-stars span.highlight .full {
+  color: var(--formsjs-primary-focus-color);
+  display: inline;
+}
+
+.form-field.rating .rating-stars span.highlight .empty {
+  display: none;
+}
+
+.form-field.rating .rating-stars span.highlight.selected .full {
+  color: var(--formsjs-primary-focus-color);
+  display: inline;
+}
+
+.form-field.rating .rating-stars span.selected .full {
+  color: var(--formsjs-primary-color);
+  display: inline;
+}
+
+.form-field.rating .rating-stars span.selected .empty {
+  display: none;
+}
 
