@@ -51,7 +51,7 @@ export class RadioField extends Field {
     if (input && labelElement) mountElement(input, labelElement);
     // Label text
     const label: HTMLElement = document.createElement('p');
-    if (this.options.label) label.innerText = labelText;
+    if (labelText) label.innerText = labelText;
     label.setAttribute('id', id + '_label');
     labelElement.setAttribute('for', id);
     label.className = 'form-field-label';
