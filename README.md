@@ -10,6 +10,13 @@
 
 <h3><a href="https://formsjs.io/documentation/v1/getting-started" target="_blank">Official documentation</a></h3>
 
+#### Why to choose forms.js over other json based form libraries?
+
+- Our forms.js library is crafted with a keen focus on developer satisfaction. We understand the nuances of coding and have tailored our solution to streamline development processes, ensuring a joyful and efficient experience for developers.
+- Gain absolute command over your forms. Our library is designed to offer extensive control, allowing you to seamlessly integrate it into large-scale projects. This exceptional flexibility ensures minimal code and CSS clutter, promoting cleaner, more maintainable codebases.
+- As an open-source project, forms.js benefits from the collective expertise of a vibrant community. Bug fixes and improvements are implemented swiftly and effectively, ensuring that your projects are always running on the most reliable and up-to-date version of our library.
+- We continuously update forms.js to align with the latest web standards and technologies. This commitment ensures that your projects are future-proof and compatible with modern browsers and tools.
+
 <h2 id="features">Features</h2>
 
 - **Usability - create complex forms in 5 minutes**
