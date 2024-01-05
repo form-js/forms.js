@@ -1,6 +1,6 @@
 {
     "name": "@forms.js/core",
-    "version": "1.0.18",
+    "version": "1.0.19",
     "description": "Javascript form generator that streamlines web forms",
     "module": "lib/index.js",
     "type": "module",
@@ -27,7 +27,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/form-js/forms.js"
+        "url": "https://github.com/form-js/forms.js"
     },
     "keywords": [
         "form",
