@@ -44,11 +44,16 @@ export class FileField extends Field {
    * Merge default options with provided options.
    */
   initializeOptions(options: FileFieldOptions): void {
-    this.options = Object.assign({}, {
-      ...this.options, ...{
-        options: { allowMultiple: options.multiple, }
-      }
-    }, options);
+    this.options = Object.assign(
+      {},
+      {
+        ...this.options,
+        ...{
+          options: { allowMultiple: options.multiple },
+        },
+      },
+      options,
+    );
   }
 
   /**
@@ -110,5 +115,9 @@ export class FileField extends Field {
 
   change(event: any): void {
     if (event.target.files) this.change(event.target.files);
+  }
+
+  getValue(): FileList | FilePond.FilePondFile[] | null {
+    return this._value as FileList | FilePond.FilePondFile[] | null;
   }
 }

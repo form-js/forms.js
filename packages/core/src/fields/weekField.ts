@@ -19,8 +19,8 @@ export class WeekField extends Field {
     enhance: true,
     options: {
       altInput: true,
-      dateFormat: "Y-W",
-      altFormat: "W, Y",
+      dateFormat: 'Y-W',
+      altFormat: 'W, Y',
       plugins: [weekSelectPlugin()],
     },
   };
@@ -65,5 +65,9 @@ export class WeekField extends Field {
     this.inputElement.setAttribute('type', this.options.enhance ? 'text' : 'week');
     this.inputElement.className = this.options.className!;
     if (this.options.placeholder) this.inputElement.setAttribute('placeholder', this.options.placeholder);
+  }
+
+  getValue(): string | null {
+    return this._value as string | null;
   }
 }

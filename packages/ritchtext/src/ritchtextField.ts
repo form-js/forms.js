@@ -148,6 +148,10 @@ export class RitchtextField extends Field {
     // this.preloadValueToEditor(this.options.default || '');
     this.update();
   }
+
+  getValue(): string | null {
+    return this._value as string | null;
+  }
 }
 
 export interface RitchtextFieldOptions {

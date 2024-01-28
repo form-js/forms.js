@@ -11,7 +11,7 @@ export class PasswordField extends Field {
       if (required && !value) return 'This field is required';
       return true;
     },
-    default: "",
+    default: '',
     className: 'form-input',
   };
 
@@ -20,5 +20,9 @@ export class PasswordField extends Field {
     this.initializeOptions(options);
     this.onGui();
     this.initialize();
+  }
+
+  getValue(): string | null {
+    return this._value as string | null;
   }
 }

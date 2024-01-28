@@ -23,21 +23,25 @@ export class NumberField extends Field {
     this.bindMinMax();
   }
 
-    /**
-     * Initializes the field, resetting it and binding change events.
-     */
-    async initialize(): Promise<void> {
-      this.load();
-      this.update();
-      this.bindMinMax();
-      this.bindChange();
-    }
+  /**
+   * Initializes the field, resetting it and binding change events.
+   */
+  async initialize(): Promise<void> {
+    this.load();
+    this.update();
+    this.bindMinMax();
+    this.bindChange();
+  }
 
-  private bindMinMax(){
-    if(this.inputElement){
+  private bindMinMax() {
+    if (this.inputElement) {
       if (this.options.min) this.inputElement.setAttribute('min', String(this.options.min));
       if (this.options.max) this.inputElement.setAttribute('max', String(this.options.max));
       if (this.options.step) this.inputElement.setAttribute('step', String(this.options.step));
     }
+  }
+
+  getValue(): number | null {
+    return this._value as number | null;
   }
 }

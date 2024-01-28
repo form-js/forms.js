@@ -130,4 +130,8 @@ export class RatingField extends Field {
     });
     this.ratingStars = element;
   }
+
+  getValue(): number | null {
+    return this._value as number | null;
+  }
 }

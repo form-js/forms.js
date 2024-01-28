@@ -12,7 +12,7 @@ export class UrlField extends Field {
       if (value && typeof value === 'string' && !value.match(this._urlFormat)) return 'Not a valid url address.';
       return true;
     },
-    default: "",
+    default: '',
     className: 'form-input',
   };
 
@@ -24,5 +24,9 @@ export class UrlField extends Field {
     this.initializeOptions(options);
     this.onGui();
     this.initialize();
+  }
+
+  getValue(): string | null {
+    return this._value as string | null;
   }
 }

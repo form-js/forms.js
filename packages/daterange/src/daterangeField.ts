@@ -76,4 +76,8 @@ export class DaterangeField extends Field {
     this.inputElement.className = this.options.className!;
     if (this.options.placeholder) this.inputElement.setAttribute('placeholder', this.options.placeholder);
   }
+
+  getValue(): string | null {
+    return this._value as string | null;
+  }
 }

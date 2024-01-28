@@ -12,7 +12,7 @@ export class Field {
       if (required && !value) return 'This field is required';
       return true;
     },
-    default: "",
+    default: '',
     debounce: 200,
     className: 'form-input',
   };
@@ -32,7 +32,7 @@ export class Field {
   private _isVisible: boolean = true;
   private _saveKey: string;
   private _vMessage: string | null = null;
-  private _value: FieldValue = null;
+  protected _value: FieldValue = null;
   private _type: string;
 
   /**
@@ -268,8 +268,7 @@ export class Field {
     if (this._isDisabled) {
       this.containerElement?.classList.add('field-disabled');
       this.inputElement?.setAttribute('disabled', 'true');
-    }
-    else {
+    } else {
       this.inputElement?.removeAttribute('disabled');
       this.containerElement?.classList.remove('field-disabled');
     }

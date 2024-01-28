@@ -31,11 +31,10 @@ export class CheckboxField extends Field {
    */
   syncValue(): void {
     if (this.inputElement && this.inputElement instanceof HTMLInputElement) {
-      if (this.getValue() && !this.inputElement.hasAttribute('checked')){
-            // @ts-ignore
-            this.inputElement.setAttribute('checked', this.getValue());
-      }
-      else if (!this.getValue() && this.inputElement.hasAttribute('checked'))
+      if (this.getValue() && !this.inputElement.hasAttribute('checked')) {
+        // @ts-ignore
+        this.inputElement.setAttribute('checked', this.getValue());
+      } else if (!this.getValue() && this.inputElement.hasAttribute('checked'))
         this.inputElement.removeAttribute('checked');
     }
   }
@@ -101,5 +100,9 @@ export class CheckboxField extends Field {
     this.setValue(event.target.checked);
     if (this.options.change) this.options.change(this.getValue());
     this.validate();
+  }
+
+  getValue(): boolean | null {
+    return this._value as boolean | null;
   }
 }

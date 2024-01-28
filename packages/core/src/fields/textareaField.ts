@@ -33,4 +33,8 @@ export class TextareaField extends Field {
     this.onGui();
     this.initialize();
   }
+
+  getValue(): string | null {
+    return this._value as string | null;
+  }
 }

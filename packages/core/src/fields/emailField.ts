@@ -12,7 +12,7 @@ export class EmailField extends Field {
       if (value && typeof value === 'string' && !value.match(this._mailFormat)) return 'Not a valid email address.';
       return true;
     },
-    default: "",
+    default: '',
     className: 'form-input',
   };
 
@@ -23,5 +23,9 @@ export class EmailField extends Field {
     this.initializeOptions(options);
     this.onGui();
     this.initialize();
+  }
+
+  getValue(): string | null {
+    return this._value as string | null;
   }
 }

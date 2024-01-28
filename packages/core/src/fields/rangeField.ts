@@ -101,4 +101,8 @@ export class RangeField extends Field {
       });
     }
   }
+
+  getValue(): number | null {
+    return this._value as number | null;
+  }
 }

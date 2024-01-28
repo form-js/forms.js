@@ -3,7 +3,7 @@ const TomSelectInitiator = (TomSelectNamespace as any).default;
 import { Field } from '../field.js';
 import { Form } from '../form.js';
 import { SelectFieldOptions } from '../interfaces.js';
-import { FieldValue, HTMLElementEvent, Option } from '../types.js';
+import { FieldValue, HTMLElementEvent, Option, SelectFieldValue } from '../types.js';
 import { debounce, mountElement } from '../utils.js';
 
 export class SelectField extends Field {
@@ -43,7 +43,7 @@ export class SelectField extends Field {
    */
   syncValue(): void {
     if (this.inputElement && this.inputElement instanceof HTMLSelectElement && this.options.enhance === false) {
-      const value: FieldValue = this.getValue();
+      const value: SelectFieldValue = this.getValue();
 
       for (const option of this.inputElement.options) {
         const hasValue =
@@ -52,9 +52,9 @@ export class SelectField extends Field {
         if (!hasValue && option.hasAttribute('selected')) option.removeAttribute('selected');
       }
     } else if (this.options.enhance === true && this._tomselect) {
-      const value: FieldValue = this.getValue();
-      if (value !== this._tomselect.getValue()){
-        if(typeof value === 'string' || Array.isArray(value)) this._tomselect.setValue(value, true);
+      const value: SelectFieldValue = this.getValue();
+      if (value !== this._tomselect.getValue()) {
+        if (typeof value === 'string' || Array.isArray(value)) this._tomselect.setValue(value, true);
       }
     }
   }
@@ -147,5 +147,9 @@ export class SelectField extends Field {
     }
     this.validate();
     if (this.options.change) this.options.change(this.getValue());
+  }
+
+  getValue(): SelectFieldValue {
+    return this._value as SelectFieldValue;
   }
 }
