@@ -28,4 +28,8 @@ export class ColorField extends Field {
         this.change(event);
       });
   }
+
+  getValue(): string | null {
+    return this._value as string | null;
+  }
 }
