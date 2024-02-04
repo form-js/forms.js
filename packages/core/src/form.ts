@@ -59,7 +59,7 @@ export class Form {
    * @param parent - The parent HTML element or string id.
    * @param options - Form configuration options.
    */
-  constructor(parent: HTMLElement | string, options: FormOptions) {
+  constructor(parent: HTMLElement | string, options: FormOptions) {    
     this.initializeOptions(options);
     this.setParentElement(parent);
     this.processLicense();
@@ -74,7 +74,7 @@ export class Form {
   private setParentElement(parent: HTMLElement | string): void {
     let parentElement: HTMLElement | null;
     if (typeof parent === 'string') {
-      parentElement = document.getElementById('string');
+      parentElement = document.getElementById(parent);
     } else {
       parentElement = parent;
     }
