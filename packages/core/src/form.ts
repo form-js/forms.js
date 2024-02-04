@@ -56,12 +56,12 @@ export class Form {
   > = {};
   /**
    * Constructs a new Form instance.
-   * @param parentElement - The parent HTML element.
+   * @param parent - The parent HTML element or string id.
    * @param options - Form configuration options.
    */
-  constructor(parentElement: HTMLElement, options: FormOptions) {
+  constructor(parent: HTMLElement | string, options: FormOptions) {
     this.initializeOptions(options);
-    this.setParentElement(parentElement);
+    this.setParentElement(parent);
     this.processLicense();
     this.onGui();
     this.initForm();
@@ -69,9 +69,15 @@ export class Form {
 
   /**
    * Sets the parent HTML element using the provided ID.
-   * @param parentElement - The present HTML element.
+   * @param parent - The present HTML element or string id.
    */
-  private setParentElement(parentElement: HTMLElement): void {
+  private setParentElement(parent:  HTMLElement | string): void {
+    let parentElement:HTMLElement | null;
+    if(typeof parent === 'string'){
+      parentElement = document.getElementById("string");
+    }else{
+      parentElement = parent;
+    }
     this._parent = parentElement;
     if (!this._parent) throw new Error('Parent does not exist in the document');
   }
