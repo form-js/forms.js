@@ -8,9 +8,9 @@ Forms js is made for json submission, however if you want to use standard form s
 
 #### Class Constructor
 
-The Form class is instantiated with two parameters: `parentId` and `options`.
+The Form class is instantiated with two parameters: `parent` (id or HTMLElement) and `options`.
 
--   `parentId: string` - The ID of the parent HTML element where the form will be mounted.
+-   `parent: HTMLElement | string` - The parent HTML element where the form will be mounted or element ID string.
 -   `options: FormOptions` - Configuration options for the form.
 
 #### Options
