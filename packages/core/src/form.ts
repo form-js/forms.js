@@ -71,11 +71,11 @@ export class Form {
    * Sets the parent HTML element using the provided ID.
    * @param parent - The present HTML element or string id.
    */
-  private setParentElement(parent:  HTMLElement | string): void {
-    let parentElement:HTMLElement | null;
-    if(typeof parent === 'string'){
-      parentElement = document.getElementById("string");
-    }else{
+  private setParentElement(parent: HTMLElement | string): void {
+    let parentElement: HTMLElement | null;
+    if (typeof parent === 'string') {
+      parentElement = document.getElementById('string');
+    } else {
       parentElement = parent;
     }
     this._parent = parentElement;
@@ -189,10 +189,10 @@ export class Form {
     const wrapper = this.createWrapper(parent);
     const formElementType: string | null = getFormElementType(options.type);
 
-    if(listId && key && formElementType === costructorTypes.field){
+    if (listId && key && formElementType === costructorTypes.field) {
       this.mapFieldToDataPrefix(options, listId, key);
     }
-    if(groupId && formElementType === costructorTypes.field){
+    if (groupId && formElementType === costructorTypes.field) {
       this.mapFieldToDataPrefix(options, groupId, null);
     }
 
@@ -225,8 +225,8 @@ export class Form {
       case costructorTypes.field:
         if (listId && key) {
           this.assignToListField(listId, key, Constructed, formElementType, options.id);
-        } else{          
-          this._fields[options.id] = Constructed; 
+        } else {
+          this._fields[options.id] = Constructed;
         }
         break;
     }
@@ -435,15 +435,15 @@ export class Form {
     if (event) event.preventDefault();
     Object.keys(this._groups).forEach((key: string) => {
       const group = this._groups[key];
-      if(group.reset && typeof group.reset === 'function') group.reset();
+      if (group.reset && typeof group.reset === 'function') group.reset();
     });
     Object.keys(this._fields).forEach((key: string) => {
       const field = this._fields[key];
-      if(field.reset && typeof field.reset === 'function') field.reset();
+      if (field.reset && typeof field.reset === 'function') field.reset();
     });
     Object.keys(this._buttons).forEach((key: string) => {
       const button = this._buttons[key];
-      if(button.reset && typeof button.reset === 'function') button.reset();
+      if (button.reset && typeof button.reset === 'function') button.reset();
     });
   }
 

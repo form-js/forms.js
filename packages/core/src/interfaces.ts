@@ -143,8 +143,6 @@ export interface FileFieldOptions extends FieldOptions {
   accept?: string;
 }
 
-
-
 export interface HiddenFieldOptions {
   id: string;
   type: string;
@@ -190,4 +188,3 @@ export interface RadioFieldItemOptions {
   label: string;
   value: string;
 }
-
