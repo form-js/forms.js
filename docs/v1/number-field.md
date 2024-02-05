@@ -37,8 +37,10 @@ validation: (value: FieldValue, data: FormData, required: boolean) => true | str
 
 ```js
 validation: (value, data, required) => {
-    if (required && !value) return 'This field is required';
-    return true;
+      if (required && !value) return 'This field is required';
+      if (this.options.min && this.options.min > value) return 'The value should be bigger than ' + this.options.min;
+      if (this.options.max && this.options.max < value) return 'The value should be less than ' + this.options.max;
+      return true;
 },
 ```
 
