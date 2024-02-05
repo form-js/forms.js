@@ -9,6 +9,12 @@ export class NumberField extends Field {
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return 'This field is required';
+
+      if (this.options.min && this.options.min > value)
+        return 'Value should be bigger then min value'
+
+      if (this.options.max && this.options.max < value) 
+        return 'Value should be less then max value'
       return true;
     },
     default: null,
