@@ -59,7 +59,7 @@ export class Form {
    * @param parent - The parent HTML element or string id.
    * @param options - Form configuration options.
    */
-  constructor(parent: HTMLElement | string, options: FormOptions) {    
+  constructor(parent: HTMLElement | string, options: FormOptions) {
     this.initializeOptions(options);
     this.setParentElement(parent);
     this.processLicense();
