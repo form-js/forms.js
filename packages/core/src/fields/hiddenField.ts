@@ -63,7 +63,6 @@ export class HiddenField {
    */
   syncValue(): void {
     if (this.inputElement && this.inputElement instanceof HTMLInputElement && this.inputElement.value !== this._value) {
-      // @ts-ignore
       this.inputElement.value = this._value;
     }
   }

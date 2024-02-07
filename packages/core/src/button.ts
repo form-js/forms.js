@@ -1,7 +1,6 @@
 import { Form } from './form.js';
 import { mountElement, unmountElement } from './utils.js';
 import { ButtonOptions } from './interfaces.js';
-import { HTMLElementEvent } from './types.js';
 
 export class Button {
   public options: ButtonOptions = {

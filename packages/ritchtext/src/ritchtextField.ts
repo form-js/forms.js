@@ -63,7 +63,7 @@ export class RitchtextField extends Field {
   }
 
   bindChange() {
-    if(!this._editor) return;
+    if (!this._editor) return;
     this._editor.on('text-change', () => {
       if (this.inputElement && this._editor) {
         this.inputElement.value = this._editor.root.innerHTML;
@@ -118,7 +118,7 @@ export class RitchtextField extends Field {
     if (!this._editor) return;
     const value = this.getValue();
     if (value && JSON.stringify(this._editor.root.innerHTML) !== JSON.stringify(value)) {
-      // @ts-ignore
+      // @ts-expect-error converting from clipboard does not respect the type
       const delta = this._editor.clipboard.convert(value);
       const hasFocus = this._editor.hasFocus();
       this._editor.updateContents(delta, 'silent');

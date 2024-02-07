@@ -294,7 +294,7 @@ export class Form {
    */
   setData(id: string, value: FieldValue): void {
     // Check if the ID exists in the map
-    if (this._dataPrefixMap.hasOwnProperty(id)) {
+    if (Object.prototype.hasOwnProperty.call(this._dataPrefixMap, id)) {
       this.setDataFromMap(id, value);
     } else {
       this.setSimpleData(id, value);

@@ -63,7 +63,7 @@ export const objectToFormData = (obj: any, form?: FormData, namespace?: string):
   let formKey: string | null;
 
   for (const property in obj) {
-    if (obj.hasOwnProperty(property)) {
+    if (Object.prototype.hasOwnProperty.call(obj, property)) {
       if (namespace) {
         formKey = namespace + '[' + property + ']';
       } else {

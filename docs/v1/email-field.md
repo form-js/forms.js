@@ -33,7 +33,7 @@ validation: (value: FieldValue, data: FormData, required: boolean) => true | str
 **Default value**
 
 ```js
-private _mailFormat = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+private _mailFormat = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 validation: (value, data, required) => {
     if (required && !value) return 'This field is required';

@@ -1,4 +1,13 @@
-import { Form, mountElement, unmountElement, Button, generateFieldSaveKey, ButtonOptions, FormData, Schema } from '@forms.js/core';
+import {
+  Form,
+  mountElement,
+  unmountElement,
+  Button,
+  generateFieldSaveKey,
+  ButtonOptions,
+  FormData,
+  Schema,
+} from '@forms.js/core';
 
 export class ListField {
   // Public properties
@@ -78,8 +87,8 @@ export class ListField {
   }
 
   /** Removes a list row based on key
-   * @param key - Key of new list. 
-   * @param save - boolean determines if changes will be saved into local storage. 
+   * @param key - Key of new list.
+   * @param save - boolean determines if changes will be saved into local storage.
    */
   removeListRow(key: string, save: boolean = true): void {
     if (this._groups[key]) {
@@ -153,7 +162,7 @@ export class ListField {
   }
 
   /** Prepares a schema for new list
-   * @param key - Key of new list. 
+   * @param key - Key of new list.
    * @returns Schema
    */
   private newListSchema(key: string): Schema {
@@ -297,7 +306,6 @@ export class ListField {
     setTimeout(() => {
       this.addListRow();
     }, 25);
-
   }
 
   private cascadeLoad() {

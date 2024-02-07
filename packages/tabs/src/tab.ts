@@ -1,12 +1,4 @@
-import {
-  Field,
-  Form,
-  extractFieldsFromSchema,
-  mountElement,
-  unmountElement,
-  Schema,
-  FormData
-} from '@forms.js/core';
+import { Field, Form, extractFieldsFromSchema, mountElement, unmountElement, Schema, FormData } from '@forms.js/core';
 import { Tabs } from './tabs';
 import { FormElement } from '@forms.js/core/lib/types';
 
@@ -19,7 +11,7 @@ export class Tab {
       return (
         fields.every((id) => {
           const field: FormElement | undefined = form.getField(id);
-          if(!field?.validate || typeof field.validate !== 'function') return;
+          if (!field?.validate || typeof field.validate !== 'function') return;
           return field && field.validate();
         }) || ''
       );

@@ -1,5 +1,3 @@
-import { Form } from './form.js';
-import { FieldOptions } from './interfaces';
 import { FormElementType, pluginConstructor } from './types';
 import { useLicensedFetures } from './utils';
 
