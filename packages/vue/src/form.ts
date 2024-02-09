@@ -9,10 +9,10 @@ const Form = defineComponent({
       required: true,
     },
     plugins: {
-        type: Array as PropType<PluginSettings[]> | Object as PropType<PluginSettings>,
-        default: [],
-        required: false
-    }
+      type: Array as PropType<PluginSettings[]> | object as PropType<PluginSettings>,
+      default: [],
+      required: false,
+    },
   },
 
   data() {
