@@ -46,13 +46,19 @@ registerConstructor('time', TimeField, costructorTypes.field);
 registerConstructor('url', UrlField, costructorTypes.field);
 registerConstructor('week', WeekField, costructorTypes.field);
 
-export const usePlugin = (settings: PluginSettings) => {
-  registerConstructor(settings.type, settings.constructor, settings.constructorType, settings.licensed ?? false);
+export const usePlugin = (settings: PluginSettings | PluginSettings[]) => {
+  if (Array.isArray(settings)) {
+    settings.forEach((s: PluginSettings) => {
+      registerConstructor(s.type, s.constructor, s.constructorType, s.licensed ?? false);
+    });
+  } else {
+    registerConstructor(settings.type, settings.constructor, settings.constructorType, settings.licensed ?? false);
+  }
 };
 
 export { Form } from './form';
 export { Button } from './button.js';
-export { ButtonOptions, FieldOptions } from './interfaces.js';
+export { ButtonOptions, FieldOptions, FormOptions, GroupOptions } from './interfaces.js';
 export {
   setLicenseKey,
   mountElement,
