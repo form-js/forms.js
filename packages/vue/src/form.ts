@@ -8,6 +8,11 @@ const Form = defineComponent({
       type: Object as PropType<FormOptions>,
       required: true,
     },
+    plugins: {
+        type: Array as PropType<PluginSettings[]> | Object as PropType<PluginSettings>,
+        default: [],
+        required: false
+    }
   },
 
   data() {
@@ -20,9 +25,6 @@ const Form = defineComponent({
     getForm(): FormConstructor | null {
       return this.formInstance as FormConstructor | null;
     },
-    usePlugin(pluginSettings: PluginSettings | PluginSettings[]) {
-      usePlugin(pluginSettings);
-    },
   },
 
   render() {
@@ -32,6 +34,7 @@ const Form = defineComponent({
   },
 
   mounted() {
+    usePlugin(this.$props.plugins);
     this.formInstance = new FormConstructor(this.$el as HTMLElement, this.$props.options);
   },
 
