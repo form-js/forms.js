@@ -16,6 +16,7 @@ import {
   processLicenseKey,
   setLicenseKey,
   transformFieldName,
+  unmountElement,
   usesLicensedFetures,
 } from './utils.js';
 import { FieldOptions, FormOptions } from './interfaces.js';
@@ -532,5 +533,12 @@ export class Form {
       data = objectToFormData(form.getData());
     }
     if (form.options.submit) form.options.submit(data);
+  }
+
+  /**
+   * Handles destruction of the form.
+   */
+  destroy() {
+    if (this._formElement && this._parent) unmountElement(this._formElement);
   }
 }

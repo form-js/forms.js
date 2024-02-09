@@ -1,0 +1,59 @@
+{
+    "name": "@forms.js/vue",
+    "version": "1.0.0",
+    "description": "Daterange field component for @forms.js package",
+    "module": "lib/index.js",
+    "type": "module",
+    "types": "lib/index.d.ts",
+    "files": [
+        "lib/**/*"
+    ],
+    "scripts": {
+        "build": "tsc  && tsc -p tsconfig-cjs.json",
+        "format": "prettier --write \"src/**/*.ts\"",
+        "lint": "eslint src/** -c eslint.json"
+    },
+    "exports": {
+        ".": {
+            "import": "./lib/index.js",
+            "require": "./lib/cjs/index.js"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/form-js/forms.js"
+    },
+    "keywords": [
+        "form",
+        "forms",
+        "forms js",
+        "form generator",
+        "form builder",
+        "daterange",
+        "range"
+    ],
+    "author": "",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/form-js/forms.js/issues"
+    },
+    "homepage": "https://formsjs.io/",
+    "devDependencies": {
+        "@types/jest": "^29.5.2",
+        "@types/quill": "^2.0.10",
+        "@typescript-eslint/eslint-plugin": "^6.21.0",
+        "@typescript-eslint/parser": "^6.21.0",
+        "eslint": "^8.56.0",
+        "eslint-config-prettier": "^9.1.0",
+        "jest": "^29.6.1",
+        "prettier": "^3.0.0",
+        "ts-jest": "^29.1.1",
+        "typescript": "^5.1.6"
+    },
+    "dependencies": {
+        "@forms.js/core": "^1.0.20",
+        "install": "^0.13.0",
+        "npm": "^10.1.0",
+        "vue": "^3.4.18"
+    }
+}
