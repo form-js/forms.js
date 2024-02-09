@@ -98,3 +98,16 @@ jobs:
     - name: Build tabs package
       working-directory: ./packages/tabs
       run: npm run build
+
+    #vue
+    - name: Install tabs dependencies
+      working-directory: ./packages/vue
+      run: npm install
+
+    - name: Lint tabs package
+      working-directory: ./packages/vue
+      run: npm run lint
+
+    - name: Build tabs package
+      working-directory: ./packages/vue
+      run: npm run build
