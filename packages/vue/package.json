@@ -1,7 +1,7 @@
 {
     "name": "@forms.js/vue",
     "version": "1.0.0",
-    "description": "Daterange field component for @forms.js package",
+    "description": "The official vue component for @forms.js",
     "module": "lib/index.js",
     "type": "module",
     "types": "lib/index.d.ts",
@@ -24,13 +24,10 @@
         "url": "https://github.com/form-js/forms.js"
     },
     "keywords": [
-        "form",
-        "forms",
-        "forms js",
-        "form generator",
-        "form builder",
-        "daterange",
-        "range"
+        "vue forms",
+        "forms vue",
+        "vue form generator",
+        "vue form builder"
     ],
     "author": "",
     "license": "MIT",

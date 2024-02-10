@@ -79,5 +79,10 @@ const form = new Form("form-element", options);
       <td>Offers the Form, Group, Button classes and base form fields.</td>
       <td><a class="link" href="https://www.npmjs.com/package/@forms.js/core" target="_blank">https://www.npmjs.com/package/@forms.js/core</a></td>
     </tr>
+    <tr>
+      <td><span class="font-bold">@formsjs/vue</span></td>
+      <td>Vue component for Forms.js.</td>
+      <td><a class="link" href="https://www.npmjs.com/package/@forms.js/vue" target="_blank">https://www.npmjs.com/package/@forms.js/vue</a></td>
+    </tr>
   </tbody>
 </table>

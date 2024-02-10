@@ -4,9 +4,9 @@
     </a>
 </h1>
 
-### Daterange field for @forms.js package
+### Forms.js Vue Component
 
-#### Forms.js is a highly versatile, flexible, and lightweight JavaScript library that simplifies the process of form creation and management. Leveraging the power of JSON data input, it programmatically generates dynamic forms, enabling developers to create sophisticated, interactive, and user-friendly forms with ease.
+The official <a href="https://vuejs.org/" target="_blank">Vue</a> component for <a href="https://formsjs.io/" target="_blank">Forms.js</a>
 
 <a href="https://formsjs.io/documentation/v1/getting-started" target="_blank">
     Official documentation
@@ -17,17 +17,42 @@
 ### NPM
 
 ```bash
-npm i @forms.js/daterange-field
+npm i @forms.js/core @forms.js/vue
 ```
 
-### JS DELIVR
+### Usage
 
-```html
-<link
-  href="https://cdn.jsdelivr.net/npm/@forms.js/core/css/index.css"
-  rel="stylesheet"
-/>
-<script src="https://cdn.jsdelivr.net/npm/@forms.js/daterange-field/lib/index.js"></script>
+```vue
+<script>
+import Form from '@forms.js/vue';
+
+export default {
+  components: {
+    Form,
+  },
+  data: function () {
+    return {
+      options: {
+        id: 'demo-form',
+        schema: [
+          {
+            id: 'name',
+            label: 'Name',
+            type: 'text',
+          },
+        ],
+      },
+    };
+  },
+};
+</script>
+
+<template>
+  <div>
+    <h1>Demo Form</h1>
+    <Form :options="options" />
+  </div>
+</template>
 ```
 
 ### For more information:
@@ -36,8 +61,11 @@ npm i @forms.js/daterange-field
     Take a look at official documentation!
 </a>
 
+### Support the project:
+
+<p><a href="https://ko-fi.com/formsjs"> <img align="left" src="https://cdn.ko-fi.com/cdn/kofi3.png?v=3" height="50" width="210" alt="myaccount" /></a></p
+
 <h2 id="license">License</h2>
 
-<a href="https://formsjs.io/documentation/v1/licensing" target="_blank">
-    Triple licensed. Take a look at licensing on the official documentation.
-</a>
+Core bundle released under MIT license. This license permits a wide range of use, including free use in commercial projects, assuming all copyright headers are preserved. [Read the license terms](https://opensource.org/license/mit/)
+
