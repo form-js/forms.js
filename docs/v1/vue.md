@@ -4,7 +4,7 @@ Forms.js integrates with the Vue JavaScript framework. It provides a component t
 
 ### Usage
 
-```vue
+```javascript
 <script>
 import Form from '@forms.js/vue';
 
