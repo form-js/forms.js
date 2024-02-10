@@ -8,8 +8,8 @@
 
 The official <a href="https://vuejs.org/" target="_blank">Vue</a> component for <a href="https://formsjs.io/" target="_blank">Forms.js</a>
 
-<a href="https://formsjs.io/documentation/v1/getting-started" target="_blank">
-    Official documentation
+<a href="https://formsjs.io/documentation/v1/vue" target="_blank">
+    Documentation
 </a>
 
 <h2 id="instalation">Instalation</h2>
@@ -57,13 +57,13 @@ export default {
 
 ### For more information:
 
-<a href="https://formsjs.io/documentation/v1/getting-started" target="_blank">
+<a href="https://formsjs.io/documentation/v1/vue" target="_blank">
     Take a look at official documentation!
 </a>
 
 ### Support the project:
 
-<p><a href="https://ko-fi.com/formsjs"> <img align="left" src="https://cdn.ko-fi.com/cdn/kofi3.png?v=3" height="50" width="210" alt="myaccount" /></a></p
+<p><a href="https://ko-fi.com/formsjs"> <img align="left" src="https://cdn.ko-fi.com/cdn/kofi3.png?v=3" height="50" width="210" alt="myaccount" /></a></p>
 
 <h2 id="license">License</h2>
 
