@@ -11,7 +11,9 @@
     "scripts": {
         "build": "tsc  && tsc -p tsconfig-cjs.json",
         "format": "prettier --write \"src/**/*.ts\"",
-        "lint": "eslint src/** -c eslint.json"
+        "lint": "eslint src/** -c eslint.json",
+        "test": "jest",
+        "patch": "npm run build && npm version patch"
     },
     "exports": {
         ".": {
