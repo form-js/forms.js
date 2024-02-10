@@ -44,11 +44,12 @@ The component supports two props:
 -   `options: FormOptions` - <span class="badge warning">required</span> The form options (<a href="https://formsjs.io/documentation/v1/form">see more</a>).
 -   `plugins: PluginSettings | PluginSettings[]` - if form needs to use any plugins you can pass them into the form through this options.
 
-<iframe height="400" style="width: 100%;" scrolling="no" title="forms.js - buttons example" src="https://codepen.io/trilmatic/embed/JjxVWmG?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/trilmatic/pen/JjxVWmG">
-  forms.js - buttons example</a> by Trilmatic (<a href="https://codepen.io/trilmatic">@trilmatic</a>)
+
+<!--<iframe height="300" style="width: 100%;" scrolling="no" title="forms.js - vue example" src="https://codepen.io/trilmatic/embed/vYPVXQg?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/trilmatic/pen/vYPVXQg">
+  forms.js - vue example</a> by Trilmatic (<a href="https://codepen.io/trilmatic">@trilmatic</a>)
   on <a href="https://codepen.io">CodePen</a>.
-</iframe>
+</iframe>-->
 
 Vue component currently does not support templating, the feature is being developed.
 

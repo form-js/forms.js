@@ -1,6 +1,6 @@
 {
     "name": "@forms.js/vue",
-    "version": "1.0.1",
+    "version": "1.0.3",
     "description": "The official vue component for Forms.js",
     "module": "lib/index.js",
     "type": "module",
