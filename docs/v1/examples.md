@@ -14,7 +14,7 @@ You can setup required as function and base the logic on the visibility of neede
 
 If you are using enhanced field you can import a locale from flatpickr and apply that locale through options.
 
-<iframe height="300" style="width: 100%;" scrolling="no" title="forms.js - localizing date and time fields" src="https://codepen.io/trilmatic/embed/bGzJjpN?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+<iframe height="400" style="width: 100%;" scrolling="no" title="forms.js - localizing date and time fields" src="https://codepen.io/trilmatic/embed/bGzJjpN?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
   See the Pen <a href="https://codepen.io/trilmatic/pen/bGzJjpN">
   forms.js - localizing date and time fields</a> by Trilmatic (<a href="https://codepen.io/trilmatic">@trilmatic</a>)
   on <a href="https://codepen.io">CodePen</a>.

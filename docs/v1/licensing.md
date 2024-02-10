@@ -6,6 +6,10 @@ The licensing depends on whether you're using Premium plugins and fields.
 
 Non premium bundle released under MIT license. This license permits a wide range of use, including free use in commercial projects, assuming all copyright headers are preserved. [Read the license terms](https://opensource.org/license/mit/)
 
+## @formsjs/vue
+
+Non premium bundle released under MIT license. This license permits a wide range of use, including free use in commercial projects, assuming all copyright headers are preserved. [Read the license terms](https://opensource.org/license/mit/)
+
 ## Premium packages
 
 Premium packages licensing depends on the type of use:
