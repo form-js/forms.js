@@ -2,6 +2,12 @@
 
 Forms.js integrates with the Vue JavaScript framework. It provides a component that mathces the Form class.
 
+### Instalation
+
+```bash
+npm i @forms.js/core @forms.js/vue
+```
+
 ### Usage
 
 ```javascript
