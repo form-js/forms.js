@@ -17,8 +17,8 @@
 
 ### NPM
 
-```cmd
-npm i @forms.js/core
+```shell
+$ npm i @forms.js/core
 ```
 
 ### JS DELIVR

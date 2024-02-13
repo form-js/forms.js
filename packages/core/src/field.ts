@@ -1,5 +1,12 @@
 import { Form } from './form.js';
-import { debounce, generateFieldSaveKey, mountElement, unmountElement } from './utils.js';
+import {
+  debounce,
+  evaluateParsedConditions,
+  generateFieldSaveKey,
+  mountElement,
+  parseConditionString,
+  unmountElement,
+} from './utils.js';
 import { FieldOptions } from './interfaces.js';
 import { FieldValue, HTMLElementEvent } from './types.js';
 
@@ -326,7 +333,14 @@ export class Field {
 
   /** Updates visibility based on options. */
   private updateVisibilityBasedOnConditions(): void {
-    if (this.options.conditions) this._isVisible = this.options.conditions(this._value, this._form.getData());
+    if (this.options.conditions) {
+      if (typeof this.options.conditions == 'function')
+        this._isVisible = this.options.conditions(this._value, this._form.getData());
+      else {
+        const parsedConditionalLogic = parseConditionString(this.options.conditions);
+        this._isVisible = evaluateParsedConditions(parsedConditionalLogic, this._form.getData()) as boolean;
+      }
+    }
   }
 
   /** Updates the field's properties and visibility. */

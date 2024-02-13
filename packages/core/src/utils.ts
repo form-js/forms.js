@@ -11,7 +11,7 @@ import {
 } from './constants';
 import { Group } from './group';
 import { GroupOptions } from './interfaces';
-import { Schema } from './types';
+import { Schema, FormData, ParsedCondition, Operator, FieldValue } from './types';
 
 let LICENSE_KEY: string | null = null;
 let USES_LICENSED_FETURES: boolean = false;
@@ -247,4 +247,83 @@ export const usesLicensedFetures = (): boolean => {
 
 export const useLicensedFetures = (): void => {
   USES_LICENSED_FETURES = true;
+};
+
+/**
+ *
+ * string conditions evaluation
+ */
+export const parseConditionString = (conditionStr: string): ParsedCondition[] => {
+  return conditionStr
+    .split(';')
+    .filter((part) => part.includes(':'))
+    .map((part) => {
+      const [rawConditions, returnValue] = part.split(':');
+      const conditions = rawConditions
+        .substring(1)
+        .split('&&')
+        .map((andCond) =>
+          andCond.split('||').map((orCond) => {
+            const [left, operator, rightPart] = orCond.match(/(.*?)(=|!=|>|<|>=|<=)(.*)/)!.slice(1);
+            let right;
+            const isDate = rightPart.trim().startsWith('date:');
+            if (isDate) {
+              // Extract the date string after 'date:' and convert to Date
+              right = new Date(rightPart.trim().substring(5));
+            } else {
+              try {
+                right = JSON.parse(rightPart.trim());
+              } catch {
+                right = rightPart.trim();
+              } // Use as string if not JSON
+            }
+            return { left: left.trim(), operator: operator as Operator, right, isDate };
+          }),
+        );
+      return { conditions, returnValue };
+    });
+};
+
+export const evaluateParsedConditions = (
+  parsedConditions: ParsedCondition[],
+  data: FormData,
+  value: FieldValue | null = null,
+  required: boolean | null = null,
+): boolean | string => {
+  for (const { conditions, returnValue } of parsedConditions) {
+    const conditionResult = conditions.every((andConditions) =>
+      andConditions.some(({ left, operator, right }) => {
+        //support _value, _required most likely here;
+        const leftValue = getNestedValue(data, left);
+        return compareValues(operator, leftValue, right);
+      }),
+    );
+    if (conditionResult) {
+      return JSON.parse(returnValue);
+    }
+  }
+  return false;
+};
+
+const getNestedValue = (data: FormData, path: string): any => {
+  return path.split('.').reduce((acc, part) => acc && acc[part], data);
+};
+
+const compareValues = (operator: Operator, a: any, b: any): boolean => {
+  switch (operator) {
+    case '=':
+      return a === b;
+    case '!=':
+      return a !== b;
+    case '>':
+      return a > b;
+    case '<':
+      return a < b;
+    case '>=':
+      return a >= b;
+    case '<=':
+      return a <= b;
+    default:
+      return false;
+  }
 };

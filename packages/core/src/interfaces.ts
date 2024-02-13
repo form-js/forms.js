@@ -41,7 +41,7 @@ export interface FieldOptions {
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   change?: (value: FieldValue) => void;
   validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
-  conditions?: (value: FieldValue, data: FormData) => boolean;
+  conditions?: ((value: FieldValue, data: FormData) => boolean) | string;
   disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   placeholder?: string;
   debounce?: number;
