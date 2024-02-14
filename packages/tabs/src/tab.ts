@@ -1,4 +1,14 @@
-import { Field, Form, extractFieldsFromSchema, mountElement, unmountElement, Schema, FormData } from '@forms.js/core';
+import {
+  Form,
+  extractFieldsFromSchema,
+  mountElement,
+  unmountElement,
+  Schema,
+  FormData,
+  evaluateParsedConditions,
+  parseConditionString,
+  ParsedCondition,
+} from '@forms.js/core';
 import { Tabs } from './tabs';
 import { FormElement } from '@forms.js/core/lib/types';
 
@@ -34,6 +44,7 @@ export class Tab {
   private _fields: string[] = [];
   private _vMessage: string | null = null;
   private _type: string;
+  private _parsedConditions: ParsedCondition[] | null = null;
 
   /**
    * Constructor to initialize a new Tab instance.
@@ -75,9 +86,17 @@ export class Tab {
    * Perform initialization logic for the tab.
    */
   async initialize(): Promise<void> {
+    this.parseStringConditions();
     this.bindTabActivate();
     this._fields = extractFieldsFromSchema(this.options.schema);
     await this.reset();
+  }
+
+  /** Parse conditions from string if needed */
+  private parseStringConditions(): void {
+    if (typeof this.options.conditions === 'string') {
+      this._parsedConditions = parseConditionString(this.options.conditions);
+    }
   }
 
   /**
@@ -271,7 +290,13 @@ export class Tab {
 
   /** Updates visibility based on options. */
   private updateVisibilityBasedOnConditions(): void {
-    if (this.options.conditions) this._isVisible = this.options.conditions(this._form.getData());
+    if (this.options.conditions) {
+      if (this._parsedConditions) {
+        this._isVisible = evaluateParsedConditions(this._parsedConditions, this._form.getData()) as boolean;
+      } else if (typeof this.options.conditions === 'function') {
+        this._isVisible = this.options.conditions(this._form.getData());
+      }
+    }
   }
 
   /** Updates disability based on options. */
@@ -329,7 +354,7 @@ export class Tab {
 export interface TabOptions {
   id: string;
   label: string;
-  conditions?: (data: FormData) => boolean;
+  conditions?: ((data: FormData) => boolean) | string;
   validation?: (fields: string[], form: Form) => true | string;
   disabled?: ((data: FormData) => boolean) | boolean;
   schema: Schema;

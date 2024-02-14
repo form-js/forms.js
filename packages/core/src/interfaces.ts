@@ -17,7 +17,7 @@ export interface GroupOptions {
   id: string;
   label?: string;
   type: 'group';
-  conditions?: (data: FormData) => boolean;
+  conditions?: ((data: FormData) => boolean) | string;
   prefixSchema?: boolean;
   className?: string;
   schema: Schema;
@@ -28,7 +28,7 @@ export interface ButtonOptions {
   template: string;
   buttonType: 'submit' | 'reset' | 'button';
   type: 'button';
-  conditions?: (data: FormData) => boolean;
+  conditions?: ((data: FormData) => boolean) | string;
   click?: (event: MouseEvent, data: FormData) => void;
   className?: string;
 }
@@ -52,7 +52,7 @@ export interface FieldOptions {
 export interface StaticFieldOptions {
   id: string;
   type: 'static';
-  conditions?: (value: FieldValue, data: FormData) => boolean;
+  conditions?: ((value: FieldValue, data: FormData) => boolean) | string;
   template: string;
   className?: string;
 }

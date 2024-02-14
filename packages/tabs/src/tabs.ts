@@ -1,4 +1,12 @@
-import { Form, mountElement, unmountElement, FormData } from '@forms.js/core';
+import {
+  Form,
+  mountElement,
+  unmountElement,
+  FormData,
+  evaluateParsedConditions,
+  parseConditionString,
+  ParsedCondition,
+} from '@forms.js/core';
 import { TabOptions } from './tab';
 import { Tab } from './tab.js';
 
@@ -30,6 +38,7 @@ export class Tabs {
   private _tabs: Record<string, Tab> = {};
   private _tabsList: TabOptions[];
   private _activeTab: string = 'none';
+  private _parsedConditions: ParsedCondition[] | null = null;
 
   /**
    * Initializes the Tabs instance with provided configuration options.
@@ -78,8 +87,16 @@ export class Tabs {
    * Resets and initializes the tabs, ensuring they are rendered correctly.
    */
   async initialize(): Promise<void> {
+    this.parseStringConditions();
     await this.reset();
     this.handleVisibility();
+  }
+
+  /** Parse conditions from string if needed */
+  private parseStringConditions(): void {
+    if (typeof this.options.conditions === 'string') {
+      this._parsedConditions = parseConditionString(this.options.conditions);
+    }
   }
 
   /**
@@ -332,14 +349,20 @@ export class Tabs {
 
   /** Updates visibility based on options. */
   updateVisibilityBasedOnConditions(): void {
-    if (this.options.conditions) this._isVisible = this.options.conditions(this._form.getData());
+    if (this.options.conditions) {
+      if (this._parsedConditions) {
+        this._isVisible = evaluateParsedConditions(this._parsedConditions, this._form.getData()) as boolean;
+      } else if (typeof this.options.conditions === 'function') {
+        this._isVisible = this.options.conditions(this._form.getData());
+      }
+    }
   }
 }
 
 export interface TabsOptions {
   id: string;
   type: 'tabs';
-  conditions?: (data: FormData) => boolean;
+  conditions?: ((data: FormData) => boolean) | string;
   className?: string;
   tabs: TabOptions[];
   strict?: boolean;

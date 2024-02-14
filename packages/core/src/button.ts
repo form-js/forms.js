@@ -1,6 +1,7 @@
 import { Form } from './form.js';
-import { mountElement, unmountElement } from './utils.js';
+import { evaluateParsedConditions, mountElement, parseConditionString, unmountElement } from './utils.js';
 import { ButtonOptions } from './interfaces.js';
+import { ParsedCondition } from './types.js';
 
 export class Button {
   public options: ButtonOptions = {
@@ -19,6 +20,7 @@ export class Button {
   private _isMounted: boolean = false;
   private _isVisible: boolean = true;
   private _type: string;
+  private _parsedConditions: ParsedCondition[] | null = null;
 
   /**
    * Create a new Button.
@@ -46,7 +48,15 @@ export class Button {
 
   /** Initialization logic after setting up the button. */
   async initialize(): Promise<void> {
+    this.parseStringConditions();
     await this.reset();
+  }
+
+  /** Parse conditions from string if needed */
+  private parseStringConditions(): void {
+    if (typeof this.options.conditions === 'string') {
+      this._parsedConditions = parseConditionString(this.options.conditions);
+    }
   }
 
   /** Get the ID of the button. */
@@ -142,6 +152,12 @@ export class Button {
 
   /** Updates visibility based on options. */
   private updateVisibilityBasedOnConditions(): void {
-    if (this.options.conditions) this._isVisible = this.options.conditions(this._form.getData());
+    if (this.options.conditions) {
+      if (this._parsedConditions) {
+        this._isVisible = evaluateParsedConditions(this._parsedConditions, this._form.getData()) as boolean;
+      } else if (typeof this.options.conditions === 'function') {
+        this._isVisible = this.options.conditions(this._form.getData());
+      }
+    }
   }
 }

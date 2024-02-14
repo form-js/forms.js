@@ -7,6 +7,9 @@ import {
   ButtonOptions,
   FormData,
   Schema,
+  evaluateParsedConditions,
+  parseConditionString,
+  ParsedCondition,
 } from '@forms.js/core';
 
 export class ListField {
@@ -40,6 +43,7 @@ export class ListField {
   private _fields: Record<string, any> = {};
   private _groups: Record<string, any> = {};
   private _buttons: Record<string, any> = {};
+  private _parsedConditions: ParsedCondition[] | null = null;
 
   /**
    * Creates a new list.
@@ -68,9 +72,17 @@ export class ListField {
 
   /** Initializes the list and sets up its initial visibility. */
   async initialize(): Promise<void> {
+    this.parseStringConditions();
     this.load();
     this.update();
     this.handleVisibility();
+  }
+
+  /** Parse conditions from string if needed */
+  private parseStringConditions(): void {
+    if (typeof this.options.conditions === 'string') {
+      this._parsedConditions = parseConditionString(this.options.conditions);
+    }
   }
 
   addListRow(defkey: string | null = null, save: boolean = true): string {
@@ -356,7 +368,13 @@ export class ListField {
 
   /** Updates visibility based on options. */
   private updateVisibilityBasedOnConditions(): void {
-    if (this.options.conditions) this._isVisible = this.options.conditions(this._form.getData());
+    if (this.options.conditions) {
+      if (this._parsedConditions) {
+        this._isVisible = evaluateParsedConditions(this._parsedConditions, this._form.getData()) as boolean;
+      } else if (typeof this.options.conditions === 'function') {
+        this._isVisible = this.options.conditions(this._form.getData());
+      }
+    }
   }
 }
 
@@ -364,7 +382,7 @@ export interface ListFieldOptions {
   id: string;
   label?: string;
   type: 'list';
-  conditions?: (data: FormData) => boolean;
+  conditions?: ((data: FormData) => boolean) | string;
   buildButtons?: boolean;
   className?: string;
   listRemoveClassName?: string;

@@ -69,4 +69,5 @@ export {
 } from './utils.js';
 export { Field } from './field.js';
 export { fields, buttons, groups, costructorTypes } from './constants.js';
-export { Schema, FormData, FieldValue, PluginSettings } from './types.js';
+export { Schema, FormData, FieldValue, PluginSettings, ParsedCondition } from './types.js';
+export { evaluateParsedConditions, parseConditionString } from './utils.js';

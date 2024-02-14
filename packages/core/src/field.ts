@@ -8,7 +8,7 @@ import {
   unmountElement,
 } from './utils.js';
 import { FieldOptions } from './interfaces.js';
-import { FieldValue, HTMLElementEvent } from './types.js';
+import { FieldValue, HTMLElementEvent, ParsedCondition } from './types.js';
 
 export class Field {
   public options: FieldOptions = {
@@ -41,6 +41,7 @@ export class Field {
   private _vMessage: string | null = null;
   protected _value: FieldValue = null;
   private _type: string;
+  private _parsedConditions: ParsedCondition[] | null = null;
 
   /**
    * Creates an instance of the Field class.
@@ -70,9 +71,17 @@ export class Field {
    * Initializes the field, resetting it and binding change events.
    */
   async initialize(): Promise<void> {
+    this.parseStringConditions();
     this.load();
     this.update();
     this.bindChange();
+  }
+
+  /** Parse conditions from string if needed */
+  private parseStringConditions(): void {
+    if (typeof this.options.conditions === 'string') {
+      this._parsedConditions = parseConditionString(this.options.conditions);
+    }
   }
 
   /**
@@ -334,11 +343,10 @@ export class Field {
   /** Updates visibility based on options. */
   private updateVisibilityBasedOnConditions(): void {
     if (this.options.conditions) {
-      if (typeof this.options.conditions == 'function')
+      if (this._parsedConditions) {
+        this._isVisible = evaluateParsedConditions(this._parsedConditions, this._form.getData()) as boolean;
+      } else if (typeof this.options.conditions === 'function') {
         this._isVisible = this.options.conditions(this._value, this._form.getData());
-      else {
-        const parsedConditionalLogic = parseConditionString(this.options.conditions);
-        this._isVisible = evaluateParsedConditions(parsedConditionalLogic, this._form.getData()) as boolean;
       }
     }
   }

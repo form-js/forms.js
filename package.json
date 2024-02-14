@@ -8,7 +8,10 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "npm --prefix ./packages/core run lint && npm --prefix ./packages/daterange run lint && npm --prefix ./packages/list-field run lint && npm --prefix ./packages/rating run lint && npm --prefix ./packages/ritchtext run lint && npm --prefix ./packages/tabs run lint && npm --prefix ./packages/vue run lint",
+    "format": "npm --prefix ./packages/core run format && npm --prefix ./packages/daterange run format && npm --prefix ./packages/list-field run format && npm --prefix ./packages/rating run format && npm --prefix ./packages/ritchtext run format && npm --prefix ./packages/tabs run format && npm --prefix ./packages/vue run format",
+    "build": "npm --prefix ./packages/core run build && npm --prefix ./packages/daterange run build && npm --prefix ./packages/list-field run build && npm --prefix ./packages/rating run build && npm --prefix ./packages/ritchtext run build && npm --prefix ./packages/tabs run build && npm --prefix ./packages/vue run build",
+    "test": "npm --prefix ./packages/core run test && npm --prefix ./packages/daterange run test && npm --prefix ./packages/list-field run test && npm --prefix ./packages/rating run test && npm --prefix ./packages/ritchtext run test && npm --prefix ./packages/tabs run test && npm --prefix ./packages/vue run test"
   },
   "author": "",
   "license": "3 LICENSED SEE DOCS"
