@@ -45,6 +45,8 @@ export class Tab {
   private _vMessage: string | null = null;
   private _type: string;
   private _parsedConditions: ParsedCondition[] | null = null;
+  private _parsedDisabledConditions: ParsedCondition[] | null = null;
+  private _parsedValidationConditions: ParsedCondition[] | null = null;
 
   /**
    * Constructor to initialize a new Tab instance.
@@ -96,6 +98,12 @@ export class Tab {
   private parseStringConditions(): void {
     if (typeof this.options.conditions === 'string') {
       this._parsedConditions = parseConditionString(this.options.conditions);
+    }
+    if (typeof this.options.disabled === 'string') {
+      this._parsedDisabledConditions = parseConditionString(this.options.disabled);
+    }
+    if (typeof this.options.validation === 'string') {
+      this._parsedValidationConditions = parseConditionString(this.options.validation);
     }
   }
 
@@ -245,7 +253,7 @@ export class Tab {
   validate(): boolean {
     if (!this._isVisible) return true;
     if (this.options.validation) {
-      const validation: true | string = this.options.validation(this._fields, this._form);
+      const validation: true | string = typeof this.options.validation === 'string' && this._parsedValidationConditions ? evaluateParsedConditions(this._parsedValidationConditions, this._form.getData()) as true | string : this.options.validation(this._fields, this._form);
       this._isValid = validation === true;
       this._vMessage = validation === true ? '' : validation;
       this.handleValidatedTab();
@@ -302,10 +310,14 @@ export class Tab {
   /** Updates disability based on options. */
   private updateDisabledStatus(): void {
     if (this.options.disabled) {
-      this._isDisabled =
-        typeof this.options.disabled === 'function'
-          ? this.options.disabled(this._form.getData())
-          : this.options.disabled;
+      if (typeof this.options.disabled === 'string' && this._parsedDisabledConditions) {
+        this._isDisabled = evaluateParsedConditions(this._parsedDisabledConditions, this._form.getData()) as boolean;
+      } else {
+        this._isDisabled =
+          typeof this.options.disabled === 'function'
+            ? this.options.disabled(this._form.getData())
+            : this.options.disabled;
+      }
     }
   }
 
