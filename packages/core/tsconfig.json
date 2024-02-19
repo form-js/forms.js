@@ -10,8 +10,8 @@
       "outDir": "./lib",
       "esModuleInterop": true,
       "downlevelIteration": true,
-      "strict": true
+      "strict": true,
     },
-    "include": ["src"],
+    "include": ["src", "__tests__"],
     "exclude": ["node_modules", "**/*.test.ts"]
   }
