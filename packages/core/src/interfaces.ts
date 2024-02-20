@@ -38,11 +38,11 @@ export interface FieldOptions {
   name?: string;
   label?: string;
   type: FieldType;
-  required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
+  required?: ((value: FieldValue, data: FormData) => boolean) | boolean | string;
   change?: (value: FieldValue) => void;
-  validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
+  validation?: ((value: FieldValue, data: FormData, required: boolean) => true | string) | string;
   conditions?: ((value: FieldValue, data: FormData) => boolean) | string;
-  disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
+  disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean | string;
   placeholder?: string;
   debounce?: number;
   default?: FieldValue;

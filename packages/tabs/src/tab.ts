@@ -250,18 +250,26 @@ export class Tab {
   /**
    * Handle the display of the tab's validation status.
    */
-  validate(): boolean {
+  validate(): boolean | null {
     if (!this._isVisible) return true;
     if (this.options.validation) {
-      const validation: true | string =
-        typeof this.options.validation === 'string' && this._parsedValidationConditions
-          ? (evaluateParsedConditions(this._parsedValidationConditions, this._form.getData()) as true | string)
-          : this.options.validation(this._fields, this._form);
-      this._isValid = validation === true;
-      this._vMessage = validation === true ? '' : validation;
+      if (typeof this.options.validation === 'string' && this._parsedValidationConditions) {
+        const validity = evaluateParsedConditions(this._parsedValidationConditions, this._form.getData()) as
+          | true
+          | string;
+        this.setValidationValues(validity);
+      } else if (typeof this.options.validation === 'function') {
+        const validity = this.options.validation(this._fields, this._form);
+        this.setValidationValues(validity);
+      } else this._isValid = true;
       this.handleValidatedTab();
     } else this._isValid = true;
     return this._isValid;
+  }
+
+  private setValidationValues(validity: string | true) {
+    this._isValid = validity === true;
+    this._vMessage = validity === true ? '' : validity;
   }
 
   /**
@@ -316,10 +324,11 @@ export class Tab {
       if (typeof this.options.disabled === 'string' && this._parsedDisabledConditions) {
         this._isDisabled = evaluateParsedConditions(this._parsedDisabledConditions, this._form.getData()) as boolean;
       } else {
-        this._isDisabled =
-          typeof this.options.disabled === 'function'
-            ? this.options.disabled(this._form.getData())
-            : this.options.disabled;
+        if (typeof this.options.disabled === 'function') {
+          this._isDisabled = this.options.disabled(this._form.getData());
+        } else if (typeof this.options.disabled === 'boolean') {
+          this._isDisabled = this.options.disabled;
+        }
       }
     }
   }
@@ -370,7 +379,7 @@ export interface TabOptions {
   id: string;
   label: string;
   conditions?: ((data: FormData) => boolean) | string;
-  validation?: (fields: string[], form: Form) => true | string;
-  disabled?: ((data: FormData) => boolean) | boolean;
+  validation?: ((fields: string[], form: Form) => true | string) | string;
+  disabled?: ((data: FormData) => boolean) | boolean | string;
   schema: Schema;
 }

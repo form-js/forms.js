@@ -379,10 +379,11 @@ export class Field {
           this._isRequired,
         ) as boolean;
       } else {
-        this._isDisabled =
-          typeof this.options.disabled === 'function'
-            ? this.options.disabled(this._value, this._form.getData())
-            : this.options.disabled;
+        if (typeof this.options.disabled === 'function') {
+          this._isDisabled = this.options.disabled(this._value, this._form.getData());
+        } else if (typeof this.options.disabled === 'boolean') {
+          this._isDisabled = this.options.disabled;
+        }
       }
     }
   }
@@ -397,32 +398,38 @@ export class Field {
           this._value,
         ) as boolean;
       } else {
-        this._isRequired =
-          typeof this.options.required === 'function'
-            ? this.options.required(this._value, this._form.getData())
-            : this.options.required;
+        if (typeof this.options.required === 'function') {
+          this._isRequired = this.options.required(this._value, this._form.getData());
+        } else if (typeof this.options.required === 'boolean') {
+          this._isRequired = this.options.required;
+        }
       }
     }
   }
 
   /** Validates the field based on the configured validation function. */
-  validate(): boolean {
+  validate(): boolean | null {
     if (!this._isVisible) return true;
     if (this.options.validation) {
-      const validation: true | string =
-        typeof this.options.validation === 'string' && this._parsedValidationConditions
-          ? (evaluateParsedConditions(
-              this._parsedValidationConditions,
-              this._form.getData(),
-              this._value,
-              this._isRequired,
-            ) as true | string)
-          : this.options.validation(this._value, this._form.getData(), this._isRequired);
-      this._isValid = validation === true;
-      this._vMessage = validation === true ? '' : validation;
-      this.handleValidatedField();
+      if (typeof this.options.validation === 'string' && this._parsedValidationConditions) {
+        const validity = evaluateParsedConditions(
+          this._parsedValidationConditions,
+          this._form.getData(),
+          this._value,
+          this._isRequired,
+        ) as true | string;
+        this.setValidationValues(validity);
+      } else if (typeof this.options.validation === 'function') {
+        const validity = this.options.validation(this._value, this._form.getData(), this._isRequired);
+        this.setValidationValues(validity);
+      } else this._isValid = true;
     } else this._isValid = true;
     return this._isValid;
+  }
+
+  private setValidationValues(validity: string | true) {
+    this._isValid = validity === true;
+    this._vMessage = validity === true ? '' : validity;
   }
 
   /**
