@@ -253,7 +253,10 @@ export class Tab {
   validate(): boolean {
     if (!this._isVisible) return true;
     if (this.options.validation) {
-      const validation: true | string = typeof this.options.validation === 'string' && this._parsedValidationConditions ? evaluateParsedConditions(this._parsedValidationConditions, this._form.getData()) as true | string : this.options.validation(this._fields, this._form);
+      const validation: true | string =
+        typeof this.options.validation === 'string' && this._parsedValidationConditions
+          ? (evaluateParsedConditions(this._parsedValidationConditions, this._form.getData()) as true | string)
+          : this.options.validation(this._fields, this._form);
       this._isValid = validation === true;
       this._vMessage = validation === true ? '' : validation;
       this.handleValidatedTab();

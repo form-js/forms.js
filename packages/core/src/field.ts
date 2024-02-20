@@ -356,7 +356,12 @@ export class Field {
   private updateVisibilityBasedOnConditions(): void {
     if (this.options.conditions) {
       if (this._parsedConditions) {
-        this._isVisible = evaluateParsedConditions(this._parsedConditions, this._form.getData(), this._value, this._isRequired) as boolean;
+        this._isVisible = evaluateParsedConditions(
+          this._parsedConditions,
+          this._form.getData(),
+          this._value,
+          this._isRequired,
+        ) as boolean;
       } else if (typeof this.options.conditions === 'function') {
         this._isVisible = this.options.conditions(this._value, this._form.getData());
       }
@@ -367,14 +372,18 @@ export class Field {
   private updateDisabledStatus(): void {
     if (this.options.disabled) {
       if (typeof this.options.disabled === 'string' && this._parsedDisabledConditions) {
-        this._isDisabled = evaluateParsedConditions(this._parsedDisabledConditions, this._form.getData(), this._value, this._isRequired) as boolean;
+        this._isDisabled = evaluateParsedConditions(
+          this._parsedDisabledConditions,
+          this._form.getData(),
+          this._value,
+          this._isRequired,
+        ) as boolean;
       } else {
         this._isDisabled =
           typeof this.options.disabled === 'function'
             ? this.options.disabled(this._value, this._form.getData())
             : this.options.disabled;
       }
-
     }
   }
 
@@ -382,7 +391,11 @@ export class Field {
   private updateRequiredStatus(): void {
     if (this.options.required) {
       if (typeof this.options.required === 'string' && this._parsedRequiredConditions) {
-        this._isRequired = evaluateParsedConditions(this._parsedRequiredConditions, this._form.getData(), this._value) as boolean;
+        this._isRequired = evaluateParsedConditions(
+          this._parsedRequiredConditions,
+          this._form.getData(),
+          this._value,
+        ) as boolean;
       } else {
         this._isRequired =
           typeof this.options.required === 'function'
@@ -396,7 +409,15 @@ export class Field {
   validate(): boolean {
     if (!this._isVisible) return true;
     if (this.options.validation) {
-      const validation: true | string = typeof this.options.validation === 'string' && this._parsedValidationConditions ? evaluateParsedConditions(this._parsedValidationConditions, this._form.getData(), this._value, this._isRequired) as true | string : this.options.validation(this._value, this._form.getData(), this._isRequired);
+      const validation: true | string =
+        typeof this.options.validation === 'string' && this._parsedValidationConditions
+          ? (evaluateParsedConditions(
+              this._parsedValidationConditions,
+              this._form.getData(),
+              this._value,
+              this._isRequired,
+            ) as true | string)
+          : this.options.validation(this._value, this._form.getData(), this._isRequired);
       this._isValid = validation === true;
       this._vMessage = validation === true ? '' : validation;
       this.handleValidatedField();
