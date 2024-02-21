@@ -289,20 +289,30 @@ export const evaluateParsedConditions = (
   data: FormData,
   value: FieldValue | null = null,
   required: boolean | null = null,
+  def: boolean = false,
 ): boolean | string => {
   for (const { conditions, returnValue } of parsedConditions) {
     const conditionResult = conditions.every((andConditions) =>
       andConditions.some(({ left, operator, right }) => {
-        //support _value, _required most likely here;
-        const leftValue = getNestedValue(data, left);
+        // inject field value and required int data list
+        const dataList = {
+          _value: value,
+          _required: required,
+          ...data
+        }
+        const leftValue = getNestedValue(dataList, left);
         return compareValues(operator, leftValue, right);
       }),
     );
     if (conditionResult) {
-      return JSON.parse(returnValue);
+      try {
+        return JSON.parse(returnValue);
+      } catch {
+        return returnValue as string;
+      }
     }
   }
-  return false;
+  return def;
 };
 
 const getNestedValue = (data: FormData, path: string): any => {
