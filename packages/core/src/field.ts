@@ -42,6 +42,9 @@ export class Field {
   protected _value: FieldValue = null;
   private _type: string;
   private _parsedConditions: ParsedCondition[] | null = null;
+  private _parsedValidationConditions: ParsedCondition[] | null = null;
+  private _parsedRequiredConditions: ParsedCondition[] | null = null;
+  private _parsedDisabledConditions: ParsedCondition[] | null = null;
 
   /**
    * Creates an instance of the Field class.
@@ -81,6 +84,15 @@ export class Field {
   private parseStringConditions(): void {
     if (typeof this.options.conditions === 'string') {
       this._parsedConditions = parseConditionString(this.options.conditions);
+    }
+    if (typeof this.options.disabled === 'string') {
+      this._parsedDisabledConditions = parseConditionString(this.options.disabled);
+    }
+    if (typeof this.options.required === 'string') {
+      this._parsedRequiredConditions = parseConditionString(this.options.required);
+    }
+    if (typeof this.options.validation === 'string') {
+      this._parsedValidationConditions = parseConditionString(this.options.validation);
     }
   }
 
@@ -344,7 +356,12 @@ export class Field {
   private updateVisibilityBasedOnConditions(): void {
     if (this.options.conditions) {
       if (this._parsedConditions) {
-        this._isVisible = evaluateParsedConditions(this._parsedConditions, this._form.getData()) as boolean;
+        this._isVisible = evaluateParsedConditions(
+          this._parsedConditions,
+          this._form.getData(),
+          this._value,
+          this._isRequired,
+        ) as boolean;
       } else if (typeof this.options.conditions === 'function') {
         this._isVisible = this.options.conditions(this._value, this._form.getData());
       }
@@ -354,33 +371,66 @@ export class Field {
   /** Updates the field's properties and visibility. */
   private updateDisabledStatus(): void {
     if (this.options.disabled) {
-      this._isDisabled =
-        typeof this.options.disabled === 'function'
-          ? this.options.disabled(this._value, this._form.getData())
-          : this.options.disabled;
+      if (typeof this.options.disabled === 'string' && this._parsedDisabledConditions) {
+        this._isDisabled = evaluateParsedConditions(
+          this._parsedDisabledConditions,
+          this._form.getData(),
+          this._value,
+          this._isRequired,
+        ) as boolean;
+      } else {
+        if (typeof this.options.disabled === 'function') {
+          this._isDisabled = this.options.disabled(this._value, this._form.getData());
+        } else if (typeof this.options.disabled === 'boolean') {
+          this._isDisabled = this.options.disabled;
+        }
+      }
     }
   }
 
   /** Updates the required status based on field options. */
   private updateRequiredStatus(): void {
     if (this.options.required) {
-      this._isRequired =
-        typeof this.options.required === 'function'
-          ? this.options.required(this._value, this._form.getData())
-          : this.options.required;
+      if (typeof this.options.required === 'string' && this._parsedRequiredConditions) {
+        this._isRequired = evaluateParsedConditions(
+          this._parsedRequiredConditions,
+          this._form.getData(),
+          this._value,
+        ) as boolean;
+      } else {
+        if (typeof this.options.required === 'function') {
+          this._isRequired = this.options.required(this._value, this._form.getData());
+        } else if (typeof this.options.required === 'boolean') {
+          this._isRequired = this.options.required;
+        }
+      }
     }
   }
 
   /** Validates the field based on the configured validation function. */
-  validate(): boolean {
+  validate(): boolean | null {
     if (!this._isVisible) return true;
     if (this.options.validation) {
-      const validation: true | string = this.options.validation(this._value, this._form.getData(), this._isRequired);
-      this._isValid = validation === true;
-      this._vMessage = validation === true ? '' : validation;
-      this.handleValidatedField();
+      if (typeof this.options.validation === 'string' && this._parsedValidationConditions) {
+        const validity = evaluateParsedConditions(
+          this._parsedValidationConditions,
+          this._form.getData(),
+          this._value,
+          this._isRequired,
+          true
+        ) as true | string;
+        this.setValidationValues(validity);
+      } else if (typeof this.options.validation === 'function') {
+        const validity = this.options.validation(this._value, this._form.getData(), this._isRequired);
+        this.setValidationValues(validity);
+      } else this._isValid = true;
     } else this._isValid = true;
     return this._isValid;
+  }
+
+  private setValidationValues(validity: string | true) {
+    this._isValid = validity === true;
+    this._vMessage = validity === true ? '' : validity;
   }
 
   /**
@@ -390,6 +440,7 @@ export class Field {
   change(event: HTMLElementEvent<HTMLInputElement>): void {
     this.setValue(event.target.value);
     this.validate();
+    this.handleValidatedField();
     if (this.options.change) this.options.change(this._value);
   }
 }

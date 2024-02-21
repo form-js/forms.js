@@ -12,6 +12,6 @@
       "downlevelIteration": true,
       "strict": true,
     },
-    "include": ["src", "__tests__"],
+    "include": ["src"],
     "exclude": ["node_modules", "**/*.test.ts"]
   }
