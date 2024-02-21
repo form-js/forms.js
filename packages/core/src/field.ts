@@ -417,6 +417,7 @@ export class Field {
           this._form.getData(),
           this._value,
           this._isRequired,
+          true
         ) as true | string;
         this.setValidationValues(validity);
       } else if (typeof this.options.validation === 'function') {
@@ -439,6 +440,7 @@ export class Field {
   change(event: HTMLElementEvent<HTMLInputElement>): void {
     this.setValue(event.target.value);
     this.validate();
+    this.handleValidatedField();
     if (this.options.change) this.options.change(this._value);
   }
 }

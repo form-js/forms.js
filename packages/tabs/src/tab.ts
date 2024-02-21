@@ -254,7 +254,7 @@ export class Tab {
     if (!this._isVisible) return true;
     if (this.options.validation) {
       if (typeof this.options.validation === 'string' && this._parsedValidationConditions) {
-        const validity = evaluateParsedConditions(this._parsedValidationConditions, this._form.getData()) as
+        const validity = evaluateParsedConditions(this._parsedValidationConditions, this._form.getData(), null, null, true) as
           | true
           | string;
         this.setValidationValues(validity);
