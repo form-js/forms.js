@@ -1,4 +1,4 @@
-name: Build & Lint
+name: Lint
 on:
   push:
     branches: [ "master" ]
@@ -30,10 +30,6 @@ jobs:
       working-directory: ./packages/core
       run: npm run lint
 
-    - name: Build core package
-      working-directory: ./packages/core
-      run: npm run build
-
     #daterange
     - name: Install daterange dependencies
       working-directory: ./packages/daterange
@@ -42,10 +38,6 @@ jobs:
     - name: Lint daterange package
       working-directory: ./packages/daterange
       run: npm run lint
-
-    - name: Build daterange package
-      working-directory: ./packages/daterange
-      run: npm run build
 
     #list-field
     - name: Install list-field dependencies
@@ -56,10 +48,6 @@ jobs:
       working-directory: ./packages/list-field
       run: npm run lint
 
-    - name: Build list-field package
-      working-directory: ./packages/list-field
-      run: npm run build
-
     #rating
     - name: Install rating dependencies
       working-directory: ./packages/rating
@@ -68,10 +56,6 @@ jobs:
     - name: Lint rating package
       working-directory: ./packages/rating
       run: npm run lint
-
-    - name: Build rating package
-      working-directory: ./packages/rating
-      run: npm run build
 
     #ritchtext
     - name: Install ritchtext dependencies
@@ -82,10 +66,6 @@ jobs:
       working-directory: ./packages/ritchtext
       run: npm run lint
 
-    - name: Build ritchtext package
-      working-directory: ./packages/ritchtext
-      run: npm run build
-
     #tabs
     - name: Install tabs dependencies
       working-directory: ./packages/tabs
@@ -95,10 +75,6 @@ jobs:
       working-directory: ./packages/tabs
       run: npm run lint
 
-    - name: Build tabs package
-      working-directory: ./packages/tabs
-      run: npm run build
-
     #vue
     - name: Install vue dependencies
       working-directory: ./packages/vue
@@ -107,7 +83,3 @@ jobs:
     - name: Lint vue package
       working-directory: ./packages/vue
       run: npm run lint
-
-    - name: Build vue package
-      working-directory: ./packages/vue
-      run: npm run build
