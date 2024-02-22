@@ -6,7 +6,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  install:
     runs-on: ubuntu-latest
 
     strategy:
@@ -26,60 +26,89 @@ jobs:
       working-directory: ./packages/core
       run: npm install
 
-
-    - name: Build core package
-      working-directory: ./packages/core
-      run: npm run build
-
     #daterange
     - name: Install daterange dependencies
       working-directory: ./packages/daterange
       run: npm install
-
-    - name: Build daterange package
-      working-directory: ./packages/daterange
-      run: npm run build
 
     #list-field
     - name: Install list-field dependencies
       working-directory: ./packages/list-field
       run: npm install
 
-    - name: Build list-field package
-      working-directory: ./packages/list-field
-      run: npm run build
-
     #rating
     - name: Install rating dependencies
       working-directory: ./packages/rating
       run: npm install
-
-    - name: Build rating package
-      working-directory: ./packages/rating
-      run: npm run build
 
     #ritchtext
     - name: Install ritchtext dependencies
       working-directory: ./packages/ritchtext
       run: npm install
 
+    #tabs
+    - name: Install tabs dependencies
+      working-directory: ./packages/tabs
+      run: npm install
+
+    #vue
+    - name: Install vue dependencies
+      working-directory: ./packages/vue
+      run: npm install
+
+  build:
+    needs: install
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    #core
+
+    - name: Build core package
+      working-directory: ./packages/core
+      run: npm run build
+
+    #daterange
+
+    - name: Build daterange package
+      working-directory: ./packages/daterange
+      run: npm run build
+
+    #list-field
+
+    - name: Build list-field package
+      working-directory: ./packages/list-field
+      run: npm run build
+
+    #rating
+
+    - name: Build rating package
+      working-directory: ./packages/rating
+      run: npm run build
+
+    #ritchtext
+
     - name: Build ritchtext package
       working-directory: ./packages/ritchtext
       run: npm run build
 
     #tabs
-    - name: Install tabs dependencies
-      working-directory: ./packages/tabs
-      run: npm install
 
     - name: Build tabs package
       working-directory: ./packages/tabs
       run: npm run build
 
     #vue
-    - name: Install vue dependencies
-      working-directory: ./packages/vue
-      run: npm install
 
     - name: Build vue package
       working-directory: ./packages/vue
