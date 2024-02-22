@@ -8,7 +8,7 @@ import {
   ParsedCondition,
 } from '@forms.js/core';
 import { TabOptions } from './tab';
-import { Tab } from './tab.js';
+import { Tab } from './tab';
 
 export class Tabs {
   public options: TabsOptions = {

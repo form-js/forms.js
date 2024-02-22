@@ -20,9 +20,9 @@ import {
   TimeField,
   UrlField,
   WeekField,
-} from './fields';
+} from './fields/index';
 import { Group } from './group';
-import { PluginSettings } from './types.js';
+import { PluginSettings } from './types';
 
 registerConstructor('group', Group, costructorTypes.group);
 registerConstructor('button', Button, costructorTypes.button);
@@ -57,8 +57,8 @@ export const usePlugin = (settings: PluginSettings | PluginSettings[]) => {
 };
 
 export { Form } from './form';
-export { Button } from './button.js';
-export { ButtonOptions, FieldOptions, FormOptions, GroupOptions } from './interfaces.js';
+export { Button } from './button';
+export { ButtonOptions, FieldOptions, FormOptions, GroupOptions } from './interfaces';
 export {
   setLicenseKey,
   mountElement,
@@ -66,8 +66,8 @@ export {
   extractFieldsFromSchema,
   useLicensedFetures,
   generateFieldSaveKey,
-} from './utils.js';
-export { Field } from './field.js';
-export { fields, buttons, groups, costructorTypes } from './constants.js';
-export { Schema, FormData, FieldValue, PluginSettings, ParsedCondition } from './types.js';
-export { evaluateParsedConditions, parseConditionString } from './utils.js';
+} from './utils';
+export { Field } from './field';
+export { fields, buttons, groups, costructorTypes } from './constants';
+export { Schema, FormData, FieldValue, PluginSettings, ParsedCondition } from './types';
+export { evaluateParsedConditions, parseConditionString } from './utils';

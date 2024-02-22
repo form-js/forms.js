@@ -1,7 +1,7 @@
-import { Field } from '../field.js';
-import { Form } from '../form.js';
-import { NumberFieldOptions } from '../interfaces.js';
-import { mountElement } from '../utils.js';
+import { Field } from '../field';
+import { Form } from '../form';
+import { NumberFieldOptions } from '../interfaces';
+import { mountElement } from '../utils';
 
 export class RangeField extends Field {
   public options: NumberFieldOptions = {

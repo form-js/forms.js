@@ -5,12 +5,11 @@ import {
   elementConstructors,
   licensePlateClass,
   licensePlateStyle,
-} from './constants.js';
+} from './constants';
 import {
   getFormElementType,
   getLicenseText,
   handleInvalidLicenseLog,
-  isListField,
   mountElement,
   objectToFormData,
   processLicenseKey,
@@ -18,12 +17,9 @@ import {
   transformFieldName,
   unmountElement,
   usesLicensedFetures,
-} from './utils.js';
-import { FieldOptions, FormOptions } from './interfaces.js';
-import { FieldValue, FormElement, Schema, FormData } from './types.js';
-import { Group } from './group.js';
-import { Button } from './button.js';
-import { Field } from './field.js';
+} from './utils';
+import { FormOptions } from './interfaces';
+import { FieldValue, FormElement, Schema, FormData } from './types';
 export class Form {
   public options: FormOptions = {
     id: '',

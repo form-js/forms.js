@@ -1,7 +1,7 @@
-import { Form } from '../form.js';
-import { generateFieldSaveKey, mountElement, unmountElement } from '../utils.js';
-import { FieldOptions } from '../interfaces.js';
-import { FieldValue } from '../types.js';
+import { Form } from '../form';
+import { generateFieldSaveKey, mountElement, unmountElement } from '../utils';
+import { FieldOptions } from '../interfaces';
+import { FieldValue } from '../types';
 
 export class HiddenField {
   public options: FieldOptions = {

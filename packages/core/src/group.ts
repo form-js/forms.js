@@ -1,7 +1,7 @@
-import { Form } from './form.js';
-import { evaluateParsedConditions, mountElement, parseConditionString, unmountElement } from './utils.js';
-import { GroupOptions } from './interfaces.js';
-import { ParsedCondition } from './types.js';
+import { Form } from './form';
+import { evaluateParsedConditions, mountElement, parseConditionString, unmountElement } from './utils';
+import { GroupOptions } from './interfaces';
+import { ParsedCondition } from './types';
 
 export class Group {
   // Public properties

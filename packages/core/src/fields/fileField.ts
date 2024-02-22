@@ -1,8 +1,8 @@
 import * as FilePond from 'filepond';
-import { Field } from '../field.js';
-import { Form } from '../form.js';
-import { FileFieldOptions } from '../interfaces.js';
-import { debounce } from '../utils.js';
+import { Field } from '../field';
+import { Form } from '../form';
+import { FileFieldOptions } from '../interfaces';
+import { debounce } from '../utils';
 
 export class FileField extends Field {
   public options: FileFieldOptions = {

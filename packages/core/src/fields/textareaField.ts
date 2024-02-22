@@ -1,6 +1,6 @@
-import { Field } from '../field.js';
-import { Form } from '../form.js';
-import { TextareaFieldOptions } from '../interfaces.js';
+import { Field } from '../field';
+import { Form } from '../form';
+import { TextareaFieldOptions } from '../interfaces';
 
 export class TextareaField extends Field {
   public options: TextareaFieldOptions = {

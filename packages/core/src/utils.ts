@@ -123,15 +123,6 @@ export const getFormElementType = (type: string): string | null => {
 };
 
 /**
- * Determines if a given type is a list field type.
- * @param type - The type string to check.
- * @returns - True if the type is a list field type, false otherwise.
- */
-export const isListField = (type: string): boolean => {
-  return isField(type) && type === 'list';
-};
-
-/**
  * Extracts field IDs from the provided schema based on their type.
  *
  * Iterates over each option in the schema. If the option's type is included
@@ -146,7 +137,7 @@ export const extractFieldsFromSchema = (schema: Schema): string[] => {
   let fieldsList: string[] = [];
   schema.forEach((options: Record<string, any>) => {
     if (fields.includes(options.type)) fieldsList.push(options.id);
-    else if (options.schema) fieldsList = [...fields, ...extractFieldsFromSchema(options.schema)];
+    else if (options.schema) fieldsList = [...fieldsList, ...extractFieldsFromSchema(options.schema)];
   });
   return fieldsList;
 };

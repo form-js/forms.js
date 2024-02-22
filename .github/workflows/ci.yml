@@ -1,4 +1,4 @@
-name: Tests
+name: Build & Lint
 on:
   push:
     branches: [ "master" ]
@@ -100,14 +100,14 @@ jobs:
       run: npm run build
 
     #vue
-    - name: Install tabs dependencies
+    - name: Install vue dependencies
       working-directory: ./packages/vue
       run: npm install
 
-    - name: Lint tabs package
+    - name: Lint vue package
       working-directory: ./packages/vue
       run: npm run lint
 
-    - name: Build tabs package
+    - name: Build vue package
       working-directory: ./packages/vue
       run: npm run build

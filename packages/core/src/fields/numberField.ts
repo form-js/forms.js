@@ -1,6 +1,6 @@
-import { Field } from '../field.js';
-import { Form } from '../form.js';
-import { FieldOptions, NumberFieldOptions } from '../interfaces.js';
+import { Field } from '../field';
+import { Form } from '../form';
+import { FieldOptions, NumberFieldOptions } from '../interfaces';
 
 export class NumberField extends Field {
   public options: NumberFieldOptions = {

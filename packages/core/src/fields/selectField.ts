@@ -1,10 +1,10 @@
 import TomSelect, * as TomSelectNamespace from 'tom-select';
 const TomSelectInitiator = (TomSelectNamespace as any).default;
-import { Field } from '../field.js';
-import { Form } from '../form.js';
-import { SelectFieldOptions } from '../interfaces.js';
-import { FieldValue, HTMLElementEvent, Option, SelectFieldValue } from '../types.js';
-import { debounce, mountElement } from '../utils.js';
+import { Field } from '../field';
+import { Form } from '../form';
+import { SelectFieldOptions } from '../interfaces';
+import { FieldValue, HTMLElementEvent, Option, SelectFieldValue } from '../types';
+import { debounce, mountElement } from '../utils';
 
 export class SelectField extends Field {
   public options: SelectFieldOptions = {

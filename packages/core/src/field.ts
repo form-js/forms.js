@@ -1,4 +1,4 @@
-import { Form } from './form.js';
+import { Form } from './form';
 import {
   debounce,
   evaluateParsedConditions,
@@ -6,9 +6,9 @@ import {
   mountElement,
   parseConditionString,
   unmountElement,
-} from './utils.js';
-import { FieldOptions } from './interfaces.js';
-import { FieldValue, HTMLElementEvent, ParsedCondition } from './types.js';
+} from './utils';
+import { FieldOptions } from './interfaces';
+import { FieldValue, HTMLElementEvent, ParsedCondition } from './types';
 
 export class Field {
   public options: FieldOptions = {

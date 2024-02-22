@@ -1,13 +1,13 @@
-import { Form } from '../form.js';
+import { Form } from '../form';
 import {
   evaluateParsedConditions,
   generateFieldSaveKey,
   mountElement,
   parseConditionString,
   unmountElement,
-} from '../utils.js';
-import { StaticFieldOptions } from '../interfaces.js';
-import { FieldValue, ParsedCondition } from '../types.js';
+} from '../utils';
+import { StaticFieldOptions } from '../interfaces';
+import { FieldValue, ParsedCondition } from '../types';
 
 export class StaticField {
   public options: StaticFieldOptions = {

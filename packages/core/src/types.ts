@@ -1,6 +1,5 @@
-import { FieldOptions, NumberFieldOptions, RadioFieldOptions } from './interfaces';
-import { costructorTypes, fields, formElements } from './constants';
-import { Form } from './form.js';
+import {  fields, formElements } from './constants';
+import { Form } from './form';
 
 export type Schema = object[];
 export type Tabs = object[];

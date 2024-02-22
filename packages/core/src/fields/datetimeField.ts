@@ -1,8 +1,8 @@
 import * as flatpickerNamespace from 'flatpickr';
 const flatpickr = (flatpickerNamespace as any).default;
-import { Field } from '../field.js';
-import { Form } from '../form.js';
-import { DateFieldOptions } from '../interfaces.js';
+import { Field } from '../field';
+import { Form } from '../form';
+import { DateFieldOptions } from '../interfaces';
 
 export class DatetimeField extends Field {
   public options: DateFieldOptions = {
