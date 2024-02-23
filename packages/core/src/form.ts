@@ -129,7 +129,7 @@ export class Form {
    * Checks if the form is valid.
    * @returns Boolean indicating form validity.
    */
-  private isFormValid(): boolean | null {
+  isValid(): boolean | null {
     return this._isValid;
   }
 
@@ -517,7 +517,7 @@ export class Form {
   submit(event: SubmitEvent, form: Form): void {
     event.preventDefault();
     form.validate();
-    if (!form.isFormValid()) {
+    if (!form.isValid()) {
       return;
     }
     if (this.options.action) {

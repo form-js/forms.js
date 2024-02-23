@@ -1,4 +1,4 @@
-import {  fields, formElements } from './constants';
+import { fields, formElements } from './constants';
 import { Form } from './form';
 
 export type Schema = object[];

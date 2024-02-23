@@ -417,7 +417,7 @@ export class Field {
           this._form.getData(),
           this._value,
           this._isRequired,
-          true
+          true,
         ) as true | string;
         this.setValidationValues(validity);
       } else if (typeof this.options.validation === 'function') {

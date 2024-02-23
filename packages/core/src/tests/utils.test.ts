@@ -1,12 +1,29 @@
+import { describe, expect, test, it, jest } from '@jest/globals';
 import { Button } from '../button';
 import { TextField } from '../fields';
 import { Group } from '../group';
 import { ParsedCondition } from '../types';
 import { LICENSE_STATE, costructorTypes, registerConstructor } from './../constants';
-import { debounce, mountElement, unmountElement, objectToFormData, isField, isGroup, isButton, setLicenseKey, processLicenseKey, getFormElementType, extractFieldsFromSchema, createWrapper, generateFieldSaveKey, parseConditionString, transformFieldName, evaluateParsedConditions,  } from './../utils';
+import {
+  debounce,
+  mountElement,
+  unmountElement,
+  objectToFormData,
+  isField,
+  isGroup,
+  isButton,
+  setLicenseKey,
+  processLicenseKey,
+  getFormElementType,
+  extractFieldsFromSchema,
+  createWrapper,
+  generateFieldSaveKey,
+  parseConditionString,
+  transformFieldName,
+  evaluateParsedConditions,
+} from './../utils';
 
 describe('formUtils', () => {
-
   describe('debounce', () => {
     jest.useFakeTimers();
     it('should debounce a function call', () => {
@@ -80,9 +97,9 @@ describe('formUtils', () => {
         type: 'group',
         schema: [
           { id: 'field2', type: 'text' },
-          { id: 'field3', type: 'text' }
-        ]
-      }
+          { id: 'field3', type: 'text' },
+        ],
+      },
     ];
 
     registerConstructor('text', TextField, 'field');
@@ -130,9 +147,9 @@ describe('formUtils', () => {
   });
 
   describe('evaluateParsedConditions', () => {
-    const parsedConditions:ParsedCondition[] = [
+    const parsedConditions: ParsedCondition[] = [
       { conditions: [[{ left: '_value', operator: '!=', right: null }]], returnValue: 'true' },
-      { conditions: [[{ left: '_required', operator: '=', right: true }]], returnValue: 'false' }
+      { conditions: [[{ left: '_required', operator: '=', right: true }]], returnValue: 'false' },
     ];
 
     it('evaluates conditions correctly and returns the corresponding value', () => {

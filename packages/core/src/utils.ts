@@ -289,8 +289,8 @@ export const evaluateParsedConditions = (
         const dataList = {
           _value: value,
           _required: required,
-          ...data
-        }
+          ...data,
+        };
         const leftValue = getNestedValue(dataList, left);
         return compareValues(operator, leftValue, right);
       }),

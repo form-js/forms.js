@@ -1,7 +1,7 @@
 import { FormElementType, pluginConstructor } from './types';
 import { useLicensedFetures } from './utils';
 
-export const PACKAGE_LICENSE_URL = '#';
+export const PACKAGE_LICENSE_URL = 'https://formsjs.io/documentation/v1/licensing';
 
 export const licensePlateClass = '#';
 export const licensePlateStyle =
