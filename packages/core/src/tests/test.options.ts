@@ -28,7 +28,8 @@ export const baseTextFieldTestOptions = {
 
 export function createForm(opt?: Record<string, any>) {
   const parent = document.createElement('div');
-  parent.className = 'test-form';
+  parent.className = FORM_ID;
+  parent.id = FORM_ID;
   const options: FormOptions = {
     ...baseFormOptions,
     schema: [baseTextFieldTestOptions],

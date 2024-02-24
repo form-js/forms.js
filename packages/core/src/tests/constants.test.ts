@@ -1,4 +1,4 @@
-import { describe, expect, test, afterAll, it, jest } from '@jest/globals';
+import { describe, expect, test, afterEach, it, jest } from '@jest/globals';
 import * as constantsFile from '../constants';
 import { useLicensedFetures } from '../utils';
 import { pluginConstructor } from '../types';
@@ -9,7 +9,7 @@ jest.mock('../utils', () => ({
 }));
 
 describe('constants and registerConstructor', () => {
-  afterAll(() => {
+  afterEach(() => {
     jest.clearAllMocks();
   });
 

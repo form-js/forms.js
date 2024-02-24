@@ -1,4 +1,4 @@
-import { describe, expect, test, afterAll, it, jest } from '@jest/globals';
+import { describe, expect, test, afterEach, it, jest } from '@jest/globals';
 import {
   BUTTON_ID,
   DEFAULT_STRING_VALUE,
@@ -29,8 +29,9 @@ jest.mock('../utils', () => {
 });
 
 describe('form', () => {
-  afterAll(() => {
+  afterEach(() => {
     document.body.innerHTML = '';
+    jest.clearAllMocks();
   });
 
   it('initializes and mounts form element to parent', () => {

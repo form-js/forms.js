@@ -1,4 +1,4 @@
-import { describe, expect, test, it, jest } from '@jest/globals';
+import { describe, expect, test, it, jest, afterEach } from '@jest/globals';
 import { Button } from '../button';
 import { TextField } from '../fields';
 import { Group } from '../group';
@@ -24,6 +24,10 @@ import {
 } from './../utils';
 
 describe('formUtils', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe('debounce', () => {
     jest.useFakeTimers();
     it('should debounce a function call', () => {
