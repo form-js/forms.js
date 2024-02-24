@@ -78,6 +78,35 @@ describe('Button', () => {
     expect(utils.parseConditionString).toHaveBeenCalledWith(buttonOptions.conditions);
   });
 
+  it('parses string conditions correctly', () => {
+    const mockConditions = jest.fn();
+    buttonOptions.conditions = mockConditions as () => boolean;
+    (buttonOptions.conditions as jest.Mock).mockReturnValue(true);
+    const conditionFormVisible = createForm({
+      schema: [
+        {
+          ...buttonOptions,
+        },
+      ],
+    });
+    const btnVisible: Button = conditionFormVisible.getButton(BUTTON_ID) as unknown as Button;
+    conditionFormVisible.update();
+    expect(mockConditions).toHaveBeenCalled();
+    expect(btnVisible.getVisibility()).toBeTruthy();
+    (buttonOptions.conditions as jest.Mock).mockReturnValue(false);
+    const conditionFormHidden = createForm({
+      schema: [
+        {
+          ...buttonOptions,
+        },
+      ],
+    });
+    const btnHidden: Button = conditionFormHidden.getButton(BUTTON_ID) as unknown as Button;
+    conditionFormHidden.update();
+    expect(mockConditions).toHaveBeenCalled();
+    expect(btnHidden.getVisibility()).toBeFalsy();
+  });
+
   it('updates visibility based on conditions', () => {
     (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(true);
     button.update();
