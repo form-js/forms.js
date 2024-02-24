@@ -4,7 +4,6 @@ import { GroupOptions } from './interfaces';
 import { ParsedCondition } from './types';
 
 export class Group {
-  // Public properties
   public options: GroupOptions = {
     id: '',
     type: 'group',
@@ -16,7 +15,6 @@ export class Group {
   public schemaContainerElement: HTMLElement | null = null;
   public labelElement: HTMLElement | null = null;
 
-  // Private properties
   private _id: string;
   private _parent: HTMLElement;
   private _form: Form;
@@ -90,7 +88,6 @@ export class Group {
 
   /** Creates and sets up the container element for the group. */
   createContainerElement(): void {
-    // Container element
     this.containerElement = document.createElement('div');
     this.containerElement.className = 'form-group-container';
     this.containerElement.setAttribute('id', this._id + '_group_container');
@@ -98,7 +95,6 @@ export class Group {
 
   /** Creates and sets up the container element for the group. */
   createSchemaContainerElement(): void {
-    // Container element
     this.schemaContainerElement = document.createElement('div');
     this.schemaContainerElement.className = this.options.className!;
     this.schemaContainerElement.setAttribute('id', this._id);
@@ -106,9 +102,7 @@ export class Group {
 
   /** Creates and sets up the label element for the group. */
   createLabelElement(): void {
-    // Label element
     this.labelElement = document.createElement('h3');
-    // Label text
     if (this.options.label) this.labelElement.innerText = this.options.label;
     this.labelElement.setAttribute('id', this._id + '_label');
     this.labelElement.className = 'form-group-label';

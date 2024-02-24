@@ -1,10 +1,9 @@
 import { describe, expect, test, afterAll, beforeEach, afterEach, it, jest } from '@jest/globals';
 import { Button } from './../button';
 import * as utils from './../utils';
-import { BUTTON_ID, FORM_ID, createForm } from './test.options';
+import { BUTTON_ID, createForm } from './test.options';
 import { Form } from '../form';
 import { ButtonOptions } from '../interfaces';
-import { FormElement } from '../types';
 
 jest.mock('../utils', () => {
   const originalModule = jest.requireActual('../utils') as object;
@@ -32,7 +31,7 @@ describe('Button', () => {
       buttonType: 'submit',
       className: 'btn',
       template: 'Submit',
-      conditions: 'visibleCondition',
+      conditions: 'stringConditions',
     };
     form = createForm({
       schema: [
@@ -93,5 +92,5 @@ describe('Button', () => {
     expect(utils.unmountElement).toHaveBeenCalledWith(parentElement);
   });
 
-  //Expand test further
+  //Expand on tests
 });
