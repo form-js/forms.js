@@ -1,5 +1,4 @@
-import { FormOptions } from '@forms.js/core/lib/interfaces';
-import { Form as FormConstructor, PluginSettings, usePlugin } from '@forms.js/core';
+import { Form as FormConstructor, PluginSettings, usePlugin, FormOptions } from '@forms.js/core';
 import { PropType, defineComponent, h } from 'vue';
 
 const Form = defineComponent({
