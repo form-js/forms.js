@@ -3,7 +3,17 @@ import { Button } from '../button';
 import { TextField } from '../fields';
 import { Group } from '../group';
 import { ParsedCondition } from '../types';
-import { LICENSE_STATE, costructorTypes, registerConstructor } from './../constants';
+import {
+  INVALID_CONSOLE_TEXT,
+  INVALID_LICENSE_TEXT,
+  LICENSE_STATE,
+  OS_LICENSE_KEYS,
+  OUTDATED_CONSOLE_TEXT,
+  OUTDATED_LICENSE_TEXT,
+  VALID_LICENSE_TEXT,
+  costructorTypes,
+  registerConstructor,
+} from './../constants';
 import {
   debounce,
   mountElement,
@@ -21,6 +31,10 @@ import {
   parseConditionString,
   transformFieldName,
   evaluateParsedConditions,
+  getLicenseText,
+  handleInvalidLicenseLog,
+  useLicensedFetures,
+  usesLicensedFetures,
 } from './../utils';
 
 describe('formUtils', () => {
@@ -30,12 +44,45 @@ describe('formUtils', () => {
 
   describe('debounce', () => {
     jest.useFakeTimers();
-    it('should debounce a function call', () => {
+
+    it('delays the execution of the callback', () => {
       const callback = jest.fn();
-      const debouncedFunc = debounce(callback, 1000, null);
-      debouncedFunc();
+      const debouncedFunction = debounce(callback, 1000, null);
+      debouncedFunction();
+
+      expect(callback).not.toHaveBeenCalled();
+
       jest.runAllTimers();
+
       expect(callback).toHaveBeenCalledTimes(1);
+    });
+
+    it('executes the callback only once for rapid successive calls', () => {
+      const callback = jest.fn();
+      const debouncedFunction = debounce(callback, 1000, null);
+
+      debouncedFunction();
+      debouncedFunction();
+      debouncedFunction();
+
+      jest.runAllTimers();
+
+      expect(callback).toHaveBeenCalledTimes(1);
+    });
+
+    it('applies the correct context and arguments to the callback', () => {
+      const callback = jest.fn(function (this: { value: number }) {
+        return this.value;
+      });
+      const context = { value: 42 };
+      const debouncedFunction: (...args: any[]) => void = debounce(callback, 1000, context);
+      const arg1 = 'test',
+        arg2 = 123;
+
+      debouncedFunction(arg1, arg2);
+      jest.runAllTimers();
+
+      expect(callback).toHaveBeenCalledWith(arg1, arg2);
     });
   });
 
@@ -54,7 +101,7 @@ describe('formUtils', () => {
 
   describe('objectToFormData', () => {
     it('should convert an object to FormData', () => {
-      const obj = { key: 'value', nested: { nestedKey: 'nestedValue' } };
+      const obj = { key: 'value', nested: { nestedKey: 'nestedValue' }, null: null };
       const formData = objectToFormData(obj);
       expect(formData.get('key')).toEqual('value');
       expect(formData.get('nested[nestedKey]')).toEqual('nestedValue');
@@ -74,9 +121,34 @@ describe('formUtils', () => {
   });
 
   describe('processLicenseKey', () => {
-    it('should return the correct license state', () => {
+    it('should return invalid state when license key is invalid', () => {
       setLicenseKey('invalidLicenseKey');
       expect(processLicenseKey()).toEqual(LICENSE_STATE.INVALID);
+    });
+
+    it('should return invalid state when no key set', () => {
+      setLicenseKey('');
+      expect(processLicenseKey()).toEqual(LICENSE_STATE.INVALID);
+    });
+
+    it('should return outdated license when key is outdated', () => {
+      setLicenseKey('1234567891@1614267797');
+      expect(processLicenseKey()).toEqual(LICENSE_STATE.OUTDATED);
+    });
+
+    it('should return valid license when open source or cc key', () => {
+      setLicenseKey('GPL-My-Project-Is-Open-Source');
+      expect(processLicenseKey()).toEqual(LICENSE_STATE.VALID);
+      setLicenseKey('CC-Attribution-NonCommercial-NoDerivatives');
+      expect(processLicenseKey()).toEqual(LICENSE_STATE.VALID);
+    });
+  });
+
+  describe('getLicenseText', () => {
+    it('should return the correct license text', () => {
+      expect(getLicenseText(LICENSE_STATE.VALID)).toEqual(VALID_LICENSE_TEXT);
+      expect(getLicenseText(LICENSE_STATE.INVALID)).toEqual(INVALID_LICENSE_TEXT);
+      expect(getLicenseText(LICENSE_STATE.OUTDATED)).toEqual(OUTDATED_LICENSE_TEXT);
     });
   });
 
@@ -137,31 +209,103 @@ describe('formUtils', () => {
     });
   });
 
-  describe('parseConditionString', () => {
-    const conditionStr = "[_value!=null&&_value!='']:true;[_required=true]:false";
+  describe('handleInvalidLicenseLog', () => {
+    global.console = {
+      ...global.console,
+      error: jest.fn(),
+    };
 
-    it('parses condition strings into structured conditions', () => {
-      const parsedConditions = parseConditionString(conditionStr);
-      expect(parsedConditions.length).toBe(2);
-      expect(parsedConditions[0].conditions.length).toBe(2);
-      expect(parsedConditions[0].conditions[0].length).toBe(1);
-      expect(parsedConditions[0].returnValue).toBe('true');
-      expect(parsedConditions[1].returnValue).toBe('false');
+    it('checks if invalid license logs error in console', () => {
+      const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      handleInvalidLicenseLog(LICENSE_STATE.INVALID);
+      expect(spy).toHaveBeenCalledWith(INVALID_CONSOLE_TEXT);
+      spy.mockRestore();
+      global.console = {
+        ...global.console,
+        error: console.error,
+      };
+    });
+
+    it('checks if oudated license logs error in console', () => {
+      const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      handleInvalidLicenseLog(LICENSE_STATE.OUTDATED);
+      expect(spy).toHaveBeenCalledWith(OUTDATED_CONSOLE_TEXT);
+      spy.mockRestore();
+      global.console = {
+        ...global.console,
+        error: console.error,
+      };
     });
   });
 
-  describe('evaluateParsedConditions', () => {
-    const parsedConditions: ParsedCondition[] = [
-      { conditions: [[{ left: '_value', operator: '!=', right: null }]], returnValue: 'true' },
-      { conditions: [[{ left: '_required', operator: '=', right: true }]], returnValue: 'false' },
-    ];
+  describe('Condition Parsing and Evaluation', () => {
+    describe('parseConditionString', () => {
+      it('parses condition strings into structured conditions', () => {
+        const conditionStr = '[field1=value1]:true;[field2!=value2]:false';
+        const parsed = parseConditionString(conditionStr);
+        expect(parsed).toEqual([
+          {
+            conditions: [[{ left: 'field1', operator: '=', right: 'value1', isDate: false }]],
+            returnValue: 'true',
+          },
+          {
+            conditions: [[{ left: 'field2', operator: '!=', right: 'value2', isDate: false }]],
+            returnValue: 'false',
+          },
+        ]);
+      });
 
-    it('evaluates conditions correctly and returns the corresponding value', () => {
-      const resultTrue = evaluateParsedConditions(parsedConditions, {}, 'not null');
-      expect(resultTrue).toBe(true);
+      it('handles date parsing correctly', () => {
+        const dateStr = '2023-01-01';
+        const conditionStr = `[dateField=date!${dateStr}]:true`;
+        const parsed = parseConditionString(conditionStr);       
+        expect(parsed[0].conditions[0][0].right).toEqual(new Date(dateStr));
+        expect(parsed[0].conditions[0][0].isDate).toBe(true);
+      });
+    });
 
-      const resultFalse = evaluateParsedConditions(parsedConditions, { _required: true });
-      expect(resultFalse).toBe(false);
+    describe('evaluateParsedConditions', () => {
+      it('evaluates conditions correctly and returns the corresponding value', () => {
+        const parsedConditions: ParsedCondition[] = [
+          {
+            conditions: [[{ left: 'field1', operator: '=', right: 'value1', isDate: false }]],
+            returnValue: 'true',
+          },
+        ];
+        const formData = { field1: 'value1' };
+        const result = evaluateParsedConditions(parsedConditions, formData);
+        expect(result).toBe(true);
+      });
+
+      it('returns default value if no conditions match', () => {
+        const parsedConditions: ParsedCondition[] = [
+          {
+            conditions: [[{ left: 'field1', operator: '=', right: 'nonMatchingValue', isDate: false }]],
+            returnValue: 'true',
+          },
+        ];
+        const formData = { field1: 'value1' };
+        const result = evaluateParsedConditions(parsedConditions, formData);
+        expect(result).toBe(false); // Assuming default is false
+      });
+
+      it('handles complex conditions with AND/OR logic', () => {
+        const parsedConditions: ParsedCondition[] = [
+          {
+            conditions: [
+              [
+                { left: 'field1', operator: '=', right: 'value1', isDate: false },
+                { left: 'field2', operator: '!=', right: 'value2', isDate: false },
+              ],
+              [{ left: 'field3', operator: '>', right: 10, isDate: false }],
+            ],
+            returnValue: 'true',
+          },
+        ];
+        const formData = { field1: 'value1', field2: 'value3', field3: 20 };
+        const result = evaluateParsedConditions(parsedConditions, formData);
+        expect(result).toBe(true);
+      });
     });
   });
 });

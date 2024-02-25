@@ -1,11 +1,18 @@
 import {
+  INVALID_CONSOLE_TEXT,
+  INVALID_LICENSE_TEXT,
   LICENSE_STATE,
   OS_LICENSE_KEYS,
+  OUTDATED_CONSOLE_TEXT,
+  OUTDATED_LICENSE_TEXT,
   RELEASE_DATE,
+  STRING_CONDITION_DATE_IDENTIFIER,
+  STRING_CONDITION_SPLIT,
+  STRING_CONDITION_VALUE_SPLIT,
   UPGRADE_WINDOW,
+  VALID_LICENSE_TEXT,
   buttons,
   costructorTypes,
-  elementConstructors,
   fields,
   groups,
 } from './constants';
@@ -198,6 +205,7 @@ export const processLicenseKey = (): number => {
   if (isKeyInLicenseKeys(key)) return LICENSE_STATE.VALID;
 
   const parts = parseKey(key);
+
   if (parts?.[1]?.length === 10) {
     const [, , timestamp] = parts;
     const purchaseDate = new Date(parseInt(timestamp, 10) * 1000);
@@ -217,19 +225,17 @@ export const setLicenseKey = (key: string) => {
 };
 
 export const getLicenseText = (license: number): string => {
-  if (license === LICENSE_STATE.VALID) return 'forms.js license key is valid';
-  if (license === LICENSE_STATE.OUTDATED) return 'forms.js license key is outdated';
-  return 'forms.js license key is invalid';
+  if (license === LICENSE_STATE.VALID) return VALID_LICENSE_TEXT;
+  if (license === LICENSE_STATE.OUTDATED) return OUTDATED_LICENSE_TEXT;
+  return INVALID_LICENSE_TEXT;
 };
 
 export const handleInvalidLicenseLog = (license: number): void => {
-  console.error('***********************************************');
   if (license === LICENSE_STATE.INVALID) {
-    console.error('forms.js license key is invalid, please use a valid license key');
+    console.error(INVALID_CONSOLE_TEXT);
   } else {
-    console.error('forms.js license key is outdated, please update your license key');
+    console.error(OUTDATED_CONSOLE_TEXT);
   }
-  console.error('***********************************************');
 };
 
 export const usesLicensedFetures = (): boolean => {
@@ -244,33 +250,40 @@ export const useLicensedFetures = (): void => {
  *
  * string conditions evaluation
  */
-export const parseConditionString = (conditionStr: string): ParsedCondition[] => {
+export const parseConditionString = (conditionStr: string) => {
   return conditionStr
-    .split(';')
-    .filter((part) => part.includes(':'))
+    .split(STRING_CONDITION_SPLIT) // Split by semicolon to separate conditions
+    .filter((part) => part.includes(STRING_CONDITION_VALUE_SPLIT)) // Ensure only valid condition:returnValue pairs are processed
     .map((part) => {
-      const [rawConditions, returnValue] = part.split(':');
+      const [rawConditions, returnValue] = part.split(STRING_CONDITION_VALUE_SPLIT); // Split each part into conditions and return value
       const conditions = rawConditions
-        .substring(1)
-        .split('&&')
+        // Assuming conditions are wrapped in brackets, remove them before further processing
+        .replace(/^\[|\]$/g, '') // Remove leading and trailing brackets
+        .split('&&') // Split by AND operator to separate conditions
         .map((andCond) =>
-          andCond.split('||').map((orCond) => {
-            const [left, operator, rightPart] = orCond.match(/(.*?)(=|!=|>|<|>=|<=)(.*)/)!.slice(1);
+          andCond.split('||').map((orCond) => { // Split by OR operator within each AND group
+            // Match the condition expression into its components
+            const match = orCond.match(/(.*?)(=|!=|>|<|>=|<=)(.*)/);
+            if (!match) throw new Error(`Invalid condition format: ${orCond}`);
+            const [, left, operator, rightPart] = match;
             let right;
-            const isDate = rightPart.trim().startsWith('date:');
+            const isDate = rightPart.trim().startsWith(STRING_CONDITION_DATE_IDENTIFIER);
             if (isDate) {
-              // Extract the date string after 'date:' and convert to Date
+              // Extract the date string after 'date:' prefix and convert to Date
               right = new Date(rightPart.trim().substring(5));
             } else {
+              // Attempt to parse JSON, defaulting to string if it fails
               try {
                 right = JSON.parse(rightPart.trim());
               } catch {
-                right = rightPart.trim();
-              } // Use as string if not JSON
+                right = rightPart.trim(); // Use as string if not JSON
+              }
             }
+            // Return the structured condition
             return { left: left.trim(), operator: operator as Operator, right, isDate };
           }),
         );
+      // Return the structured condition along with its intended return value
       return { conditions, returnValue };
     });
 };

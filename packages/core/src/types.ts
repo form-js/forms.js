@@ -62,5 +62,5 @@ export type PluginSettings = {
 export type pluginConstructor = new (a: HTMLElement, b: Form, c: any) => any;
 
 export type Operator = '=' | '!=' | '>' | '<' | '>=' | '<=';
-export type Condition = { left: string; operator: Operator; right: any };
+export type Condition = { left: string; operator: Operator; right: any; isDate?: boolean };
 export type ParsedCondition = { conditions: Condition[][]; returnValue: string };

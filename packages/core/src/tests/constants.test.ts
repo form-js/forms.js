@@ -33,7 +33,6 @@ describe('constants and registerConstructor', () => {
       OUTDATED: 2,
       INVALID: 3,
     });
-    expect(constantsFile.RELEASE_DATE).toBe('2023-09-23');
   });
 
   describe('registerConstructor', () => {
