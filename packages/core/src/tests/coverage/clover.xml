@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1708887022636" clover="3.2.0">
-  <project timestamp="1708887022636" name="All files">
-    <metrics statements="1359" coveredstatements="637" conditionals="680" coveredconditionals="185" methods="363" coveredmethods="147" elements="2402" coveredelements="969" complexity="0" loc="1359" ncloc="1359" packages="3" files="28" classes="28"/>
+<coverage generated="1708887912683" clover="3.2.0">
+  <project timestamp="1708887912683" name="All files">
+    <metrics statements="1358" coveredstatements="643" conditionals="679" coveredconditionals="190" methods="363" coveredmethods="148" elements="2400" coveredelements="981" complexity="0" loc="1358" ncloc="1358" packages="3" files="28" classes="28"/>
     <package name="src">
-      <metrics statements="674" coveredstatements="540" conditionals="320" coveredconditionals="185" methods="186" coveredmethods="144"/>
+      <metrics statements="673" coveredstatements="546" conditionals="319" coveredconditionals="190" methods="186" coveredmethods="145"/>
       <file name="button.ts" path="C:\www\forms.js\packages\core\src\button.ts">
         <metrics statements="53" coveredstatements="53" conditionals="18" coveredconditionals="18" methods="21" coveredmethods="21"/>
         <line num="2" count="4" type="stmt"/>
@@ -569,7 +569,7 @@
         <line num="73" count="3" type="stmt"/>
       </file>
       <file name="utils.ts" path="C:\www\forms.js\packages\core\src\utils.ts">
-        <metrics statements="128" coveredstatements="121" conditionals="46" coveredconditionals="39" methods="38" coveredmethods="37"/>
+        <metrics statements="127" coveredstatements="127" conditionals="45" coveredconditionals="44" methods="38" coveredmethods="38"/>
         <line num="1" count="4" type="stmt"/>
         <line num="23" count="4" type="stmt"/>
         <line num="24" count="4" type="stmt"/>
@@ -655,17 +655,17 @@
         <line num="235" count="9" type="stmt"/>
         <line num="237" count="1" type="stmt"/>
         <line num="241" count="4" type="stmt"/>
-        <line num="242" count="24" type="stmt"/>
+        <line num="242" count="26" type="stmt"/>
         <line num="245" count="4" type="stmt"/>
-        <line num="246" count="0" type="stmt"/>
+        <line num="246" count="1" type="stmt"/>
         <line num="253" count="4" type="stmt"/>
-        <line num="254" count="2" type="stmt"/>
-        <line num="256" count="3" type="stmt"/>
-        <line num="258" count="3" type="stmt"/>
-        <line num="259" count="3" type="stmt"/>
-        <line num="264" count="3" type="stmt"/>
-        <line num="266" count="3" type="stmt"/>
-        <line num="267" count="3" type="cond" truecount="0" falsecount="1"/>
+        <line num="254" count="3" type="stmt"/>
+        <line num="256" count="5" type="stmt"/>
+        <line num="258" count="4" type="stmt"/>
+        <line num="259" count="4" type="stmt"/>
+        <line num="264" count="4" type="stmt"/>
+        <line num="266" count="4" type="stmt"/>
+        <line num="267" count="4" type="cond" truecount="1" falsecount="0"/>
         <line num="268" count="3" type="stmt"/>
         <line num="270" count="3" type="stmt"/>
         <line num="271" count="3" type="cond" truecount="2" falsecount="0"/>
@@ -676,28 +676,27 @@
         <line num="283" count="3" type="stmt"/>
         <line num="287" count="3" type="stmt"/>
         <line num="291" count="4" type="stmt"/>
-        <line num="298" count="3" type="stmt"/>
-        <line num="299" count="3" type="stmt"/>
-        <line num="300" count="4" type="stmt"/>
-        <line num="302" count="4" type="stmt"/>
-        <line num="307" count="4" type="stmt"/>
-        <line num="308" count="4" type="stmt"/>
-        <line num="311" count="3" type="cond" truecount="1" falsecount="0"/>
-        <line num="312" count="2" type="stmt"/>
-        <line num="313" count="2" type="stmt"/>
-        <line num="315" count="0" type="stmt"/>
+        <line num="298" count="4" type="stmt"/>
+        <line num="299" count="4" type="stmt"/>
+        <line num="300" count="5" type="stmt"/>
+        <line num="302" count="5" type="stmt"/>
+        <line num="307" count="5" type="stmt"/>
+        <line num="308" count="5" type="stmt"/>
+        <line num="311" count="4" type="cond" truecount="1" falsecount="0"/>
+        <line num="312" count="3" type="stmt"/>
+        <line num="313" count="3" type="stmt"/>
+        <line num="315" count="1" type="stmt"/>
         <line num="319" count="1" type="stmt"/>
         <line num="322" count="4" type="stmt"/>
-        <line num="323" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="323" count="5" type="cond" truecount="2" falsecount="0"/>
         <line num="326" count="4" type="stmt"/>
-        <line num="327" count="4" type="cond" truecount="2" falsecount="5"/>
-        <line num="329" count="3" type="stmt"/>
-        <line num="331" count="0" type="stmt"/>
-        <line num="333" count="1" type="stmt"/>
-        <line num="335" count="0" type="stmt"/>
-        <line num="337" count="0" type="stmt"/>
-        <line num="339" count="0" type="stmt"/>
-        <line num="341" count="0" type="stmt"/>
+        <line num="327" count="25" type="cond" truecount="6" falsecount="0"/>
+        <line num="329" count="8" type="stmt"/>
+        <line num="331" count="4" type="stmt"/>
+        <line num="333" count="4" type="stmt"/>
+        <line num="335" count="3" type="stmt"/>
+        <line num="337" count="3" type="stmt"/>
+        <line num="339" count="3" type="stmt"/>
       </file>
     </package>
     <package name="src.fields">

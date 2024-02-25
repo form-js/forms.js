@@ -7,7 +7,6 @@ import {
   INVALID_CONSOLE_TEXT,
   INVALID_LICENSE_TEXT,
   LICENSE_STATE,
-  OS_LICENSE_KEYS,
   OUTDATED_CONSOLE_TEXT,
   OUTDATED_LICENSE_TEXT,
   VALID_LICENSE_TEXT,
@@ -35,6 +34,7 @@ import {
   handleInvalidLicenseLog,
   useLicensedFetures,
   usesLicensedFetures,
+  compareValues,
 } from './../utils';
 
 describe('formUtils', () => {
@@ -209,6 +209,14 @@ describe('formUtils', () => {
     });
   });
 
+  describe('useLicensedFetures', () => {
+    it('correctly sets if form uses licensed features', () => {
+      expect(usesLicensedFetures()).toBeFalsy();
+      useLicensedFetures();
+      expect(usesLicensedFetures()).toBeTruthy();
+    });
+  });
+
   describe('handleInvalidLicenseLog', () => {
     global.console = {
       ...global.console,
@@ -216,7 +224,7 @@ describe('formUtils', () => {
     };
 
     it('checks if invalid license logs error in console', () => {
-      const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      const spy = jest.spyOn(console, 'error').mockImplementation(() => { });
       handleInvalidLicenseLog(LICENSE_STATE.INVALID);
       expect(spy).toHaveBeenCalledWith(INVALID_CONSOLE_TEXT);
       spy.mockRestore();
@@ -227,7 +235,7 @@ describe('formUtils', () => {
     });
 
     it('checks if oudated license logs error in console', () => {
-      const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      const spy = jest.spyOn(console, 'error').mockImplementation(() => { });
       handleInvalidLicenseLog(LICENSE_STATE.OUTDATED);
       expect(spy).toHaveBeenCalledWith(OUTDATED_CONSOLE_TEXT);
       spy.mockRestore();
@@ -241,7 +249,7 @@ describe('formUtils', () => {
   describe('Condition Parsing and Evaluation', () => {
     describe('parseConditionString', () => {
       it('parses condition strings into structured conditions', () => {
-        const conditionStr = '[field1=value1]:true;[field2!=value2]:false';
+        const conditionStr = '[field1=value1]:true;[field2!=value2]:test';
         const parsed = parseConditionString(conditionStr);
         expect(parsed).toEqual([
           {
@@ -250,15 +258,21 @@ describe('formUtils', () => {
           },
           {
             conditions: [[{ left: 'field2', operator: '!=', right: 'value2', isDate: false }]],
-            returnValue: 'false',
+            returnValue: 'test',
           },
         ]);
+
+      });
+
+      it('throws error on unsupported conditions', () => {
+        const conditionStr = '[field1!value1]:true;[field2!=value2]:test';
+        expect(() => parseConditionString(conditionStr)).toThrow();
       });
 
       it('handles date parsing correctly', () => {
         const dateStr = '2023-01-01';
         const conditionStr = `[dateField=date!${dateStr}]:true`;
-        const parsed = parseConditionString(conditionStr);       
+        const parsed = parseConditionString(conditionStr);
         expect(parsed[0].conditions[0][0].right).toEqual(new Date(dateStr));
         expect(parsed[0].conditions[0][0].isDate).toBe(true);
       });
@@ -275,6 +289,15 @@ describe('formUtils', () => {
         const formData = { field1: 'value1' };
         const result = evaluateParsedConditions(parsedConditions, formData);
         expect(result).toBe(true);
+        const parsedConditionsString: ParsedCondition[] = [
+          {
+            conditions: [[{ left: 'field1', operator: '=', right: 'value1', isDate: false }]],
+            returnValue: 'test',
+          },
+        ];
+        const formDataString = { field1: 'value1' };
+        const resultString = evaluateParsedConditions(parsedConditionsString, formDataString);
+        expect(resultString).toBe('test');
       });
 
       it('returns default value if no conditions match', () => {
@@ -305,6 +328,49 @@ describe('formUtils', () => {
         const formData = { field1: 'value1', field2: 'value3', field3: 20 };
         const result = evaluateParsedConditions(parsedConditions, formData);
         expect(result).toBe(true);
+      });
+    });
+
+    describe('compareValues function', () => {
+      it('correctly evaluates equality', () => {
+        expect(compareValues('=', 5, 5)).toBe(true);
+        expect(compareValues('=', 'test', 'test')).toBe(true);
+        expect(compareValues('=', 5, 3)).toBe(false);
+      });
+
+      it('correctly evaluates inequality', () => {
+        expect(compareValues('!=', 5, 3)).toBe(true);
+        expect(compareValues('!=', 'test', 'best')).toBe(true);
+        expect(compareValues('!=', 5, 5)).toBe(false);
+      });
+
+      it('correctly evaluates greater than', () => {
+        expect(compareValues('>', 5, 3)).toBe(true);
+        expect(compareValues('>', 3, 5)).toBe(false);
+        expect(compareValues('>', 5, 5)).toBe(false);
+      });
+
+      it('correctly evaluates less than', () => {
+        expect(compareValues('<', 3, 5)).toBe(true);
+        expect(compareValues('<', 5, 3)).toBe(false);
+        expect(compareValues('<', 5, 5)).toBe(false);
+      });
+
+      it('correctly evaluates greater than or equal to', () => {
+        expect(compareValues('>=', 5, 5)).toBe(true);
+        expect(compareValues('>=', 5, 3)).toBe(true);
+        expect(compareValues('>=', 3, 5)).toBe(false);
+      });
+
+      it('correctly evaluates less than or equal to', () => {
+        expect(compareValues('<=', 5, 5)).toBe(true);
+        expect(compareValues('<=', 3, 5)).toBe(true);
+        expect(compareValues('<=', 5, 3)).toBe(false);
+      });
+
+      it('handles comparison with different data types', () => {
+        expect(compareValues('=', '5', 5)).toBe(false);
+        expect(compareValues('!=', '5', 5)).toBe(true);
       });
     });
   });

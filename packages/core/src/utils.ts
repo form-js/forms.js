@@ -323,7 +323,7 @@ const getNestedValue = (data: FormData, path: string): any => {
   return path.split('.').reduce((acc, part) => acc && acc[part], data);
 };
 
-const compareValues = (operator: Operator, a: any, b: any): boolean => {
+export const compareValues = (operator: Operator, a: any, b: any): boolean => {
   switch (operator) {
     case '=':
       return a === b;
@@ -337,7 +337,5 @@ const compareValues = (operator: Operator, a: any, b: any): boolean => {
       return a >= b;
     case '<=':
       return a <= b;
-    default:
-      return false;
   }
 };
