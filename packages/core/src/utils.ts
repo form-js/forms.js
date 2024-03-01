@@ -261,7 +261,8 @@ export const parseConditionString = (conditionStr: string) => {
         .replace(/^\[|\]$/g, '') // Remove leading and trailing brackets
         .split('&&') // Split by AND operator to separate conditions
         .map((andCond) =>
-          andCond.split('||').map((orCond) => { // Split by OR operator within each AND group
+          andCond.split('||').map((orCond) => {
+            // Split by OR operator within each AND group
             // Match the condition expression into its components
             const match = orCond.match(/(.*?)(=|!=|>|<|>=|<=)(.*)/);
             if (!match) throw new Error(`Invalid condition format: ${orCond}`);

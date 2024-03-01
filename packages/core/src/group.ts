@@ -51,7 +51,6 @@ export class Group {
   async initialize(): Promise<void> {
     this.parseStringConditions();
     await this.reset();
-    this.handleVisibility();
   }
 
   /** Parse conditions from string if needed */

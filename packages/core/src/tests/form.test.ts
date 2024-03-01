@@ -1,3 +1,4 @@
+import { ListField } from './../../../list-field/src/listField';
 import { describe, expect, test, afterEach, it, jest } from '@jest/globals';
 import {
   BUTTON_ID,
@@ -7,12 +8,31 @@ import {
   TEST_LICENSE,
   TEXT_FIELD_ID,
   baseTextFieldTestOptions,
+  baseGroupTestOptions,
+  baseButtonTestOptions,
   createForm,
   validationFail,
 } from './test.options';
 import * as utils from '../utils';
-import { LICENSE_STATE } from '../constants';
+import { LICENSE_STATE, registerConstructor } from '../constants';
 import { TextField } from '../fields';
+import { Form, GroupOptions, costructorTypes } from '../index';
+
+const groupSaveMock = jest.fn();
+const groupLoadMock = jest.fn();
+export class dummyGroupClass {
+  constructor(parent: HTMLElement, form: Form, options: GroupOptions) {
+    this.save = groupSaveMock;
+    this.load = groupLoadMock;
+    this.update = () => {};
+  }
+
+  save: () => void;
+  load: () => void;
+  update: () => void;
+}
+
+/* TODO list field tests */
 
 jest.mock('../utils', () => {
   const originalModule = jest.requireActual('../utils') as object;
@@ -37,6 +57,34 @@ describe('form', () => {
   it('initializes and mounts form element to parent', () => {
     createForm();
     expect(utils.mountElement).toHaveBeenCalled();
+  });
+
+  it('initializes with different options', () => {
+    const parent = document.createElement('div');
+    parent.id = 'test-parent';
+    document.body.appendChild(parent);
+
+    const options = {
+      id: 'test-form',
+      saveProgress: true,
+      useFormData: true,
+      schema: [
+        {
+          type: 'text',
+          id: 'test-field',
+          required: true,
+        },
+      ],
+      action: 'test-action',
+      method: 'POST',
+      className: 'test-class',
+    };
+    const form = createForm(options);
+    expect(form.getId()).toBe('test-form');
+    expect(form.savesProgress()).toBe(true);
+    expect(form.getFormElement()!.className).toBe('test-class');
+    expect(form.getFormElement()!.method).toBe('post');
+    expect(form.getFormElement()!.action).toContain('test-action');
   });
 
   it('processes license key correctly', () => {
@@ -86,10 +134,38 @@ describe('form', () => {
     expect(form.getField(TEXT_FIELD_ID)).toBeDefined();
   });
 
-  it('sets form data', async () => {
+  it('updates simple form data correctly', () => {
     const form = createForm();
-    form.setData('fieldName', 'fieldValue');
-    expect(form.getData()['fieldName']).toEqual('fieldValue');
+    form.setData('simpleField', 'initialValue');
+    expect(form.getData()['simpleField']).toEqual('initialValue');
+
+    // Update the value
+    form.setData('simpleField', 'updatedValue');
+    expect(form.getData()['simpleField']).toEqual('updatedValue');
+
+    // Set a null value
+    form.setData('simpleField', null);
+    expect(form.getData()['simpleField']).toBeNull();
+  });
+
+  it('sets data in a nested group correctly', () => {
+    const form = createForm({
+      schema: [
+        {
+          type: 'group',
+          id: 'group1',
+          prefixSchema: true,
+          schema: [{ type: 'text', id: 'nestedField' }],
+        },
+      ],
+    });
+
+    form.setData('nestedField', 'nestedValue');
+    expect(form.getData()['group1']['nestedField']).toEqual('nestedValue');
+
+    // Setting data for a non-existing group
+    form.setData('nonExistingGroup.nestedField', 'value');
+    expect(form.getData()['nonExistingGroup']).toBeUndefined();
   });
 
   it('validates form and prevents submission if not valid', () => {
@@ -131,7 +207,7 @@ describe('form', () => {
       expect(form.getData()).toEqual(expectedBeforeReset);
       expect(form.isValid()).toBeFalsy();
 
-      form.reset();
+      form.reset(new Event('reset') as Event);
 
       const expected: Record<string, any> = {};
       expected[TEXT_FIELD_ID] = DEFAULT_STRING_VALUE;
@@ -151,7 +227,94 @@ describe('form', () => {
     }
   });
 
-  /*describe('converts object to form data', () => {
+  it('resets form and all elements to initial state', () => {
+    const form = createForm({
+      schema: [
+        { type: 'text', id: 'field1', default: 'default1' },
+        {
+          type: 'group',
+          id: 'group1',
+          prefixSchema: true,
+          schema: [{ type: 'text', id: 'groupField', default: 'default2' }],
+        },
+        {
+          type: 'button',
+          id: 'button1',
+        },
+      ],
+    });
+
+    // Simulate changes to the form data
+    form.setData('field1', 'changedValue1');
+    form.setData('groupField', 'changedValue2');
+
+    form.reset();
+
+    // Verify data has been reset
+    expect(form.getData()['field1']).toEqual('default1');
+    expect(form.getData()['group1']['groupField']).toEqual('default2');
+  });
+
+  it('submits the form with valid data', () => {
+    const mockFormSubmit = jest.fn();
+
+    const form = createForm({
+      submit: mockFormSubmit,
+    });
+
+    form.updateError(TEXT_FIELD_ID, true);
+
+    const element = form.getFormElement()!;
+    element.submit();
+
+    expect(mockFormSubmit).toHaveBeenCalled();
+  });
+
+  it('accents string as first parameter', () => {
+    const div = document.createElement('div');
+    div.id = 'test-form-parent';
+    document.body.append(div);
+
+    const form = new Form('test-form-parent', {
+      id: FORM_ID,
+      schema: [],
+    });
+
+    expect(form.getId()).toBe(FORM_ID);
+  });
+
+  it('throws error when no element available', () => {
+    expect(
+      () =>
+        new Form('test-form-parent', {
+          id: FORM_ID,
+          schema: [],
+        }),
+    ).toThrowError();
+  });
+
+  it('submits with an action', () => {
+    const mockFormSubmit = jest.fn();
+    const mockPreventDefault = jest.fn();
+    const mockEvent = { preventDefault: mockPreventDefault } as unknown as SubmitEvent;
+
+    const form = createForm({
+      method: 'POST',
+      action: 'http://example.com/submit',
+    });
+
+    form.updateError(TEXT_FIELD_ID, true);
+
+    const formElement = form.getFormElement()!;
+    formElement.submit = jest.fn();
+
+    form.submit(mockEvent, form);
+
+    expect(mockPreventDefault).toHaveBeenCalled();
+    expect(formElement.submit).toHaveBeenCalled();
+  });
+
+  describe('converts object to form data', () => {
     it('calls objectToFormData when submitting with useFormData option', () => {
       const mockPreventDefault = jest.fn();
       const mockSubmitEvent = { preventDefault: mockPreventDefault } as unknown as SubmitEvent;
@@ -161,10 +324,36 @@ describe('form', () => {
         submit: mockSubmitHandler,
       });
 
-      form.submit(mockSubmitEvent, form);
+      form.updateError(TEXT_FIELD_ID, true);
+
+      const element = form.getFormElement()!;
+      element.submit();
+
       expect(mockSubmitHandler).toHaveBeenCalledWith(expect.any(FormData));
     });
-  });*/
+  });
+
+  it('handles list field correctly', () => {
+    /* Wait for the release of updates with this test
+    registerConstructor('list', ListField, costructorTypes.group);
+
+    const form = createForm({
+      schema: [
+        {
+          type: 'list',
+          id: 'list1',
+          schema: [
+            { ...baseTextFieldTestOptions },
+            { ...baseGroupTestOptions },
+            {
+              ...baseButtonTestOptions
+            }
+          ]
+        }
+      ]
+    });
+    expect(form.getGroup('list1')).toBeDefined();*/
+  });
 
   it('removes list data correctly', () => {
     const form = createForm();
@@ -175,13 +364,45 @@ describe('form', () => {
     expect(form.getData()['listField'].length).toEqual(2);
   });
 
+  it('does not save without license', () => {
+    const form = createForm();
+
+    jest.spyOn(Storage.prototype, 'setItem');
+    Storage.prototype.setItem = jest.fn();
+    jest.spyOn(Storage.prototype, 'getItem');
+    Storage.prototype.setItem = jest.fn();
+
+    form.save();
+    expect(localStorage.setItem).not.toHaveBeenCalled();
+
+    form.load();
+    expect(localStorage.getItem).not.toHaveBeenCalled();
+  });
+
   it('saves data and loads saved form data if progress saving is enabled and license is valid', () => {
     (utils.usesLicensedFetures as jest.Mock).mockReturnValue(true);
     (utils.processLicenseKey as jest.Mock).mockReturnValue(LICENSE_STATE.VALID);
 
+    registerConstructor('dummy-group', dummyGroupClass, costructorTypes.group);
+
     const form = createForm({
       saveProgress: true,
       licenseKey: TEST_LICENSE,
+      schema: [
+        {
+          type: 'group',
+          id: 'group1',
+          shcema: [],
+        },
+        {
+          type: 'dummy-group',
+          id: 'group2',
+          shcema: [],
+        },
+        {
+          ...baseTextFieldTestOptions,
+        },
+      ],
     });
 
     const field = form.getField(TEXT_FIELD_ID) as TextField | undefined;
@@ -192,26 +413,17 @@ describe('form', () => {
       jest.spyOn(Storage.prototype, 'getItem');
       Storage.prototype.setItem = jest.fn();
       const saveKey = utils.generateFieldSaveKey(form.getId(), TEXT_FIELD_ID);
+      const dummyGroup = form.getGroup('group2');
 
       form.save();
       expect(localStorage.setItem).toHaveBeenCalledWith(saveKey, JSON.stringify(DEFAULT_STRING_VALUE));
+      expect(groupSaveMock).toHaveBeenCalled();
 
       form.load();
       expect(localStorage.getItem).toHaveBeenCalledWith(saveKey);
+      expect(groupLoadMock).toHaveBeenCalled();
     }
   });
-
-  /*it('handles form submission with valid data', () => {
-    const submit = jest.fn();
-
-    const form = createForm({
-      submit: submit,
-    });
-
-    form.submit(new Event('SubmitEvent') as SubmitEvent, form);
-
-    expect(submit).toHaveBeenCalled();
-  });*/
 
   it('destroys form, removing it from the DOM', () => {
     const form = createForm();
@@ -219,6 +431,20 @@ describe('form', () => {
 
     const formElement = document.getElementById(form.getId());
     expect(formElement).toBeNull();
+  });
+
+  it('updates form error state correctly', () => {
+    const form = createForm();
+    // Initially, there should be no errors
+    expect(form.isValid()).toBeNull();
+
+    // Simulate an error
+    form.updateError('test-field', false);
+    expect(form.isValid()).toBeFalsy();
+
+    // Resolve the error
+    form.updateError('test-field', true);
+    expect(form.isValid()).toBeTruthy();
   });
 
   it('validates nested group fields correctly', () => {

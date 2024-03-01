@@ -68,6 +68,6 @@ export {
   generateFieldSaveKey,
 } from './utils';
 export { Field } from './field';
-export { fields, buttons, groups, costructorTypes } from './constants';
+export { fields, buttons, groups, costructorTypes, registerConstructor } from './constants';
 export { Schema, FormData, FieldValue, PluginSettings, ParsedCondition } from './types';
 export { evaluateParsedConditions, parseConditionString } from './utils';

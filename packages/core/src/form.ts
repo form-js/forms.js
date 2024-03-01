@@ -517,6 +517,7 @@ export class Form {
   submit(event: SubmitEvent, form: Form): void {
     event.preventDefault();
     form.validate();
+
     if (!form.isValid()) {
       return;
     }

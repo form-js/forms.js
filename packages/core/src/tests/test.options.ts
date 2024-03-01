@@ -1,4 +1,4 @@
-import { Form, FormOptions, Field } from '../index';
+import { Form, FormOptions, Field, GroupOptions } from '../index';
 
 export const DEFAULT_STRING_VALUE = 'foo';
 export const DEFAULT_NUMBER_VALUE = 2;
@@ -24,6 +24,17 @@ export const baseTextFieldTestOptions = {
   type: 'text',
   default: DEFAULT_STRING_VALUE,
   className: 'text-field-class',
+};
+
+export const baseGroupTestOptions = {
+  id: GROUP_ID,
+  type: 'group',
+};
+
+export const baseButtonTestOptions = {
+  id: BUTTON_ID,
+  type: 'button',
+  template: 'btn',
 };
 
 export function createForm(opt?: Record<string, any>) {

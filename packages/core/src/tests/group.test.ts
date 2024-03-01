@@ -1,4 +1,4 @@
-import { describe, expect, test, afterAll, beforeEach, afterEach, it, jest } from '@jest/globals';
+import { describe, expect, beforeEach, afterEach, it, jest } from '@jest/globals';
 import * as utils from './../utils';
 import { Group } from '../group';
 import { GROUP_ID, createForm } from './test.options';
@@ -25,14 +25,13 @@ describe('Group', () => {
   let group: Group;
 
   beforeEach(() => {
-    // Default options for creating a Group instance
     groupOptions = {
       id: GROUP_ID,
       type: 'group',
       className: 'form-group',
       schema: [],
       conditions: 'stringConditions',
-      label: 'Group Label',
+      label: 'Group label',
     };
 
     form = createForm({
@@ -57,7 +56,7 @@ describe('Group', () => {
     expect(group.getType()).toBe(groupOptions.type);
     expect(group.getContainer()).toBeDefined();
     expect(group.getSchemaContainer()).toBeDefined();
-    expect(group.getVisibility()).toBe(true); // Default visibility
+    expect(group.getVisibility()).toBe(true);
   });
 
   it('creates container and schema container elements', () => {
@@ -67,15 +66,49 @@ describe('Group', () => {
     expect(group.schemaContainerElement!.className).toBe(groupOptions.className);
   });
 
-  //Fix issues with the test
-  /*it('handles visibility based on conditions', () => {
-    (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(false);
-    group.update();
-    expect(group.getVisibility()).toBe(false);
+  it('parses string conditions correctly', () => {
+    (utils.parseConditionString as jest.Mock).mockReturnValue([{ conditions: [], returnValue: true }]);
+    group.initialize();
+    expect(utils.parseConditionString).toHaveBeenCalledWith(groupOptions.conditions);
+  });
+
+  it('updates visibility based on conditions function', () => {
+    const mockConditions = jest.fn();
+    groupOptions.conditions = mockConditions as () => boolean;
+    (groupOptions.conditions as jest.Mock).mockReturnValue(true);
+    const conditionFormVisible = createForm({
+      schema: [
+        {
+          ...groupOptions,
+        },
+      ],
+    });
+    const groupVisible: Group = conditionFormVisible.getGroup(GROUP_ID) as unknown as Group;
+    conditionFormVisible.update();
+    expect(mockConditions).toHaveBeenCalled();
+    expect(groupVisible.getVisibility()).toBeTruthy();
+    (groupOptions.conditions as jest.Mock).mockReturnValue(false);
+    const conditionFormHidden = createForm({
+      schema: [
+        {
+          ...groupOptions,
+        },
+      ],
+    });
+    const groupHidden: Group = conditionFormHidden.getGroup(GROUP_ID) as unknown as Group;
+    conditionFormHidden.update();
+    expect(mockConditions).toHaveBeenCalled();
+    expect(groupHidden.getVisibility()).toBeFalsy();
+  });
+
+  it('updates visibility based on conditions string', () => {
     (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(true);
     group.update();
     expect(group.getVisibility()).toBe(true);
-  });*/
+    (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(false);
+    group.update();
+    expect(group.getVisibility()).toBe(false);
+  });
 
   it('destroys the group, removing it from the DOM and cleaning up', () => {
     group.destroy();

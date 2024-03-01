@@ -224,7 +224,7 @@ describe('formUtils', () => {
     };
 
     it('checks if invalid license logs error in console', () => {
-      const spy = jest.spyOn(console, 'error').mockImplementation(() => { });
+      const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
       handleInvalidLicenseLog(LICENSE_STATE.INVALID);
       expect(spy).toHaveBeenCalledWith(INVALID_CONSOLE_TEXT);
       spy.mockRestore();
@@ -235,7 +235,7 @@ describe('formUtils', () => {
     });
 
     it('checks if oudated license logs error in console', () => {
-      const spy = jest.spyOn(console, 'error').mockImplementation(() => { });
+      const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
       handleInvalidLicenseLog(LICENSE_STATE.OUTDATED);
       expect(spy).toHaveBeenCalledWith(OUTDATED_CONSOLE_TEXT);
       spy.mockRestore();
@@ -261,12 +261,11 @@ describe('formUtils', () => {
             returnValue: 'test',
           },
         ]);
-
       });
 
       it('throws error on unsupported conditions', () => {
         const conditionStr = '[field1!value1]:true;[field2!=value2]:test';
-        expect(() => parseConditionString(conditionStr)).toThrow();
+        expect(() => parseConditionString(conditionStr)).toThrowError();
       });
 
       it('handles date parsing correctly', () => {
