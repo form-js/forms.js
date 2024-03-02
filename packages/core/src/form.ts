@@ -1,7 +1,7 @@
 import {
   LICENSE_STATE,
   PACKAGE_LICENSE_URL,
-  costructorTypes,
+  constructorTypes,
   elementConstructors,
   licensePlateClass,
   licensePlateStyle,
@@ -186,22 +186,22 @@ export class Form {
     const wrapper = this.createWrapper(parent);
     const formElementType: string | null = getFormElementType(options.type);
 
-    if (listId && key && formElementType === costructorTypes.field) {
+    if (listId && key && formElementType === constructorTypes.field) {
       this.mapFieldToDataPrefix(options, listId, key);
     }
-    if (groupId && formElementType === costructorTypes.field) {
+    if (groupId && formElementType === constructorTypes.field) {
       this.mapFieldToDataPrefix(options, groupId, null);
     }
 
     const Constructed: FormElement = new Constructor(wrapper, this, duplicatedOptions);
 
     switch (formElementType) {
-      case costructorTypes.button:
+      case constructorTypes.button:
         if (listId && key) {
           this.assignToListField(listId, key, Constructed, formElementType, options.id);
         } else this._buttons[options.id] = Constructed;
         break;
-      case costructorTypes.group:
+      case constructorTypes.group:
         if (listId && key) {
           this.assignToListField(listId, key, Constructed, formElementType, options.id);
         } else this._groups[options.id] = Constructed;
@@ -219,7 +219,7 @@ export class Form {
           }
         }
         break;
-      case costructorTypes.field:
+      case constructorTypes.field:
         if (listId && key) {
           this.assignToListField(listId, key, Constructed, formElementType, options.id);
         } else {
@@ -239,13 +239,13 @@ export class Form {
     const list = this._fields[listId];
     if (!list || !list.assignButton || !list.assignGroup || !list.assignField) return;
     switch (formElementType) {
-      case costructorTypes.button:
+      case constructorTypes.button:
         list.assignButton(id, key, constructed);
         break;
-      case costructorTypes.group:
+      case constructorTypes.group:
         list.assignGroup(id, key, constructed);
         break;
-      case costructorTypes.field:
+      case constructorTypes.field:
         list.assignField(id, key, constructed);
         break;
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1709319531527" clover="3.2.0">
-  <project timestamp="1709319531527" name="All files">
+<coverage generated="1709368338388" clover="3.2.0">
+  <project timestamp="1709368338388" name="All files">
     <metrics statements="1359" coveredstatements="693" conditionals="679" coveredconditionals="244" methods="364" coveredmethods="176" elements="2402" coveredelements="1113" complexity="0" loc="1359" ncloc="1359" packages="3" files="28" classes="28"/>
     <package name="src">
       <metrics statements="672" coveredstatements="594" conditionals="319" coveredconditionals="244" methods="187" coveredmethods="173"/>
@@ -564,7 +564,7 @@
         <line num="67" count="6" type="stmt"/>
         <line num="68" count="6" type="stmt"/>
         <line num="70" count="6" type="stmt"/>
-        <line num="71" count="7" type="stmt"/>
+        <line num="71" count="8" type="stmt"/>
         <line num="73" count="6" type="stmt"/>
       </file>
       <file name="utils.ts" path="C:\www\forms.js\packages\core\src\utils.ts">

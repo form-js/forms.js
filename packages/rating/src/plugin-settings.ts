@@ -1,9 +1,9 @@
 import { RatingField } from './ratingField';
-import { costructorTypes, PluginSettings } from '@forms.js/core';
+import { constructorTypes, PluginSettings } from '@forms.js/core';
 
 export const pluginSettings: PluginSettings = {
   type: 'rating',
   constructor: RatingField,
-  constructorType: costructorTypes.field,
+  constructorType: constructorTypes.field,
   licensed: true,
 };

@@ -1,6 +1,6 @@
 {
     "name": "@forms.js/vue",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "The official vue component for Forms.js",
     "module": "lib/index.js",
     "type": "module",
@@ -49,7 +49,7 @@
         "typescript": "^5.1.6"
     },
     "dependencies": {
-        "@forms.js/core": "^1.0.23",
+        "@forms.js/core": "^1.0.24",
         "install": "^0.13.0",
         "npm": "^10.1.0",
         "vue": "^3.4.18"

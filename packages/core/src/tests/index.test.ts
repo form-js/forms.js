@@ -1,6 +1,6 @@
 import { describe, expect, beforeEach, it, jest } from '@jest/globals';
 import * as constants from './../constants';
-import { usePlugin, PluginSettings, Form, GroupOptions } from './../index';
+import { usePlugin, PluginSettings, Form, GroupOptions, constructorTypes } from './../index';
 
 jest.mock('../constants', () => {
   const originalModule = jest.requireActual('../constants') as object;
@@ -70,9 +70,9 @@ describe('usePlugin', () => {
 
   it('uses false as default value for licensed if not provided', () => {
     const settingWithoutLicensed = {
-      type: 'noLicenseType',
+      type: 'dummy',
       constructor: dummyConstructor,
-      constructorType: 'noLicenseConstructorType',
+      constructorType: constructorTypes.group,
     };
 
     usePlugin(settingWithoutLicensed);

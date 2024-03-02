@@ -16,7 +16,7 @@ import {
 import * as utils from '../utils';
 import { LICENSE_STATE, registerConstructor } from '../constants';
 import { TextField } from '../fields';
-import { Form, GroupOptions, costructorTypes } from '../index';
+import { Form, GroupOptions, constructorTypes } from '../index';
 
 const groupSaveMock = jest.fn();
 const groupLoadMock = jest.fn();
@@ -335,7 +335,7 @@ describe('form', () => {
 
   it('handles list field correctly', () => {
     /* Wait for the release of updates with this test
-    registerConstructor('list', ListField, costructorTypes.group);
+    registerConstructor('list', ListField, constructorTypes.group);
 
     const form = createForm({
       schema: [
@@ -383,7 +383,7 @@ describe('form', () => {
     (utils.usesLicensedFetures as jest.Mock).mockReturnValue(true);
     (utils.processLicenseKey as jest.Mock).mockReturnValue(LICENSE_STATE.VALID);
 
-    registerConstructor('dummy-group', dummyGroupClass, costructorTypes.group);
+    registerConstructor('dummy-group', dummyGroupClass, constructorTypes.group);
 
     const form = createForm({
       saveProgress: true,

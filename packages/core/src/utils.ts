@@ -12,7 +12,7 @@ import {
   UPGRADE_WINDOW,
   VALID_LICENSE_TEXT,
   buttons,
-  costructorTypes,
+  constructorTypes,
   fields,
   groups,
 } from './constants';
@@ -120,12 +120,12 @@ export const isButton = (type: string): boolean => {
 /**
  * Determines a type of form element.
  * @param type - The type string to check.
- * @returns - type of element from costructorTypes or null if not found.
+ * @returns - type of element from constructorTypes or null if not found.
  */
 export const getFormElementType = (type: string): string | null => {
-  if (isField(type)) return costructorTypes.field;
-  if (isGroup(type)) return costructorTypes.group;
-  if (isButton(type)) return costructorTypes.button;
+  if (isField(type)) return constructorTypes.field;
+  if (isGroup(type)) return constructorTypes.group;
+  if (isButton(type)) return constructorTypes.button;
   return null;
 };
 

@@ -10,7 +10,7 @@ import {
   OUTDATED_CONSOLE_TEXT,
   OUTDATED_LICENSE_TEXT,
   VALID_LICENSE_TEXT,
-  costructorTypes,
+  constructorTypes,
   registerConstructor,
 } from './../constants';
 import {
@@ -158,9 +158,9 @@ describe('formUtils', () => {
     registerConstructor('button', Button, 'button');
 
     it('returns the correct form element type for field, group, and button', () => {
-      expect(getFormElementType('text')).toEqual(costructorTypes.field);
-      expect(getFormElementType('group')).toEqual(costructorTypes.group);
-      expect(getFormElementType('button')).toEqual(costructorTypes.button);
+      expect(getFormElementType('text')).toEqual(constructorTypes.field);
+      expect(getFormElementType('group')).toEqual(constructorTypes.group);
+      expect(getFormElementType('button')).toEqual(constructorTypes.button);
       expect(getFormElementType('unknown')).toBeNull();
     });
   });

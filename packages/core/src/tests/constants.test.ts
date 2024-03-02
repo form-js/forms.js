@@ -21,7 +21,7 @@ describe('constants and registerConstructor', () => {
     expect(constantsFile.groups).toEqual(expect.any(Array));
     expect(constantsFile.buttons).toEqual(expect.any(Array));
     expect(constantsFile.formElements).toEqual(expect.any(Array));
-    expect(constantsFile.costructorTypes).toEqual({
+    expect(constantsFile.constructorTypes).toEqual({
       field: 'field',
       group: 'group',
       button: 'button',

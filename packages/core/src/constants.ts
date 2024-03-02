@@ -34,7 +34,7 @@ export const formElements: string[] = [];
 /**
  * Construcor types, determnine where will be new instances saved
  */
-export const costructorTypes = {
+export const constructorTypes = {
   field: 'field',
   group: 'group',
   button: 'button',
@@ -79,13 +79,13 @@ export const registerConstructor = (
   licensed: boolean = false,
 ) => {
   switch (constructorT) {
-    case costructorTypes.button:
+    case constructorTypes.button:
       buttons.push(type);
       break;
-    case costructorTypes.group:
+    case constructorTypes.group:
       groups.push(type);
       break;
-    case costructorTypes.field:
+    case constructorTypes.field:
       fields.push(type);
       break;
   }
