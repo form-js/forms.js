@@ -237,6 +237,7 @@ export class Form {
     id: string,
   ) {
     const list = this._fields[listId];
+
     if (!list || !list.assignButton || !list.assignGroup || !list.assignField) return;
     switch (formElementType) {
       case constructorTypes.button:

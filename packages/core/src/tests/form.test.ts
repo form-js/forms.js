@@ -15,7 +15,7 @@ import {
 import * as utils from '../utils';
 import { LICENSE_STATE } from '../constants';
 import { TextField } from '../fields';
-import { Form, GroupOptions, constructorTypes, registerConstructor } from '../index';
+import { Form, GroupOptions, constructorTypes, registerConstructor, FormElement } from '../index';
 
 const groupSaveMock = jest.fn();
 const groupLoadMock = jest.fn();
@@ -32,9 +32,49 @@ export class dummyGroupClass {
 }
 
 /* TODO this class should build its schema like group */
+const listButtonMock = jest.fn();
+const listGroupMock = jest.fn();
+const listFieldMock = jest.fn();
+
 export class dummyListClass {
+  private _form: Form;
+  private _options: GroupOptions;
+  private _parent: HTMLElement;
+
   constructor(parent: HTMLElement, form: Form, options: GroupOptions) {
     this.update = () => {};
+    this.assignButton = listButtonMock;
+    this.assignGroup = listGroupMock;
+    this.assignField = listFieldMock;
+    this._form = form;
+    this._options = options;
+    this._parent = parent;
+  }
+
+  build() {
+    this._form.buildSchema(this._options.schema, this._parent, null, this._options.id, 'dummy-key-1');
+  }
+
+  update: () => void;
+  assignButton: Function;
+  assignGroup: Function;
+  assignField: Function;
+}
+
+export class dummyListClassNoAssign {
+  private _form: Form;
+  private _options: GroupOptions;
+  private _parent: HTMLElement;
+
+  constructor(parent: HTMLElement, form: Form, options: GroupOptions) {
+    this.update = () => {};
+    this._form = form;
+    this._options = options;
+    this._parent = parent;
+  }
+
+  build() {
+    this._form.buildSchema(this._options.schema, this._parent, null, this._options.id, 'dummy-key-1');
   }
 
   update: () => void;
@@ -342,7 +382,8 @@ describe('form', () => {
   });
 
   it('handles list field correctly', () => {
-    registerConstructor('list', dummyListClass, constructorTypes.group);
+    registerConstructor('list', dummyListClass, constructorTypes.field);
+    registerConstructor('list-no-assign', dummyListClassNoAssign, constructorTypes.field);
 
     const form = createForm({
       schema: [
@@ -353,13 +394,34 @@ describe('form', () => {
             { ...baseTextFieldTestOptions },
             { ...baseGroupTestOptions },
             {
-              ...baseButtonTestOptions
-            }
-          ]
-        }
-      ]
+              ...baseButtonTestOptions,
+            },
+          ],
+        },
+        {
+          type: 'list-no-assign',
+          id: 'list2',
+          schema: [
+            { ...baseTextFieldTestOptions },
+            { ...baseGroupTestOptions },
+            {
+              ...baseButtonTestOptions,
+            },
+          ],
+        },
+      ],
     });
-    expect(form.getGroup('list1')).toBeDefined();
+
+    expect(form.getField('list1')).toBeDefined();
+    expect(form.getField('list2')).toBeDefined();
+
+    const list1 = form.getField('list1')! as unknown as dummyListClass;
+    list1.build();
+    const list2 = form.getField('list2')! as unknown as dummyListClassNoAssign;
+    list2.build();
+    expect(listButtonMock).toHaveBeenCalled();
+    expect(listGroupMock).toHaveBeenCalled();
+    expect(listFieldMock).toHaveBeenCalled();
   });
 
   it('removes list data correctly', () => {
@@ -430,6 +492,20 @@ describe('form', () => {
       expect(localStorage.getItem).toHaveBeenCalledWith(saveKey);
       expect(groupLoadMock).toHaveBeenCalled();
     }
+  });
+
+  it('does not allow undefined field types', () => {
+    expect(() =>
+      createForm({
+        id: FORM_ID,
+        schema: [
+          {
+            type: 'undefined-field',
+            id: 'undefined',
+          },
+        ],
+      }),
+    ).toThrowError();
   });
 
   it('destroys form, removing it from the DOM', () => {

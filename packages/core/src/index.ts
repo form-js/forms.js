@@ -69,5 +69,5 @@ export {
 } from './utils';
 export { Field } from './field';
 export { fields, buttons, groups, constructorTypes, registerConstructor } from './constants';
-export { Schema, FormData, FieldValue, PluginSettings, ParsedCondition } from './types';
+export { Schema, FormData, FieldValue, PluginSettings, ParsedCondition, FormElement } from './types';
 export { evaluateParsedConditions, parseConditionString } from './utils';
