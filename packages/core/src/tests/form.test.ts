@@ -1,4 +1,3 @@
-import { ListField } from './../../../list-field/src/listField';
 import { describe, expect, test, afterEach, it, jest } from '@jest/globals';
 import {
   BUTTON_ID,
@@ -14,9 +13,9 @@ import {
   validationFail,
 } from './test.options';
 import * as utils from '../utils';
-import { LICENSE_STATE, registerConstructor } from '../constants';
+import { LICENSE_STATE } from '../constants';
 import { TextField } from '../fields';
-import { Form, GroupOptions, constructorTypes } from '../index';
+import { Form, GroupOptions, constructorTypes, registerConstructor } from '../index';
 
 const groupSaveMock = jest.fn();
 const groupLoadMock = jest.fn();
@@ -29,6 +28,15 @@ export class dummyGroupClass {
 
   save: () => void;
   load: () => void;
+  update: () => void;
+}
+
+/* TODO this class should build its schema like group */
+export class dummyListClass {
+  constructor(parent: HTMLElement, form: Form, options: GroupOptions) {
+    this.update = () => {};
+  }
+
   update: () => void;
 }
 
@@ -334,8 +342,7 @@ describe('form', () => {
   });
 
   it('handles list field correctly', () => {
-    /* Wait for the release of updates with this test
-    registerConstructor('list', ListField, constructorTypes.group);
+    registerConstructor('list', dummyListClass, constructorTypes.group);
 
     const form = createForm({
       schema: [
@@ -352,7 +359,7 @@ describe('form', () => {
         }
       ]
     });
-    expect(form.getGroup('list1')).toBeDefined();*/
+    expect(form.getGroup('list1')).toBeDefined();
   });
 
   it('removes list data correctly', () => {
