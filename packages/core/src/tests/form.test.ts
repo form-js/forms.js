@@ -56,9 +56,9 @@ export class dummyListClass {
   }
 
   update: () => void;
-  assignButton: Function;
-  assignGroup: Function;
-  assignField: Function;
+  assignButton: jest.Mock;
+  assignGroup: jest.Mock;
+  assignField: jest.Mock;
 }
 
 export class dummyListClassNoAssign {
