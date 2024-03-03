@@ -19,7 +19,7 @@ import {
   usesLicensedFetures,
 } from './utils';
 import { FormOptions } from './interfaces';
-import { FieldValue, FormElement, Schema, FormData } from './types';
+import { FieldValue, FormElement, Schema, FormData, DataPrefixMap } from './types';
 export class Form {
   public options: FormOptions = {
     id: '',
@@ -43,14 +43,7 @@ export class Form {
   private _saveProgress: boolean = false;
   private _licenseState: number = LICENSE_STATE.INVALID;
   private _schema: Schema = [];
-  private _dataPrefixMap: Record<
-    string,
-    {
-      id: string;
-      dataKey: string;
-      key: string | null; // will be null when group
-    }
-  > = {};
+  private _dataPrefixMap: DataPrefixMap = {};
   /**
    * Constructs a new Form instance.
    * @param parent - The parent HTML element or string id.

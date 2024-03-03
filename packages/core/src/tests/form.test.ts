@@ -23,7 +23,7 @@ export class dummyGroupClass {
   constructor(parent: HTMLElement, form: Form, options: GroupOptions) {
     this.save = groupSaveMock;
     this.load = groupLoadMock;
-    this.update = () => {};
+    this.update = () => { };
   }
 
   save: () => void;
@@ -42,7 +42,7 @@ export class dummyListClass {
   private _parent: HTMLElement;
 
   constructor(parent: HTMLElement, form: Form, options: GroupOptions) {
-    this.update = () => {};
+    this.update = () => { };
     this.assignButton = listButtonMock;
     this.assignGroup = listGroupMock;
     this.assignField = listFieldMock;
@@ -67,7 +67,7 @@ export class dummyListClassNoAssign {
   private _parent: HTMLElement;
 
   constructor(parent: HTMLElement, form: Form, options: GroupOptions) {
-    this.update = () => {};
+    this.update = () => { };
     this._form = form;
     this._options = options;
     this._parent = parent;
@@ -165,7 +165,7 @@ describe('form', () => {
       error: jest.fn(),
     };
 
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const spy = jest.spyOn(console, 'error').mockImplementation(() => { });
 
     createForm();
 
@@ -381,6 +381,7 @@ describe('form', () => {
     });
   });
 
+  /* List fields */
   it('handles list field correctly', () => {
     registerConstructor('list', dummyListClass, constructorTypes.field);
     registerConstructor('list-no-assign', dummyListClassNoAssign, constructorTypes.field);
@@ -392,7 +393,16 @@ describe('form', () => {
           id: 'list1',
           schema: [
             { ...baseTextFieldTestOptions },
-            { ...baseGroupTestOptions },
+            {
+              ...baseGroupTestOptions,
+              prefixSchema: true,
+              schema: [
+                {
+                  ...baseTextFieldTestOptions,
+                  id: 'text2'
+                }
+              ]
+            },
             {
               ...baseButtonTestOptions,
             },
@@ -419,9 +429,17 @@ describe('form', () => {
     list1.build();
     const list2 = form.getField('list2')! as unknown as dummyListClassNoAssign;
     list2.build();
+
+    console.log(form);
+    
+
     expect(listButtonMock).toHaveBeenCalled();
     expect(listGroupMock).toHaveBeenCalled();
     expect(listFieldMock).toHaveBeenCalled();
+
+
+    /* ensureDataStructureExists and setDataFromMap */
+    
   });
 
   it('removes list data correctly', () => {

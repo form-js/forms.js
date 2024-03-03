@@ -32,7 +32,7 @@ export type SelectFieldValue =
   | Record<string, any>;
 
 export type FormElement = {
-  new (parent: HTMLElement, form: Form, options: Record<string, any>): any;
+  new(parent: HTMLElement, form: Form, options: Record<string, any>): any;
   getId(): string;
   initialize(): void;
   getSchemaContainer?(): HTMLElement | null;
@@ -64,3 +64,11 @@ export type pluginConstructor = new (a: HTMLElement, b: Form, c: any) => any;
 export type Operator = '=' | '!=' | '>' | '<' | '>=' | '<=';
 export type Condition = { left: string; operator: Operator; right: any; isDate?: boolean };
 export type ParsedCondition = { conditions: Condition[][]; returnValue: string };
+export type DataPrefixMap = Record<
+  string,
+  {
+    id: string;
+    dataKey: string;
+    key: string | null; // will be null when group
+  }
+>;
