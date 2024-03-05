@@ -23,7 +23,7 @@ export class dummyGroupClass {
   constructor(parent: HTMLElement, form: Form, options: GroupOptions) {
     this.save = groupSaveMock;
     this.load = groupLoadMock;
-    this.update = () => { };
+    this.update = () => {};
   }
 
   save: () => void;
@@ -42,7 +42,7 @@ export class dummyListClass {
   private _parent: HTMLElement;
 
   constructor(parent: HTMLElement, form: Form, options: GroupOptions) {
-    this.update = () => { };
+    this.update = () => {};
     this.assignButton = listButtonMock;
     this.assignGroup = listGroupMock;
     this.assignField = listFieldMock;
@@ -53,6 +53,14 @@ export class dummyListClass {
 
   build() {
     this._form.buildSchema(this._options.schema, this._parent, null, this._options.id, 'dummy-key-1');
+  }
+
+  getKeyIndex(key: string): number {
+    return 0;
+  }
+
+  getId() {
+    return this._options.id;
   }
 
   update: () => void;
@@ -67,7 +75,7 @@ export class dummyListClassNoAssign {
   private _parent: HTMLElement;
 
   constructor(parent: HTMLElement, form: Form, options: GroupOptions) {
-    this.update = () => { };
+    this.update = () => {};
     this._form = form;
     this._options = options;
     this._parent = parent;
@@ -75,6 +83,14 @@ export class dummyListClassNoAssign {
 
   build() {
     this._form.buildSchema(this._options.schema, this._parent, null, this._options.id, 'dummy-key-1');
+  }
+
+  getKeyIndex(key: string): number {
+    return 0;
+  }
+
+  getId() {
+    return this._options.id;
   }
 
   update: () => void;
@@ -165,7 +181,7 @@ describe('form', () => {
       error: jest.fn(),
     };
 
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => { });
+    const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
     createForm();
 
@@ -364,8 +380,6 @@ describe('form', () => {
 
   describe('converts object to form data', () => {
     it('calls objectToFormData when submitting with useFormData option', () => {
-      const mockPreventDefault = jest.fn();
-      const mockSubmitEvent = { preventDefault: mockPreventDefault } as unknown as SubmitEvent;
       const mockSubmitHandler = jest.fn();
       const form = createForm({
         useFormData: true,
@@ -399,9 +413,9 @@ describe('form', () => {
               schema: [
                 {
                   ...baseTextFieldTestOptions,
-                  id: 'text2'
-                }
-              ]
+                  id: 'text2',
+                },
+              ],
             },
             {
               ...baseButtonTestOptions,
@@ -430,16 +444,15 @@ describe('form', () => {
     const list2 = form.getField('list2')! as unknown as dummyListClassNoAssign;
     list2.build();
 
-    console.log(form);
-    
-
     expect(listButtonMock).toHaveBeenCalled();
     expect(listGroupMock).toHaveBeenCalled();
     expect(listFieldMock).toHaveBeenCalled();
 
-
     /* ensureDataStructureExists and setDataFromMap */
-    
+    form.setData('list1[dummy-key-1]test-text-field', 'value1');
+    expect(form.getData()).toHaveProperty('list1');
+    expect(form.getData()['list1'][0]).toHaveProperty('test-text-field');
+    expect(form.getData()['list1'][0]['test-text-field']).toBe('value1');
   });
 
   it('removes list data correctly', () => {
@@ -500,7 +513,6 @@ describe('form', () => {
       jest.spyOn(Storage.prototype, 'getItem');
       Storage.prototype.setItem = jest.fn();
       const saveKey = utils.generateFieldSaveKey(form.getId(), TEXT_FIELD_ID);
-      const dummyGroup = form.getGroup('group2');
 
       form.save();
       expect(localStorage.setItem).toHaveBeenCalledWith(saveKey, JSON.stringify(DEFAULT_STRING_VALUE));

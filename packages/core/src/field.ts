@@ -337,7 +337,7 @@ export class Field {
   /** Resets the field to its initial state. */
   async reset(): Promise<void> {
     localStorage.removeItem(this._saveKey);
-    if (this.options.default) this.setValue(this.options.default, false);
+    if (this.options.default !== undefined) this.setValue(this.options.default, false);
     else this.setValue(null, false);
     this.update();
   }

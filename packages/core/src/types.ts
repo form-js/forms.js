@@ -32,7 +32,7 @@ export type SelectFieldValue =
   | Record<string, any>;
 
 export type FormElement = {
-  new(parent: HTMLElement, form: Form, options: Record<string, any>): any;
+  new (parent: HTMLElement, form: Form, options: Record<string, any>): any;
   getId(): string;
   initialize(): void;
   getSchemaContainer?(): HTMLElement | null;
