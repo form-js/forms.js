@@ -177,6 +177,14 @@ export class Field {
   }
 
   /**
+   * Checks if the field is disabled.
+   * @returns True if the field is disabled; otherwise, false.
+   */
+  isRequired(): boolean {
+    return this._isRequired;
+  }
+
+  /**
    * Gets the validation message for the field.
    * @returns The validation message or null if there is none.
    */

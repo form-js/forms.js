@@ -10,6 +10,8 @@ export const TEXT_FIELD_ID = 'test-text-field';
 export const BUTTON_ID = 'test-button';
 export const GROUP_ID = 'test-group';
 
+export const VALIDATION_ERROR = 'validation_error';
+
 export const validationFail = () => false;
 
 export const baseFormOptions: FormOptions = {
