@@ -231,7 +231,7 @@ describe('text-field', () => {
     expect(field.getValue()).toBe(DEFAULT_STRING_VALUE_SECOND);
     field.reset();
     expect(field.getValue()).toBe(DEFAULT_STRING_VALUE);
-    
+
     field.setValue(DEFAULT_STRING_VALUE_SECOND);
     expect(field.getValue()).toBe(DEFAULT_STRING_VALUE_SECOND);
     field.options.default = undefined;
@@ -250,6 +250,124 @@ describe('text-field', () => {
     const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
     field.initialize();
     expect(utils.parseConditionString).toHaveBeenCalledWith(DEFAULT_STRING_VALUE_SECOND);
+  });
+
+  it('updates visibility based on conditions string', () => {
+    (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(true);
+    const form = createForm({
+      schema: [{
+        ...baseTextFieldTestOptions,
+        conditions: DEFAULT_STRING_VALUE_SECOND
+      }]
+    });
+    const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
+    field.update();
+    expect(field.getVisibility()).toBe(true);
+    (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(false);
+    field.update();
+    expect(field.getVisibility()).toBe(false);
+  });
+
+  it('updates disabled based on conditions string', () => {
+    (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(true);
+    const form = createForm({
+      schema: [{
+        ...baseTextFieldTestOptions,
+        disabled: DEFAULT_STRING_VALUE_SECOND
+      }]
+    });
+    const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
+    field.update();
+    expect(field.isDisabled()).toBe(true);
+    (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(false);
+    field.update();
+    expect(field.isDisabled()).toBe(false);
+  });
+
+  it('updates disabled based on boolean', () => {
+    (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(true);
+    const form = createForm({
+      schema: [{
+        ...baseTextFieldTestOptions,
+        disabled: true
+      }]
+    });
+    const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
+    field.update();
+    expect(field.isDisabled()).toBe(true);
+  });
+
+  it('updates required based on conditions string', () => {
+    (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(true);
+    const form = createForm({
+      schema: [{
+        ...baseTextFieldTestOptions,
+        required: DEFAULT_STRING_VALUE_SECOND
+      }]
+    });
+    const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
+    field.update();
+    expect(field.isRequired()).toBe(true);
+    (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(false);
+    field.update();
+    expect(field.isRequired()).toBe(false);
+  });
+
+  it('updates validation based on conditions string', () => {
+    (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(true);
+    const form = createForm({
+      schema: [{
+        ...baseTextFieldTestOptions,
+        required: false,
+        default: null,
+        validation: DEFAULT_STRING_VALUE_SECOND,
+      }]
+    });
+    const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
+    field.validate();
+    expect(field.getValidity()).toBe(true);
+    (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(false);
+    field.validate();
+    expect(field.getValidity()).toBe(false);
+  });
+
+  it('updates validation edge conditions work', () => {
+    (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(true);
+    const form = createForm({
+      schema: [{
+        ...baseTextFieldTestOptions,
+        required: true,
+        default: null,
+        validation: DEFAULT_STRING_VALUE_SECOND,
+        conditions: (value: string, data: object) => {
+          if (value === DEFAULT_STRING_VALUE) return false;
+          return true;
+        }
+      }]
+    });
+    const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
+    (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(false);
+    field.validate();
+    expect(field.getValidity()).toBe(false);
+    
+    field.setValue(DEFAULT_STRING_VALUE);
+    field.update();
+    field.validate();
+    expect(field.getValidity()).toBe(false);
+    
+    const form2 = createForm({
+      schema: [{
+        ...baseTextFieldTestOptions,
+        default: null,
+        validation: true,
+      }]
+    });
+    const field2 = form2.getField(TEXT_FIELD_ID)! as unknown as TextField;
+    field2.validate();
+    expect(field2.getValidity()).toBe(true);
+    field2.options.validation = undefined;
+    field2.validate();
+    expect(field2.getValidity()).toBe(true);
   });
 
 });
