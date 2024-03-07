@@ -1,6 +1,7 @@
 import { Form, FormOptions, Field, GroupOptions } from '../index';
 
 export const DEFAULT_STRING_VALUE = 'foo';
+export const DEFAULT_STRING_VALUE_SECOND = 'bar';
 export const DEFAULT_NUMBER_VALUE = 2;
 export const DEFAULT_BOOL_VALUE = true;
 export const FORM_ID = 'test-form';

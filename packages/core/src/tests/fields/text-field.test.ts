@@ -1,5 +1,4 @@
-import { processLicenseKey } from './../../utils';
-import { baseTextFieldTestOptions, baseFormOptions, VALIDATION_ERROR } from './../test.options';
+import { baseTextFieldTestOptions, baseFormOptions, VALIDATION_ERROR, DEFAULT_STRING_VALUE_SECOND } from './../test.options';
 import { TextField } from './../../fields/textField';
 import { describe, expect, it, jest } from '@jest/globals';
 import { createForm, DEFAULT_STRING_VALUE, TEXT_FIELD_ID } from '../test.options';
@@ -228,14 +227,29 @@ describe('text-field', () => {
     const form = createForm();
     const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
 
-    field.setValue('bar');
+    field.setValue(DEFAULT_STRING_VALUE_SECOND);
+    expect(field.getValue()).toBe(DEFAULT_STRING_VALUE_SECOND);
     field.reset();
     expect(field.getValue()).toBe(DEFAULT_STRING_VALUE);
     
-    field.setValue('bar');
+    field.setValue(DEFAULT_STRING_VALUE_SECOND);
+    expect(field.getValue()).toBe(DEFAULT_STRING_VALUE_SECOND);
     field.options.default = undefined;
     field.reset();
     expect(field.getValue()).toBe(null);
+  });
+
+  it('parses string conditions correctly', () => {
+    (utils.parseConditionString as jest.Mock).mockReturnValue([{ conditions: [], returnValue: true }]);
+    const form = createForm({
+      schema: [{
+        ...baseTextFieldTestOptions,
+        conditions: DEFAULT_STRING_VALUE_SECOND
+      }]
+    });
+    const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
+    field.initialize();
+    expect(utils.parseConditionString).toHaveBeenCalledWith(DEFAULT_STRING_VALUE_SECOND);
   });
 
 });
