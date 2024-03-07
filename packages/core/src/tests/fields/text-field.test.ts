@@ -1,3 +1,4 @@
+import { processLicenseKey } from './../../utils';
 import { baseTextFieldTestOptions, baseFormOptions, VALIDATION_ERROR } from './../test.options';
 import { TextField } from './../../fields/textField';
 import { describe, expect, it, jest } from '@jest/globals';
@@ -7,6 +8,7 @@ import { Field } from '../../field';
 import { FormOptions } from '../../interfaces';
 import { Form } from '../../index';
 import { HTMLElementEvent } from '../../types';
+import { LICENSE_STATE } from '../../constants';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -18,6 +20,8 @@ jest.mock('../../utils', () => {
     unmountElement: jest.fn(),
     evaluateParsedConditions: jest.fn(),
     parseConditionString: jest.fn(),
+    usesLicensedFetures: jest.fn(),
+    processLicenseKey: jest.fn(),
   };
 });
 
@@ -188,6 +192,50 @@ describe('text-field', () => {
     field.change(event);
     expect(field.getValue()).toBe(DEFAULT_STRING_VALUE);
     expect(mockChange).toHaveBeenCalledWith(DEFAULT_STRING_VALUE);
+  });
+
+  it('loads and saves', () => {
+    (utils.usesLicensedFetures as jest.Mock).mockReturnValue(true);
+    (utils.processLicenseKey as jest.Mock).mockReturnValue(LICENSE_STATE.VALID);
+
+    const form = createForm({
+      saveProgress: true,
+      schema: [
+        {
+          ...baseTextFieldTestOptions,
+          required: true
+        }
+      ]
+    });
+    const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
+
+    jest.spyOn(Storage.prototype, 'setItem');
+    Storage.prototype.setItem = jest.fn();
+    jest.spyOn(Storage.prototype, 'getItem');
+    Storage.prototype.getItem = jest.fn(() => DEFAULT_STRING_VALUE);
+
+    field.setValue(DEFAULT_STRING_VALUE);
+    field.save();
+    expect(localStorage.setItem).toHaveBeenCalled();
+
+    field.setValue(null);
+    field.load()
+    expect(localStorage.getItem).toHaveBeenCalled();
+    expect(field.getValue()).toBe(DEFAULT_STRING_VALUE)
+  });
+
+  it('resets correctly', () => {
+    const form = createForm();
+    const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
+
+    field.setValue('bar');
+    field.reset();
+    expect(field.getValue()).toBe(DEFAULT_STRING_VALUE);
+    
+    field.setValue('bar');
+    field.options.default = undefined;
+    field.reset();
+    expect(field.getValue()).toBe(null);
   });
 
 });

@@ -3,6 +3,7 @@ import {
   debounce,
   evaluateParsedConditions,
   generateFieldSaveKey,
+  isJson,
   mountElement,
   parseConditionString,
   unmountElement,
@@ -334,8 +335,9 @@ export class Field {
   load(): void {
     if (this._form.savesProgress() && this._form.hasValidLicense()) {
       const value: string | null = localStorage.getItem(this._saveKey);
+      
       if (value !== null) {
-        this.setValue(JSON.parse(value), false);
+        this.setValue(isJson(value) ? JSON.parse(value) : value, false);
         return;
       }
     }

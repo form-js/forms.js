@@ -340,3 +340,12 @@ export const compareValues = (operator: Operator, a: any, b: any): boolean => {
       return a <= b;
   }
 };
+
+export const isJson = (str: string): boolean => {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
+};
