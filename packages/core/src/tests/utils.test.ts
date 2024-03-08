@@ -35,6 +35,7 @@ import {
   useLicensedFetures,
   usesLicensedFetures,
   compareValues,
+  isJson,
 } from './../utils';
 
 describe('formUtils', () => {
@@ -224,7 +225,7 @@ describe('formUtils', () => {
     };
 
     it('checks if invalid license logs error in console', () => {
-      const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      const spy = jest.spyOn(console, 'error').mockImplementation(() => { });
       handleInvalidLicenseLog(LICENSE_STATE.INVALID);
       expect(spy).toHaveBeenCalledWith(INVALID_CONSOLE_TEXT);
       spy.mockRestore();
@@ -235,7 +236,7 @@ describe('formUtils', () => {
     });
 
     it('checks if oudated license logs error in console', () => {
-      const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      const spy = jest.spyOn(console, 'error').mockImplementation(() => { });
       handleInvalidLicenseLog(LICENSE_STATE.OUTDATED);
       expect(spy).toHaveBeenCalledWith(OUTDATED_CONSOLE_TEXT);
       spy.mockRestore();
@@ -245,6 +246,18 @@ describe('formUtils', () => {
       };
     });
   });
+
+  describe('isJson function', () => {
+    it('decides if string is JSON', () => {
+      expect(isJson('string')).toBeFalsy();
+      expect(isJson('true')).toBeTruthy();
+      expect(isJson(JSON.stringify({
+        iamobject: true
+      }))).toBeTruthy();
+    });
+
+  });
+
 
   describe('Condition Parsing and Evaluation', () => {
     describe('parseConditionString', () => {
