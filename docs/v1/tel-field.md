@@ -33,14 +33,16 @@ validation: (value: FieldValue, data: FormData, required: boolean) => true | str
 **Default value**
 
 ```js
-private _telFormat = /^\+[1-9]\d{1,14}$/;
+public telFormat = /^\+[1-9]\d{1,14}$/;
 
 validation: (value, data, required) => {
     if (required && !value) return 'This field is required';
-    if (value && typeof value === 'string' && !value.match(this._telFormat)) return 'Not a valid telephone number.';
+    if (value && typeof value === 'string' && !value.match(this.telFormat)) return 'Not a valid telephone number.';
     return true;
 },
 ```
+
+The field has basic default check for standard phone number formats through regular expression. You can overwrite the expression on the field instance or change the function in options when initializing the field.
 
 ### Required state
 
