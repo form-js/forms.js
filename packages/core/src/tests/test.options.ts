@@ -6,6 +6,7 @@ export const DEFAULT_NUMBER_VALUE = 2;
 export const DEFAULT_BOOL_VALUE = true;
 export const DEFAULT_COLOR_VALUE = '#000000';
 export const DEFAULT_DATE_VALUE = '2024-01-01';
+export const DEFAULT_DATETIME_VALUE = '2024-01-01T01:01';
 export const FORM_ID = 'test-form';
 export const TEST_LICENSE = 'CC-Attribution-NonCommercial-NoDerivatives';
 
@@ -58,6 +59,17 @@ export const baseDateFieldTestOptions = {
   label: 'Testing Field',
   type: 'date',
   default: DEFAULT_DATE_VALUE,
+  className: 'date-field-class',
+  placeholder: 'date-placeholder',
+  enhance: false,
+};
+
+export const baseDatetimeFieldTestOptions = {
+  id: DATE_FIELD_ID,
+  name: 'test-date',
+  label: 'Testing Field',
+  type: 'datetime',
+  default: DEFAULT_DATETIME_VALUE,
   className: 'date-field-class',
   placeholder: 'date-placeholder',
   enhance: false,
