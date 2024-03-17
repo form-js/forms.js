@@ -8,6 +8,7 @@ export const FORM_ID = 'test-form';
 export const TEST_LICENSE = 'CC-Attribution-NonCommercial-NoDerivatives';
 
 export const TEXT_FIELD_ID = 'test-text-field';
+export const CHECKBOX_FIELD_ID = 'test-checkbox-field';
 export const BUTTON_ID = 'test-button';
 export const GROUP_ID = 'test-group';
 
@@ -27,6 +28,15 @@ export const baseTextFieldTestOptions = {
   type: 'text',
   default: DEFAULT_STRING_VALUE,
   className: 'text-field-class',
+};
+
+export const baseCheckboxFieldTestOptions = {
+  id: CHECKBOX_FIELD_ID,
+  name: 'test-checkbox',
+  label: 'Testing Field',
+  type: 'checkbox',
+  default: DEFAULT_BOOL_VALUE,
+  className: 'checkbox-field-class',
 };
 
 export const baseGroupTestOptions = {

@@ -1,7 +1,6 @@
-import { baseTextFieldTestOptions, baseFormOptions, VALIDATION_ERROR, DEFAULT_STRING_VALUE_SECOND } from './../test.options';
+import { baseTextFieldTestOptions, baseFormOptions, VALIDATION_ERROR, DEFAULT_STRING_VALUE_SECOND, createForm, DEFAULT_STRING_VALUE, TEXT_FIELD_ID } from './../test.options';
 import { TextField } from './../../fields/textField';
 import { describe, expect, it, jest } from '@jest/globals';
-import { createForm, DEFAULT_STRING_VALUE, TEXT_FIELD_ID } from '../test.options';
 import * as utils from '../../utils';
 import { Field } from '../../field';
 import { FormOptions } from '../../interfaces';
