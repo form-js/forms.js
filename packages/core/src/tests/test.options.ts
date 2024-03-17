@@ -4,11 +4,13 @@ export const DEFAULT_STRING_VALUE = 'foo';
 export const DEFAULT_STRING_VALUE_SECOND = 'bar';
 export const DEFAULT_NUMBER_VALUE = 2;
 export const DEFAULT_BOOL_VALUE = true;
+export const DEFAULT_COLOR_VALUE = '#000000';
 export const FORM_ID = 'test-form';
 export const TEST_LICENSE = 'CC-Attribution-NonCommercial-NoDerivatives';
 
 export const TEXT_FIELD_ID = 'test-text-field';
 export const CHECKBOX_FIELD_ID = 'test-checkbox-field';
+export const COLOR_FIELD_ID = 'test-color-field';
 export const BUTTON_ID = 'test-button';
 export const GROUP_ID = 'test-group';
 
@@ -37,6 +39,15 @@ export const baseCheckboxFieldTestOptions = {
   type: 'checkbox',
   default: DEFAULT_BOOL_VALUE,
   className: 'checkbox-field-class',
+};
+
+export const baseColorFieldTestOptions = {
+  id: COLOR_FIELD_ID,
+  name: 'test-color',
+  label: 'Testing Field',
+  type: 'color',
+  default: DEFAULT_COLOR_VALUE,
+  className: 'color-field-class',
 };
 
 export const baseGroupTestOptions = {

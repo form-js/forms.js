@@ -1,12 +1,8 @@
 import { CheckboxField } from './../../fields/checkboxField';
 import { describe, expect, it, jest } from '@jest/globals';
-import { baseFormOptions, VALIDATION_ERROR, createForm, baseCheckboxFieldTestOptions, CHECKBOX_FIELD_ID, DEFAULT_BOOL_VALUE } from './../test.options';
+import { createForm, baseCheckboxFieldTestOptions, CHECKBOX_FIELD_ID, DEFAULT_BOOL_VALUE } from './../test.options';
 import * as utils from '../../utils';
-import { Field } from '../../field';
-import { FormOptions } from '../../interfaces';
-import { Form } from '../../index';
 import { HTMLElementEvent } from '../../types';
-import { LICENSE_STATE } from '../../constants';
 
 jest.mock('../../utils', () => {
     const originalModule = jest.requireActual('../../utils') as object;
