@@ -5,12 +5,14 @@ export const DEFAULT_STRING_VALUE_SECOND = 'bar';
 export const DEFAULT_NUMBER_VALUE = 2;
 export const DEFAULT_BOOL_VALUE = true;
 export const DEFAULT_COLOR_VALUE = '#000000';
+export const DEFAULT_DATE_VALUE = '2024-01-01';
 export const FORM_ID = 'test-form';
 export const TEST_LICENSE = 'CC-Attribution-NonCommercial-NoDerivatives';
 
 export const TEXT_FIELD_ID = 'test-text-field';
 export const CHECKBOX_FIELD_ID = 'test-checkbox-field';
 export const COLOR_FIELD_ID = 'test-color-field';
+export const DATE_FIELD_ID = 'test-date-field';
 export const BUTTON_ID = 'test-button';
 export const GROUP_ID = 'test-group';
 
@@ -48,6 +50,17 @@ export const baseColorFieldTestOptions = {
   type: 'color',
   default: DEFAULT_COLOR_VALUE,
   className: 'color-field-class',
+};
+
+export const baseDateFieldTestOptions = {
+  id: DATE_FIELD_ID,
+  name: 'test-date',
+  label: 'Testing Field',
+  type: 'date',
+  default: DEFAULT_DATE_VALUE,
+  className: 'date-field-class',
+  placeholder: 'date-placeholder',
+  enhance: false,
 };
 
 export const baseGroupTestOptions = {
