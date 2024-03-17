@@ -1,6 +1,6 @@
 import { describe, expect, beforeEach, it, jest } from '@jest/globals';
-import * as constants from './../constants';
-import { usePlugin, PluginSettings, Form, GroupOptions, constructorTypes } from './../index';
+import * as constants from '../constants';
+import { usePlugin, PluginSettings, Form, GroupOptions, constructorTypes } from '../index';
 
 jest.mock('../constants', () => {
   const originalModule = jest.requireActual('../constants') as object;

@@ -1,6 +1,6 @@
 import { describe, expect, test, afterAll, beforeEach, afterEach, it, jest } from '@jest/globals';
-import { Button } from './../button';
-import * as utils from './../utils';
+import { Button } from '../button';
+import * as utils from '../utils';
 import { BUTTON_ID, createForm } from './test.options';
 import { Form } from '../form';
 import { ButtonOptions } from '../interfaces';

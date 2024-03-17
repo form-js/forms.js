@@ -13,7 +13,7 @@
     "build": "tsc  && tsc -p tsconfig-cjs.json",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint src/** -c eslint.json",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --collectCoverage --coverageDirectory=src/tests/coverage",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --collectCoverage --coverageDirectory=src/_tests/coverage",
     "patch": "npm run build && npm version patch"
   },
   "exports": {

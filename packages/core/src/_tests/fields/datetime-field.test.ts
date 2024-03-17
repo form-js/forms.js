@@ -1,5 +1,5 @@
 import { describe, expect, it, jest } from '@jest/globals';
-import { createForm, baseDatetimeFieldTestOptions, DATE_FIELD_ID, DEFAULT_DATETIME_VALUE } from './../test.options';
+import { createForm, baseDatetimeFieldTestOptions, DATE_FIELD_ID, DEFAULT_DATETIME_VALUE } from '../test.options';
 import * as utils from '../../utils';
 import { DatetimeField } from '../../fields';
 

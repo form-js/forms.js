@@ -1,5 +1,5 @@
 import { describe, expect, beforeEach, afterEach, it, jest } from '@jest/globals';
-import * as utils from './../utils';
+import * as utils from '../utils';
 import { Group } from '../group';
 import { GROUP_ID, createForm } from './test.options';
 import { Form } from '../form';
