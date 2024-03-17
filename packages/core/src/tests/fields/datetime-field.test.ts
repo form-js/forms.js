@@ -30,7 +30,7 @@ describe('color-field', () => {
     expect(field.getValue()).toBe(DEFAULT_DATETIME_VALUE);
     expect(field.getId()).toBe(DATE_FIELD_ID);
     expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), DATE_FIELD_ID));
-    expect(field.getType()).toBe('date');
+    expect(field.getType()).toBe('datetime');
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getForm()).toBe(form);
     expect(field.getFlatpickr()).not.toBeDefined();
