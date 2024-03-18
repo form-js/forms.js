@@ -1,17 +1,17 @@
 {
-  "compilerOptions": {
-    "module": "ESNext",
-    "target": "ESNext",
-    "removeComments": true,
-    "moduleResolution": "Node",
-    "allowJs": true,
-    "checkJs": true,
-    "declaration": true,
-    "outDir": "./lib",
-    "esModuleInterop": true,
-    "downlevelIteration": true,
-    "strict": true
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "src/_tests"]
-}
+    "compilerOptions": {
+      "module": "ESNext",
+      "target": "ESNext",
+      "removeComments": true,
+      "moduleResolution": "Node",
+      "allowJs": true,
+      "checkJs": true,
+      "declaration": true,
+      "outDir": "./lib",
+      "esModuleInterop": true,
+      "downlevelIteration": true,
+      "strict": true,
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", "src/tests"]
+  }

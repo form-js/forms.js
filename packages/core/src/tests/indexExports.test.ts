@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import * as ModuleExports from '../index';
+import * as ModuleExports from './../index';
 
 describe('Module Exports', () => {
   const expectedExports = [
