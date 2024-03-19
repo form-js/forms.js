@@ -3,6 +3,7 @@ import { Field } from '../field';
 import { Form } from '../form';
 import { FileFieldOptions } from '../interfaces';
 import { debounce } from '../utils';
+import { HTMLElementEvent } from '../types';
 
 export class FileField extends Field {
   public options: FileFieldOptions = {
@@ -113,8 +114,13 @@ export class FileField extends Field {
     this.validate();
   }
 
-  change(event: any): void {
-    if (event.target.files) this.change(event.target.files);
+  change(event: HTMLElementEvent<HTMLInputElement> & { files: FileList }): void {
+    if (event.target.files) {
+      this.setValue(event.target.files);
+      this.validate();
+      this.handleValidatedField();
+      if (this.options.change) this.options.change(this._value);
+    }
   }
 
   getValue(): FileList | FilePond.FilePondFile[] | null {
