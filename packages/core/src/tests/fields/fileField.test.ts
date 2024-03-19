@@ -1,4 +1,5 @@
 import { describe, expect, it, jest } from '@jest/globals';
+import { FilePond, create, FilePondFile } from 'filepond';
 import {
   createForm,
   baseFileFieldTestOptions,

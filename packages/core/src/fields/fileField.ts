@@ -82,8 +82,6 @@ export class FileField extends Field {
 
   initFilepond(): void {
     if (this.inputElement && this.options.enhance) {
-      console.log(create(document.createElement('div')));
-
       this._filepond = create(this.inputElement, this.options.options || {});
     }
   }
