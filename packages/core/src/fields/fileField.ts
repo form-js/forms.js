@@ -1,4 +1,4 @@
-import * as FilePond from 'filepond';
+import { FilePond, create, FilePondFile } from 'filepond';
 import { Field } from '../field';
 import { Form } from '../form';
 import { FileFieldOptions } from '../interfaces';
@@ -25,7 +25,7 @@ export class FileField extends Field {
     },
   };
 
-  private _filepond: FilePond.FilePond | null = null;
+  private _filepond: FilePond | null = null;
 
   constructor(parent: HTMLElement, form: Form, options: FileFieldOptions) {
     super(parent, form, options);
@@ -81,26 +81,29 @@ export class FileField extends Field {
   }
 
   initFilepond(): void {
-    if (this.inputElement && this.options.enhance)
-      this._filepond = FilePond.create(this.inputElement, this.options.options || {});
+    if (this.inputElement && this.options.enhance) {
+      console.log(create(document.createElement('div')));
+
+      this._filepond = create(this.inputElement, this.options.options || {});
+    }
   }
 
   bindChange() {
     if (this.options.enhance) {
       if (!this._filepond) return;
-      this._filepond.on('addfile', (error: any, file: FilePond.FilePondFile) => {
+      this._filepond.on('addfile', (error: any, file: FilePondFile) => {
         if (error) return;
-        const files: FilePond.FilePondFile[] = this._filepond!.getFiles();
+        const files: FilePondFile[] = this._filepond!.getFiles();
         this.filePondChange(files);
       });
-      this._filepond.on('removefile', (error: any, file: FilePond.FilePondFile) => {
+      this._filepond.on('removefile', (error: any, file: FilePondFile) => {
         if (error) return;
-        const files: FilePond.FilePondFile[] = this._filepond!.getFiles();
+        const files: FilePondFile[] = this._filepond!.getFiles();
         this.filePondChange(files);
       });
-      this._filepond.on('updatefiles', (error: any, file: FilePond.FilePondFile) => {
+      this._filepond.on('updatefiles', (error: any, file: FilePondFile) => {
         if (error) return;
-        const files: FilePond.FilePondFile[] = this._filepond!.getFiles();
+        const files: FilePondFile[] = this._filepond!.getFiles();
         this.filePondChange(files);
       });
     } else {
@@ -108,22 +111,24 @@ export class FileField extends Field {
     }
   }
 
-  filePondChange(files: FilePond.FilePondFile[]): void {
-    this.setValue(files);
-    if (this.options.change) this.options.change(this.getValue());
-    this.validate();
+  filePondChange(files: FilePondFile[]): void {
+    this.changeValue(files);
   }
 
   change(event: HTMLElementEvent<HTMLInputElement> & { files: FileList }): void {
-    if (event.target.files) {
-      this.setValue(event.target.files);
-      this.validate();
-      this.handleValidatedField();
-      if (this.options.change) this.options.change(this._value);
+    if (event.target?.files) {
+      this.changeValue(event.target.files);
     }
   }
 
-  getValue(): FileList | FilePond.FilePondFile[] | null {
-    return this._value as FileList | FilePond.FilePondFile[] | null;
+  changeValue(value: FilePondFile[] | FileList): void {
+    this.setValue(value);
+    this.validate();
+    this.handleValidatedField();
+    if (this.options.change) this.options.change(this._value);
+  }
+
+  getValue(): FileList | FilePondFile[] | null {
+    return this._value as FileList | FilePondFile[] | null;
   }
 }

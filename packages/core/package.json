@@ -64,10 +64,10 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "filepond": "^4.30.4",
+    "filepond": "^4.30.6",
     "flatpickr": "^4.6.13",
     "install": "^0.13.0",
     "npm": "^10.1.0",
-    "tom-select": "^2.2.2"
+    "tom-select": "^2.3.1"
   }
 }

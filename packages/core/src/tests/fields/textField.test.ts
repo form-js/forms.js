@@ -1,4 +1,12 @@
-import { baseTextFieldTestOptions, baseFormOptions, VALIDATION_ERROR, DEFAULT_STRING_VALUE_SECOND, createForm, DEFAULT_STRING_VALUE, TEXT_FIELD_ID } from './../test.options';
+import {
+  baseTextFieldTestOptions,
+  baseFormOptions,
+  VALIDATION_ERROR,
+  DEFAULT_STRING_VALUE_SECOND,
+  createForm,
+  DEFAULT_STRING_VALUE,
+  TEXT_FIELD_ID,
+} from './../test.options';
 import { TextField } from './../../fields/textField';
 import { describe, expect, it, jest } from '@jest/globals';
 import * as utils from '../../utils';
@@ -70,7 +78,6 @@ describe('text-field', () => {
     expect(utils.unmountElement).toHaveBeenCalledWith(parent);
   });
 
-
   it('handles conditions as function correcrtly', () => {
     const form = createForm({
       schema: [
@@ -80,9 +87,9 @@ describe('text-field', () => {
           conditions: (value: string, data: object) => {
             if (value === DEFAULT_STRING_VALUE) return false;
             return true;
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
     const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
     field.setValue(DEFAULT_STRING_VALUE);
@@ -99,9 +106,9 @@ describe('text-field', () => {
           validation: (value: string, data: object) => {
             if (value === DEFAULT_STRING_VALUE) return VALIDATION_ERROR;
             return true;
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
     const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
     expect(field.getValidity()).toBe(null);
@@ -124,9 +131,9 @@ describe('text-field', () => {
           disabled: (value: string, data: object) => {
             if (value === DEFAULT_STRING_VALUE) return true;
             return false;
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
     const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
     expect(field.isDisabled()).toBe(false);
@@ -146,9 +153,9 @@ describe('text-field', () => {
           required: (value: string, data: object) => {
             if (value === DEFAULT_STRING_VALUE) return true;
             return false;
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
     const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
     expect(field.isRequired()).toBe(false);
@@ -165,9 +172,9 @@ describe('text-field', () => {
         {
           ...baseTextFieldTestOptions,
           default: null,
-          required: true
-        }
-      ]
+          required: true,
+        },
+      ],
     });
     const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
     expect(field.isRequired()).toBe(true);
@@ -181,8 +188,8 @@ describe('text-field', () => {
           ...baseTextFieldTestOptions,
           default: null,
           change: mockChange,
-        }
-      ]
+        },
+      ],
     });
     const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
     expect(field.getValue()).toBe(null);
@@ -201,9 +208,9 @@ describe('text-field', () => {
       schema: [
         {
           ...baseTextFieldTestOptions,
-          required: true
-        }
-      ]
+          required: true,
+        },
+      ],
     });
     const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
 
@@ -217,9 +224,9 @@ describe('text-field', () => {
     expect(localStorage.setItem).toHaveBeenCalled();
 
     field.setValue(null);
-    field.load()
+    field.load();
     expect(localStorage.getItem).toHaveBeenCalled();
-    expect(field.getValue()).toBe(DEFAULT_STRING_VALUE)
+    expect(field.getValue()).toBe(DEFAULT_STRING_VALUE);
   });
 
   it('resets correctly', () => {
@@ -241,10 +248,12 @@ describe('text-field', () => {
   it('parses string conditions correctly', () => {
     (utils.parseConditionString as jest.Mock).mockReturnValue([{ conditions: [], returnValue: true }]);
     const form = createForm({
-      schema: [{
-        ...baseTextFieldTestOptions,
-        conditions: DEFAULT_STRING_VALUE_SECOND
-      }]
+      schema: [
+        {
+          ...baseTextFieldTestOptions,
+          conditions: DEFAULT_STRING_VALUE_SECOND,
+        },
+      ],
     });
     const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
     field.initialize();
@@ -254,10 +263,12 @@ describe('text-field', () => {
   it('updates visibility based on conditions string', () => {
     (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(true);
     const form = createForm({
-      schema: [{
-        ...baseTextFieldTestOptions,
-        conditions: DEFAULT_STRING_VALUE_SECOND
-      }]
+      schema: [
+        {
+          ...baseTextFieldTestOptions,
+          conditions: DEFAULT_STRING_VALUE_SECOND,
+        },
+      ],
     });
     const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
     field.update();
@@ -270,10 +281,12 @@ describe('text-field', () => {
   it('updates disabled based on conditions string', () => {
     (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(true);
     const form = createForm({
-      schema: [{
-        ...baseTextFieldTestOptions,
-        disabled: DEFAULT_STRING_VALUE_SECOND
-      }]
+      schema: [
+        {
+          ...baseTextFieldTestOptions,
+          disabled: DEFAULT_STRING_VALUE_SECOND,
+        },
+      ],
     });
     const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
     field.update();
@@ -286,10 +299,12 @@ describe('text-field', () => {
   it('updates disabled based on boolean', () => {
     (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(true);
     const form = createForm({
-      schema: [{
-        ...baseTextFieldTestOptions,
-        disabled: true
-      }]
+      schema: [
+        {
+          ...baseTextFieldTestOptions,
+          disabled: true,
+        },
+      ],
     });
     const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
     field.update();
@@ -299,10 +314,12 @@ describe('text-field', () => {
   it('updates required based on conditions string', () => {
     (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(true);
     const form = createForm({
-      schema: [{
-        ...baseTextFieldTestOptions,
-        required: DEFAULT_STRING_VALUE_SECOND
-      }]
+      schema: [
+        {
+          ...baseTextFieldTestOptions,
+          required: DEFAULT_STRING_VALUE_SECOND,
+        },
+      ],
     });
     const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
     field.update();
@@ -315,12 +332,14 @@ describe('text-field', () => {
   it('updates validation based on conditions string', () => {
     (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(true);
     const form = createForm({
-      schema: [{
-        ...baseTextFieldTestOptions,
-        required: false,
-        default: null,
-        validation: DEFAULT_STRING_VALUE_SECOND,
-      }]
+      schema: [
+        {
+          ...baseTextFieldTestOptions,
+          required: false,
+          default: null,
+          validation: DEFAULT_STRING_VALUE_SECOND,
+        },
+      ],
     });
     const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
     field.validate();
@@ -333,33 +352,37 @@ describe('text-field', () => {
   it('updates validation edge conditions work', () => {
     (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(true);
     const form = createForm({
-      schema: [{
-        ...baseTextFieldTestOptions,
-        required: true,
-        default: null,
-        validation: DEFAULT_STRING_VALUE_SECOND,
-        conditions: (value: string, data: object) => {
-          if (value === DEFAULT_STRING_VALUE) return false;
-          return true;
-        }
-      }]
+      schema: [
+        {
+          ...baseTextFieldTestOptions,
+          required: true,
+          default: null,
+          validation: DEFAULT_STRING_VALUE_SECOND,
+          conditions: (value: string, data: object) => {
+            if (value === DEFAULT_STRING_VALUE) return false;
+            return true;
+          },
+        },
+      ],
     });
     const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
     (utils.evaluateParsedConditions as jest.Mock).mockReturnValue(false);
     field.validate();
     expect(field.getValidity()).toBe(false);
-    
+
     field.setValue(DEFAULT_STRING_VALUE);
     field.update();
     field.validate();
     expect(field.getValidity()).toBe(false);
-    
+
     const form2 = createForm({
-      schema: [{
-        ...baseTextFieldTestOptions,
-        default: null,
-        validation: true,
-      }]
+      schema: [
+        {
+          ...baseTextFieldTestOptions,
+          default: null,
+          validation: true,
+        },
+      ],
     });
     const field2 = form2.getField(TEXT_FIELD_ID)! as unknown as TextField;
     field2.validate();
@@ -368,5 +391,4 @@ describe('text-field', () => {
     field2.validate();
     expect(field2.getValidity()).toBe(true);
   });
-
 });

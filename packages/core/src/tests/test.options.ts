@@ -12,6 +12,7 @@ export const DEFAULT_FILE_VALUE = null;
 export const FORM_ID = 'test-form';
 export const TEST_LICENSE = 'CC-Attribution-NonCommercial-NoDerivatives';
 export const INVALID_EMAIL_VALUE = 'invalid';
+export const FILE_ACCEPT_VALUE = '.doc';
 
 export const TEXT_FIELD_ID = 'test-text-field';
 export const CHECKBOX_FIELD_ID = 'test-checkbox-field';
