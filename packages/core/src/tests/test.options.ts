@@ -22,6 +22,7 @@ export const EMAIL_FIELD_ID = 'test-email-field';
 export const FILE_FIELD_ID = 'test-file-field';
 export const HIDDEN_FIELD_ID = 'test-hidden-field';
 export const NUMBER_FIELD_ID = 'test-number-field';
+export const PASSWORD_FIELD_ID = 'test-password-field';
 export const BUTTON_ID = 'test-button';
 export const GROUP_ID = 'test-group';
 
@@ -121,6 +122,16 @@ export const baseNumberFieldTestOptions = {
   className: 'number-field-class',
   placeholder: 'number-placeholder',
   step: 1
+};
+
+export const basePasswordFieldTestOptions = {
+  id: PASSWORD_FIELD_ID,
+  name: 'test-password',
+  label: 'Testing Field',
+  type: 'password',
+  default: DEFAULT_STRING_VALUE,
+  className: 'password-field-class',
+  placeholder: 'password-placeholder',
 };
 
 export const baseGroupTestOptions = {
