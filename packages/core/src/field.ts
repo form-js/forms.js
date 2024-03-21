@@ -268,7 +268,7 @@ export class Field {
 
   /** Fully removes the element from the DOM. */
   destroy(): void {
-    if (this._parent) unmountElement(this._parent);
+    if (this._parent) this._parent.remove();
   }
 
   /** Handles the appearance of validation messages and error styling. */

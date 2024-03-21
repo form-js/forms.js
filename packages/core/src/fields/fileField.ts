@@ -1,4 +1,4 @@
-import { FilePond, create, FilePondFile } from 'filepond';
+import { FilePond, create as createFilepond, FilePondFile } from 'filepond';
 import { Field } from '../field';
 import { Form } from '../form';
 import { FileFieldOptions } from '../interfaces';
@@ -61,7 +61,7 @@ export class FileField extends Field {
    * Synchronizes fields value with input element
    */
   syncValue(): void {
-    // no way to sync files
+    // no way to sync files yet
   }
 
   createInputElement() {
@@ -82,7 +82,7 @@ export class FileField extends Field {
 
   initFilepond(): void {
     if (this.inputElement && this.options.enhance) {
-      this._filepond = create(this.inputElement, this.options.options || {});
+      this._filepond = createFilepond(this.inputElement, this.options.options || {});
     }
   }
 

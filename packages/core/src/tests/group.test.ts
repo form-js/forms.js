@@ -112,7 +112,7 @@ describe('Group', () => {
 
   it('destroys the group, removing it from the DOM and cleaning up', () => {
     group.destroy();
-    expect(utils.unmountElement).toHaveBeenCalledWith(parentElement);
+    expect(document.querySelector('#' + GROUP_ID)).toBeNull();
   });
 
   //expand on tests

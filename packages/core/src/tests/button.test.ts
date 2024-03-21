@@ -118,7 +118,7 @@ describe('Button', () => {
 
   it('destroys button, removing it from the DOM', () => {
     button.destroy();
-    expect(utils.unmountElement).toHaveBeenCalledWith(parentElement);
+    expect(document.querySelector('#' + BUTTON_ID)).toBeNull();
   });
 
   //Expand on tests

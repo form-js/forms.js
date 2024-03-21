@@ -100,7 +100,27 @@ describe('file-field', () => {
     expect(mockChange).toHaveBeenCalledWith(DEFAULT_STRING_VALUE);
   });
 
-  it('enhances file input to filepond', async () => {
+  it('filepond change changes value', () => {
+    const mockChange = jest.fn();
+    const form = createForm({
+      schema: [
+        {
+          ...baseFileFieldTestOptions,
+          default: null,
+          change: mockChange,
+          enhance: true,
+        },
+      ],
+    });
+    const field = form.getField(FILE_FIELD_ID)! as unknown as FileField;
+    field.filePondChange([]);
+    expect(field.getValue()).toStrictEqual([]);
+    expect(mockChange).toHaveBeenCalledWith([]);
+  });
+
+  /**
+   * filepond has issues with testing as in tests fileponds create function returns undefined
+   * it('enhances file input to filepond', async () => {
     const form = createForm({
       schema: [
         {
@@ -110,9 +130,7 @@ describe('file-field', () => {
       ],
     });
     const field = form.getField(FILE_FIELD_ID)! as unknown as FileField;
-    /** issues with filepond tests, returns undefined in test cases for some reason
         expect(field.getFilepond()).toBeDefined();
         expect(field.getFilepond()).not.toBeNull();
-        */
-  });
+  });*/
 });

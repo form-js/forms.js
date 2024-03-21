@@ -66,16 +66,14 @@ describe('text-field', () => {
   });
 
   it('destroys field, removing it from the DOM', () => {
-    const options: FormOptions = {
-      ...baseFormOptions,
-      schema: [baseTextFieldTestOptions],
-    };
-    const parent = document.createElement('div');
-
-    const form = new Form(parent, options);
+    const form = createForm({
+      schema: [
+        baseTextFieldTestOptions,
+      ],
+    });
     const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
     field.destroy();
-    expect(utils.unmountElement).toHaveBeenCalledWith(parent);
+    expect(document.querySelector('#' + TEXT_FIELD_ID)).toBeNull();
   });
 
   it('handles conditions as function correcrtly', () => {

@@ -20,6 +20,7 @@ export const COLOR_FIELD_ID = 'test-color-field';
 export const DATE_FIELD_ID = 'test-date-field';
 export const EMAIL_FIELD_ID = 'test-email-field';
 export const FILE_FIELD_ID = 'test-file-field';
+export const HIDDEN_FIELD_ID = 'test-hidden-field';
 export const BUTTON_ID = 'test-button';
 export const GROUP_ID = 'test-group';
 
@@ -98,9 +99,17 @@ export const baseFileFieldTestOptions = {
   label: 'Testing Field',
   type: 'file',
   default: DEFAULT_FILE_VALUE,
-  className: 'email-field-class',
+  className: 'file-field-class',
   placeholder: 'file-placeholder',
   enhance: false,
+};
+
+export const baseHiddenFieldTestOptions = {
+  id: HIDDEN_FIELD_ID,
+  name: 'test-hidden',
+  label: 'Testing Field',
+  type: 'hidden',
+  default: DEFAULT_STRING_VALUE,
 };
 
 export const baseGroupTestOptions = {
@@ -116,6 +125,7 @@ export const baseButtonTestOptions = {
 
 export function createForm(opt?: Record<string, any>) {
   const parent = document.createElement('div');
+  document.body.append(parent);
   parent.className = FORM_ID;
   parent.id = FORM_ID;
   const options: FormOptions = {

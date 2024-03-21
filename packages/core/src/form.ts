@@ -530,6 +530,6 @@ export class Form {
    * Handles destruction of the form.
    */
   destroy() {
-    if (this._formElement && this._parent) unmountElement(this._formElement);
+    if (this._parent) this._parent.remove();
   }
 }

@@ -1,5 +1,5 @@
 import { Form } from '../form';
-import { generateFieldSaveKey, mountElement, unmountElement } from '../utils';
+import { generateFieldSaveKey, isJson, mountElement, unmountElement } from '../utils';
 import { FieldOptions } from '../interfaces';
 import { FieldValue } from '../types';
 
@@ -81,10 +81,9 @@ export class HiddenField {
   createInputElement() {
     // Input element
     this.inputElement = document.createElement('input');
-    this.inputElement.setAttribute('id', this._id);
+    this.inputElement.setAttribute('id', this.getId());
     this.inputElement.setAttribute('name', this.options.name || this.getId());
     this.inputElement.setAttribute('type', this.getType());
-    this.inputElement.className = this.options.className!;
   }
 
   getId() {
@@ -119,7 +118,7 @@ export class HiddenField {
 
   /** Fully removes the element from the DOM. */
   destroy(): void {
-    if (this._parent) unmountElement(this._parent);
+    if (this._parent) this._parent.remove();
   }
 
   /** Save the fields value into local stroage. */
@@ -133,8 +132,8 @@ export class HiddenField {
   load(): void {
     if (this._form.savesProgress() && this._form.hasValidLicense()) {
       const value: string | null = localStorage.getItem(this._saveKey);
-      if (value) {
-        this.setValue(JSON.parse(value), false);
+      if (value !== null) {
+        this.setValue(isJson(value) ? JSON.parse(value) : value, false);
         return;
       }
     }

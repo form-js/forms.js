@@ -167,7 +167,7 @@ export class StaticField {
 
   /** Fully removes the element from the DOM. */
   destroy(): void {
-    if (this._parent) unmountElement(this._parent);
+    if (this._parent) this._parent.remove();
   }
 
   /** Handles the visibility of the field. */

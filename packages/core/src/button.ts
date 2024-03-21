@@ -122,7 +122,7 @@ export class Button {
 
   /** Fully removes the element from the DOM. */
   destroy(): void {
-    if (this._parent) unmountElement(this._parent);
+    if (this._parent) this._parent.remove();
   }
 
   /** Handle the visibility of the button based on its status. */
