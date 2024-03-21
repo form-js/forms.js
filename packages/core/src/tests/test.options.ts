@@ -2,7 +2,7 @@ import { Form, FormOptions, Field, GroupOptions } from '../index';
 
 export const DEFAULT_STRING_VALUE = 'foo';
 export const DEFAULT_STRING_VALUE_SECOND = 'bar';
-export const DEFAULT_NUMBER_VALUE = 2;
+export const DEFAULT_NUMBER_VALUE = 0;
 export const DEFAULT_BOOL_VALUE = true;
 export const DEFAULT_COLOR_VALUE = '#000000';
 export const DEFAULT_DATE_VALUE = '2024-01-01';
@@ -21,6 +21,7 @@ export const DATE_FIELD_ID = 'test-date-field';
 export const EMAIL_FIELD_ID = 'test-email-field';
 export const FILE_FIELD_ID = 'test-file-field';
 export const HIDDEN_FIELD_ID = 'test-hidden-field';
+export const NUMBER_FIELD_ID = 'test-number-field';
 export const BUTTON_ID = 'test-button';
 export const GROUP_ID = 'test-group';
 
@@ -90,7 +91,6 @@ export const baseEmailFieldTestOptions = {
   default: DEFAULT_EMAIL_VALUE,
   className: 'email-field-class',
   placeholder: 'email-placeholder',
-  enhance: false,
 };
 
 export const baseFileFieldTestOptions = {
@@ -110,6 +110,17 @@ export const baseHiddenFieldTestOptions = {
   label: 'Testing Field',
   type: 'hidden',
   default: DEFAULT_STRING_VALUE,
+};
+
+export const baseNumberFieldTestOptions = {
+  id: NUMBER_FIELD_ID,
+  name: 'test-number',
+  label: 'Testing Field',
+  type: 'number',
+  default: DEFAULT_NUMBER_VALUE,
+  className: 'number-field-class',
+  placeholder: 'number-placeholder',
+  step: 1
 };
 
 export const baseGroupTestOptions = {

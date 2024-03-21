@@ -28,7 +28,7 @@ jest.mock('../../utils', () => {
     };
 });
 
-describe('file-field', () => {
+describe('hidden-field', () => {
     it('gets field value', () => {
         const form = createForm({
             schema: [
