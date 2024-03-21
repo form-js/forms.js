@@ -9,6 +9,8 @@ export const DEFAULT_DATE_VALUE = '2024-01-01';
 export const DEFAULT_DATETIME_VALUE = '2024-01-01T01:01';
 export const DEFAULT_EMAIL_VALUE = 'test@test.com';
 export const DEFAULT_FILE_VALUE = null;
+export const DEFAULT_PHONE_VALUE = '+123456789012345';
+export const INVALID_PHONE_VALUE = '12345';
 export const FORM_ID = 'test-form';
 export const TEST_LICENSE = 'CC-Attribution-NonCommercial-NoDerivatives';
 export const INVALID_EMAIL_VALUE = 'invalid';
@@ -23,6 +25,7 @@ export const FILE_FIELD_ID = 'test-file-field';
 export const HIDDEN_FIELD_ID = 'test-hidden-field';
 export const NUMBER_FIELD_ID = 'test-number-field';
 export const PASSWORD_FIELD_ID = 'test-password-field';
+export const TELEPHONE_FIELD_ID = 'test-telephone-field';
 export const BUTTON_ID = 'test-button';
 export const GROUP_ID = 'test-group';
 
@@ -132,6 +135,16 @@ export const basePasswordFieldTestOptions = {
   default: DEFAULT_STRING_VALUE,
   className: 'password-field-class',
   placeholder: 'password-placeholder',
+};
+
+export const baseTelephoneFieldTestOptions = {
+  id: TELEPHONE_FIELD_ID,
+  name: 'test-telephone',
+  label: 'Testing Field',
+  type: 'tel',
+  default: DEFAULT_PHONE_VALUE,
+  className: 'telephone-field-class',
+  placeholder: 'tel-placeholder',
 };
 
 export const baseGroupTestOptions = {
