@@ -3,6 +3,7 @@ const flatpickr = (flatpickerNamespace as any).default;
 import { Field } from '../field';
 import { Form } from '../form';
 import { DateFieldOptions } from '../interfaces';
+import { FlatpickrFn } from 'flatpickr/dist/types/instance';
 
 export class DateField extends Field {
   public options: DateFieldOptions = {
@@ -20,7 +21,7 @@ export class DateField extends Field {
     },
   };
 
-  private _flatpickr: any;
+  private _flatpickr: FlatpickrFn | null = null;
 
   constructor(parent: HTMLElement, form: Form, options: DateFieldOptions) {
     super(parent, form, options);

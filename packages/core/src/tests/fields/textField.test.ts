@@ -67,9 +67,7 @@ describe('text-field', () => {
 
   it('destroys field, removing it from the DOM', () => {
     const form = createForm({
-      schema: [
-        baseTextFieldTestOptions,
-      ],
+      schema: [baseTextFieldTestOptions],
     });
     const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
     field.destroy();

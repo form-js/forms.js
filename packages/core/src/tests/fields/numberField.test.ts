@@ -1,10 +1,5 @@
 import { describe, expect, it, jest } from '@jest/globals';
-import {
-  createForm,
-  baseNumberFieldTestOptions,
-  NUMBER_FIELD_ID,
-  DEFAULT_NUMBER_VALUE,
-} from './../test.options';
+import { createForm, baseNumberFieldTestOptions, NUMBER_FIELD_ID, DEFAULT_NUMBER_VALUE } from './../test.options';
 import * as utils from '../../utils';
 import { NumberField } from '../../fields';
 
@@ -75,10 +70,9 @@ describe('number-field', () => {
     field.setValue(3);
     field.validate();
     expect(field.getValidity()).toBeFalsy();
-
   });
 
-  it('input passes validation with valid email', () => {
+  it('input passes validation with valid number', () => {
     const form = createForm({
       schema: [
         {

@@ -16,7 +16,7 @@ jest.mock('../../utils', () => {
   };
 });
 
-describe('color-field', () => {
+describe('date-field', () => {
   it('gets field value', () => {
     const form = createForm({
       schema: [
@@ -33,7 +33,7 @@ describe('color-field', () => {
     expect(field.getType()).toBe('date');
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getForm()).toBe(form);
-    expect(field.getFlatpickr()).not.toBeDefined();
+    expect(field.getFlatpickr()).toBeNull();
   });
 
   it('input triggers change event', () => {
@@ -80,6 +80,6 @@ describe('color-field', () => {
       ],
     });
     const field = form.getField(DATE_FIELD_ID)! as unknown as DateField;
-    expect(field.getFlatpickr()).toBeDefined();
+    expect(field.getFlatpickr()).not.toBeNull();
   });
 });

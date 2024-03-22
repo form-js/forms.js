@@ -1,13 +1,13 @@
 import { describe, expect, it, jest } from '@jest/globals';
 import {
   createForm,
-  baseTelephoneFieldTestOptions,
-  TELEPHONE_FIELD_ID,
+  baseUrlFieldTestOptions,
+  URL_FIELD_ID,
   INVALID_PHONE_VALUE,
-  DEFAULT_PHONE_VALUE,
+  DEFAULT_URL_VALUE,
 } from './../test.options';
 import * as utils from '../../utils';
-import { TelField } from '../../fields';
+import { UrlField } from '../../fields';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -22,21 +22,21 @@ jest.mock('../../utils', () => {
   };
 });
 
-describe('telephone-field', () => {
+describe('url-field', () => {
   it('gets field value', () => {
     const form = createForm({
       schema: [
         {
-          ...baseTelephoneFieldTestOptions,
+          ...baseUrlFieldTestOptions,
         },
       ],
     });
 
-    const field = form.getField(TELEPHONE_FIELD_ID)! as unknown as TelField;
-    expect(field.getValue()).toBe(DEFAULT_PHONE_VALUE);
-    expect(field.getId()).toBe(TELEPHONE_FIELD_ID);
-    expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), TELEPHONE_FIELD_ID));
-    expect(field.getType()).toBe('tel');
+    const field = form.getField(URL_FIELD_ID)! as unknown as UrlField;
+    expect(field.getValue()).toBe(DEFAULT_URL_VALUE);
+    expect(field.getId()).toBe(URL_FIELD_ID);
+    expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), URL_FIELD_ID));
+    expect(field.getType()).toBe('url');
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getForm()).toBe(form);
   });
@@ -45,43 +45,43 @@ describe('telephone-field', () => {
     const form = createForm({
       schema: [
         {
-          ...baseTelephoneFieldTestOptions,
+          ...baseUrlFieldTestOptions,
           required: true,
           default: null,
         },
       ],
     });
-    const field = form.getField(TELEPHONE_FIELD_ID)! as unknown as TelField;
+    const field = form.getField(URL_FIELD_ID)! as unknown as UrlField;
     field.validate();
     expect(field.getValidity()).toBeFalsy();
   });
 
-  it('input uses validate function and detects invalid email', () => {
+  it('input uses validate function and detects invalid url', () => {
     const form = createForm({
       schema: [
         {
-          ...baseTelephoneFieldTestOptions,
+          ...baseUrlFieldTestOptions,
           required: true,
           default: INVALID_PHONE_VALUE,
         },
       ],
     });
-    const field = form.getField(TELEPHONE_FIELD_ID)! as unknown as TelField;
+    const field = form.getField(URL_FIELD_ID)! as unknown as UrlField;
     field.validate();
     expect(field.getValidity()).toBeFalsy();
   });
 
-  it('input passes validation with valid email', () => {
+  it('input passes validation with valid url', () => {
     const form = createForm({
       schema: [
         {
-          ...baseTelephoneFieldTestOptions,
+          ...baseUrlFieldTestOptions,
           required: true,
-          default: DEFAULT_PHONE_VALUE,
+          default: DEFAULT_URL_VALUE,
         },
       ],
     });
-    const field = form.getField(TELEPHONE_FIELD_ID)! as unknown as TelField;
+    const field = form.getField(URL_FIELD_ID)! as unknown as UrlField;
     field.validate();
     expect(field.getValidity()).toBeTruthy();
   });

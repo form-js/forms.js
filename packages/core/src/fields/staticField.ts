@@ -2,6 +2,7 @@ import { Form } from '../form';
 import {
   evaluateParsedConditions,
   generateFieldSaveKey,
+  isJson,
   mountElement,
   parseConditionString,
   unmountElement,
@@ -188,7 +189,7 @@ export class StaticField {
     if (this._form.savesProgress() && this._form.hasValidLicense()) {
       const value: string | null = localStorage.getItem(this._saveKey);
       if (value !== null) {
-        this.setTemplate(JSON.parse(value), false);
+        this.setTemplate(isJson(value) ? JSON.parse(value) : value, false);
         return;
       }
     }

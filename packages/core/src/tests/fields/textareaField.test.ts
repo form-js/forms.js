@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from '@jest/globals';
-import { createForm, basePasswordFieldTestOptions, PASSWORD_FIELD_ID, DEFAULT_STRING_VALUE } from './../test.options';
+import { createForm, baseTextareaFieldTestOptions, TEXTAREA_FIELD_ID, DEFAULT_STRING_VALUE } from './../test.options';
 import * as utils from '../../utils';
-import { PasswordField } from '../../fields';
+import { TextareaField } from '../../fields';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -16,21 +16,21 @@ jest.mock('../../utils', () => {
   };
 });
 
-describe('password-field', () => {
+describe('textarea-field', () => {
   it('gets field value', () => {
     const form = createForm({
       schema: [
         {
-          ...basePasswordFieldTestOptions,
+          ...baseTextareaFieldTestOptions,
         },
       ],
     });
 
-    const field = form.getField(PASSWORD_FIELD_ID)! as unknown as PasswordField;
+    const field = form.getField(TEXTAREA_FIELD_ID)! as unknown as TextareaField;
     expect(field.getValue()).toBe(DEFAULT_STRING_VALUE);
-    expect(field.getId()).toBe(PASSWORD_FIELD_ID);
-    expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), PASSWORD_FIELD_ID));
-    expect(field.getType()).toBe('password');
+    expect(field.getId()).toBe(TEXTAREA_FIELD_ID);
+    expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), TEXTAREA_FIELD_ID));
+    expect(field.getType()).toBe('textarea');
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getForm()).toBe(form);
   });
@@ -39,16 +39,28 @@ describe('password-field', () => {
     const form = createForm({
       schema: [
         {
-          ...basePasswordFieldTestOptions,
+          ...baseTextareaFieldTestOptions,
           required: true,
           default: null,
         },
       ],
     });
-    const field = form.getField(PASSWORD_FIELD_ID)! as unknown as PasswordField;
+    const field = form.getField(TEXTAREA_FIELD_ID)! as unknown as TextareaField;
     field.validate();
     expect(field.getValidity()).toBeFalsy();
-    field.setValue(DEFAULT_STRING_VALUE);
+  });
+
+  it('input passes validation with valid string', () => {
+    const form = createForm({
+      schema: [
+        {
+          ...baseTextareaFieldTestOptions,
+          required: true,
+          default: DEFAULT_STRING_VALUE,
+        },
+      ],
+    });
+    const field = form.getField(TEXTAREA_FIELD_ID)! as unknown as TextareaField;
     field.validate();
     expect(field.getValidity()).toBeTruthy();
   });

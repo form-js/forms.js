@@ -1,7 +1,7 @@
-import { ColorField } from './../../fields/colorField';
 import { describe, expect, it, jest } from '@jest/globals';
-import { createForm, baseColorFieldTestOptions, COLOR_FIELD_ID, DEFAULT_COLOR_VALUE } from './../test.options';
+import { createForm, baseTimeFieldTestOptions, TIME_FIELD_ID, DEFAULT_TIME_VALUE } from './../test.options';
 import * as utils from '../../utils';
+import { TimeField } from '../../fields';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -16,23 +16,24 @@ jest.mock('../../utils', () => {
   };
 });
 
-describe('color-field', () => {
+describe('time-field', () => {
   it('gets field value', () => {
     const form = createForm({
       schema: [
         {
-          ...baseColorFieldTestOptions,
+          ...baseTimeFieldTestOptions,
         },
       ],
     });
 
-    const field = form.getField(COLOR_FIELD_ID)! as unknown as ColorField;
-    expect(field.getValue()).toBe(DEFAULT_COLOR_VALUE);
-    expect(field.getId()).toBe(COLOR_FIELD_ID);
-    expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), COLOR_FIELD_ID));
-    expect(field.getType()).toBe('color');
+    const field = form.getField(TIME_FIELD_ID)! as unknown as TimeField;
+    expect(field.getValue()).toBe(DEFAULT_TIME_VALUE);
+    expect(field.getId()).toBe(TIME_FIELD_ID);
+    expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), TIME_FIELD_ID));
+    expect(field.getType()).toBe('time');
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getForm()).toBe(form);
+    expect(field.getFlatpickr()).toBeNull();
   });
 
   it('input triggers change event', () => {
@@ -40,13 +41,13 @@ describe('color-field', () => {
     const form = createForm({
       schema: [
         {
-          ...baseColorFieldTestOptions,
-          default: null,
+          ...baseTimeFieldTestOptions,
+          default: false,
           change: mockChange,
         },
       ],
     });
-    const field = form.getField(COLOR_FIELD_ID)! as unknown as ColorField;
+    const field = form.getField(TIME_FIELD_ID)! as unknown as TimeField;
     const element = form.getFormElement()!.querySelector('#' + field.getId());
     expect(element).not.toBeNull();
     const event = new Event('change');
@@ -58,14 +59,27 @@ describe('color-field', () => {
     const form = createForm({
       schema: [
         {
-          ...baseColorFieldTestOptions,
+          ...baseTimeFieldTestOptions,
           required: true,
           default: null,
         },
       ],
     });
-    const field = form.getField(COLOR_FIELD_ID)! as unknown as ColorField;
+    const field = form.getField(TIME_FIELD_ID)! as unknown as TimeField;
     field.validate();
     expect(field.getValidity()).toBeFalsy();
+  });
+
+  it('gets flatpickr when enhanced', () => {
+    const form = createForm({
+      schema: [
+        {
+          ...baseTimeFieldTestOptions,
+          enhance: true,
+        },
+      ],
+    });
+    const field = form.getField(TIME_FIELD_ID)! as unknown as TimeField;
+    expect(field.getFlatpickr()).not.toBeNull();
   });
 });
