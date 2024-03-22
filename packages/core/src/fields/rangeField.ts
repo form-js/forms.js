@@ -1,7 +1,7 @@
-import { Field } from '../field.js';
-import { Form } from '../form.js';
-import { NumberFieldOptions } from '../interfaces.js';
-import { mountElement } from '../utils.js';
+import { Field } from '../field';
+import { Form } from '../form';
+import { NumberFieldOptions } from '../interfaces';
+import { mountElement } from '../utils';
 
 export class RangeField extends Field {
   public options: NumberFieldOptions = {
@@ -10,6 +10,8 @@ export class RangeField extends Field {
     required: false,
     validation: (value, data, required) => {
       if (required && !value && value !== 0) return 'This field is required';
+      if (this.options.min && this.options.min > value) return 'The value should be bigger than ' + this.options.min;
+      if (this.options.max && this.options.max < value) return 'The value should be less than ' + this.options.max;
       return true;
     },
     default: 0,
@@ -69,10 +71,12 @@ export class RangeField extends Field {
     if (this.minElement && this.options.min !== undefined) this.minElement.innerText = String(this.options.min);
     if (this.maxElement && this.options.max !== undefined) this.maxElement.innerText = String(this.options.max);
     if (this.valueElement) this.valueElement.innerText = this.getValue() ? String(this.getValue()) : '';
-    setTimeout(() => {
-      if (this.inputElement && this.valueElement)
-        this.inputElement.style.paddingRight = this.valueElement.clientWidth + 5 + 'px';
-    }, 10);
+    setTimeout(this.updateInputPadding, 10);
+  }
+
+  updateInputPadding() {
+    if (this.inputElement && this.valueElement)
+      this.inputElement.style.paddingRight = this.valueElement.clientWidth + 5 + 'px';
   }
 
   /**

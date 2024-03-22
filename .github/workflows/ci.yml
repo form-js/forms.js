@@ -1,9 +1,9 @@
-name: Tests
+name: Build & Lint & Test
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
 jobs:
   build:
@@ -14,100 +14,174 @@ jobs:
         node-version: [16.x, 18.x, 20.x]
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    #core
-    - name: Install core dependencies
-      working-directory: ./packages/core
-      run: npm install
+      #core
+      - name: Install core dependencies
+        working-directory: ./packages/core
+        run: npm install
 
-    - name: Lint core package
-      working-directory: ./packages/core
-      run: npm run lint
+      - name: Build core package
+        working-directory: ./packages/core
+        run: npm run build
 
-    - name: Build core package
-      working-directory: ./packages/core
-      run: npm run build
+      #daterange
+      - name: Install daterange dependencies
+        working-directory: ./packages/daterange
+        run: npm install
 
-    #daterange
-    - name: Install daterange dependencies
-      working-directory: ./packages/daterange
-      run: npm install
+      - name: Build daterange package
+        working-directory: ./packages/daterange
+        run: npm run build
 
-    - name: Lint daterange package
-      working-directory: ./packages/daterange
-      run: npm run lint
+      #list-field
+      - name: Install list-field dependencies
+        working-directory: ./packages/list-field
+        run: npm install
 
-    - name: Build daterange package
-      working-directory: ./packages/daterange
-      run: npm run build
+      - name: Build list-field package
+        working-directory: ./packages/list-field
+        run: npm run build
 
-    #list-field
-    - name: Install list-field dependencies
-      working-directory: ./packages/list-field
-      run: npm install
+      #rating
+      - name: Install rating dependencies
+        working-directory: ./packages/rating
+        run: npm install
 
-    - name: Lint list-field package
-      working-directory: ./packages/list-field
-      run: npm run lint
+      - name: Build rating package
+        working-directory: ./packages/rating
+        run: npm run build
 
-    - name: Build list-field package
-      working-directory: ./packages/list-field
-      run: npm run build
+      #ritchtext
+      - name: Install ritchtext dependencies
+        working-directory: ./packages/ritchtext
+        run: npm install
 
-    #rating
-    - name: Install rating dependencies
-      working-directory: ./packages/rating
-      run: npm install
+      - name: Build ritchtext package
+        working-directory: ./packages/ritchtext
+        run: npm run build
 
-    - name: Lint rating package
-      working-directory: ./packages/rating
-      run: npm run lint
+      #tabs
+      - name: Install tabs dependencies
+        working-directory: ./packages/tabs
+        run: npm install
 
-    - name: Build rating package
-      working-directory: ./packages/rating
-      run: npm run build
+      - name: Build tabs package
+        working-directory: ./packages/tabs
+        run: npm run build
 
-    #ritchtext
-    - name: Install ritchtext dependencies
-      working-directory: ./packages/ritchtext
-      run: npm install
+      #vue
+      - name: Install vue dependencies
+        working-directory: ./packages/vue
+        run: npm install
 
-    - name: Lint ritchtext package
-      working-directory: ./packages/ritchtext
-      run: npm run lint
+      - name: Build vue package
+        working-directory: ./packages/vue
+        run: npm run build
 
-    - name: Build ritchtext package
-      working-directory: ./packages/ritchtext
-      run: npm run build
+  lint:
+    runs-on: ubuntu-latest
 
-    #tabs
-    - name: Install tabs dependencies
-      working-directory: ./packages/tabs
-      run: npm install
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
 
-    - name: Lint tabs package
-      working-directory: ./packages/tabs
-      run: npm run lint
+    steps:
+      - uses: actions/checkout@v4
 
-    - name: Build tabs package
-      working-directory: ./packages/tabs
-      run: npm run build
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    #vue
-    - name: Install tabs dependencies
-      working-directory: ./packages/vue
-      run: npm install
+      #core
+      - name: Install core dependencies
+        working-directory: ./packages/core
+        run: npm install
 
-    - name: Lint tabs package
-      working-directory: ./packages/vue
-      run: npm run lint
+      - name: Lint core package
+        working-directory: ./packages/core
+        run: npm run lint
 
-    - name: Build tabs package
-      working-directory: ./packages/vue
-      run: npm run build
+      #daterange
+      - name: Install daterange dependencies
+        working-directory: ./packages/daterange
+        run: npm install
+
+      - name: Lint daterange package
+        working-directory: ./packages/daterange
+        run: npm run lint
+
+      #list-field
+      - name: Install list-field dependencies
+        working-directory: ./packages/list-field
+        run: npm install
+
+      - name: Lint list-field package
+        working-directory: ./packages/list-field
+        run: npm run lint
+
+      #rating
+      - name: Install rating dependencies
+        working-directory: ./packages/rating
+        run: npm install
+
+      - name: Lint rating package
+        working-directory: ./packages/rating
+        run: npm run lint
+
+      #ritchtext
+      - name: Install ritchtext dependencies
+        working-directory: ./packages/ritchtext
+        run: npm install
+
+      - name: Lint ritchtext package
+        working-directory: ./packages/ritchtext
+        run: npm run lint
+
+      #tabs
+      - name: Install tabs dependencies
+        working-directory: ./packages/tabs
+        run: npm install
+
+      - name: Lint tabs package
+        working-directory: ./packages/tabs
+        run: npm run lint
+
+      #vue
+      - name: Install vue dependencies
+        working-directory: ./packages/vue
+        run: npm install
+
+      - name: Lint vue package
+        working-directory: ./packages/vue
+        run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      #core
+      - name: Install core dependencies
+        working-directory: ./packages/core
+        run: npm install
+
+      - name: Test core package
+        working-directory: ./packages/core
+        run: npm run test

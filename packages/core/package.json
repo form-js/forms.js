@@ -1,70 +1,73 @@
 {
-    "name": "@forms.js/core",
-    "version": "1.0.23",
-    "description": "Javascript form generator that streamlines web forms",
-    "module": "lib/index.js",
-    "type": "module",
-    "types": "lib/index.d.ts",
-    "files": [
-        "lib/**/*",
-        "css/**/*"
-    ],
-    "scripts": {
-        "build": "tsc  && tsc -p tsconfig-cjs.json",
-        "format": "prettier --write \"src/**/*.ts\"",
-        "lint": "eslint src/** -c eslint.json",
-        "test": "jest",
-        "patch": "npm run build && npm version patch"
+  "name": "@forms.js/core",
+  "version": "1.0.24",
+  "description": "Javascript form generator that streamlines web forms",
+  "module": "lib/index.js",
+  "type": "module",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**/*",
+    "css/**/*"
+  ],
+  "scripts": {
+    "build": "tsc  && tsc -p tsconfig-cjs.json",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint src/** -c eslint.json",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --collectCoverage --coverageDirectory=src/tests/coverage",
+    "patch": "npm run build && npm version patch"
+  },
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./lib/cjs/index.js"
     },
-    "exports": {
-        ".": {
-            "import": "./lib/index.js",
-            "require": "./lib/cjs/index.js"
-        },
-        "./css/index.css": {
-            "import": "./css/index.css",
-            "require": "./css/index.css"
-        }
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/form-js/forms.js"
-    },
-    "keywords": [
-        "form",
-        "forms",
-        "forms js",
-        "form generator",
-        "form builder",
-        "input",
-        "javascript",
-        "buider",
-        "generator"
-    ],
-    "author": "",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/form-js/forms.js/issues"
-    },
-    "homepage": "https://formsjs.io/",
-    "devDependencies": {
-        "@types/jest": "^29.5.12",
-        "@types/quill": "^2.0.10",
-        "@typescript-eslint/eslint-plugin": "^6.21.0",
-        "@typescript-eslint/parser": "^6.21.0",
-        "eslint": "^8.56.0",
-        "eslint-config-prettier": "^9.1.0",
-        "jest": "^29.7.0",
-        "jest-environment-jsdom": "^29.7.0",
-        "prettier": "^3.0.0",
-        "ts-jest": "^29.1.2",
-        "typescript": "^5.1.6"
-    },
-    "dependencies": {
-        "filepond": "^4.30.4",
-        "flatpickr": "^4.6.13",
-        "install": "^0.13.0",
-        "npm": "^10.1.0",
-        "tom-select": "^2.2.2"
+    "./css/index.css": {
+      "import": "./css/index.css",
+      "require": "./css/index.css"
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/form-js/forms.js"
+  },
+  "keywords": [
+    "form",
+    "forms",
+    "forms js",
+    "form generator",
+    "form builder",
+    "input",
+    "javascript",
+    "buider",
+    "generator"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/form-js/forms.js/issues"
+  },
+  "homepage": "https://formsjs.io/",
+  "devDependencies": {
+    "@babel/preset-env": "^7.23.9",
+    "@babel/preset-typescript": "^7.23.3",
+    "@types/jest": "^29.5.12",
+    "@types/quill": "^2.0.10",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "babel-jest": "^29.7.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "prettier": "^3.0.0",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "filepond": "^4.30.6",
+    "flatpickr": "^4.6.13",
+    "install": "^0.13.0",
+    "npm": "^10.1.0",
+    "tom-select": "^2.3.1"
+  }
 }

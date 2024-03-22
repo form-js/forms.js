@@ -1,8 +1,8 @@
-import { Field } from '../field.js';
-import { Form } from '../form.js';
-import { CheckboxFieldOptions } from '../interfaces.js';
-import { HTMLElementEvent } from '../types.js';
-import { mountElement } from '../utils.js';
+import { Field } from '../field';
+import { Form } from '../form';
+import { CheckboxFieldOptions } from '../interfaces';
+import { HTMLElementEvent } from '../types';
+import { mountElement } from '../utils';
 
 export class CheckboxField extends Field {
   public options: CheckboxFieldOptions = {

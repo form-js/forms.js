@@ -1,14 +1,15 @@
-import { Form } from './form.js';
+import { Form } from './form';
 import {
   debounce,
   evaluateParsedConditions,
   generateFieldSaveKey,
+  isJson,
   mountElement,
   parseConditionString,
   unmountElement,
-} from './utils.js';
-import { FieldOptions } from './interfaces.js';
-import { FieldValue, HTMLElementEvent, ParsedCondition } from './types.js';
+} from './utils';
+import { FieldOptions } from './interfaces';
+import { FieldValue, HTMLElementEvent, ParsedCondition } from './types';
 
 export class Field {
   public options: FieldOptions = {
@@ -177,6 +178,14 @@ export class Field {
   }
 
   /**
+   * Checks if the field is disabled.
+   * @returns True if the field is disabled; otherwise, false.
+   */
+  isRequired(): boolean {
+    return this._isRequired;
+  }
+
+  /**
    * Gets the validation message for the field.
    * @returns The validation message or null if there is none.
    */
@@ -259,7 +268,7 @@ export class Field {
 
   /** Fully removes the element from the DOM. */
   destroy(): void {
-    if (this._parent) unmountElement(this._parent);
+    if (this._parent) this._parent.remove();
   }
 
   /** Handles the appearance of validation messages and error styling. */
@@ -326,8 +335,9 @@ export class Field {
   load(): void {
     if (this._form.savesProgress() && this._form.hasValidLicense()) {
       const value: string | null = localStorage.getItem(this._saveKey);
+
       if (value !== null) {
-        this.setValue(JSON.parse(value), false);
+        this.setValue(isJson(value) ? JSON.parse(value) : value, false);
         return;
       }
     }
@@ -337,7 +347,7 @@ export class Field {
   /** Resets the field to its initial state. */
   async reset(): Promise<void> {
     localStorage.removeItem(this._saveKey);
-    if (this.options.default) this.setValue(this.options.default, false);
+    if (this.options.default !== undefined) this.setValue(this.options.default, false);
     else this.setValue(null, false);
     this.update();
   }
@@ -417,7 +427,7 @@ export class Field {
           this._form.getData(),
           this._value,
           this._isRequired,
-          true
+          true,
         ) as true | string;
         this.setValidationValues(validity);
       } else if (typeof this.options.validation === 'function') {

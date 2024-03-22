@@ -1,6 +1,6 @@
-import { Field } from '../field.js';
-import { Form } from '../form.js';
-import { FieldOptions, NumberFieldOptions } from '../interfaces.js';
+import { Field } from '../field';
+import { Form } from '../form';
+import { FieldOptions, NumberFieldOptions } from '../interfaces';
 
 export class NumberField extends Field {
   public options: NumberFieldOptions = {
@@ -8,7 +8,7 @@ export class NumberField extends Field {
     type: 'number',
     required: false,
     validation: (value, data, required) => {
-      if (required && !value) return 'This field is required';
+      if (required && !value && value !== 0) return 'This field is required';
       if (this.options.min && this.options.min > value) return 'The value should be bigger than ' + this.options.min;
       if (this.options.max && this.options.max < value) return 'The value should be less than ' + this.options.max;
       return true;

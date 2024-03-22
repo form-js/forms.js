@@ -1,7 +1,7 @@
 import { RadioField } from './fields/radioField';
 import { DatetimeField } from './fields/datetimeField';
 import { Button } from './button';
-import { costructorTypes, registerConstructor } from './constants';
+import { constructorTypes, registerConstructor } from './constants';
 import {
   CheckboxField,
   ColorField,
@@ -20,31 +20,31 @@ import {
   TimeField,
   UrlField,
   WeekField,
-} from './fields';
+} from './fields/index';
 import { Group } from './group';
-import { PluginSettings } from './types.js';
+import { PluginSettings } from './types';
 
-registerConstructor('group', Group, costructorTypes.group);
-registerConstructor('button', Button, costructorTypes.button);
-registerConstructor('checkbox', CheckboxField, costructorTypes.field);
-registerConstructor('color', ColorField, costructorTypes.field);
-registerConstructor('date', DateField, costructorTypes.field);
-registerConstructor('datetime', DatetimeField, costructorTypes.field);
-registerConstructor('email', EmailField, costructorTypes.field);
-registerConstructor('file', FileField, costructorTypes.field);
-registerConstructor('hidden', HiddenField, costructorTypes.field);
-registerConstructor('number', NumberField, costructorTypes.field);
-registerConstructor('password', PasswordField, costructorTypes.field);
-registerConstructor('radio', RadioField, costructorTypes.field);
-registerConstructor('range', RangeField, costructorTypes.field);
-registerConstructor('select', SelectField, costructorTypes.field);
-registerConstructor('static', StaticField, costructorTypes.field);
-registerConstructor('tel', TelField, costructorTypes.field);
-registerConstructor('textarea', TextareaField, costructorTypes.field);
-registerConstructor('text', TextField, costructorTypes.field);
-registerConstructor('time', TimeField, costructorTypes.field);
-registerConstructor('url', UrlField, costructorTypes.field);
-registerConstructor('week', WeekField, costructorTypes.field);
+registerConstructor('group', Group, constructorTypes.group);
+registerConstructor('button', Button, constructorTypes.button);
+registerConstructor('checkbox', CheckboxField, constructorTypes.field);
+registerConstructor('color', ColorField, constructorTypes.field);
+registerConstructor('date', DateField, constructorTypes.field);
+registerConstructor('datetime', DatetimeField, constructorTypes.field);
+registerConstructor('email', EmailField, constructorTypes.field);
+registerConstructor('file', FileField, constructorTypes.field);
+registerConstructor('hidden', HiddenField, constructorTypes.field);
+registerConstructor('number', NumberField, constructorTypes.field);
+registerConstructor('password', PasswordField, constructorTypes.field);
+registerConstructor('radio', RadioField, constructorTypes.field);
+registerConstructor('range', RangeField, constructorTypes.field);
+registerConstructor('select', SelectField, constructorTypes.field);
+registerConstructor('static', StaticField, constructorTypes.field);
+registerConstructor('tel', TelField, constructorTypes.field);
+registerConstructor('textarea', TextareaField, constructorTypes.field);
+registerConstructor('text', TextField, constructorTypes.field);
+registerConstructor('time', TimeField, constructorTypes.field);
+registerConstructor('url', UrlField, constructorTypes.field);
+registerConstructor('week', WeekField, constructorTypes.field);
 
 export const usePlugin = (settings: PluginSettings | PluginSettings[]) => {
   if (Array.isArray(settings)) {
@@ -57,8 +57,8 @@ export const usePlugin = (settings: PluginSettings | PluginSettings[]) => {
 };
 
 export { Form } from './form';
-export { Button } from './button.js';
-export { ButtonOptions, FieldOptions, FormOptions, GroupOptions } from './interfaces.js';
+export { Button } from './button';
+export { ButtonOptions, FieldOptions, FormOptions, GroupOptions } from './interfaces';
 export {
   setLicenseKey,
   mountElement,
@@ -66,8 +66,8 @@ export {
   extractFieldsFromSchema,
   useLicensedFetures,
   generateFieldSaveKey,
-} from './utils.js';
-export { Field } from './field.js';
-export { fields, buttons, groups, costructorTypes } from './constants.js';
-export { Schema, FormData, FieldValue, PluginSettings, ParsedCondition } from './types.js';
-export { evaluateParsedConditions, parseConditionString } from './utils.js';
+} from './utils';
+export { Field } from './field';
+export { fields, buttons, groups, constructorTypes, registerConstructor } from './constants';
+export { Schema, FormData, FieldValue, PluginSettings, ParsedCondition, FormElement } from './types';
+export { evaluateParsedConditions, parseConditionString } from './utils';

@@ -1,6 +1,5 @@
-import { FieldOptions, NumberFieldOptions, RadioFieldOptions } from './interfaces';
-import { costructorTypes, fields, formElements } from './constants';
-import { Form } from './form.js';
+import { fields, formElements } from './constants';
+import { Form } from './form';
 
 export type Schema = object[];
 export type Tabs = object[];
@@ -63,5 +62,13 @@ export type PluginSettings = {
 export type pluginConstructor = new (a: HTMLElement, b: Form, c: any) => any;
 
 export type Operator = '=' | '!=' | '>' | '<' | '>=' | '<=';
-export type Condition = { left: string; operator: Operator; right: any };
+export type Condition = { left: string; operator: Operator; right: any; isDate?: boolean };
 export type ParsedCondition = { conditions: Condition[][]; returnValue: string };
+export type DataPrefixMap = Record<
+  string,
+  {
+    id: string;
+    dataKey: string;
+    key: string | null; // will be null when group
+  }
+>;

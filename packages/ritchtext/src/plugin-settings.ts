@@ -1,9 +1,9 @@
 import { RitchtextField } from './ritchtextField';
-import { PluginSettings, costructorTypes } from '@forms.js/core';
+import { PluginSettings, constructorTypes } from '@forms.js/core';
 
 export const pluginSettings: PluginSettings = {
   type: 'daterange',
   constructor: RitchtextField,
-  constructorType: costructorTypes.field,
+  constructorType: constructorTypes.field,
   licensed: true,
 };

@@ -1,10 +1,10 @@
 import * as flatpickerNamespace from 'flatpickr';
 const flatpickr = (flatpickerNamespace as any).default;
-import { Field } from '../field.js';
-import { Form } from '../form.js';
-import { DateFieldOptions } from '../interfaces.js';
-import weekSelectPlugin from 'flatpickr/dist/plugins/weekSelect/weekSelect.js';
-import { FlatpickrFn } from 'flatpickr/dist/types/instance.js';
+import { Field } from '../field';
+import { Form } from '../form';
+import { DateFieldOptions } from '../interfaces';
+import weekSelectPlugin from 'flatpickr/dist/plugins/weekSelect/weekSelect';
+import { FlatpickrFn } from 'flatpickr/dist/types/instance';
 
 export class WeekField extends Field {
   public options: DateFieldOptions = {

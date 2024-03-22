@@ -26,13 +26,13 @@ html.dark{
 You can write your custom plugins very easily 
 
 ```js
-import { registerConstructor, costructorTypes, Field } from "@formsjs/core";
+import { registerConstructor, constructorTypes, Field } from "@formsjs/core";
 
 class myField extends Field {
  ...
 }
 
-registerConstructor('my-field', myField, costructorTypes.field);
+registerConstructor('my-field', myField, constructorTypes.field);
 ```
 
 then you can use your new field as any other field. It does not even need to extend the Field class, but if it has the required functions it can be a completly new class.
@@ -41,15 +41,15 @@ then you can use your new field as any other field. It does not even need to ext
 
 there is multiple constructor types each constructor expects different methods being avalable on the class.
 
-**costructorTypes.field**
+**constructorTypes.field**
 
 - update method
 - reset method
 
-**costructorTypes.group**
+**constructorTypes.group**
 
 - update method
 
-**costructorTypes.button**
+**constructorTypes.button**
 
 - update method

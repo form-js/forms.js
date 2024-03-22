@@ -1,13 +1,14 @@
-import { Form } from '../form.js';
+import { Form } from '../form';
 import {
   evaluateParsedConditions,
   generateFieldSaveKey,
+  isJson,
   mountElement,
   parseConditionString,
   unmountElement,
-} from '../utils.js';
-import { StaticFieldOptions } from '../interfaces.js';
-import { FieldValue, ParsedCondition } from '../types.js';
+} from '../utils';
+import { StaticFieldOptions } from '../interfaces';
+import { FieldValue, ParsedCondition } from '../types';
 
 export class StaticField {
   public options: StaticFieldOptions = {
@@ -167,7 +168,7 @@ export class StaticField {
 
   /** Fully removes the element from the DOM. */
   destroy(): void {
-    if (this._parent) unmountElement(this._parent);
+    if (this._parent) this._parent.remove();
   }
 
   /** Handles the visibility of the field. */
@@ -188,7 +189,7 @@ export class StaticField {
     if (this._form.savesProgress() && this._form.hasValidLicense()) {
       const value: string | null = localStorage.getItem(this._saveKey);
       if (value !== null) {
-        this.setTemplate(JSON.parse(value), false);
+        this.setTemplate(isJson(value) ? JSON.parse(value) : value, false);
         return;
       }
     }

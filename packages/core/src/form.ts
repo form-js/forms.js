@@ -1,16 +1,15 @@
 import {
   LICENSE_STATE,
   PACKAGE_LICENSE_URL,
-  costructorTypes,
+  constructorTypes,
   elementConstructors,
   licensePlateClass,
   licensePlateStyle,
-} from './constants.js';
+} from './constants';
 import {
   getFormElementType,
   getLicenseText,
   handleInvalidLicenseLog,
-  isListField,
   mountElement,
   objectToFormData,
   processLicenseKey,
@@ -18,12 +17,9 @@ import {
   transformFieldName,
   unmountElement,
   usesLicensedFetures,
-} from './utils.js';
-import { FieldOptions, FormOptions } from './interfaces.js';
-import { FieldValue, FormElement, Schema, FormData } from './types.js';
-import { Group } from './group.js';
-import { Button } from './button.js';
-import { Field } from './field.js';
+} from './utils';
+import { FormOptions } from './interfaces';
+import { FieldValue, FormElement, Schema, FormData, DataPrefixMap } from './types';
 export class Form {
   public options: FormOptions = {
     id: '',
@@ -47,14 +43,7 @@ export class Form {
   private _saveProgress: boolean = false;
   private _licenseState: number = LICENSE_STATE.INVALID;
   private _schema: Schema = [];
-  private _dataPrefixMap: Record<
-    string,
-    {
-      id: string;
-      dataKey: string;
-      key: string | null; // will be null when group
-    }
-  > = {};
+  private _dataPrefixMap: DataPrefixMap = {};
   /**
    * Constructs a new Form instance.
    * @param parent - The parent HTML element or string id.
@@ -133,7 +122,7 @@ export class Form {
    * Checks if the form is valid.
    * @returns Boolean indicating form validity.
    */
-  private isFormValid(): boolean | null {
+  isValid(): boolean | null {
     return this._isValid;
   }
 
@@ -190,22 +179,22 @@ export class Form {
     const wrapper = this.createWrapper(parent);
     const formElementType: string | null = getFormElementType(options.type);
 
-    if (listId && key && formElementType === costructorTypes.field) {
+    if (listId && key && formElementType === constructorTypes.field) {
       this.mapFieldToDataPrefix(options, listId, key);
     }
-    if (groupId && formElementType === costructorTypes.field) {
+    if (groupId && formElementType === constructorTypes.field) {
       this.mapFieldToDataPrefix(options, groupId, null);
     }
 
     const Constructed: FormElement = new Constructor(wrapper, this, duplicatedOptions);
 
     switch (formElementType) {
-      case costructorTypes.button:
+      case constructorTypes.button:
         if (listId && key) {
           this.assignToListField(listId, key, Constructed, formElementType, options.id);
         } else this._buttons[options.id] = Constructed;
         break;
-      case costructorTypes.group:
+      case constructorTypes.group:
         if (listId && key) {
           this.assignToListField(listId, key, Constructed, formElementType, options.id);
         } else this._groups[options.id] = Constructed;
@@ -223,7 +212,7 @@ export class Form {
           }
         }
         break;
-      case costructorTypes.field:
+      case constructorTypes.field:
         if (listId && key) {
           this.assignToListField(listId, key, Constructed, formElementType, options.id);
         } else {
@@ -241,15 +230,16 @@ export class Form {
     id: string,
   ) {
     const list = this._fields[listId];
+
     if (!list || !list.assignButton || !list.assignGroup || !list.assignField) return;
     switch (formElementType) {
-      case costructorTypes.button:
+      case constructorTypes.button:
         list.assignButton(id, key, constructed);
         break;
-      case costructorTypes.group:
+      case constructorTypes.group:
         list.assignGroup(id, key, constructed);
         break;
-      case costructorTypes.field:
+      case constructorTypes.field:
         list.assignField(id, key, constructed);
         break;
     }
@@ -521,7 +511,8 @@ export class Form {
   submit(event: SubmitEvent, form: Form): void {
     event.preventDefault();
     form.validate();
-    if (!form.isFormValid()) {
+
+    if (!form.isValid()) {
       return;
     }
     if (this.options.action) {
@@ -539,6 +530,6 @@ export class Form {
    * Handles destruction of the form.
    */
   destroy() {
-    if (this._formElement && this._parent) unmountElement(this._formElement);
+    if (this._parent) this._parent.remove();
   }
 }

@@ -1,4 +1,4 @@
-import { FlatpickrFn } from 'flatpickr/dist/types/instance.js';
+import { FlatpickrFn } from 'flatpickr/dist/types/instance';
 import * as flatpickerNamespace from 'flatpickr';
 const flatpickr = (flatpickerNamespace as any).default;
 import { Form, Field, FieldValue, FormData } from '@forms.js/core';

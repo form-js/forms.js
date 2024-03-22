@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
       "module": "ESNext",
-      "target": "ES6",
+      "target": "ESNext",
       "removeComments": true,
       "moduleResolution": "Node",
       "allowJs": true,
@@ -13,5 +13,5 @@
       "strict": true,
     },
     "include": ["src"],
-    "exclude": ["node_modules", "**/*.test.ts"]
+    "exclude": ["node_modules", "src/tests"]
   }

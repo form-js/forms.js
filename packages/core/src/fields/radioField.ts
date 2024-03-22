@@ -1,8 +1,8 @@
-import { Field } from '../field.js';
-import { Form } from '../form.js';
-import { FieldOptions, RadioFieldOptions } from '../interfaces.js';
-import { HTMLElementEvent } from '../types.js';
-import { mountElement } from '../utils.js';
+import { Field } from '../field';
+import { Form } from '../form';
+import { FieldOptions, RadioFieldOptions } from '../interfaces';
+import { HTMLElementEvent } from '../types';
+import { mountElement } from '../utils';
 
 export class RadioField extends Field {
   public options: RadioFieldOptions = {

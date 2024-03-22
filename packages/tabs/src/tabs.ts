@@ -8,7 +8,7 @@ import {
   ParsedCondition,
 } from '@forms.js/core';
 import { TabOptions } from './tab';
-import { Tab } from './tab.js';
+import { Tab } from './tab';
 
 export class Tabs {
   public options: TabsOptions = {
@@ -295,7 +295,7 @@ export class Tabs {
 
   /** Fully removes the element from the DOM. */
   destroy(): void {
-    if (this._parent) unmountElement(this._parent);
+    if (this._parent) this._parent.remove();
   }
 
   /**

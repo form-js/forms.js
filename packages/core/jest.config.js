@@ -5,7 +5,6 @@ export default {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
-  moduleNameMapper: {
-    '^@src/(.*)$': '<rootDir>/src/$1',
-  },
+  testEnvironment: 'jsdom',
+  transform: {},
 };

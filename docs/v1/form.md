@@ -2,7 +2,7 @@
 
 An overview of a Form class, its initialization, data management, and a complete reference.
 
-Forms js is made for json submission, however if you want to use standard form submit it is completly possible, just define `action` and `method` in form options. 
+Forms js is made for json submission, however if you want to use standard form submit it is completly possible, just define `action` and `method` in form options.
 
 ### Initialization and Options
 
@@ -10,23 +10,23 @@ Forms js is made for json submission, however if you want to use standard form s
 
 The Form class is instantiated with two parameters: `parent` (id or HTMLElement) and `options`.
 
--   `parent: HTMLElement | string` - The parent HTML element where the form will be mounted or element ID string.
--   `options: FormOptions` - Configuration options for the form.
+- `parent: HTMLElement | string` - The parent HTML element where the form will be mounted or element ID string.
+- `options: FormOptions` - Configuration options for the form.
 
 #### Options
 
 The options object can include the following properties (you can find full list below):
 
--   `id: string` - <span class="badge warning">required</span> Unique identifier for the form.
--   `submit: (data) => void` - Define custom submit function
--   `useFormData: boolean` - If set to true it automatically converts the data object into <a href="https://developer.mozilla.org/en-US/docs/Web/API/FormData" target="_blank">FormData</a> before submit.
--   `schema: Schema[]` - <span class="badge warning">required</span> Schema defining the form structure.
+- `id: string` - <span class="badge warning">required</span> Unique identifier for the form.
+- `submit: (data) => void` - Define custom submit function
+- `useFormData: boolean` - If set to true it automatically converts the data object into <a href="https://developer.mozilla.org/en-US/docs/Web/API/FormData" target="_blank">FormData</a> before submit.
+- `schema: Schema[]` - <span class="badge warning">required</span> Schema defining the form structure.
 
 ### Data Object and Submit
 
 ## Data Management
 
--   `getData()` - Retrieves all form data. Returns FormData object.
+- `getData()` - Retrieves all form data. Returns FormData object.
 
 <iframe height="400" style="width: 100%;" scrolling="no" title="forms.js - form submit example" src="https://codepen.io/trilmatic/embed/bGzJgjB?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
   See the Pen <a href="https://codepen.io/trilmatic/pen/bGzJgjB">
@@ -155,6 +155,10 @@ You can do so by setting the `saveProgress` option to true. Saved values are res
       <td>Checks if the form saves progress.</td>
     </tr>
     <tr>
+      <td><code>isValid()</code></td>
+      <td>Returns <code>boolean</code> of current form validity state.</td>
+    </tr>
+    <tr>
       <td><code>hasValidLicense()</code></td>
       <td>Checks if the form has a valid license.</td>
     </tr>
@@ -180,4 +184,3 @@ You can do so by setting the `saveProgress` option to true. Saved values are res
     </tr>
   </tbody>
 </table>
-

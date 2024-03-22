@@ -1,6 +1,6 @@
-import { Field } from '../field.js';
-import { Form } from '../form.js';
-import { FieldOptions } from '../interfaces.js';
+import { Field } from '../field';
+import { Form } from '../form';
+import { FieldOptions } from '../interfaces';
 
 export class PasswordField extends Field {
   public options: FieldOptions = {
