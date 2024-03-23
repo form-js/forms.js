@@ -22,6 +22,36 @@ The options object can include the following properties (you can find full list 
 - `useFormData: boolean` - If set to true it automatically converts the data object into <a href="https://developer.mozilla.org/en-US/docs/Web/API/FormData" target="_blank">FormData</a> before submit.
 - `schema: Schema[]` - <span class="badge warning">required</span> Schema defining the form structure.
 
+### Schema
+
+Schema defines form fields and structure. Each form field must have unique `id` and `type` that defines what field will be generated. other that that there might be more options needed based on specific field. You can find more in each fields documentation.
+
+Example schema:
+```js
+  ...,
+  schema: [
+    {
+      id: "email",
+      type:"email",
+      label: "Email",
+      required: true,
+    },
+    {
+      id:"button-group",
+      type:"group",
+      schema:[
+         {
+            id: "submit-button",
+            type:"button",
+            label: "Submit",
+            className: "btn"
+         },
+      ]
+    }
+  ],
+  ...
+```
+
 ### Data Object and Submit
 
 ## Data Management
