@@ -1,18 +1,28 @@
+<div align="center">
+
 ![Forms.js](https://formsjs.io/images/banner.png)
 
+</div>
+
 # Forms.js - Elevate Your Form Creation Experience
+
+<div align="center">
+
 
 [![Npm package monthly downloads](https://badgen.net/npm/dm/@forms.js/core)](https://npmjs.com/package/@forms.js/core)
 [![TypeScript](https://img.shields.io/badge/--3178C6?logo=typescript&logoColor=ffffff)](https://www.typescriptlang.org/)
 [![Code Coverage](https://img.shields.io/badge/code_coverage-99%25-brightgreen)](https://github.com/form-js/forms.js)
 [![GitHub issues](https://img.shields.io/github/issues/form-js/forms.js)](https://github.com/form-js/forms.js/issues)
-[![GitHub stars](https://img.shields.io/github/stars/form-js/forms.js)](https://github.com/form-js/forms.js/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/form-js/forms.js)](https://github.com/form-js/forms.js/stargazers)  
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/form-js/forms.js/pulls)
 [![Node.js Version](https://img.shields.io/node/v/@forms.js/core)](https://nodejs.org/en/)
 [![Maintenance](https://img.shields.io/maintenance/yes/2024)](https://github.com/form-js/forms.js)
 
-**Forms.js** is an advanced, lightweight JavaScript library designed to revolutionize form creation and management. Utilizing JSON for data input, it effortlessly generates dynamic, user-centric forms, offering an unparalleled development experience. 
+
+</div>
+
+**Forms.js** is an advanced, lightweight JavaScript library designed to revolutionize form creation and management. Utilizing JSON for data input, it effortlessly generates dynamic, user-centric forms, offering an unparalleled development experience.
 
 [Get Started with Forms.js](https://formsjs.io/documentation/v1/getting-started) ⚡️
 
@@ -36,10 +46,7 @@ npm i @forms.js/core
 ### JS DELIVR
 
 ```html
-<link
-  href="https://cdn.jsdelivr.net/npm/@forms.js/core/css/index.css"
-  rel="stylesheet"
-/>
+<link href="https://cdn.jsdelivr.net/npm/@forms.js/core/css/index.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/@forms.js/core/lib/index.js"></script>
 ```
 
@@ -62,7 +69,7 @@ const form = new Form("form-element", options);
 ### Requires css
 
 ```css
-@import '@forms.js/core/css/index.css'
+@import '@forms.js/core/css/index.css';
 ```
 
 Dive deeper into Forms.js with the [official documentation](https://formsjs.io/documentation/v1/getting-started)
