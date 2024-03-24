@@ -2,6 +2,7 @@ import { Form } from '../form';
 import {
   evaluateParsedConditions,
   generateFieldSaveKey,
+  getOverwritenDefaults,
   isJson,
   mountElement,
   parseConditionString,
@@ -61,7 +62,7 @@ export class StaticField {
    * @param {TabOptions} options - Options to merge with defaults.
    */
   initializeOptions(options: StaticFieldOptions): void {
-    this.options = Object.assign({}, this.options, options);
+    this.options = Object.assign({}, this.options, getOverwritenDefaults(this.options.type, options));
   }
 
   /**

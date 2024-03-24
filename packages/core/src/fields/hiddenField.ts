@@ -1,5 +1,5 @@
 import { Form } from '../form';
-import { generateFieldSaveKey, isJson, mountElement, unmountElement } from '../utils';
+import { generateFieldSaveKey, getOverwritenDefaults, isJson, mountElement, unmountElement } from '../utils';
 import { FieldOptions } from '../interfaces';
 import { FieldValue } from '../types';
 import {
@@ -45,7 +45,7 @@ export class HiddenField {
   }
 
   initializeOptions(options: FieldOptions) {
-    this.options = Object.assign({}, this.options, options);
+    this.options = Object.assign({}, this.options, getOverwritenDefaults(this.options.type, options));
   }
 
   async initialize(): Promise<void> {

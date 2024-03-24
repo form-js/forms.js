@@ -1,5 +1,11 @@
 import { Form } from './form';
-import { evaluateParsedConditions, mountElement, parseConditionString, unmountElement } from './utils';
+import {
+  evaluateParsedConditions,
+  getOverwritenDefaults,
+  mountElement,
+  parseConditionString,
+  unmountElement,
+} from './utils';
 import { ButtonOptions } from './interfaces';
 import { ParsedCondition } from './types';
 import {
@@ -53,7 +59,7 @@ export class Button {
    * @param options - Configuration options for the button.
    */
   initializeOptions(options: ButtonOptions): void {
-    this.options = Object.assign({}, this.options, options);
+    this.options = Object.assign({}, this.options, getOverwritenDefaults(this.options.type, options));
   }
 
   /** Initialization logic after setting up the button. */

@@ -2,7 +2,7 @@ import { FilePond, create as createFilepond, FilePondFile } from 'filepond';
 import { Field } from '../field';
 import { Form } from '../form';
 import { FileFieldOptions } from '../interfaces';
-import { debounce } from '../utils';
+import { debounce, getOverwritenDefaults } from '../utils';
 import { HTMLElementEvent } from '../types';
 import {
   ACCEPT_ATTRIBUTE,
@@ -66,7 +66,7 @@ export class FileField extends Field {
           options: { allowMultiple: options.multiple },
         },
       },
-      options,
+      getOverwritenDefaults(this.options.type, options),
     );
   }
 

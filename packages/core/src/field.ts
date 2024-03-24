@@ -3,6 +3,7 @@ import {
   debounce,
   evaluateParsedConditions,
   generateFieldSaveKey,
+  getOverwritenDefaults,
   isJson,
   mountElement,
   parseConditionString,
@@ -94,7 +95,7 @@ export class Field {
    * @param {FieldOptions} options - Options to merge with defaults.
    */
   initializeOptions(options: FieldOptions): void {
-    this.options = Object.assign({}, this.options, options);
+    this.options = Object.assign({}, this.options, getOverwritenDefaults(this.options.type, options));
   }
 
   /**

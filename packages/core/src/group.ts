@@ -1,5 +1,11 @@
 import { Form } from './form';
-import { evaluateParsedConditions, mountElement, parseConditionString, unmountElement } from './utils';
+import {
+  evaluateParsedConditions,
+  getOverwritenDefaults,
+  mountElement,
+  parseConditionString,
+  unmountElement,
+} from './utils';
 import { GroupOptions } from './interfaces';
 import { ParsedCondition } from './types';
 import {
@@ -55,7 +61,7 @@ export class Group {
    * @param options - The new configuration options to apply.
    */
   initializeOptions(options: GroupOptions): void {
-    this.options = Object.assign({}, this.options, options);
+    this.options = Object.assign({}, this.options, getOverwritenDefaults(this.options.type, options));
   }
 
   /** Initializes the group and sets up its initial visibility. */
