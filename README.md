@@ -1,29 +1,45 @@
-<h1 id="introduction">
-    <a href="https://formsjs.io/" target="_blank">
-        <img alt="Forms.js" style="margin: 0 auto" src="https://formsjs.io/images/banner.png" />
-    </a>
-</h1>
+<div align="center">
 
-[![Npm package version](https://badgen.net/npm/v/@forms.js/core)](https://npmjs.com/package/@forms.js/core) [![Npm package monthly downloads](https://badgen.net/npm/dm/@forms.js/core)](https://npmjs.com/package/@forms.js/core) [![TypeScript](https://img.shields.io/badge/--3178C6?logo=typescript&logoColor=ffffff)](https://www.typescriptlang.org/)
+![Forms.js](https://formsjs.io/images/banner.png)
 
-#### Forms.js is a highly versatile, flexible, and lightweight JavaScript library that simplifies the process of form creation and management. Leveraging the power of JSON data input, it programmatically generates dynamic forms, enabling developers to create sophisticated, interactive, and user-friendly forms with ease.
+</div>
 
-<h3><a href="https://formsjs.io/documentation/v1/getting-started" target="_blank">Official documentation</a></h3>
+<p align="center">
+    <a href="https://formsjs.io/"><b>Website</b></a> •
+    <a href="https://formsjs.io/documentation/v1/getting-started"><b>Documentation</b></a>
+</p
 
-<h2 id="features">Features</h2>
+<div align="center">
 
-- **Usability - create complex forms in 5 minutes**
-- **High ammount of form fields**
-- **Includes smart selects, file inputs, datetime inputs and rich text fields**
-- **Conditional logic**
-- **Validation**
-- **Easy change events**
-- **Extensible**
-- **Accessable, Clean API...**
+[![Npm package monthly downloads](https://badgen.net/npm/dm/@forms.js/core)](https://npmjs.com/package/@forms.js/core)
+[![Code Coverage](https://img.shields.io/badge/code_coverage-99%25-brightgreen)](https://github.com/form-js/forms.js)
+[![GitHub issues](https://img.shields.io/github/issues/form-js/forms.js)](https://github.com/form-js/forms.js/issues)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/form-js/forms.js)](https://github.com/form-js/forms.js/stargazers)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/form-js/forms.js/pulls)
+[![Node.js Version](https://img.shields.io/node/v/@forms.js/core)](https://nodejs.org/en/)
+[![Maintenance](https://img.shields.io/maintenance/yes/2024)](https://github.com/form-js/forms.js)
 
-<h2 id="instalation">Instalation</h2>
+</div>
 
-### NPM
+# Forms.js - Elevate Your Form Creation Experience
+
+**Forms.js** is an advanced, lightweight JavaScript library designed to revolutionize form creation and management. Utilizing JSON for data input, it effortlessly generates dynamic, user-centric forms, offering an unparalleled development experience.
+
+[Get Started with Forms.js](https://formsjs.io/documentation/v1/getting-started) ⚡️
+
+## Features at a Glance
+
+- **Rapid Development**: Create complex, interactive forms in minutes.
+- **Comprehensive Field Types**: Includes text, file, date/time, rich text, and more.
+- **Conditional Logic & Validation**: Tailor form behavior and validation to user input.
+- **Event Handling**: Simplified event management for dynamic user experiences.
+- **Extensibility**: Designed for customization and extension.
+- **Accessibility & Clean API**: Ensures ease of use for developers and accessibility for users.
+
+## Installation
+
+### Via NPM
 
 ```bash
 npm i @forms.js/core
@@ -32,14 +48,11 @@ npm i @forms.js/core
 ### JS DELIVR
 
 ```html
-<link
-  href="https://cdn.jsdelivr.net/npm/@forms.js/core/css/index.css"
-  rel="stylesheet"
-/>
+<link href="https://cdn.jsdelivr.net/npm/@forms.js/core/css/index.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/@forms.js/core/lib/index.js"></script>
 ```
 
-### Usage
+### Quick start
 
 ```js
 import { Form } from '@forms.js/core';
@@ -55,25 +68,23 @@ const form = new Form("form-element", options);
 
 ```
 
-### CSS
+### Requires css
 
 ```css
-@import '@forms.js/core/css/index.css'
+@import '@forms.js/core/css/index.css';
 ```
 
-<h3><a href="https://formsjs.io/documentation/v1/getting-started" target="_blank">
-    Take a look at official documentation!
-</a></h3>
+Dive deeper into Forms.js with the [official documentation](https://formsjs.io/documentation/v1/getting-started)
 
-<h2 id="license">Contributing</h2>
 
-<p class="text-lg mb-4">If you want to contribute look at <a class="link" target="_blank" href="https://github.com/form-js/forms.js/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
+Support Forms.js Development:
 
-<h2 id="license">License</h2>
+[![Support on Ko-fi](https://cdn.ko-fi.com/cdn/kofi3.png?v=3)](https://ko-fi.com/formsjs)
 
-<a href="https://formsjs.io/documentation/v1/licensing" target="_blank">
-    Take a look at licensing on the official documentation.
-</a>
+## Contributing
 
-<h3 align="left">Support the project:</h3>
-<p><a href="https://ko-fi.com/formsjs"> <img align="left" src="https://cdn.ko-fi.com/cdn/kofi3.png?v=3" height="50" width="210" alt="myaccount" /></a></p><br><br>
+If you want to contribute look at <a class="link" target="_blank" href="https://github.com/form-js/forms.js/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a>.
+
+## License
+
+Core bundle released under MIT license. This license permits a wide range of use, including free use in commercial projects, assuming all copyright headers are preserved. [Read the license terms](https://opensource.org/license/mit/)
