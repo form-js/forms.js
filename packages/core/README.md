@@ -14,11 +14,13 @@
 [![Npm package monthly downloads](https://badgen.net/npm/dm/@forms.js/core)](https://npmjs.com/package/@forms.js/core)
 [![Code Coverage](https://img.shields.io/badge/code_coverage-99%25-brightgreen)](https://github.com/form-js/forms.js)
 [![GitHub issues](https://img.shields.io/github/issues/form-js/forms.js)](https://github.com/form-js/forms.js/issues)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)  
-[![GitHub stars](https://img.shields.io/github/stars/form-js/forms.js)](https://github.com/form-js/forms.js/stargazers)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/form-js/forms.js)](https://github.com/form-js/forms.js/stargazers)  
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/form-js/forms.js/pulls)
 [![Node.js Version](https://img.shields.io/node/v/@forms.js/core)](https://nodejs.org/en/)
 [![Maintenance](https://img.shields.io/maintenance/yes/2024)](https://github.com/form-js/forms.js)
+[![TypeScript Supported](https://img.shields.io/badge/TypeScript-Supported-blue.svg)](https://www.typescriptlang.org/)
+[![Dependencies](https://img.shields.io/david/form-js/forms.js)](https://david-dm.org/form-js/forms.js)
 
 </div>
 
