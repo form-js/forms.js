@@ -11,6 +11,56 @@ export const STRING_CONDITION_SPLIT = ';';
 export const STRING_CONDITION_VALUE_SPLIT = ':';
 export const STRING_CONDITION_DATE_IDENTIFIER = 'date!';
 
+export const FORM_CLASS_DEFAULT = 'formsjs-form';
+export const BUTTON_CONTAINER_CLASS_DEFAULT = 'form-button-container';
+export const GROUP_CONTAINER_CLASS_DEFAULT = 'form-group-container';
+export const GROUP_CLASS_DEFAULT = 'form-group';
+export const GROUP_LABEL_CLASS_DEFAULT = 'form-group-label';
+export const BUTTON_CLASS_DEFAULT = 'btn form-button';
+export const INPUT_CLASS_DEFAULT = 'form-input';
+export const FIELD_CLASS_DEFAULT = 'form-field';
+export const LABEL_CLASS_DEFAULT = 'form-field-label';
+export const VALIDATION_CLASS_DEFAULT = 'form-field-validation';
+export const FORM_ERROR_CLASS_DEFAULT = 'form-error';
+export const FIELD_DISABLED_CLASS_DEFAULT = 'field-disabled';
+export const FIELD_REQUIRED_CLASS_DEFAULT = 'field-required';
+
+export const DEFAULT_REQUIRED_MESSAGE = 'This field is required';
+
+export const DIV_ELEMENT = 'div';
+export const SPAN_ELEMENT = 'span';
+export const LABEL_ELEMENT = 'label';
+export const FORM_ELEMENT = 'form';
+export const LINK_ELEMENT = 'a';
+export const BUTTON_ELEMENT = 'button';
+export const INPUT_ELEMENT = 'input';
+export const PARAGRAPH_ELEMENT = 'p';
+export const H3_ELEMENT = 'h3';
+
+export const CONTAINER_DEFINITION = '_container';
+export const LABEL_DEFINITION = '_label';
+export const VALIDATION_DEFINITION = '_validation';
+export const GROUP_CONTAINER_DEFINITION = '_group_container';
+export const FORMSJS_KEY_DEFINITION = '__formsjs_';
+export const FIELD_KEY_DEFINITION = '_field_';
+
+export const ID_ATTRIBUTE = 'id';
+export const ACTION_ATTRIBUTE = 'action';
+export const METHOD_ATTRIBUTE = 'method';
+export const SUBMIT_ATTRIBUTE = 'submit';
+export const RESET_ATTRIBUTE = 'reset';
+export const TYPE_ATTRIBUTE = 'type';
+export const HREF_ATTRIBUTE = 'href';
+export const CLICK_ATTRIBUTE = 'click';
+export const INPUT_ATTRIBUTE = 'input';
+export const NAME_ATTRIBUTE = 'name';
+export const PLACEHOLDER_ATTRIBUTE = 'placeholder';
+export const FOR_ATTRIBUTE = 'for';
+export const ARIA_INVALID_ATTRIBUTE = 'aria-invalid';
+export const ARIA_DESCRIBEDBY_ATTRIBUTE = 'aria-describedby';
+export const DISABLED_ATTRIBUTE = 'disabled';
+export const REQUIRED_ATTRIBUTE = 'required';
+
 /**
  * A list of field types used in the application forms.
  */

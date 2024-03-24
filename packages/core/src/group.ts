@@ -2,12 +2,22 @@ import { Form } from './form';
 import { evaluateParsedConditions, mountElement, parseConditionString, unmountElement } from './utils';
 import { GroupOptions } from './interfaces';
 import { ParsedCondition } from './types';
+import {
+  DIV_ELEMENT,
+  GROUP_CLASS_DEFAULT,
+  GROUP_CONTAINER_CLASS_DEFAULT,
+  GROUP_CONTAINER_DEFINITION,
+  GROUP_LABEL_CLASS_DEFAULT,
+  H3_ELEMENT,
+  ID_ATTRIBUTE,
+  LABEL_DEFINITION,
+} from './constants';
 
 export class Group {
   public options: GroupOptions = {
     id: '',
     type: 'group',
-    className: 'form-group',
+    className: GROUP_CLASS_DEFAULT,
     prefixSchema: false,
     schema: [],
   };
@@ -87,24 +97,24 @@ export class Group {
 
   /** Creates and sets up the container element for the group. */
   createContainerElement(): void {
-    this.containerElement = document.createElement('div');
-    this.containerElement.className = 'form-group-container';
-    this.containerElement.setAttribute('id', this._id + '_group_container');
+    this.containerElement = document.createElement(DIV_ELEMENT);
+    this.containerElement.className = GROUP_CONTAINER_CLASS_DEFAULT;
+    this.containerElement.setAttribute(ID_ATTRIBUTE, this._id + GROUP_CONTAINER_DEFINITION);
   }
 
   /** Creates and sets up the container element for the group. */
   createSchemaContainerElement(): void {
-    this.schemaContainerElement = document.createElement('div');
+    this.schemaContainerElement = document.createElement(DIV_ELEMENT);
     this.schemaContainerElement.className = this.options.className!;
-    this.schemaContainerElement.setAttribute('id', this._id);
+    this.schemaContainerElement.setAttribute(ID_ATTRIBUTE, this._id);
   }
 
   /** Creates and sets up the label element for the group. */
   createLabelElement(): void {
-    this.labelElement = document.createElement('h3');
+    this.labelElement = document.createElement(H3_ELEMENT);
     if (this.options.label) this.labelElement.innerText = this.options.label;
-    this.labelElement.setAttribute('id', this._id + '_label');
-    this.labelElement.className = 'form-group-label';
+    this.labelElement.setAttribute(ID_ATTRIBUTE, this._id + LABEL_DEFINITION);
+    this.labelElement.className = GROUP_LABEL_CLASS_DEFAULT;
   }
 
   /** Initializes the GUI components of the group. */

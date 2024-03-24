@@ -2,13 +2,23 @@ import { Form } from './form';
 import { evaluateParsedConditions, mountElement, parseConditionString, unmountElement } from './utils';
 import { ButtonOptions } from './interfaces';
 import { ParsedCondition } from './types';
+import {
+  BUTTON_CLASS_DEFAULT,
+  BUTTON_CONTAINER_CLASS_DEFAULT,
+  BUTTON_ELEMENT,
+  CLICK_ATTRIBUTE,
+  CONTAINER_DEFINITION,
+  DIV_ELEMENT,
+  ID_ATTRIBUTE,
+  TYPE_ATTRIBUTE,
+} from './constants';
 
 export class Button {
   public options: ButtonOptions = {
     id: '',
     type: 'button',
     buttonType: 'submit',
-    className: 'btn form-button',
+    className: BUTTON_CLASS_DEFAULT,
     template: 'Submit',
   };
   public containerElement: HTMLElement | null = null;
@@ -86,19 +96,19 @@ export class Button {
 
   /** Create the container element for the button. */
   createContainerElement(): void {
-    this.containerElement = document.createElement('div');
-    this.containerElement.className = 'form-button-container';
-    this.containerElement.setAttribute('id', this._id + '_container');
+    this.containerElement = document.createElement(DIV_ELEMENT);
+    this.containerElement.className = BUTTON_CONTAINER_CLASS_DEFAULT;
+    this.containerElement.setAttribute(ID_ATTRIBUTE, this._id + CONTAINER_DEFINITION);
   }
 
   /** Create the button element and its attributes. */
   createButtonElement(): void {
-    this.buttonElement = document.createElement('button');
+    this.buttonElement = document.createElement(BUTTON_ELEMENT);
     this.buttonElement.className = this.options.className!;
-    this.buttonElement.setAttribute('id', this._id);
-    this.buttonElement.setAttribute('type', this.options.buttonType);
+    this.buttonElement.setAttribute(ID_ATTRIBUTE, this._id);
+    this.buttonElement.setAttribute(TYPE_ATTRIBUTE, this.options.buttonType);
     this.buttonElement.innerHTML = this.options.template;
-    this.buttonElement.addEventListener('click', (event: MouseEvent): void => this.onClick(event));
+    this.buttonElement.addEventListener(CLICK_ATTRIBUTE, (event: MouseEvent): void => this.onClick(event));
   }
 
   /** Set up GUI elements for the button. */

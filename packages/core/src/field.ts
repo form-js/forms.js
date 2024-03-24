@@ -10,6 +10,31 @@ import {
 } from './utils';
 import { FieldOptions } from './interfaces';
 import { FieldValue, HTMLElementEvent, ParsedCondition } from './types';
+import {
+  ARIA_DESCRIBEDBY_ATTRIBUTE,
+  ARIA_INVALID_ATTRIBUTE,
+  CONTAINER_DEFINITION,
+  DEFAULT_REQUIRED_MESSAGE,
+  DISABLED_ATTRIBUTE,
+  FIELD_CLASS_DEFAULT,
+  FIELD_DISABLED_CLASS_DEFAULT,
+  FIELD_REQUIRED_CLASS_DEFAULT,
+  FORM_ERROR_CLASS_DEFAULT,
+  FOR_ATTRIBUTE,
+  ID_ATTRIBUTE,
+  INPUT_ATTRIBUTE,
+  INPUT_CLASS_DEFAULT,
+  INPUT_ELEMENT,
+  LABEL_CLASS_DEFAULT,
+  LABEL_DEFINITION,
+  LABEL_ELEMENT,
+  NAME_ATTRIBUTE,
+  PARAGRAPH_ELEMENT,
+  PLACEHOLDER_ATTRIBUTE,
+  TYPE_ATTRIBUTE,
+  VALIDATION_CLASS_DEFAULT,
+  VALIDATION_DEFINITION,
+} from './constants';
 
 export class Field {
   public options: FieldOptions = {
@@ -17,12 +42,12 @@ export class Field {
     type: 'text',
     required: false,
     validation: (value, data, required) => {
-      if (required && !value) return 'This field is required';
+      if (required && !value) return DEFAULT_REQUIRED_MESSAGE;
       return true;
     },
     default: '',
     debounce: 200,
-    className: 'form-input',
+    className: INPUT_CLASS_DEFAULT,
   };
   public inputElement: HTMLElement | null = null;
   public containerElement: HTMLElement | null = null;
@@ -205,40 +230,40 @@ export class Field {
   createContainerElement(): void {
     // Container element
     this.containerElement = document.createElement('div');
-    this.containerElement.className = 'form-field ' + this._type;
-    this.containerElement.setAttribute('id', this._id + '_container');
+    this.containerElement.className = FIELD_CLASS_DEFAULT + ' ' + this._type;
+    this.containerElement.setAttribute(ID_ATTRIBUTE, this._id + CONTAINER_DEFINITION);
   }
 
   /** Creates a input element for the field. */
   createInputElement(): void {
     // Input element
-    this.inputElement = document.createElement('input');
-    this.inputElement.setAttribute('id', this._id);
-    this.inputElement.setAttribute('name', this.options.name || this._id);
-    this.inputElement.setAttribute('type', this._type);
-    if (this.options.placeholder) this.inputElement.setAttribute('placeholder', this.options.placeholder);
+    this.inputElement = document.createElement(INPUT_ELEMENT);
+    this.inputElement.setAttribute(ID_ATTRIBUTE, this._id);
+    this.inputElement.setAttribute(NAME_ATTRIBUTE, this.options.name || this._id);
+    this.inputElement.setAttribute(TYPE_ATTRIBUTE, this._type);
+    if (this.options.placeholder) this.inputElement.setAttribute(PLACEHOLDER_ATTRIBUTE, this.options.placeholder);
     this.inputElement.className = this.options.className!;
   }
 
   /** Creates a label element for the field. */
   createLabelElement(): void {
     // Label element
-    this.labelElement = document.createElement('label');
+    this.labelElement = document.createElement(LABEL_ELEMENT);
     // Label text
-    const label: HTMLElement = document.createElement('p');
+    const label: HTMLElement = document.createElement(PARAGRAPH_ELEMENT);
     if (this.options.label) label.innerText = this.options.label;
-    label.setAttribute('id', this._id + '_label');
-    this.labelElement.setAttribute('for', this._id);
-    label.className = 'form-field-label';
+    label.setAttribute(ID_ATTRIBUTE, this._id + LABEL_DEFINITION);
+    this.labelElement.setAttribute(FOR_ATTRIBUTE, this._id);
+    label.className = LABEL_CLASS_DEFAULT;
     if (this.options.label) mountElement(label, this.labelElement);
   }
 
   /** Creates a validation message element for the field. */
   createValidationElement(): void {
     // Validation element
-    this.validationElement = document.createElement('p');
-    this.validationElement.setAttribute('id', this._id + '_validation');
-    this.validationElement.className = 'form-field-validation';
+    this.validationElement = document.createElement(PARAGRAPH_ELEMENT);
+    this.validationElement.setAttribute(ID_ATTRIBUTE, this._id + VALIDATION_DEFINITION);
+    this.validationElement.className = VALIDATION_CLASS_DEFAULT;
     this.validationElement.style.display = 'none';
   }
 
@@ -274,20 +299,20 @@ export class Field {
   /** Handles the appearance of validation messages and error styling. */
   handleValidatedField(): void {
     if (!this._isValid) {
-      this.labelElement?.classList.add('form-error');
+      this.labelElement?.classList.add(FORM_ERROR_CLASS_DEFAULT);
       if (this.validationElement && this._vMessage) {
         this.validationElement.innerText = this._vMessage;
         this.validationElement.style.display = 'block';
       }
-      this.inputElement?.setAttribute('aria-invalid', 'true');
-      this.inputElement?.setAttribute('aria-describedby', this.validationElement?.getAttribute('id') || '');
+      this.inputElement?.setAttribute(ARIA_INVALID_ATTRIBUTE, 'true');
+      this.inputElement?.setAttribute(ARIA_DESCRIBEDBY_ATTRIBUTE, this.validationElement?.getAttribute('id') || '');
     } else {
       if (this.validationElement) {
         this.validationElement.style.display = 'none';
       }
-      this.labelElement?.classList.remove('form-error');
-      this.inputElement?.removeAttribute('aria-invalid');
-      this.inputElement?.removeAttribute('aria-describedby');
+      this.labelElement?.classList.remove(FORM_ERROR_CLASS_DEFAULT);
+      this.inputElement?.removeAttribute(ARIA_INVALID_ATTRIBUTE);
+      this.inputElement?.removeAttribute(ARIA_DESCRIBEDBY_ATTRIBUTE);
     }
     this._form.updateError(this._id, this._isValid);
   }
@@ -301,27 +326,27 @@ export class Field {
   /** Handles the visibility of the field. */
   handleDisabled(): void {
     if (this._isDisabled) {
-      this.containerElement?.classList.add('field-disabled');
-      this.inputElement?.setAttribute('disabled', 'true');
+      this.containerElement?.classList.add(FIELD_DISABLED_CLASS_DEFAULT);
+      this.inputElement?.setAttribute(DISABLED_ATTRIBUTE, 'true');
     } else {
-      this.inputElement?.removeAttribute('disabled');
-      this.containerElement?.classList.remove('field-disabled');
+      this.inputElement?.removeAttribute(DISABLED_ATTRIBUTE);
+      this.containerElement?.classList.remove(FIELD_DISABLED_CLASS_DEFAULT);
     }
   }
 
   /** Handles the required state of the field. */
   handleRequired(): void {
     if (this._isRequired) {
-      this.containerElement?.classList.add('field-required');
+      this.containerElement?.classList.add(FIELD_REQUIRED_CLASS_DEFAULT);
     } else {
-      this.containerElement?.classList.remove('field-required');
+      this.containerElement?.classList.remove(FIELD_REQUIRED_CLASS_DEFAULT);
     }
   }
 
   /** Binds the change event for the input element. */
   bindChange(): void {
     if (this.inputElement)
-      this.inputElement.addEventListener('input', debounce(this.change, this.options.debounce!, this));
+      this.inputElement.addEventListener(INPUT_ATTRIBUTE, debounce(this.change, this.options.debounce!, this));
   }
 
   /** Save the fields value into local stroage. */

@@ -1,4 +1,7 @@
 import {
+  DIV_ELEMENT,
+  FIELD_KEY_DEFINITION,
+  FORMSJS_KEY_DEFINITION,
   INVALID_CONSOLE_TEXT,
   INVALID_LICENSE_TEXT,
   LICENSE_STATE,
@@ -16,8 +19,6 @@ import {
   fields,
   groups,
 } from './constants';
-import { Group } from './group';
-import { GroupOptions } from './interfaces';
 import { Schema, FormData, ParsedCondition, Operator, FieldValue } from './types';
 
 let LICENSE_KEY: string | null = null;
@@ -155,7 +156,7 @@ export const extractFieldsFromSchema = (schema: Schema): string[] => {
  * @returns The created wrapper element.
  */
 export const createWrapper = (parent: HTMLElement): HTMLElement => {
-  const wrapper = document.createElement('div');
+  const wrapper = document.createElement(DIV_ELEMENT);
   mountElement(wrapper, parent);
   return wrapper;
 };
@@ -177,7 +178,7 @@ export const transformFieldName = (parentId: string, key: string, id: string): s
  * @param id - field id.
  */
 export const generateFieldSaveKey = (formId: string, id: string): string => {
-  return '__formsjs_' + formId + '_field_' + id;
+  return FORMSJS_KEY_DEFINITION + formId + FIELD_KEY_DEFINITION + id;
 };
 
 const isDateValid = (d: unknown): d is Date => d instanceof Date && !isNaN(d as unknown as number);
