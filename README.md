@@ -20,7 +20,6 @@
 [![Node.js Version](https://img.shields.io/node/v/@forms.js/core)](https://nodejs.org/en/)
 [![Maintenance](https://img.shields.io/maintenance/yes/2024)](https://github.com/form-js/forms.js)
 [![TypeScript Supported](https://img.shields.io/badge/TypeScript-Supported-blue.svg)](https://www.typescriptlang.org/)
-[![Dependencies](https://img.shields.io/david/form-js/forms.js)](https://david-dm.org/form-js/forms.js)
 
 </div>
 
