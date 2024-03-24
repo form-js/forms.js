@@ -5,7 +5,16 @@ import { Form } from '../form';
 import { DateFieldOptions } from '../interfaces';
 import weekSelectPlugin from 'flatpickr/dist/plugins/weekSelect/weekSelect';
 import { FlatpickrFn } from 'flatpickr/dist/types/instance';
-import { CHANGE_ATTRIBUTE, DEFAULT_REQUIRED_VALIDATION_MESSAGE, ID_ATTRIBUTE, INPUT_CLASS_DEFAULT, INPUT_ELEMENT, NAME_ATTRIBUTE, PLACEHOLDER_ATTRIBUTE, TYPE_ATTRIBUTE } from '../constants';
+import {
+  CHANGE_ATTRIBUTE,
+  DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  ID_ATTRIBUTE,
+  INPUT_CLASS_DEFAULT,
+  INPUT_ELEMENT,
+  NAME_ATTRIBUTE,
+  PLACEHOLDER_ATTRIBUTE,
+  TYPE_ATTRIBUTE,
+} from '../constants';
 
 export class WeekField extends Field {
   public options: DateFieldOptions = {

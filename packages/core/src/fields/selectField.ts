@@ -5,7 +5,21 @@ import { Form } from '../form';
 import { SelectFieldOptions } from '../interfaces';
 import { FieldValue, HTMLElementEvent, Option, SelectFieldValue } from '../types';
 import { debounce, mountElement } from '../utils';
-import { CHANGE_ATTRIBUTE, DEFAULT_REQUIRED_VALIDATION_MESSAGE, DISABLED_ATTRIBUTE, ID_ATTRIBUTE, MULTIPLE_ATTRIBUTE, NAME_ATTRIBUTE, OPTION_ELEMENT, PLACEHOLDER_ATTRIBUTE, SELECTED_ATTRIBUTE, SELECT_CLASS_DEFAULT, SELECT_ELEMENT, TYPE_ATTRIBUTE, VALUE_ATTRIBUTE } from '../constants';
+import {
+  CHANGE_ATTRIBUTE,
+  DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  DISABLED_ATTRIBUTE,
+  ID_ATTRIBUTE,
+  MULTIPLE_ATTRIBUTE,
+  NAME_ATTRIBUTE,
+  OPTION_ELEMENT,
+  PLACEHOLDER_ATTRIBUTE,
+  SELECTED_ATTRIBUTE,
+  SELECT_CLASS_DEFAULT,
+  SELECT_ELEMENT,
+  TYPE_ATTRIBUTE,
+  VALUE_ATTRIBUTE,
+} from '../constants';
 
 export class SelectField extends Field {
   public options: SelectFieldOptions = {

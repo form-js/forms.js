@@ -1,4 +1,8 @@
-import { DEFAULT_REQUIRED_VALIDATION_MESSAGE, INPUT_CLASS_DEFAULT, INVALID_PHONE_VALIDATION_MESSAGE } from '../constants';
+import {
+  DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  INPUT_CLASS_DEFAULT,
+  INVALID_PHONE_VALIDATION_MESSAGE,
+} from '../constants';
 import { Field } from '../field';
 import { Form } from '../form';
 import { FieldOptions } from '../interfaces';

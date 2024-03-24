@@ -9,7 +9,13 @@ import {
 } from '../utils';
 import { StaticFieldOptions } from '../interfaces';
 import { FieldValue, ParsedCondition } from '../types';
-import { CONTAINER_DEFINITION, DIV_ELEMENT, FIELD_CLASS_DEFAULT, ID_ATTRIBUTE, STATIC_CLASS_DEFAULT } from '../constants';
+import {
+  CONTAINER_DEFINITION,
+  DIV_ELEMENT,
+  FIELD_CLASS_DEFAULT,
+  ID_ATTRIBUTE,
+  STATIC_CLASS_DEFAULT,
+} from '../constants';
 
 export class StaticField {
   public options: StaticFieldOptions = {

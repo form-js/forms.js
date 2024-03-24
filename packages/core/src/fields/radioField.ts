@@ -1,4 +1,24 @@
-import { ARIA_DESCRIBEDBY_ATTRIBUTE, ARIA_INVALID_ATTRIBUTE, CHANGE_ATTRIBUTE, CHECKED_ATTRIBUTE, DEFAULT_REQUIRED_VALIDATION_MESSAGE, DIV_ELEMENT, FIELD_CONTAINER_CLASS_DEFAULT, FORM_ERROR_CLASS_DEFAULT, FOR_ATTRIBUTE, ID_ATTRIBUTE, INPUT_ELEMENT, LABEL_CLASS_DEFAULT, LABEL_DEFINITION, LABEL_ELEMENT, NAME_ATTRIBUTE, PARAGRAPH_ELEMENT, RADIO_CLASS_DEFAULT, TYPE_ATTRIBUTE, VALUE_ATTRIBUTE } from '../constants';
+import {
+  ARIA_DESCRIBEDBY_ATTRIBUTE,
+  ARIA_INVALID_ATTRIBUTE,
+  CHANGE_ATTRIBUTE,
+  CHECKED_ATTRIBUTE,
+  DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  DIV_ELEMENT,
+  FIELD_CONTAINER_CLASS_DEFAULT,
+  FORM_ERROR_CLASS_DEFAULT,
+  FOR_ATTRIBUTE,
+  ID_ATTRIBUTE,
+  INPUT_ELEMENT,
+  LABEL_CLASS_DEFAULT,
+  LABEL_DEFINITION,
+  LABEL_ELEMENT,
+  NAME_ATTRIBUTE,
+  PARAGRAPH_ELEMENT,
+  RADIO_CLASS_DEFAULT,
+  TYPE_ATTRIBUTE,
+  VALUE_ATTRIBUTE,
+} from '../constants';
 import { Field } from '../field';
 import { Form } from '../form';
 import { FieldOptions, RadioFieldOptions } from '../interfaces';
@@ -41,7 +61,8 @@ export class RadioField extends Field {
   syncValue(): void {
     this.inputElements.forEach((el: HTMLInputElement) => {
       if (el.value !== this.getValue() && el.hasAttribute(CHECKED_ATTRIBUTE)) el.removeAttribute(CHECKED_ATTRIBUTE);
-      else if (el.value === this.getValue() && !el.hasAttribute(CHECKED_ATTRIBUTE)) el.setAttribute(CHECKED_ATTRIBUTE, '');
+      else if (el.value === this.getValue() && !el.hasAttribute(CHECKED_ATTRIBUTE))
+        el.setAttribute(CHECKED_ATTRIBUTE, '');
     });
   }
 

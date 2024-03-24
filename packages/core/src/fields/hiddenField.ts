@@ -2,7 +2,15 @@ import { Form } from '../form';
 import { generateFieldSaveKey, isJson, mountElement, unmountElement } from '../utils';
 import { FieldOptions } from '../interfaces';
 import { FieldValue } from '../types';
-import { CONTAINER_DEFINITION, DIV_ELEMENT, FIELD_CLASS_DEFAULT, ID_ATTRIBUTE, INPUT_ELEMENT, NAME_ATTRIBUTE, TYPE_ATTRIBUTE } from '../constants';
+import {
+  CONTAINER_DEFINITION,
+  DIV_ELEMENT,
+  FIELD_CLASS_DEFAULT,
+  ID_ATTRIBUTE,
+  INPUT_ELEMENT,
+  NAME_ATTRIBUTE,
+  TYPE_ATTRIBUTE,
+} from '../constants';
 
 export class HiddenField {
   public options: FieldOptions = {

@@ -4,7 +4,18 @@ import { Form } from '../form';
 import { FileFieldOptions } from '../interfaces';
 import { debounce } from '../utils';
 import { HTMLElementEvent } from '../types';
-import { ACCEPT_ATTRIBUTE, CHANGE_ATTRIBUTE, DEFAULT_REQUIRED_VALIDATION_MESSAGE, ID_ATTRIBUTE, INPUT_CLASS_DEFAULT, INPUT_ELEMENT, MULTIPLE_ATTRIBUTE, NAME_ATTRIBUTE, PLACEHOLDER_ATTRIBUTE, TYPE_ATTRIBUTE } from '../constants';
+import {
+  ACCEPT_ATTRIBUTE,
+  CHANGE_ATTRIBUTE,
+  DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  ID_ATTRIBUTE,
+  INPUT_CLASS_DEFAULT,
+  INPUT_ELEMENT,
+  MULTIPLE_ATTRIBUTE,
+  NAME_ATTRIBUTE,
+  PLACEHOLDER_ATTRIBUTE,
+  TYPE_ATTRIBUTE,
+} from '../constants';
 
 export class FileField extends Field {
   public options: FileFieldOptions = {
