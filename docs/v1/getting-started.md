@@ -1,6 +1,8 @@
-<h1 id="introduction">
-     <img alt="Forms.js" style="margin: 0 auto" src="/images/banner.png" />
-</h1>
+<div align="center">
+
+![Forms.js](https://formsjs.io/images/formsjs-banner.png)
+
+</div>
 
 ## Features
 
