@@ -1,3 +1,4 @@
+import { CHANGE_ATTRIBUTE, CHECKBOX_CLASS_DEFAULT, CHECKED_ATTRIBUTE, CONTAINER_DEFINITION, DEFAULT_REQUIRED_VALIDATION_MESSAGE, DIV_ELEMENT, FIELD_CLASS_DEFAULT, FOR_ATTRIBUTE, ID_ATTRIBUTE, INPUT_ELEMENT, LABEL_CLASS_DEFAULT, LABEL_DEFINITION, LABEL_ELEMENT, NAME_ATTRIBUTE, PARAGRAPH_ELEMENT, SPAN_ELEMENT, TOGGLE_CLASS_DEFAULT, TOGGLE_SLIDER_CLASS_DEFAULT, TYPE_ATTRIBUTE } from '../constants';
 import { Field } from '../field';
 import { Form } from '../form';
 import { CheckboxFieldOptions } from '../interfaces';
@@ -10,11 +11,11 @@ export class CheckboxField extends Field {
     type: 'checkbox',
     required: false,
     validation: (value, data, required) => {
-      if (required && !value) return 'This field is required';
+      if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;
       return true;
     },
     default: null,
-    className: 'form-input-checkbox',
+    className: CHECKBOX_CLASS_DEFAULT,
     toggle: false,
   };
   public sliderElement: HTMLElement | null = null;
@@ -31,49 +32,49 @@ export class CheckboxField extends Field {
    */
   syncValue(): void {
     if (this.inputElement && this.inputElement instanceof HTMLInputElement) {
-      if (this.getValue() && !this.inputElement.hasAttribute('checked')) {
-        this.inputElement.setAttribute('checked', String(this.getValue()));
-      } else if (!this.getValue() && this.inputElement.hasAttribute('checked'))
-        this.inputElement.removeAttribute('checked');
+      if (this.getValue() && !this.inputElement.hasAttribute(CHECKED_ATTRIBUTE)) {
+        this.inputElement.setAttribute(CHECKED_ATTRIBUTE, String(this.getValue()));
+      } else if (!this.getValue() && this.inputElement.hasAttribute(CHECKED_ATTRIBUTE))
+        this.inputElement.removeAttribute(CHECKED_ATTRIBUTE);
     }
   }
 
   createContainerElement() {
     // Container element
-    this.containerElement = document.createElement('div');
-    this.containerElement.className = 'form-field ' + this.getType();
-    if (this.options.toggle) this.containerElement.className += ' is-toggle';
-    this.containerElement.setAttribute('id', this.getId() + '_container');
+    this.containerElement = document.createElement(DIV_ELEMENT);
+    this.containerElement.className = FIELD_CLASS_DEFAULT + ' ' + this.getType();
+    if (this.options.toggle) this.containerElement.className += ' ' + TOGGLE_CLASS_DEFAULT;
+    this.containerElement.setAttribute(ID_ATTRIBUTE, this.getId() + CONTAINER_DEFINITION);
   }
 
   createLabelElement() {
     // Label element
-    this.labelElement = document.createElement('label');
+    this.labelElement = document.createElement(LABEL_ELEMENT);
     // Append input first
     if (this.inputElement && this.labelElement) mountElement(this.inputElement, this.labelElement);
     if (this.sliderElement && this.labelElement) mountElement(this.sliderElement, this.labelElement);
     // Label text
-    const label: HTMLElement = document.createElement('p');
+    const label: HTMLElement = document.createElement(PARAGRAPH_ELEMENT);
     if (this.options.label) label.innerText = this.options.label;
-    label.setAttribute('id', this.getId() + '_label');
-    this.labelElement.setAttribute('for', this.options.name || this.getId());
-    label.className = 'form-field-label';
+    label.setAttribute(ID_ATTRIBUTE, this.getId() + LABEL_DEFINITION);
+    this.labelElement.setAttribute(FOR_ATTRIBUTE, this.options.name || this.getId());
+    label.className = LABEL_CLASS_DEFAULT;
     if (this.options.label) mountElement(label, this.labelElement);
   }
 
   createInputElement() {
     // Input element
-    this.inputElement = document.createElement('input');
-    this.inputElement.setAttribute('id', this.getId());
-    this.inputElement.setAttribute('name', this.options.name || this.getId());
-    this.inputElement.setAttribute('type', this.getType());
-    if (this.options.default) this.inputElement.setAttribute('checked', String(this.options.default));
+    this.inputElement = document.createElement(INPUT_ELEMENT);
+    this.inputElement.setAttribute(ID_ATTRIBUTE, this.getId());
+    this.inputElement.setAttribute(NAME_ATTRIBUTE, this.options.name || this.getId());
+    this.inputElement.setAttribute(TYPE_ATTRIBUTE, this.getType());
+    if (this.options.default) this.inputElement.setAttribute(CHECKED_ATTRIBUTE, String(this.options.default));
     this.inputElement.className = this.options.className!;
   }
 
   createToggleSpan() {
-    this.sliderElement = document.createElement('span');
-    this.sliderElement.className = 'toggle-slider';
+    this.sliderElement = document.createElement(SPAN_ELEMENT);
+    this.sliderElement.className = TOGGLE_SLIDER_CLASS_DEFAULT;
   }
 
   onGui() {
@@ -89,7 +90,7 @@ export class CheckboxField extends Field {
 
   bindChange() {
     if (this.inputElement)
-      this.inputElement.addEventListener('change', (event: any) => {
+      this.inputElement.addEventListener(CHANGE_ATTRIBUTE, (event: any) => {
         this.change(event);
       });
   }

@@ -9,13 +9,14 @@ import {
 } from '../utils';
 import { StaticFieldOptions } from '../interfaces';
 import { FieldValue, ParsedCondition } from '../types';
+import { CONTAINER_DEFINITION, DIV_ELEMENT, FIELD_CLASS_DEFAULT, ID_ATTRIBUTE, STATIC_CLASS_DEFAULT } from '../constants';
 
 export class StaticField {
   public options: StaticFieldOptions = {
     id: '',
     type: 'static',
     template: '',
-    className: 'form-static',
+    className: STATIC_CLASS_DEFAULT,
   };
   public staticElement: HTMLElement | null = null;
   public containerElement: HTMLElement | null = null;
@@ -133,17 +134,17 @@ export class StaticField {
   /** Creates a container element for the field. */
   createContainerElement(): void {
     // Container element
-    this.containerElement = document.createElement('div');
-    this.containerElement.className = 'form-field ' + this._type;
-    this.containerElement.setAttribute('id', this._id + '_container');
+    this.containerElement = document.createElement(DIV_ELEMENT);
+    this.containerElement.className = FIELD_CLASS_DEFAULT + ' ' + this._type;
+    this.containerElement.setAttribute(ID_ATTRIBUTE, this._id + CONTAINER_DEFINITION);
   }
 
   /** Creates a validation message element for the field. */
   createStaticElement(): void {
     // Validation element
-    this.staticElement = document.createElement('div');
+    this.staticElement = document.createElement(DIV_ELEMENT);
     this.staticElement.className = this.options.className!;
-    this.staticElement.setAttribute('id', this._id);
+    this.staticElement.setAttribute(ID_ATTRIBUTE, this._id);
   }
 
   /** Handles GUI element creation and mounting. */

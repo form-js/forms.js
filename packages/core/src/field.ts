@@ -14,7 +14,7 @@ import {
   ARIA_DESCRIBEDBY_ATTRIBUTE,
   ARIA_INVALID_ATTRIBUTE,
   CONTAINER_DEFINITION,
-  DEFAULT_REQUIRED_MESSAGE,
+  DEFAULT_REQUIRED_VALIDATION_MESSAGE,
   DISABLED_ATTRIBUTE,
   FIELD_CLASS_DEFAULT,
   FIELD_DISABLED_CLASS_DEFAULT,
@@ -42,7 +42,7 @@ export class Field {
     type: 'text',
     required: false,
     validation: (value, data, required) => {
-      if (required && !value) return DEFAULT_REQUIRED_MESSAGE;
+      if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;
       return true;
     },
     default: '',

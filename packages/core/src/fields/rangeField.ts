@@ -1,3 +1,4 @@
+import { BIGGER_THAN_VALIDATION_MESSAGE, CHANGE_ATTRIBUTE, DEFAULT_REQUIRED_VALIDATION_MESSAGE, ID_ATTRIBUTE, INPUT_ELEMENT, LESS_THAN_VALIDATION_MESSAGE, MAX_ATTRIBUTE, MAX_DEFINITION, MIN_ATTRIBUTE, MIN_DEFINITION, NAME_ATTRIBUTE, OUTPUT_ELEMENT, RANGE_CLASS_DEFAULT, RANGE_MAX_CLASS_DEFAULT, RANGE_MIN_CLASS_DEFAULT, RANGE_VALUE_CLASS_DEFAULT, SPAN_ELEMENT, STEP_ATTRIBUTE, TYPE_ATTRIBUTE, VALUE_DEFINITION } from '../constants';
 import { Field } from '../field';
 import { Form } from '../form';
 import { NumberFieldOptions } from '../interfaces';
@@ -9,13 +10,13 @@ export class RangeField extends Field {
     type: 'range',
     required: false,
     validation: (value, data, required) => {
-      if (required && !value && value !== 0) return 'This field is required';
-      if (this.options.min && this.options.min > value) return 'The value should be bigger than ' + this.options.min;
-      if (this.options.max && this.options.max < value) return 'The value should be less than ' + this.options.max;
+      if (required && !value && value !== 0) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;
+      if (this.options.min && this.options.min > value) return BIGGER_THAN_VALIDATION_MESSAGE + this.options.min;
+      if (this.options.max && this.options.max < value) return LESS_THAN_VALIDATION_MESSAGE + this.options.max;
       return true;
     },
     default: 0,
-    className: 'form-input-range',
+    className: RANGE_CLASS_DEFAULT,
   };
 
   public minElement: HTMLElement | null = null;
@@ -31,26 +32,26 @@ export class RangeField extends Field {
 
   createInputElement() {
     // Input element
-    this.inputElement = document.createElement('input');
-    this.inputElement.setAttribute('id', this.getId());
-    this.inputElement.setAttribute('name', this.options.name || this.getId());
-    this.inputElement.setAttribute('type', this.getType());
-    if (this.options.min) this.inputElement.setAttribute('min', String(this.options.min));
-    if (this.options.max) this.inputElement.setAttribute('max', String(this.options.max));
-    if (this.options.step) this.inputElement.setAttribute('step', String(this.options.step));
+    this.inputElement = document.createElement(INPUT_ELEMENT);
+    this.inputElement.setAttribute(ID_ATTRIBUTE, this.getId());
+    this.inputElement.setAttribute(NAME_ATTRIBUTE, this.options.name || this.getId());
+    this.inputElement.setAttribute(TYPE_ATTRIBUTE, this.getType());
+    if (this.options.min) this.inputElement.setAttribute(MIN_ATTRIBUTE, String(this.options.min));
+    if (this.options.max) this.inputElement.setAttribute(MAX_ATTRIBUTE, String(this.options.max));
+    if (this.options.step) this.inputElement.setAttribute(STEP_ATTRIBUTE, String(this.options.step));
     this.inputElement.className = this.options.className!;
   }
 
   createOtherElements() {
-    this.minElement = document.createElement('span');
-    this.minElement.setAttribute('id', this.getId() + '_min');
-    this.minElement.className = 'form-input-range-min';
-    this.maxElement = document.createElement('span');
-    this.maxElement.setAttribute('id', this.getId() + '_max');
-    this.maxElement.className = 'form-input-range-max';
-    this.valueElement = document.createElement('output');
-    this.valueElement.setAttribute('id', this.getId() + '_value');
-    this.valueElement.className = 'form-input-range-value';
+    this.minElement = document.createElement(SPAN_ELEMENT);
+    this.minElement.setAttribute(ID_ATTRIBUTE, this.getId() + MIN_DEFINITION);
+    this.minElement.className = RANGE_MIN_CLASS_DEFAULT;
+    this.maxElement = document.createElement(SPAN_ELEMENT);
+    this.maxElement.setAttribute(ID_ATTRIBUTE, this.getId() + MAX_DEFINITION);
+    this.maxElement.className = RANGE_MAX_CLASS_DEFAULT;
+    this.valueElement = document.createElement(OUTPUT_ELEMENT);
+    this.valueElement.setAttribute(ID_ATTRIBUTE, this.getId() + VALUE_DEFINITION);
+    this.valueElement.className = RANGE_VALUE_CLASS_DEFAULT;
   }
 
   onGui() {
@@ -98,7 +99,7 @@ export class RangeField extends Field {
 
   bindChange() {
     if (this.inputElement) {
-      this.inputElement.addEventListener('change', (event: any) => {
+      this.inputElement.addEventListener(CHANGE_ATTRIBUTE, (event: any) => {
         this.change(event);
         this.updateRangeValues();
       });

@@ -5,6 +5,7 @@ import { Form } from '../form';
 import { SelectFieldOptions } from '../interfaces';
 import { FieldValue, HTMLElementEvent, Option, SelectFieldValue } from '../types';
 import { debounce, mountElement } from '../utils';
+import { CHANGE_ATTRIBUTE, DEFAULT_REQUIRED_VALIDATION_MESSAGE, DISABLED_ATTRIBUTE, ID_ATTRIBUTE, MULTIPLE_ATTRIBUTE, NAME_ATTRIBUTE, OPTION_ELEMENT, PLACEHOLDER_ATTRIBUTE, SELECTED_ATTRIBUTE, SELECT_CLASS_DEFAULT, SELECT_ELEMENT, TYPE_ATTRIBUTE, VALUE_ATTRIBUTE } from '../constants';
 
 export class SelectField extends Field {
   public options: SelectFieldOptions = {
@@ -12,13 +13,13 @@ export class SelectField extends Field {
     type: 'select',
     required: false,
     validation: (value, data, required) => {
-      if (required && !value) return 'This field is required';
+      if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;
       return true;
     },
     enhance: true,
     multiple: false,
     optionsList: [],
-    className: 'form-input-select',
+    className: SELECT_CLASS_DEFAULT,
     options: {},
   };
 
@@ -48,8 +49,8 @@ export class SelectField extends Field {
       for (const option of this.inputElement.options) {
         const hasValue =
           value && Array.isArray(value) ? value?.some((val) => val === option.value) : value === option.value;
-        if (hasValue && !option.hasAttribute('selected')) option.setAttribute('selected', '');
-        if (!hasValue && option.hasAttribute('selected')) option.removeAttribute('selected');
+        if (hasValue && !option.hasAttribute(SELECTED_ATTRIBUTE)) option.setAttribute(SELECTED_ATTRIBUTE, '');
+        if (!hasValue && option.hasAttribute(SELECTED_ATTRIBUTE)) option.removeAttribute(SELECTED_ATTRIBUTE);
       }
     } else if (this.options.enhance === true && this._tomselect) {
       const value: SelectFieldValue = this.getValue();
@@ -60,7 +61,7 @@ export class SelectField extends Field {
   }
 
   bindChange(): void {
-    if (this.inputElement) this.inputElement.addEventListener('change', debounce(this.change, 25, this));
+    if (this.inputElement) this.inputElement.addEventListener(CHANGE_ATTRIBUTE, debounce(this.change, 25, this));
   }
 
   getTomselect(): TomSelect | null {
@@ -74,38 +75,38 @@ export class SelectField extends Field {
 
   handleDisabled() {
     if (this.isDisabled()) {
-      this.inputElement?.setAttribute('disabled', 'true');
+      this.inputElement?.setAttribute(DISABLED_ATTRIBUTE, 'true');
       if (this._tomselect) this._tomselect.disable();
     } else {
-      this.inputElement?.removeAttribute('disabled');
+      this.inputElement?.removeAttribute(DISABLED_ATTRIBUTE);
       if (this._tomselect) this._tomselect.enable();
     }
   }
 
   createSelectElement() {
     // Input element
-    this.inputElement = document.createElement('select');
-    this.inputElement.setAttribute('id', this.getId());
-    this.inputElement.setAttribute('name', this.options.name || this.getId());
-    this.inputElement.setAttribute('type', this.getType());
-    if (this.options.multiple) this.inputElement.setAttribute('multiple', '');
-    if (this.options.placeholder) this.inputElement.setAttribute('placeholder', this.options.placeholder);
+    this.inputElement = document.createElement(SELECT_ELEMENT);
+    this.inputElement.setAttribute(ID_ATTRIBUTE, this.getId());
+    this.inputElement.setAttribute(NAME_ATTRIBUTE, this.options.name || this.getId());
+    this.inputElement.setAttribute(TYPE_ATTRIBUTE, this.getType());
+    if (this.options.multiple) this.inputElement.setAttribute(MULTIPLE_ATTRIBUTE, '');
+    if (this.options.placeholder) this.inputElement.setAttribute(PLACEHOLDER_ATTRIBUTE, this.options.placeholder);
     this.inputElement.className = this.options.className!;
     this.options.optionsList?.forEach((option: Option) => {
-      const optionElement: HTMLOptionElement = document.createElement('option');
-      optionElement.setAttribute('value', option.value);
+      const optionElement: HTMLOptionElement = document.createElement(OPTION_ELEMENT);
+      optionElement.setAttribute(VALUE_ATTRIBUTE, option.value);
       if (
         typeof option.value === 'string' &&
         this.options.default &&
         Array.isArray(this.options.default) &&
         this.options.default?.findIndex((val) => val === option.value) >= 0
       ) {
-        optionElement.setAttribute('selected', 'true');
+        optionElement.setAttribute(SELECTED_ATTRIBUTE, 'true');
       } else if (this.options.default && this.options.default === option.value) {
-        optionElement.setAttribute('selected', 'true');
+        optionElement.setAttribute(SELECTED_ATTRIBUTE, 'true');
       }
 
-      if (option.disabled) optionElement.setAttribute('disabled', String(option.disabled));
+      if (option.disabled) optionElement.setAttribute(DISABLED_ATTRIBUTE, String(option.disabled));
       optionElement.innerText = option.label;
       this.inputElement?.append(optionElement);
     });
