@@ -4,7 +4,7 @@
     </a>
 </h1>
 
-[![Npm package monthly downloads](https://badgen.net/npm/dm/@forms.js/core)](https://npmjs.com/package/@forms.js/core) [![TypeScript](https://img.shields.io/badge/--3178C6?logo=typescript&logoColor=ffffff)](https://www.typescriptlang.org/) [![code coverage](https://img.shields.io/badge/code_coverage-98.99%)](https://github.com/form-js/forms.js)
+[![Npm package monthly downloads](https://badgen.net/npm/dm/@forms.js/core)](https://npmjs.com/package/@forms.js/core) [![TypeScript](https://img.shields.io/badge/--3178C6?logo=typescript&logoColor=ffffff)](https://www.typescriptlang.org/) [![code coverage](https://img.shields.io/badge/code_coverage-99%25-brightgreen)](https://github.com/form-js/forms.js)
 
 #### Forms.js is a highly versatile, flexible, and lightweight JavaScript library that simplifies the process of form creation and management. Leveraging the power of JSON data input, it programmatically generates dynamic forms, enabling developers to create sophisticated, interactive, and user-friendly forms with ease.
 
