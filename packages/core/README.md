@@ -1,6 +1,6 @@
 <div align="center">
 
-![Forms.js](https://formsjs.io/images/banner.png)
+![Forms.js](https://formsjs.io/images/formsjs-banner.png)
 
 </div>
 
