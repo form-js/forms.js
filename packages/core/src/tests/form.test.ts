@@ -13,7 +13,7 @@ import {
   validationFail,
 } from './test.options';
 import * as utils from '../utils';
-import { LICENSE_STATE } from '../constants';
+import { BUTTON_TYPE_BUTTON, GROUP_TYPE_GROUP, LICENSE_STATE } from '../constants';
 import { TextField } from '../fields';
 import { Form, GroupOptions, constructorTypes, registerConstructor, FormElement } from '../index';
 
@@ -216,7 +216,7 @@ describe('form', () => {
     const form = createForm({
       schema: [
         {
-          type: 'group',
+          type: GROUP_TYPE_GROUP,
           id: 'group1',
           prefixSchema: true,
           schema: [{ type: 'text', id: 'nestedField' }],
@@ -296,13 +296,13 @@ describe('form', () => {
       schema: [
         { type: 'text', id: 'field1', default: 'default1' },
         {
-          type: 'group',
+          type: GROUP_TYPE_GROUP,
           id: 'group1',
           prefixSchema: true,
           schema: [{ type: 'text', id: 'groupField', default: 'default2' }],
         },
         {
-          type: 'button',
+          type: BUTTON_TYPE_BUTTON,
           id: 'button1',
         },
       ],
@@ -490,7 +490,7 @@ describe('form', () => {
       licenseKey: TEST_LICENSE,
       schema: [
         {
-          type: 'group',
+          type: GROUP_TYPE_GROUP,
           id: 'group1',
           shcema: [],
         },
@@ -563,7 +563,7 @@ describe('form', () => {
   it('validates nested group fields correctly', () => {
     const nestedGroupSchema = [
       {
-        type: 'group',
+        type: GROUP_TYPE_GROUP,
         id: 'nestedGroup',
         schema: [{ type: 'text', id: 'nestedField', required: true }],
       },
@@ -603,7 +603,7 @@ describe('form', () => {
     const form = createForm({
       schema: [
         {
-          type: 'button',
+          type: BUTTON_TYPE_BUTTON,
           id: BUTTON_ID,
         },
       ],
@@ -616,7 +616,7 @@ describe('form', () => {
     const form = createForm({
       schema: [
         {
-          type: 'group',
+          type: GROUP_TYPE_GROUP,
           id: GROUP_ID,
         },
       ],

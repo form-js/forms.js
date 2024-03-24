@@ -3,6 +3,7 @@ import { describe, expect, it, jest } from '@jest/globals';
 import { createForm, baseCheckboxFieldTestOptions, CHECKBOX_FIELD_ID, DEFAULT_BOOL_VALUE } from './../test.options';
 import * as utils from '../../utils';
 import { HTMLElementEvent } from '../../types';
+import { FIELD_TYPE_CHECKBOX } from '../../constants';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -31,7 +32,7 @@ describe('checkbox-field', () => {
     expect(field.getValue()).toBe(DEFAULT_BOOL_VALUE);
     expect(field.getId()).toBe(CHECKBOX_FIELD_ID);
     expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), CHECKBOX_FIELD_ID));
-    expect(field.getType()).toBe('checkbox');
+    expect(field.getType()).toBe(FIELD_TYPE_CHECKBOX);
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getForm()).toBe(form);
   });

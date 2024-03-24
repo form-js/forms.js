@@ -1,4 +1,9 @@
-import { CHANGE_ATTRIBUTE, COLOR_CLASS_DEFAULT, DEFAULT_REQUIRED_VALIDATION_MESSAGE } from '../constants';
+import {
+  CHANGE_ATTRIBUTE,
+  COLOR_CLASS_DEFAULT,
+  DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  FIELD_TYPE_COLOR,
+} from '../constants';
 import { Field } from '../field';
 import { Form } from '../form';
 import { FieldOptions } from '../interfaces';
@@ -6,7 +11,7 @@ import { FieldOptions } from '../interfaces';
 export class ColorField extends Field {
   public options: FieldOptions = {
     id: '',
-    type: 'color',
+    type: FIELD_TYPE_COLOR,
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;

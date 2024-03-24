@@ -4,6 +4,7 @@ import * as utils from './../utils';
 import { BUTTON_ID, createForm } from './test.options';
 import { Form } from '../form';
 import { ButtonOptions } from '../interfaces';
+import { BUTTON_TYPE_BUTTON } from '../constants';
 
 jest.mock('../utils', () => {
   const originalModule = jest.requireActual('../utils') as object;
@@ -27,7 +28,7 @@ describe('Button', () => {
   beforeEach(() => {
     buttonOptions = {
       id: BUTTON_ID,
-      type: 'button',
+      type: BUTTON_TYPE_BUTTON,
       buttonType: 'submit',
       className: 'btn',
       template: 'Submit',

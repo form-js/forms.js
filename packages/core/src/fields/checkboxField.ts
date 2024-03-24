@@ -6,6 +6,7 @@ import {
   DEFAULT_REQUIRED_VALIDATION_MESSAGE,
   DIV_ELEMENT,
   FIELD_CLASS_DEFAULT,
+  FIELD_TYPE_CHECKBOX,
   FOR_ATTRIBUTE,
   ID_ATTRIBUTE,
   INPUT_ELEMENT,
@@ -28,7 +29,7 @@ import { mountElement } from '../utils';
 export class CheckboxField extends Field {
   public options: CheckboxFieldOptions = {
     id: '',
-    type: 'checkbox',
+    type: FIELD_TYPE_CHECKBOX,
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;

@@ -95,6 +95,28 @@ export const VALUE_ATTRIBUTE = 'value';
 export const SELECTED_ATTRIBUTE = 'selected';
 export const ROWS_ATTRIBUTE = 'rows';
 
+export const GROUP_TYPE_GROUP = 'group';
+export const BUTTON_TYPE_BUTTON = 'button';
+export const FIELD_TYPE_CHECKBOX = 'checkbox';
+export const FIELD_TYPE_COLOR = 'color';
+export const FIELD_TYPE_DATE = 'date';
+export const FIELD_TYPE_DATETIME = 'datetime';
+export const FIELD_TYPE_EMAIL = 'email';
+export const FIELD_TYPE_FILE = 'file';
+export const FIELD_TYPE_HIDDEN = 'hidden';
+export const FIELD_TYPE_NUMBER = 'number';
+export const FIELD_TYPE_PASSWORD = 'password';
+export const FIELD_TYPE_RADIO = 'radio';
+export const FIELD_TYPE_RANGE = 'range';
+export const FIELD_TYPE_SELECT = 'select';
+export const FIELD_TYPE_STATIC = 'static';
+export const FIELD_TYPE_TEL = 'tel';
+export const FIELD_TYPE_TEXTAREA = 'textarea';
+export const FIELD_TYPE_TEXT = 'text';
+export const FIELD_TYPE_TIME = 'time';
+export const FIELD_TYPE_URL = 'url';
+export const FIELD_TYPE_WEEK = 'week';
+
 /**
  * A list of field types used in the application forms.
  */

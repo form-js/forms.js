@@ -1,3 +1,4 @@
+import { GROUP_TYPE_GROUP, BUTTON_TYPE_BUTTON, FIELD_TYPE_CHECKBOX } from './constants';
 import { Form } from './form';
 import { FieldType, FieldValue, HTMLElementEvent, Option, Schema, FormData } from './types';
 
@@ -16,7 +17,7 @@ export interface FormOptions {
 export interface GroupOptions {
   id: string;
   label?: string;
-  type: 'group';
+  type: typeof GROUP_TYPE_GROUP;
   conditions?: ((data: FormData) => boolean) | string;
   prefixSchema?: boolean;
   className?: string;
@@ -27,7 +28,7 @@ export interface ButtonOptions {
   id: string;
   template: string;
   buttonType: 'submit' | 'reset' | 'button';
-  type: 'button';
+  type: typeof BUTTON_TYPE_BUTTON;
   conditions?: ((data: FormData) => boolean) | string;
   click?: (event: MouseEvent, data: FormData) => void;
   className?: string;
@@ -61,7 +62,7 @@ export interface CheckboxFieldOptions extends FieldOptions {
   id: string;
   name?: string;
   label?: string;
-  type: 'checkbox';
+  type: typeof FIELD_TYPE_CHECKBOX;
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   change?: (value: FieldValue) => void;
   validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;

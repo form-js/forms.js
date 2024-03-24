@@ -3,6 +3,7 @@ import { evaluateParsedConditions, mountElement, parseConditionString, unmountEl
 import { GroupOptions } from './interfaces';
 import { ParsedCondition } from './types';
 import {
+  GROUP_TYPE_GROUP,
   DIV_ELEMENT,
   GROUP_CLASS_DEFAULT,
   GROUP_CONTAINER_CLASS_DEFAULT,
@@ -16,7 +17,7 @@ import {
 export class Group {
   public options: GroupOptions = {
     id: '',
-    type: 'group',
+    type: GROUP_TYPE_GROUP,
     className: GROUP_CLASS_DEFAULT,
     prefixSchema: false,
     schema: [],
