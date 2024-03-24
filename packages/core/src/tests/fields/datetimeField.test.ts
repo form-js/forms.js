@@ -2,6 +2,7 @@ import { describe, expect, it, jest } from '@jest/globals';
 import { createForm, baseDatetimeFieldTestOptions, DATE_FIELD_ID, DEFAULT_DATETIME_VALUE } from './../test.options';
 import * as utils from '../../utils';
 import { DatetimeField } from '../../fields';
+import { FIELD_TYPE_DATETIME } from '../../constants';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -30,7 +31,7 @@ describe('datetime-field', () => {
     expect(field.getValue()).toBe(DEFAULT_DATETIME_VALUE);
     expect(field.getId()).toBe(DATE_FIELD_ID);
     expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), DATE_FIELD_ID));
-    expect(field.getType()).toBe('datetime');
+    expect(field.getType()).toBe(FIELD_TYPE_DATETIME);
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getForm()).toBe(form);
     expect(field.getFlatpickr()).toBeNull();

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>183/183</span>
+                <span class='fraction'>184/184</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>167/167</span>
+                <span class='fraction'>168/168</span>
             </div>
         
             
@@ -519,8 +519,60 @@
 <a name='L454'></a><a href='#L454'>454</a>
 <a name='L455'></a><a href='#L455'>455</a>
 <a name='L456'></a><a href='#L456'>456</a>
-<a name='L457'></a><a href='#L457'>457</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L457'></a><a href='#L457'>457</a>
+<a name='L458'></a><a href='#L458'>458</a>
+<a name='L459'></a><a href='#L459'>459</a>
+<a name='L460'></a><a href='#L460'>460</a>
+<a name='L461'></a><a href='#L461'>461</a>
+<a name='L462'></a><a href='#L462'>462</a>
+<a name='L463'></a><a href='#L463'>463</a>
+<a name='L464'></a><a href='#L464'>464</a>
+<a name='L465'></a><a href='#L465'>465</a>
+<a name='L466'></a><a href='#L466'>466</a>
+<a name='L467'></a><a href='#L467'>467</a>
+<a name='L468'></a><a href='#L468'>468</a>
+<a name='L469'></a><a href='#L469'>469</a>
+<a name='L470'></a><a href='#L470'>470</a>
+<a name='L471'></a><a href='#L471'>471</a>
+<a name='L472'></a><a href='#L472'>472</a>
+<a name='L473'></a><a href='#L473'>473</a>
+<a name='L474'></a><a href='#L474'>474</a>
+<a name='L475'></a><a href='#L475'>475</a>
+<a name='L476'></a><a href='#L476'>476</a>
+<a name='L477'></a><a href='#L477'>477</a>
+<a name='L478'></a><a href='#L478'>478</a>
+<a name='L479'></a><a href='#L479'>479</a>
+<a name='L480'></a><a href='#L480'>480</a>
+<a name='L481'></a><a href='#L481'>481</a>
+<a name='L482'></a><a href='#L482'>482</a>
+<a name='L483'></a><a href='#L483'>483</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -987,19 +1039,45 @@ import {
 } from './utils';
 import { FieldOptions } from './interfaces';
 import { FieldValue, HTMLElementEvent, ParsedCondition } from './types';
+import {
+  ARIA_DESCRIBEDBY_ATTRIBUTE,
+  ARIA_INVALID_ATTRIBUTE,
+  CONTAINER_DEFINITION,
+  DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  DISABLED_ATTRIBUTE,
+  FIELD_CLASS_DEFAULT,
+  FIELD_DISABLED_CLASS_DEFAULT,
+  FIELD_REQUIRED_CLASS_DEFAULT,
+  FIELD_TYPE_TEXT,
+  FORM_ERROR_CLASS_DEFAULT,
+  FOR_ATTRIBUTE,
+  ID_ATTRIBUTE,
+  INPUT_ATTRIBUTE,
+  INPUT_CLASS_DEFAULT,
+  INPUT_ELEMENT,
+  LABEL_CLASS_DEFAULT,
+  LABEL_DEFINITION,
+  LABEL_ELEMENT,
+  NAME_ATTRIBUTE,
+  PARAGRAPH_ELEMENT,
+  PLACEHOLDER_ATTRIBUTE,
+  TYPE_ATTRIBUTE,
+  VALIDATION_CLASS_DEFAULT,
+  VALIDATION_DEFINITION,
+} from './constants';
 &nbsp;
 export class Field {
   public options: FieldOptions = {
     id: '',
-    type: 'text',
+    type: FIELD_TYPE_TEXT,
     required: false,
     validation: (value, data, required) =&gt; {
-      if (required &amp;&amp; !value) return 'This field is required';
+      if (required &amp;&amp; !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;
       return true;
     },
     default: '',
     debounce: 200,
-    className: 'form-input',
+    className: INPUT_CLASS_DEFAULT,
   };
   public inputElement: HTMLElement | null = null;
   public containerElement: HTMLElement | null = null;
@@ -1182,40 +1260,40 @@ export class Field {
   createContainerElement(): void {
     // Container element
     this.containerElement = document.createElement('div');
-    this.containerElement.className = 'form-field ' + this._type;
-    this.containerElement.setAttribute('id', this._id + '_container');
+    this.containerElement.className = FIELD_CLASS_DEFAULT + ' ' + this._type;
+    this.containerElement.setAttribute(ID_ATTRIBUTE, this._id + CONTAINER_DEFINITION);
   }
 &nbsp;
   /** Creates a input element for the field. */
   createInputElement(): void {
     // Input element
-    this.inputElement = document.createElement('input');
-    this.inputElement.setAttribute('id', this._id);
-    this.inputElement.setAttribute('name', this.options.name || this._id);
-    this.inputElement.setAttribute('type', this._type);
-    if (this.options.placeholder) this.inputElement.setAttribute('placeholder', this.options.placeholder);
+    this.inputElement = document.createElement(INPUT_ELEMENT);
+    this.inputElement.setAttribute(ID_ATTRIBUTE, this._id);
+    this.inputElement.setAttribute(NAME_ATTRIBUTE, this.options.name || this._id);
+    this.inputElement.setAttribute(TYPE_ATTRIBUTE, this._type);
+    if (this.options.placeholder) this.inputElement.setAttribute(PLACEHOLDER_ATTRIBUTE, this.options.placeholder);
     this.inputElement.className = this.options.className!;
   }
 &nbsp;
   /** Creates a label element for the field. */
   createLabelElement(): void {
     // Label element
-    this.labelElement = document.createElement('label');
+    this.labelElement = document.createElement(LABEL_ELEMENT);
     // Label text
-    const label: HTMLElement = document.createElement('p');
+    const label: HTMLElement = document.createElement(PARAGRAPH_ELEMENT);
     if (this.options.label) label.innerText = this.options.label;
-    label.setAttribute('id', this._id + '_label');
-    this.labelElement.setAttribute('for', this._id);
-    label.className = 'form-field-label';
+    label.setAttribute(ID_ATTRIBUTE, this._id + LABEL_DEFINITION);
+    this.labelElement.setAttribute(FOR_ATTRIBUTE, this._id);
+    label.className = LABEL_CLASS_DEFAULT;
     if (this.options.label) mountElement(label, this.labelElement);
   }
 &nbsp;
   /** Creates a validation message element for the field. */
   createValidationElement(): void {
     // Validation element
-    this.validationElement = document.createElement('p');
-    this.validationElement.setAttribute('id', this._id + '_validation');
-    this.validationElement.className = 'form-field-validation';
+    this.validationElement = document.createElement(PARAGRAPH_ELEMENT);
+    this.validationElement.setAttribute(ID_ATTRIBUTE, this._id + VALIDATION_DEFINITION);
+    this.validationElement.className = VALIDATION_CLASS_DEFAULT;
     this.validationElement.style.display = 'none';
   }
 &nbsp;
@@ -1251,20 +1329,20 @@ export class Field {
   /** Handles the appearance of validation messages and error styling. */
   handleValidatedField(): void {
     if (!this._isValid) {
-      this.labelElement?.classList.add('form-error');
+      this.labelElement?.classList.add(FORM_ERROR_CLASS_DEFAULT);
       if (this.validationElement &amp;&amp; this._vMessage) {
         this.validationElement.innerText = this._vMessage;
         this.validationElement.style.display = 'block';
       }
-      this.inputElement?.setAttribute('aria-invalid', 'true');
-      this.inputElement?.setAttribute('aria-describedby', this.validationElement?.getAttribute('id') || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>;
+      this.inputElement?.setAttribute(ARIA_INVALID_ATTRIBUTE, 'true');
+      this.inputElement?.setAttribute(ARIA_DESCRIBEDBY_ATTRIBUTE, this.validationElement?.getAttribute('id') || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>;
     } else {
       if (this.validationElement) {
         this.validationElement.style.display = 'none';
       }
-      this.labelElement?.classList.remove('form-error');
-      this.inputElement?.removeAttribute('aria-invalid');
-      this.inputElement?.removeAttribute('aria-describedby');
+      this.labelElement?.classList.remove(FORM_ERROR_CLASS_DEFAULT);
+      this.inputElement?.removeAttribute(ARIA_INVALID_ATTRIBUTE);
+      this.inputElement?.removeAttribute(ARIA_DESCRIBEDBY_ATTRIBUTE);
     }
     this._form.updateError(this._id, this._isValid);
   }
@@ -1278,27 +1356,27 @@ export class Field {
   /** Handles the visibility of the field. */
   handleDisabled(): void {
     if (this._isDisabled) {
-      this.containerElement?.classList.add('field-disabled');
-      this.inputElement?.setAttribute('disabled', 'true');
+      this.containerElement?.classList.add(FIELD_DISABLED_CLASS_DEFAULT);
+      this.inputElement?.setAttribute(DISABLED_ATTRIBUTE, 'true');
     } else {
-      this.inputElement?.removeAttribute('disabled');
-      this.containerElement?.classList.remove('field-disabled');
+      this.inputElement?.removeAttribute(DISABLED_ATTRIBUTE);
+      this.containerElement?.classList.remove(FIELD_DISABLED_CLASS_DEFAULT);
     }
   }
 &nbsp;
   /** Handles the required state of the field. */
   handleRequired(): void {
     if (this._isRequired) {
-      this.containerElement?.classList.add('field-required');
+      this.containerElement?.classList.add(FIELD_REQUIRED_CLASS_DEFAULT);
     } else {
-      this.containerElement?.classList.remove('field-required');
+      this.containerElement?.classList.remove(FIELD_REQUIRED_CLASS_DEFAULT);
     }
   }
 &nbsp;
   /** Binds the change event for the input element. */
   bindChange(): void {
     if (this.inputElement)
-      this.inputElement.addEventListener('input', debounce(this.change, this.options.debounce!, this));
+      this.inputElement.addEventListener(INPUT_ATTRIBUTE, debounce(this.change, this.options.debounce!, this));
   }
 &nbsp;
   /** Save the fields value into local stroage. */
@@ -1438,7 +1516,7 @@ export class Field {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-22T20:43:59.300Z
+                at 2024-03-24T12:26:58.480Z
             </div>
         <script src="../prettify.js"></script>
         <script>

@@ -2,6 +2,7 @@ import { describe, expect, it, jest } from '@jest/globals';
 import { createForm, basePasswordFieldTestOptions, PASSWORD_FIELD_ID, DEFAULT_STRING_VALUE } from './../test.options';
 import * as utils from '../../utils';
 import { PasswordField } from '../../fields';
+import { FIELD_TYPE_PASSWORD } from '../../constants';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -30,7 +31,7 @@ describe('password-field', () => {
     expect(field.getValue()).toBe(DEFAULT_STRING_VALUE);
     expect(field.getId()).toBe(PASSWORD_FIELD_ID);
     expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), PASSWORD_FIELD_ID));
-    expect(field.getType()).toBe('password');
+    expect(field.getType()).toBe(FIELD_TYPE_PASSWORD);
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getForm()).toBe(form);
   });

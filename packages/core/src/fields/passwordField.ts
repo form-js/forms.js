@@ -1,4 +1,4 @@
-import { DEFAULT_REQUIRED_VALIDATION_MESSAGE, INPUT_CLASS_DEFAULT } from '../constants';
+import { DEFAULT_REQUIRED_VALIDATION_MESSAGE, FIELD_TYPE_PASSWORD, INPUT_CLASS_DEFAULT } from '../constants';
 import { Field } from '../field';
 import { Form } from '../form';
 import { FieldOptions } from '../interfaces';
@@ -6,7 +6,7 @@ import { FieldOptions } from '../interfaces';
 export class PasswordField extends Field {
   public options: FieldOptions = {
     id: '',
-    type: 'password',
+    type: FIELD_TYPE_PASSWORD,
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;

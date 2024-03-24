@@ -2,6 +2,7 @@ import { describe, expect, it, jest } from '@jest/globals';
 import { createForm, baseRangeFieldTestOptions, RANGE_FIELD_ID, DEFAULT_NUMBER_VALUE } from './../test.options';
 import * as utils from '../../utils';
 import { RangeField } from '../../fields';
+import { FIELD_TYPE_RANGE } from '../../constants';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -31,7 +32,7 @@ describe('range-field', () => {
     expect(field.getValue()).toBe(DEFAULT_NUMBER_VALUE);
     expect(field.getId()).toBe(RANGE_FIELD_ID);
     expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), RANGE_FIELD_ID));
-    expect(field.getType()).toBe('range');
+    expect(field.getType()).toBe(FIELD_TYPE_RANGE);
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getForm()).toBe(form);
   });

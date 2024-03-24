@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>91/91</span>
+                <span class='fraction'>92/92</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>75/75</span>
+                <span class='fraction'>76/76</span>
             </div>
         
             
@@ -218,13 +218,45 @@
 <a name='L153'></a><a href='#L153'>153</a>
 <a name='L154'></a><a href='#L154'>154</a>
 <a name='L155'></a><a href='#L155'>155</a>
-<a name='L156'></a><a href='#L156'>156</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">25x</span>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -380,20 +412,36 @@ import { Form } from '../form';
 import { SelectFieldOptions } from '../interfaces';
 import { FieldValue, HTMLElementEvent, Option, SelectFieldValue } from '../types';
 import { debounce, mountElement } from '../utils';
+import {
+  CHANGE_ATTRIBUTE,
+  DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  DISABLED_ATTRIBUTE,
+  FIELD_TYPE_SELECT,
+  ID_ATTRIBUTE,
+  MULTIPLE_ATTRIBUTE,
+  NAME_ATTRIBUTE,
+  OPTION_ELEMENT,
+  PLACEHOLDER_ATTRIBUTE,
+  SELECTED_ATTRIBUTE,
+  SELECT_CLASS_DEFAULT,
+  SELECT_ELEMENT,
+  TYPE_ATTRIBUTE,
+  VALUE_ATTRIBUTE,
+} from '../constants';
 &nbsp;
 export class SelectField extends Field {
   public options: SelectFieldOptions = {
     id: '',
-    type: 'select',
+    type: FIELD_TYPE_SELECT,
     required: false,
     validation: (value, data, required) =&gt; {
-      if (required &amp;&amp; !value) return 'This field is required';
+      if (required &amp;&amp; !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;
       return true;
     },
     enhance: true,
     multiple: false,
     optionsList: [],
-    className: 'form-input-select',
+    className: SELECT_CLASS_DEFAULT,
     options: {},
   };
 &nbsp;
@@ -423,8 +471,8 @@ export class SelectField extends Field {
       for (const option of this.inputElement.options) {
         const hasValue =
           value &amp;&amp; Array.isArray(value) ? value?.some((val) =&gt; val === option.value) : value === option.value;
-        if (hasValue &amp;&amp; !option.hasAttribute('selected')) option.setAttribute('selected', '');
-        if (!hasValue &amp;&amp; option.hasAttribute('selected')) option.removeAttribute('selected');
+        if (hasValue &amp;&amp; !option.hasAttribute(SELECTED_ATTRIBUTE)) option.setAttribute(SELECTED_ATTRIBUTE, '');
+        if (!hasValue &amp;&amp; option.hasAttribute(SELECTED_ATTRIBUTE)) option.removeAttribute(SELECTED_ATTRIBUTE);
       }
     } else if (this.options.enhance === true &amp;&amp; this._tomselect) {
       const value: SelectFieldValue = this.getValue();
@@ -435,7 +483,7 @@ export class SelectField extends Field {
   }
 &nbsp;
   bindChange(): void {
-    if (this.inputElement) this.inputElement.addEventListener('change', debounce(this.change, 25, this));
+    if (this.inputElement) this.inputElement.addEventListener(CHANGE_ATTRIBUTE, debounce(this.change, 25, this));
   }
 &nbsp;
   getTomselect(): TomSelect | null {
@@ -449,38 +497,38 @@ export class SelectField extends Field {
 &nbsp;
   handleDisabled() {
     if (this.isDisabled()) {
-      this.inputElement?.setAttribute('disabled', 'true');
+      this.inputElement?.setAttribute(DISABLED_ATTRIBUTE, 'true');
       if (this._tomselect) this._tomselect.disable();
     } else {
-      this.inputElement?.removeAttribute('disabled');
+      this.inputElement?.removeAttribute(DISABLED_ATTRIBUTE);
       if (this._tomselect) this._tomselect.enable();
     }
   }
 &nbsp;
   createSelectElement() {
     // Input element
-    this.inputElement = document.createElement('select');
-    this.inputElement.setAttribute('id', this.getId());
-    this.inputElement.setAttribute('name', this.options.name || <span class="branch-1 cbranch-no" title="branch not covered" >this.getId())</span>;
-    this.inputElement.setAttribute('type', this.getType());
-    if (this.options.multiple) this.inputElement.setAttribute('multiple', '');
-    if (this.options.placeholder) this.inputElement.setAttribute('placeholder', this.options.placeholder);
+    this.inputElement = document.createElement(SELECT_ELEMENT);
+    this.inputElement.setAttribute(ID_ATTRIBUTE, this.getId());
+    this.inputElement.setAttribute(NAME_ATTRIBUTE, this.options.name || <span class="branch-1 cbranch-no" title="branch not covered" >this.getId())</span>;
+    this.inputElement.setAttribute(TYPE_ATTRIBUTE, this.getType());
+    if (this.options.multiple) this.inputElement.setAttribute(MULTIPLE_ATTRIBUTE, '');
+    if (this.options.placeholder) this.inputElement.setAttribute(PLACEHOLDER_ATTRIBUTE, this.options.placeholder);
     this.inputElement.className = this.options.className!;
     this.options.optionsList?.forEach((option: Option) =&gt; {
-      const optionElement: HTMLOptionElement = document.createElement('option');
-      optionElement.setAttribute('value', option.value);
+      const optionElement: HTMLOptionElement = document.createElement(OPTION_ELEMENT);
+      optionElement.setAttribute(VALUE_ATTRIBUTE, option.value);
       if (
         typeof option.value === 'string' &amp;&amp;
         this.options.default &amp;&amp;
         Array.isArray(this.options.default) &amp;&amp;
         this.options.default?.findIndex((val) =&gt; val === option.value) &gt;= 0
       ) {
-        optionElement.setAttribute('selected', 'true');
+        optionElement.setAttribute(SELECTED_ATTRIBUTE, 'true');
       } else if (this.options.default &amp;&amp; this.options.default === option.value) {
-        optionElement.setAttribute('selected', 'true');
+        optionElement.setAttribute(SELECTED_ATTRIBUTE, 'true');
       }
 &nbsp;
-      if (option.disabled) optionElement.setAttribute('disabled', String(option.disabled));
+      if (option.disabled) optionElement.setAttribute(DISABLED_ATTRIBUTE, String(option.disabled));
       optionElement.innerText = option.label;
       this.inputElement?.append(optionElement);
     });
@@ -535,7 +583,7 @@ export class SelectField extends Field {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-22T20:43:59.300Z
+                at 2024-03-24T12:26:58.480Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

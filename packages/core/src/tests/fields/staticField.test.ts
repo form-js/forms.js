@@ -8,7 +8,7 @@ import {
 } from './../test.options';
 import * as utils from '../../utils';
 import { StaticField } from '../../fields';
-import { LICENSE_STATE } from '../../constants';
+import { FIELD_TYPE_STATIC, LICENSE_STATE } from '../../constants';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -37,7 +37,7 @@ describe('static-field', () => {
     expect(field.getValue()).toBe(DEFAULT_STATIC_VALUE);
     expect(field.getId()).toBe(STATIC_FIELD_ID);
     expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), STATIC_FIELD_ID));
-    expect(field.getType()).toBe('static');
+    expect(field.getType()).toBe(FIELD_TYPE_STATIC);
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getForm()).toBe(form);
   });

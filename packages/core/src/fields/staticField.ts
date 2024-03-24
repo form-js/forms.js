@@ -13,6 +13,7 @@ import {
   CONTAINER_DEFINITION,
   DIV_ELEMENT,
   FIELD_CLASS_DEFAULT,
+  FIELD_TYPE_STATIC,
   ID_ATTRIBUTE,
   STATIC_CLASS_DEFAULT,
 } from '../constants';
@@ -20,7 +21,7 @@ import {
 export class StaticField {
   public options: StaticFieldOptions = {
     id: '',
-    type: 'static',
+    type: FIELD_TYPE_STATIC,
     template: '',
     className: STATIC_CLASS_DEFAULT,
   };

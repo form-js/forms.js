@@ -13,7 +13,7 @@ import {
   validationFail,
 } from './test.options';
 import * as utils from '../utils';
-import { BUTTON_TYPE_BUTTON, GROUP_TYPE_GROUP, LICENSE_STATE } from '../constants';
+import { BUTTON_TYPE_BUTTON, FIELD_TYPE_TEXT, GROUP_TYPE_GROUP, LICENSE_STATE } from '../constants';
 import { TextField } from '../fields';
 import { Form, GroupOptions, constructorTypes, registerConstructor, FormElement } from '../index';
 
@@ -134,7 +134,7 @@ describe('form', () => {
       useFormData: true,
       schema: [
         {
-          type: 'text',
+          type: FIELD_TYPE_TEXT,
           id: 'test-field',
           required: true,
         },
@@ -219,7 +219,7 @@ describe('form', () => {
           type: GROUP_TYPE_GROUP,
           id: 'group1',
           prefixSchema: true,
-          schema: [{ type: 'text', id: 'nestedField' }],
+          schema: [{ type: FIELD_TYPE_TEXT, id: 'nestedField' }],
         },
       ],
     });
@@ -294,12 +294,12 @@ describe('form', () => {
   it('resets form and all elements to initial state', () => {
     const form = createForm({
       schema: [
-        { type: 'text', id: 'field1', default: 'default1' },
+        { type: FIELD_TYPE_TEXT, id: 'field1', default: 'default1' },
         {
           type: GROUP_TYPE_GROUP,
           id: 'group1',
           prefixSchema: true,
-          schema: [{ type: 'text', id: 'groupField', default: 'default2' }],
+          schema: [{ type: FIELD_TYPE_TEXT, id: 'groupField', default: 'default2' }],
         },
         {
           type: BUTTON_TYPE_BUTTON,
@@ -565,7 +565,7 @@ describe('form', () => {
       {
         type: GROUP_TYPE_GROUP,
         id: 'nestedGroup',
-        schema: [{ type: 'text', id: 'nestedField', required: true }],
+        schema: [{ type: FIELD_TYPE_TEXT, id: 'nestedField', required: true }],
       },
     ];
 

@@ -6,6 +6,7 @@ import {
   CONTAINER_DEFINITION,
   DIV_ELEMENT,
   FIELD_CLASS_DEFAULT,
+  FIELD_TYPE_HIDDEN,
   ID_ATTRIBUTE,
   INPUT_ELEMENT,
   NAME_ATTRIBUTE,
@@ -15,7 +16,7 @@ import {
 export class HiddenField {
   public options: FieldOptions = {
     id: '',
-    type: 'hidden',
+    type: FIELD_TYPE_HIDDEN,
     default: null,
   };
 

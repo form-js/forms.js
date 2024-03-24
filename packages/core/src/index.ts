@@ -92,6 +92,34 @@ export {
   generateFieldSaveKey,
 } from './utils';
 export { Field } from './field';
-export { fields, buttons, groups, constructorTypes, registerConstructor } from './constants';
+export {
+  fields,
+  buttons,
+  groups,
+  constructorTypes,
+  registerConstructor,
+  GROUP_TYPE_GROUP,
+  BUTTON_TYPE_BUTTON,
+  FIELD_TYPE_CHECKBOX,
+  FIELD_TYPE_COLOR,
+  FIELD_TYPE_DATE,
+  FIELD_TYPE_DATETIME,
+  FIELD_TYPE_EMAIL,
+  FIELD_TYPE_FILE,
+  FIELD_TYPE_HIDDEN,
+  FIELD_TYPE_NUMBER,
+  FIELD_TYPE_PASSWORD,
+  FIELD_TYPE_RADIO,
+  FIELD_TYPE_RANGE,
+  FIELD_TYPE_SELECT,
+  FIELD_TYPE_STATIC,
+  FIELD_TYPE_TEL,
+  FIELD_TYPE_TEXTAREA,
+  FIELD_TYPE_TEXT,
+  FIELD_TYPE_TIME,
+  FIELD_TYPE_URL,
+  FIELD_TYPE_WEEK,
+  FIELD_TYPE_DATERANGE,
+} from './constants';
 export { Schema, FormData, FieldValue, PluginSettings, ParsedCondition, FormElement } from './types';
 export { evaluateParsedConditions, parseConditionString } from './utils';

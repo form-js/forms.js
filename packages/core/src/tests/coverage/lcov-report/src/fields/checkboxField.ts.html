@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>62/62</span>
+                <span class='fraction'>63/63</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>51/51</span>
+                <span class='fraction'>52/52</span>
             </div>
         
             
@@ -169,7 +169,51 @@
 <a name='L104'></a><a href='#L104'>104</a>
 <a name='L105'></a><a href='#L105'>105</a>
 <a name='L106'></a><a href='#L106'>106</a>
-<a name='L107'></a><a href='#L107'>107</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">25x</span>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -275,7 +319,29 @@
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Field } from '../field';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
+  CHANGE_ATTRIBUTE,
+  CHECKBOX_CLASS_DEFAULT,
+  CHECKED_ATTRIBUTE,
+  CONTAINER_DEFINITION,
+  DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  DIV_ELEMENT,
+  FIELD_CLASS_DEFAULT,
+  FIELD_TYPE_CHECKBOX,
+  FOR_ATTRIBUTE,
+  ID_ATTRIBUTE,
+  INPUT_ELEMENT,
+  LABEL_CLASS_DEFAULT,
+  LABEL_DEFINITION,
+  LABEL_ELEMENT,
+  NAME_ATTRIBUTE,
+  PARAGRAPH_ELEMENT,
+  SPAN_ELEMENT,
+  TOGGLE_CLASS_DEFAULT,
+  TOGGLE_SLIDER_CLASS_DEFAULT,
+  TYPE_ATTRIBUTE,
+} from '../constants';
+import { Field } from '../field';
 import { Form } from '../form';
 import { CheckboxFieldOptions } from '../interfaces';
 import { HTMLElementEvent } from '../types';
@@ -284,14 +350,14 @@ import { mountElement } from '../utils';
 export class CheckboxField extends Field {
   public options: CheckboxFieldOptions = {
     id: '',
-    type: 'checkbox',
+    type: FIELD_TYPE_CHECKBOX,
     required: false,
     validation: (value, data, required) =&gt; {
-      if (required &amp;&amp; !value) return 'This field is required';
+      if (required &amp;&amp; !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;
       return true;
     },
     default: null,
-    className: 'form-input-checkbox',
+    className: CHECKBOX_CLASS_DEFAULT,
     toggle: false,
   };
   public sliderElement: HTMLElement | null = null;
@@ -308,49 +374,49 @@ export class CheckboxField extends Field {
    */
   syncValue(): void {
     if (this.inputElement &amp;&amp; this.inputElement instanceof HTMLInputElement) {
-      if (this.getValue() &amp;&amp; !this.inputElement.hasAttribute('checked')) {
-        this.inputElement.setAttribute('checked', String(this.getValue()));
-      } else if (!this.getValue() &amp;&amp; this.inputElement.hasAttribute('checked'))
-        this.inputElement.removeAttribute('checked');
+      if (this.getValue() &amp;&amp; !this.inputElement.hasAttribute(CHECKED_ATTRIBUTE)) {
+        this.inputElement.setAttribute(CHECKED_ATTRIBUTE, String(this.getValue()));
+      } else if (!this.getValue() &amp;&amp; this.inputElement.hasAttribute(CHECKED_ATTRIBUTE))
+        this.inputElement.removeAttribute(CHECKED_ATTRIBUTE);
     }
   }
 &nbsp;
   createContainerElement() {
     // Container element
-    this.containerElement = document.createElement('div');
-    this.containerElement.className = 'form-field ' + this.getType();
-    if (this.options.toggle) this.containerElement.className += ' is-toggle';
-    this.containerElement.setAttribute('id', this.getId() + '_container');
+    this.containerElement = document.createElement(DIV_ELEMENT);
+    this.containerElement.className = FIELD_CLASS_DEFAULT + ' ' + this.getType();
+    if (this.options.toggle) this.containerElement.className += ' ' + TOGGLE_CLASS_DEFAULT;
+    this.containerElement.setAttribute(ID_ATTRIBUTE, this.getId() + CONTAINER_DEFINITION);
   }
 &nbsp;
   createLabelElement() {
     // Label element
-    this.labelElement = document.createElement('label');
+    this.labelElement = document.createElement(LABEL_ELEMENT);
     // Append input first
     if (this.inputElement &amp;&amp; this.labelElement) mountElement(this.inputElement, this.labelElement);
     if (this.sliderElement &amp;&amp; this.labelElement) mountElement(this.sliderElement, this.labelElement);
     // Label text
-    const label: HTMLElement = document.createElement('p');
+    const label: HTMLElement = document.createElement(PARAGRAPH_ELEMENT);
     if (this.options.label) label.innerText = this.options.label;
-    label.setAttribute('id', this.getId() + '_label');
-    this.labelElement.setAttribute('for', this.options.name || this.getId());
-    label.className = 'form-field-label';
+    label.setAttribute(ID_ATTRIBUTE, this.getId() + LABEL_DEFINITION);
+    this.labelElement.setAttribute(FOR_ATTRIBUTE, this.options.name || this.getId());
+    label.className = LABEL_CLASS_DEFAULT;
     if (this.options.label) mountElement(label, this.labelElement);
   }
 &nbsp;
   createInputElement() {
     // Input element
-    this.inputElement = document.createElement('input');
-    this.inputElement.setAttribute('id', this.getId());
-    this.inputElement.setAttribute('name', this.options.name || this.getId());
-    this.inputElement.setAttribute('type', this.getType());
-    if (this.options.default) this.inputElement.setAttribute('checked', String(this.options.default));
+    this.inputElement = document.createElement(INPUT_ELEMENT);
+    this.inputElement.setAttribute(ID_ATTRIBUTE, this.getId());
+    this.inputElement.setAttribute(NAME_ATTRIBUTE, this.options.name || this.getId());
+    this.inputElement.setAttribute(TYPE_ATTRIBUTE, this.getType());
+    if (this.options.default) this.inputElement.setAttribute(CHECKED_ATTRIBUTE, String(this.options.default));
     this.inputElement.className = this.options.className!;
   }
 &nbsp;
   createToggleSpan() {
-    this.sliderElement = document.createElement('span');
-    this.sliderElement.className = 'toggle-slider';
+    this.sliderElement = document.createElement(SPAN_ELEMENT);
+    this.sliderElement.className = TOGGLE_SLIDER_CLASS_DEFAULT;
   }
 &nbsp;
   onGui() {
@@ -366,7 +432,7 @@ export class CheckboxField extends Field {
 &nbsp;
   bindChange() {
     if (this.inputElement)
-      this.inputElement.addEventListener('change', (event: any) =&gt; {
+      this.inputElement.addEventListener(CHANGE_ATTRIBUTE, (event: any) =&gt; {
         this.change(event);
       });
   }
@@ -388,7 +454,7 @@ export class CheckboxField extends Field {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-22T20:43:59.300Z
+                at 2024-03-24T12:26:58.480Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

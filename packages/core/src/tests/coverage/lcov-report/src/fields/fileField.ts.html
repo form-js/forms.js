@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">75.4% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/60</span>
+                <span class='fraction'>46/61</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.47% </span>
+                <span class="strong">76.92% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>39/51</span>
+                <span class='fraction'>40/52</span>
             </div>
         
             
@@ -195,11 +195,37 @@
 <a name='L130'></a><a href='#L130'>130</a>
 <a name='L131'></a><a href='#L131'>131</a>
 <a name='L132'></a><a href='#L132'>132</a>
-<a name='L133'></a><a href='#L133'>133</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">25x</span>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">25x</span>
@@ -333,17 +359,30 @@ import { Form } from '../form';
 import { FileFieldOptions } from '../interfaces';
 import { debounce } from '../utils';
 import { HTMLElementEvent } from '../types';
+import {
+  ACCEPT_ATTRIBUTE,
+  CHANGE_ATTRIBUTE,
+  DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  FIELD_TYPE_FILE,
+  ID_ATTRIBUTE,
+  INPUT_CLASS_DEFAULT,
+  INPUT_ELEMENT,
+  MULTIPLE_ATTRIBUTE,
+  NAME_ATTRIBUTE,
+  PLACEHOLDER_ATTRIBUTE,
+  TYPE_ATTRIBUTE,
+} from '../constants';
 &nbsp;
 export class FileField extends Field {
   public options: FileFieldOptions = {
     id: '',
-    type: 'file',
+    type: FIELD_TYPE_FILE,
     required: false,
     validation: (value, data, required) =&gt; {
-      if (required &amp;&amp; !value) return 'This field is required';
+      if (required &amp;&amp; !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;
       return true;
     },
-    className: 'form-input',
+    className: INPUT_CLASS_DEFAULT,
     enhance: true,
     multiple: false,
     debounce: 50,
@@ -395,14 +434,14 @@ export class FileField extends Field {
 &nbsp;
   createInputElement() {
     // Input element
-    this.inputElement = document.createElement('input');
-    this.inputElement.setAttribute('id', this.getId());
-    this.inputElement.setAttribute('name', this.options.name || <span class="branch-1 cbranch-no" title="branch not covered" >this.getId())</span>;
-    this.inputElement.setAttribute('type', this.getType());
-    if (this.options.placeholder) this.inputElement.setAttribute('placeholder', this.options.placeholder);
+    this.inputElement = document.createElement(INPUT_ELEMENT);
+    this.inputElement.setAttribute(ID_ATTRIBUTE, this.getId());
+    this.inputElement.setAttribute(NAME_ATTRIBUTE, this.options.name || <span class="branch-1 cbranch-no" title="branch not covered" >this.getId())</span>;
+    this.inputElement.setAttribute(TYPE_ATTRIBUTE, this.getType());
+    if (this.options.placeholder) this.inputElement.setAttribute(PLACEHOLDER_ATTRIBUTE, this.options.placeholder);
     this.inputElement.className = this.options.className!;
-    if (this.options.multiple &amp;&amp; !this.options.enhance) this.inputElement.setAttribute('multiple', 'true');
-    if (this.options.accept) this.inputElement.setAttribute('accept', this.options.accept);
+    if (this.options.multiple &amp;&amp; !this.options.enhance) this.inputElement.setAttribute(MULTIPLE_ATTRIBUTE, 'true');
+    if (this.options.accept) this.inputElement.setAttribute(ACCEPT_ATTRIBUTE, this.options.accept);
   }
 &nbsp;
   getFilepond() {
@@ -434,7 +473,7 @@ export class FileField extends Field {
 <span class="cstat-no" title="statement not covered" >        this.filePondChange(files);</span>
       });
     } else {
-      this.inputElement?.addEventListener('change', debounce(this.change, this.options.debounce!, this));
+      this.inputElement?.addEventListener(CHANGE_ATTRIBUTE, debounce(this.change, this.options.debounce!, this));
     }
   }
 &nbsp;
@@ -466,7 +505,7 @@ export class FileField extends Field {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-22T20:43:59.300Z
+                at 2024-03-24T12:26:58.480Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

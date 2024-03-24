@@ -8,6 +8,7 @@ import {
 } from './../test.options';
 import * as utils from '../../utils';
 import { UrlField } from '../../fields';
+import { FIELD_TYPE_URL } from '../../constants';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -36,7 +37,7 @@ describe('url-field', () => {
     expect(field.getValue()).toBe(DEFAULT_URL_VALUE);
     expect(field.getId()).toBe(URL_FIELD_ID);
     expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), URL_FIELD_ID));
-    expect(field.getType()).toBe('url');
+    expect(field.getType()).toBe(FIELD_TYPE_URL);
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getForm()).toBe(form);
   });

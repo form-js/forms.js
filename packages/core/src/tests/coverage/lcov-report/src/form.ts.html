@@ -598,7 +598,28 @@
 <a name='L533'></a><a href='#L533'>533</a>
 <a name='L534'></a><a href='#L534'>534</a>
 <a name='L535'></a><a href='#L535'>535</a>
-<a name='L536'></a><a href='#L536'>536</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">24x</span>
+<a name='L536'></a><a href='#L536'>536</a>
+<a name='L537'></a><a href='#L537'>537</a>
+<a name='L538'></a><a href='#L538'>538</a>
+<a name='L539'></a><a href='#L539'>539</a>
+<a name='L540'></a><a href='#L540'>540</a>
+<a name='L541'></a><a href='#L541'>541</a>
+<a name='L542'></a><a href='#L542'>542</a>
+<a name='L543'></a><a href='#L543'>543</a>
+<a name='L544'></a><a href='#L544'>544</a>
+<a name='L545'></a><a href='#L545'>545</a>
+<a name='L546'></a><a href='#L546'>546</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -607,7 +628,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1134,8 +1154,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
+  ACTION_ATTRIBUTE,
+  DIV_ELEMENT,
+  FORM_CLASS_DEFAULT,
+  FORM_ELEMENT,
+  HREF_ATTRIBUTE,
+  ID_ATTRIBUTE,
   LICENSE_STATE,
+  LINK_ELEMENT,
+  METHOD_ATTRIBUTE,
   PACKAGE_LICENSE_URL,
+  RESET_ATTRIBUTE,
+  SPAN_ELEMENT,
+  SUBMIT_ATTRIBUTE,
   constructorTypes,
   elementConstructors,
   licensePlateClass,
@@ -1150,7 +1181,6 @@ import {
   processLicenseKey,
   setLicenseKey,
   transformFieldName,
-  unmountElement,
   usesLicensedFetures,
 } from './utils';
 import { FormOptions } from './interfaces';
@@ -1163,7 +1193,7 @@ export class Form {
     schema: [],
     action: null,
     method: null,
-    className: 'formjs-form',
+    className: FORM_CLASS_DEFAULT,
   };
 &nbsp;
   private _parent: HTMLElement | null = null;
@@ -1267,7 +1297,7 @@ export class Form {
    * @returns The created wrapper element.
    */
   private createWrapper(parent: HTMLElement): HTMLElement {
-    const wrapper = document.createElement('div');
+    const wrapper = document.createElement(DIV_ELEMENT);
     mountElement(wrapper, parent);
     return wrapper;
   }
@@ -1617,22 +1647,22 @@ export class Form {
    * Initializes the form's GUI elements.
    */
   onGui(): void {
-    this._formElement = document.createElement('form');
-    this._formElement.setAttribute('id', this._id);
+    this._formElement = document.createElement(FORM_ELEMENT);
+    this._formElement.setAttribute(ID_ATTRIBUTE, this._id);
     this._formElement.className = this.options.className!;
-    if (this.options.action) this._formElement.setAttribute('action', this.options.action);
-    if (this.options.method) this._formElement.setAttribute('method', this.options.method);
-    this._formElement.addEventListener('submit', (event: SubmitEvent) =&gt; this.submit(event, this));
-    this._formElement.addEventListener('reset', this.reset);
+    if (this.options.action) this._formElement.setAttribute(ACTION_ATTRIBUTE, this.options.action);
+    if (this.options.method) this._formElement.setAttribute(METHOD_ATTRIBUTE, this.options.method);
+    this._formElement.addEventListener(SUBMIT_ATTRIBUTE, (event: SubmitEvent) =&gt; this.submit(event, this));
+    this._formElement.addEventListener(RESET_ATTRIBUTE, this.reset);
     if (usesLicensedFetures() &amp;&amp; !this.hasValidLicense()) this.createInvalidElement();
   }
 &nbsp;
   private createInvalidElement() {
-    const invalid = document.createElement('a');
-    invalid.setAttribute('href', PACKAGE_LICENSE_URL);
+    const invalid = document.createElement(LINK_ELEMENT);
+    invalid.setAttribute(HREF_ATTRIBUTE, PACKAGE_LICENSE_URL);
     invalid.className = licensePlateClass;
     invalid.style.cssText = licensePlateStyle;
-    const text = document.createElement('span');
+    const text = document.createElement(SPAN_ELEMENT);
     text.innerText = getLicenseText(this._licenseState);
     mountElement(text, invalid);
     if (this._parent) mountElement(invalid, this._parent);
@@ -1675,7 +1705,7 @@ export class Form {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-22T20:43:59.300Z
+                at 2024-03-24T12:26:58.480Z
             </div>
         <script src="../prettify.js"></script>
         <script>

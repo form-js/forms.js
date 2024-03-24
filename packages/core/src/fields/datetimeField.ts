@@ -7,6 +7,7 @@ import { FlatpickrFn } from 'flatpickr/dist/types/instance';
 import {
   CHANGE_ATTRIBUTE,
   DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  FIELD_TYPE_DATETIME,
   ID_ATTRIBUTE,
   INPUT_CLASS_DEFAULT,
   INPUT_ELEMENT,
@@ -18,7 +19,7 @@ import {
 export class DatetimeField extends Field {
   public options: DateFieldOptions = {
     id: '',
-    type: 'datetime',
+    type: FIELD_TYPE_DATETIME,
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;

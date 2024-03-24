@@ -8,6 +8,7 @@ import { FlatpickrFn } from 'flatpickr/dist/types/instance';
 import {
   CHANGE_ATTRIBUTE,
   DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  FIELD_TYPE_WEEK,
   ID_ATTRIBUTE,
   INPUT_CLASS_DEFAULT,
   INPUT_ELEMENT,
@@ -19,7 +20,7 @@ import {
 export class WeekField extends Field {
   public options: DateFieldOptions = {
     id: '',
-    type: 'week',
+    type: FIELD_TYPE_WEEK,
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;

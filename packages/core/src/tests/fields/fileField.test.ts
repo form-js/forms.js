@@ -12,6 +12,7 @@ import {
 import * as utils from '../../utils';
 import { FileField } from '../../fields';
 import { HTMLElementEvent } from '../../types';
+import { FIELD_TYPE_FILE } from '../../constants';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -40,7 +41,7 @@ describe('file-field', () => {
     expect(field.getValue()).toBe(DEFAULT_FILE_VALUE);
     expect(field.getId()).toBe(FILE_FIELD_ID);
     expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), FILE_FIELD_ID));
-    expect(field.getType()).toBe('file');
+    expect(field.getType()).toBe(FIELD_TYPE_FILE);
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getForm()).toBe(form);
     field.validate();

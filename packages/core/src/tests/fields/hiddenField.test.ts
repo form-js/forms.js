@@ -10,7 +10,7 @@ import {
 } from './../test.options';
 import * as utils from '../../utils';
 import { HiddenField } from '../../fields';
-import { LICENSE_STATE } from '../../constants';
+import { FIELD_TYPE_HIDDEN, LICENSE_STATE } from '../../constants';
 import { FormOptions } from '../../interfaces';
 import { Form } from '../../form';
 
@@ -42,7 +42,7 @@ describe('hidden-field', () => {
     expect(field.getValue()).toBe(DEFAULT_STRING_VALUE);
     expect(field.getId()).toBe(HIDDEN_FIELD_ID);
     expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), HIDDEN_FIELD_ID));
-    expect(field.getType()).toBe('hidden');
+    expect(field.getType()).toBe(FIELD_TYPE_HIDDEN);
     expect(field.getForm()).toBe(form);
   });
 

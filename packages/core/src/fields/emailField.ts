@@ -1,5 +1,6 @@
 import {
   DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  FIELD_TYPE_EMAIL,
   INPUT_CLASS_DEFAULT,
   INVALID_EMAIL_VALIDATION_MESSAGE,
 } from '../constants';
@@ -10,7 +11,7 @@ import { FieldOptions } from '../interfaces';
 export class EmailField extends Field {
   public options: FieldOptions = {
     id: '',
-    type: 'text',
+    type: FIELD_TYPE_EMAIL,
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;

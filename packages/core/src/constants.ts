@@ -116,6 +116,7 @@ export const FIELD_TYPE_TEXT = 'text';
 export const FIELD_TYPE_TIME = 'time';
 export const FIELD_TYPE_URL = 'url';
 export const FIELD_TYPE_WEEK = 'week';
+export const FIELD_TYPE_DATERANGE = 'daterange';
 
 /**
  * A list of field types used in the application forms.

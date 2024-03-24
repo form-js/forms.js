@@ -1,4 +1,9 @@
-import { DEFAULT_REQUIRED_VALIDATION_MESSAGE, INPUT_CLASS_DEFAULT, INVALID_URL_VALIDATION_MESSAGE } from '../constants';
+import {
+  DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  FIELD_TYPE_URL,
+  INPUT_CLASS_DEFAULT,
+  INVALID_URL_VALIDATION_MESSAGE,
+} from '../constants';
 import { Field } from '../field';
 import { Form } from '../form';
 import { FieldOptions } from '../interfaces';
@@ -6,7 +11,7 @@ import { FieldOptions } from '../interfaces';
 export class UrlField extends Field {
   public options: FieldOptions = {
     id: '',
-    type: 'url',
+    type: FIELD_TYPE_URL,
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;

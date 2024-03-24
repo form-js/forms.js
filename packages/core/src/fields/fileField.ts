@@ -8,6 +8,7 @@ import {
   ACCEPT_ATTRIBUTE,
   CHANGE_ATTRIBUTE,
   DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  FIELD_TYPE_FILE,
   ID_ATTRIBUTE,
   INPUT_CLASS_DEFAULT,
   INPUT_ELEMENT,
@@ -20,7 +21,7 @@ import {
 export class FileField extends Field {
   public options: FileFieldOptions = {
     id: '',
-    type: 'file',
+    type: FIELD_TYPE_FILE,
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;

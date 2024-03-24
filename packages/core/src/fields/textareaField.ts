@@ -1,5 +1,6 @@
 import {
   DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  FIELD_TYPE_TEXTAREA,
   ID_ATTRIBUTE,
   INPUT_CLASS_DEFAULT,
   NAME_ATTRIBUTE,
@@ -15,7 +16,7 @@ import { TextareaFieldOptions } from '../interfaces';
 export class TextareaField extends Field {
   public options: TextareaFieldOptions = {
     id: '',
-    type: 'textarea',
+    type: FIELD_TYPE_TEXTAREA,
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;

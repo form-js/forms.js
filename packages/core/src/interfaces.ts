@@ -1,4 +1,20 @@
-import { GROUP_TYPE_GROUP, BUTTON_TYPE_BUTTON, FIELD_TYPE_CHECKBOX } from './constants';
+import {
+  GROUP_TYPE_GROUP,
+  BUTTON_TYPE_BUTTON,
+  FIELD_TYPE_CHECKBOX,
+  FIELD_TYPE_DATE,
+  FIELD_TYPE_WEEK,
+  FIELD_TYPE_DATETIME,
+  FIELD_TYPE_TIME,
+  FIELD_TYPE_DATERANGE,
+  FIELD_TYPE_FILE,
+  FIELD_TYPE_NUMBER,
+  FIELD_TYPE_RANGE,
+  FIELD_TYPE_RADIO,
+  FIELD_TYPE_SELECT,
+  FIELD_TYPE_STATIC,
+  FIELD_TYPE_TEXTAREA,
+} from './constants';
 import { Form } from './form';
 import { FieldType, FieldValue, HTMLElementEvent, Option, Schema, FormData } from './types';
 
@@ -52,7 +68,7 @@ export interface FieldOptions {
 
 export interface StaticFieldOptions {
   id: string;
-  type: 'static';
+  type: typeof FIELD_TYPE_STATIC;
   conditions?: ((value: FieldValue, data: FormData) => boolean) | string;
   template: string;
   className?: string;
@@ -77,7 +93,12 @@ export interface DateFieldOptions extends FieldOptions {
   id: string;
   name?: string;
   label?: string;
-  type: 'date' | 'week' | 'datetime' | 'time' | 'daterange';
+  type:
+    | typeof FIELD_TYPE_DATE
+    | typeof FIELD_TYPE_WEEK
+    | typeof FIELD_TYPE_DATETIME
+    | typeof FIELD_TYPE_TIME
+    | typeof FIELD_TYPE_DATERANGE;
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   change?: (value: FieldValue) => void;
   validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
@@ -94,7 +115,7 @@ export interface TextareaFieldOptions extends FieldOptions {
   id: string;
   name?: string;
   label?: string;
-  type: 'textarea';
+  type: typeof FIELD_TYPE_TEXTAREA;
   rows?: number;
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   change?: (value: FieldValue) => void;
@@ -110,7 +131,7 @@ export interface SelectFieldOptions extends FieldOptions {
   id: string;
   name?: string;
   label?: string;
-  type: 'select';
+  type: typeof FIELD_TYPE_SELECT;
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   change?: (value: FieldValue) => void;
   validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
@@ -129,7 +150,7 @@ export interface FileFieldOptions extends FieldOptions {
   id: string;
   name?: string;
   label?: string;
-  type: 'file';
+  type: typeof FIELD_TYPE_FILE;
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   change?: (value: FieldValue) => void;
   validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
@@ -158,7 +179,7 @@ export interface NumberFieldOptions extends FieldOptions {
   min?: number;
   max?: number;
   step?: number;
-  type: 'number' | 'range';
+  type: typeof FIELD_TYPE_NUMBER | typeof FIELD_TYPE_RANGE;
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   change?: (value: FieldValue) => void;
   validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
@@ -173,7 +194,7 @@ export interface RadioFieldOptions extends FieldOptions {
   id: string;
   name?: string;
   label?: string;
-  type: 'radio';
+  type: typeof FIELD_TYPE_RADIO;
   schema: RadioFieldItemOptions[];
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   change?: (value: FieldValue) => void;

@@ -1,5 +1,6 @@
 import {
   DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  FIELD_TYPE_TEL,
   INPUT_CLASS_DEFAULT,
   INVALID_PHONE_VALIDATION_MESSAGE,
 } from '../constants';
@@ -10,7 +11,7 @@ import { FieldOptions } from '../interfaces';
 export class TelField extends Field {
   public options: FieldOptions = {
     id: '',
-    type: 'tel',
+    type: FIELD_TYPE_TEL,
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;

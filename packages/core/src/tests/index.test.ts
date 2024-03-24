@@ -14,7 +14,7 @@ jest.mock('../constants', () => {
 });
 
 class dummyConstructor {
-  constructor(parent: HTMLElement, form: Form, options: GroupOptions) {}
+  constructor(parent: HTMLElement, form: Form, options: GroupOptions) { }
 }
 
 describe('usePlugin', () => {
@@ -83,5 +83,30 @@ describe('usePlugin', () => {
       settingWithoutLicensed.constructorType,
       false,
     );
+  });
+
+  it('defines and exports constants', () => { 
+    expect(constants.GROUP_TYPE_GROUP).toBe('group');
+    expect(constants.BUTTON_TYPE_BUTTON).toBe('button');
+    expect(constants.FIELD_TYPE_CHECKBOX).toBe('checkbox');
+    expect(constants.FIELD_TYPE_COLOR).toBe('color');
+    expect(constants.FIELD_TYPE_DATE).toBe('date');
+    expect(constants.FIELD_TYPE_DATETIME).toBe('datetime');
+    expect(constants.FIELD_TYPE_EMAIL).toBe('email');
+    expect(constants.FIELD_TYPE_FILE).toBe('file');
+    expect(constants.FIELD_TYPE_HIDDEN).toBe('hidden');
+    expect(constants.FIELD_TYPE_NUMBER).toBe('number');
+    expect(constants.FIELD_TYPE_PASSWORD).toBe('password');
+    expect(constants.FIELD_TYPE_RADIO).toBe('radio');
+    expect(constants.FIELD_TYPE_RANGE).toBe('range');
+    expect(constants.FIELD_TYPE_SELECT).toBe('select');
+    expect(constants.FIELD_TYPE_STATIC).toBe('static');
+    expect(constants.FIELD_TYPE_TEL).toBe('tel');
+    expect(constants.FIELD_TYPE_TEXTAREA).toBe('textarea');
+    expect(constants.FIELD_TYPE_TEXT).toBe('text');
+    expect(constants.FIELD_TYPE_TIME).toBe('time');
+    expect(constants.FIELD_TYPE_URL).toBe('url');
+    expect(constants.FIELD_TYPE_WEEK).toBe('week');
+    expect(constants.FIELD_TYPE_DATERANGE).toBe('daterange');
   });
 });

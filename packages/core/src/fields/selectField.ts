@@ -9,6 +9,7 @@ import {
   CHANGE_ATTRIBUTE,
   DEFAULT_REQUIRED_VALIDATION_MESSAGE,
   DISABLED_ATTRIBUTE,
+  FIELD_TYPE_SELECT,
   ID_ATTRIBUTE,
   MULTIPLE_ATTRIBUTE,
   NAME_ATTRIBUTE,
@@ -24,7 +25,7 @@ import {
 export class SelectField extends Field {
   public options: SelectFieldOptions = {
     id: '',
-    type: 'select',
+    type: FIELD_TYPE_SELECT,
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;

@@ -6,6 +6,7 @@ import {
   DEFAULT_REQUIRED_VALIDATION_MESSAGE,
   DIV_ELEMENT,
   FIELD_CONTAINER_CLASS_DEFAULT,
+  FIELD_TYPE_RADIO,
   FORM_ERROR_CLASS_DEFAULT,
   FOR_ATTRIBUTE,
   ID_ATTRIBUTE,
@@ -28,7 +29,7 @@ import { mountElement } from '../utils';
 export class RadioField extends Field {
   public options: RadioFieldOptions = {
     id: '',
-    type: 'radio',
+    type: FIELD_TYPE_RADIO,
     schema: [],
     required: false,
     validation: (value, data, required) => {

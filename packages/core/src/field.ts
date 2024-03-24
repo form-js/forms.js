@@ -19,6 +19,7 @@ import {
   FIELD_CLASS_DEFAULT,
   FIELD_DISABLED_CLASS_DEFAULT,
   FIELD_REQUIRED_CLASS_DEFAULT,
+  FIELD_TYPE_TEXT,
   FORM_ERROR_CLASS_DEFAULT,
   FOR_ATTRIBUTE,
   ID_ATTRIBUTE,
@@ -39,7 +40,7 @@ import {
 export class Field {
   public options: FieldOptions = {
     id: '',
-    type: 'text',
+    type: FIELD_TYPE_TEXT,
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;

@@ -1,6 +1,7 @@
 import {
   BIGGER_THAN_VALIDATION_MESSAGE,
   DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  FIELD_TYPE_NUMBER,
   INPUT_CLASS_DEFAULT,
   LESS_THAN_VALIDATION_MESSAGE,
   MAX_ATTRIBUTE,
@@ -14,7 +15,7 @@ import { FieldOptions, NumberFieldOptions } from '../interfaces';
 export class NumberField extends Field {
   public options: NumberFieldOptions = {
     id: '',
-    type: 'number',
+    type: FIELD_TYPE_NUMBER,
     required: false,
     validation: (value, data, required) => {
       if (required && !value && value !== 0) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;

@@ -2,6 +2,7 @@ import {
   BIGGER_THAN_VALIDATION_MESSAGE,
   CHANGE_ATTRIBUTE,
   DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  FIELD_TYPE_RANGE,
   ID_ATTRIBUTE,
   INPUT_ELEMENT,
   LESS_THAN_VALIDATION_MESSAGE,
@@ -28,7 +29,7 @@ import { mountElement } from '../utils';
 export class RangeField extends Field {
   public options: NumberFieldOptions = {
     id: '',
-    type: 'range',
+    type: FIELD_TYPE_RANGE,
     required: false,
     validation: (value, data, required) => {
       if (required && !value && value !== 0) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;

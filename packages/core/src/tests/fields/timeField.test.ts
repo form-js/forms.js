@@ -2,6 +2,7 @@ import { describe, expect, it, jest } from '@jest/globals';
 import { createForm, baseTimeFieldTestOptions, TIME_FIELD_ID, DEFAULT_TIME_VALUE } from './../test.options';
 import * as utils from '../../utils';
 import { TimeField } from '../../fields';
+import { FIELD_TYPE_TIME } from '../../constants';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -30,7 +31,7 @@ describe('time-field', () => {
     expect(field.getValue()).toBe(DEFAULT_TIME_VALUE);
     expect(field.getId()).toBe(TIME_FIELD_ID);
     expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), TIME_FIELD_ID));
-    expect(field.getType()).toBe('time');
+    expect(field.getType()).toBe(FIELD_TYPE_TIME);
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getForm()).toBe(form);
     expect(field.getFlatpickr()).toBeNull();
