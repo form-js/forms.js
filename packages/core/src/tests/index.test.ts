@@ -14,7 +14,7 @@ jest.mock('../constants', () => {
 });
 
 class dummyConstructor {
-  constructor(parent: HTMLElement, form: Form, options: GroupOptions) { }
+  constructor(parent: HTMLElement, form: Form, options: GroupOptions) {}
 }
 
 describe('usePlugin', () => {
@@ -85,7 +85,7 @@ describe('usePlugin', () => {
     );
   });
 
-  it('defines and exports constants', () => { 
+  it('defines and exports constants', () => {
     expect(constants.GROUP_TYPE_GROUP).toBe('group');
     expect(constants.BUTTON_TYPE_BUTTON).toBe('button');
     expect(constants.FIELD_TYPE_CHECKBOX).toBe('checkbox');

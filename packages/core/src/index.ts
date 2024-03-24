@@ -122,4 +122,4 @@ export {
   FIELD_TYPE_DATERANGE,
 } from './constants';
 export { Schema, FormData, FieldValue, PluginSettings, ParsedCondition, FormElement } from './types';
-export { evaluateParsedConditions, parseConditionString } from './utils';
+export { evaluateParsedConditions, parseConditionString, overwriteDefaults } from './utils';

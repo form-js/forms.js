@@ -19,10 +19,13 @@ import {
   fields,
   groups,
 } from './constants';
+import { FieldOptions } from './interfaces';
 import { Schema, FormData, ParsedCondition, Operator, FieldValue } from './types';
 
 let LICENSE_KEY: string | null = null;
 let USES_LICENSED_FETURES: boolean = false;
+
+const OVEWRITE_DEFAULT_OPTIONS: Record<string, FieldOptions> = {};
 
 /**
  * Creates a debounced function that delays invoking the provided callback.
@@ -349,4 +352,15 @@ export const isJson = (str: string): boolean => {
     return false;
   }
   return true;
+};
+
+export const overwriteDefaults = (type: string, defaults: FieldOptions): void => {
+  OVEWRITE_DEFAULT_OPTIONS[type] = defaults;
+};
+
+export const getOverwritenDefaults = (type: string, defaults: FieldOptions): FieldOptions => {
+  if (Object.keys(OVEWRITE_DEFAULT_OPTIONS).includes(type)) {
+    return Object.assign({}, defaults, OVEWRITE_DEFAULT_OPTIONS[type]);
+  }
+  return defaults;
 };
