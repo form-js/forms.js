@@ -7,7 +7,7 @@
 <p align="center">
     <a href="https://formsjs.io/"><b>Website</b></a> •
     <a href="https://formsjs.io/documentation/v1/getting-started"><b>Documentation</b></a>
-</p
+</p>
 
 <div align="center">
 
