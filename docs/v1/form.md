@@ -24,7 +24,7 @@ The options object can include the following properties (you can find full list 
 
 ### Schema
 
-Schema defines form fields and structure. Each form field must have unique `id` and `type` that defines what field will be generated. other that that there might be more options needed based on specific field. You can find more in each fields documentation.
+Schema defines form fields and structure. Each form field must have unique `id` and `type` that defines what field will be generated. Other that that there might be more options needed based on specific field. You can find more in each fields documentation.
 
 Example schema:
 ```js
