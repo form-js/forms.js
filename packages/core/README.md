@@ -81,6 +81,10 @@ Support Forms.js Development:
 
 [![Support on Ko-fi](https://cdn.ko-fi.com/cdn/kofi3.png?v=3)](https://ko-fi.com/formsjs)
 
+## Contributing
+
+If you want to contribute look at <a class="link" target="_blank" href="https://github.com/form-js/forms.js/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a>.
+
 ## License
 
 Core bundle released under MIT license. This license permits a wide range of use, including free use in commercial projects, assuming all copyright headers are preserved. [Read the license terms](https://opensource.org/license/mit/)
