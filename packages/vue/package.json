@@ -1,6 +1,6 @@
 {
     "name": "@forms.js/vue",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "The official vue component for Forms.js",
     "module": "lib/index.js",
     "type": "module",
@@ -12,7 +12,7 @@
         "build": "tsc  && tsc -p tsconfig-cjs.json",
         "format": "prettier --write \"src/**/*.ts\"",
         "lint": "eslint src/** -c eslint.json",
-        "patch": "npm run build && npm version patch"
+        "patch": "npm run format && npm run lint && npm run build && npm version patch"
     },
     "exports": {
         ".": {

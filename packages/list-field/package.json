@@ -13,7 +13,7 @@
         "format": "prettier --write \"src/**/*.ts\"",
         "lint": "eslint src/** -c eslint.json",
         "test": "jest",
-        "patch": "npm run build && npm version patch"
+        "patch": "npm run format && npm run lint && npm run build && npm version patch"
     },
     "exports": {
         ".": {
