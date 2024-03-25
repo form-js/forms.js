@@ -303,6 +303,44 @@ export class Form {
     this.update();
   }
 
+  removeData(id: string): void {
+    if (Object.prototype.hasOwnProperty.call(this._dataPrefixMap, id)) {
+      this.removeMappedData(id);
+    } else {
+      delete this._data[id];
+    }
+  }
+
+  private removeMappedData(id: string) {
+    const fieldMapping = this._dataPrefixMap[id];
+    const { dataKey, key, id: prefixDataId } = fieldMapping;
+
+    // Ensure all necessary properties exist
+    if (!dataKey || !prefixDataId) return;
+
+    if (key) {
+      const list = this.getField(prefixDataId);
+      if (!list || !list.getKeyIndex) return;
+      const prefixId = list.getId();
+      const keyIndex = list.getKeyIndex(key);
+      delete this._data[prefixId][keyIndex][dataKey];
+      if (
+        typeof this._data[prefixId][keyIndex] === 'object' &&
+        Object.keys(this._data[prefixId][keyIndex]).length === 0
+      ) {
+        delete this._data[prefixId][keyIndex];
+      }
+    } else {
+      const group = this.getGroup(prefixDataId);
+      if (!group) return;
+      const prefixId = group.getId();
+      delete this._data[prefixId][dataKey];
+      if (typeof this._data[prefixId] === 'object' && Object.keys(this._data[prefixId]).length === 0) {
+        delete this._data[prefixId];
+      }
+    }
+  }
+
   private setDataFromMap(id: string, value: FieldValue) {
     const fieldMapping = this._dataPrefixMap[id];
     const { dataKey, key, id: prefixDataId } = fieldMapping;

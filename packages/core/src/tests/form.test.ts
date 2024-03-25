@@ -15,7 +15,7 @@ import {
 import * as utils from '../utils';
 import { BUTTON_TYPE_BUTTON, FIELD_TYPE_TEXT, GROUP_TYPE_GROUP, LICENSE_STATE } from '../constants';
 import { TextField } from '../fields';
-import { Form, GroupOptions, constructorTypes, registerConstructor, FormElement } from '../index';
+import { Form, GroupOptions, constructorTypes, registerConstructor } from '../index';
 
 const groupSaveMock = jest.fn();
 const groupLoadMock = jest.fn();
@@ -23,7 +23,7 @@ export class dummyGroupClass {
   constructor(parent: HTMLElement, form: Form, options: GroupOptions) {
     this.save = groupSaveMock;
     this.load = groupLoadMock;
-    this.update = () => {};
+    this.update = () => { };
   }
 
   save: () => void;
@@ -42,7 +42,7 @@ export class dummyListClass {
   private _parent: HTMLElement;
 
   constructor(parent: HTMLElement, form: Form, options: GroupOptions) {
-    this.update = () => {};
+    this.update = () => { };
     this.assignButton = listButtonMock;
     this.assignGroup = listGroupMock;
     this.assignField = listFieldMock;
@@ -75,7 +75,7 @@ export class dummyListClassNoAssign {
   private _parent: HTMLElement;
 
   constructor(parent: HTMLElement, form: Form, options: GroupOptions) {
-    this.update = () => {};
+    this.update = () => { };
     this._form = form;
     this._options = options;
     this._parent = parent;
@@ -181,7 +181,7 @@ describe('form', () => {
       error: jest.fn(),
     };
 
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const spy = jest.spyOn(console, 'error').mockImplementation(() => { });
 
     createForm();
 
@@ -623,5 +623,65 @@ describe('form', () => {
     });
     expect(form.getGroups()).toHaveProperty(GROUP_ID);
     expect(form.getGroup(GROUP_ID)).toBeDefined();
+  });
+
+  it('removes data without prefix mapping', () => {
+    const form = createForm({
+      schema: [
+        {
+          type: GROUP_TYPE_GROUP,
+          id: GROUP_ID,
+        },
+      ],
+    });
+
+    form.setData('testId', 'testData')
+    expect(form.getData()['testId']).toBe('testData');
+    form.removeData('testId');
+    expect(form.getData()['testId']).toBeUndefined();
+  });
+
+  it('removes data with prefix mapping and a key', () => {
+    registerConstructor('list', dummyListClass, constructorTypes.field);
+    const form = createForm({
+      schema: [
+        {
+          type: 'list',
+          id: 'list1',
+          schema: [
+            { ...baseTextFieldTestOptions },
+          ],
+        },
+      ],
+    });
+    const list1 = form.getField('list1')! as unknown as dummyListClass;
+    list1.build();
+
+    form.setData('list1[dummy-key-1]test-text-field', DEFAULT_STRING_VALUE);
+    expect(form.getData()).toHaveProperty('list1');
+    expect(form.getData()['list1'][0]).toHaveProperty('test-text-field');
+    expect(form.getData()['list1'][0]['test-text-field']).toBe(DEFAULT_STRING_VALUE);
+    form.removeData('list1[dummy-key-1]test-text-field');
+    expect(form.getData()).toHaveProperty('list1');
+    expect(form.getData()['list1'][0]).not.toBeDefined();
+  });
+
+  it('removes data with prefix mapping without key', () => {
+    const form = createForm({
+      schema: [
+        {
+          type: GROUP_TYPE_GROUP,
+          id: 'group1',
+          prefixSchema: true,
+          schema: [{ type: FIELD_TYPE_TEXT, id: 'groupField', default: 'default2' }],
+        },
+      ],
+    });
+
+    form.setData('groupField', DEFAULT_STRING_VALUE);
+    expect(form.getData()['group1']['groupField']).toEqual(DEFAULT_STRING_VALUE);
+    form.removeData('groupField');
+    expect(form.getData()['group1']).not.toBeDefined();
+
   });
 });

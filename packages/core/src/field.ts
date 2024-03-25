@@ -321,8 +321,14 @@ export class Field {
 
   /** Handles the visibility of the field. */
   handleVisibility(): void {
-    if (this._isVisible && !this._isMounted) this.mount();
-    if (!this._isVisible && this._isMounted) this.unmount();
+    if (this._isVisible && !this._isMounted) {
+      this.mount();
+      this._form.setData(this._id, this._value);
+    }
+    if (!this._isVisible && this._isMounted) {
+      this._form.removeData(this._id);
+      this.unmount();
+    }
   }
 
   /** Handles the visibility of the field. */
