@@ -1,3 +1,9 @@
+import {
+  DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  FIELD_TYPE_EMAIL,
+  INPUT_CLASS_DEFAULT,
+  INVALID_EMAIL_VALIDATION_MESSAGE,
+} from '../constants';
 import { Field } from '../field';
 import { Form } from '../form';
 import { FieldOptions } from '../interfaces';
@@ -5,15 +11,15 @@ import { FieldOptions } from '../interfaces';
 export class EmailField extends Field {
   public options: FieldOptions = {
     id: '',
-    type: 'text',
+    type: FIELD_TYPE_EMAIL,
     required: false,
     validation: (value, data, required) => {
-      if (required && !value) return 'This field is required';
-      if (value && typeof value === 'string' && !value.match(this.mailFormat)) return 'Not a valid email address.';
+      if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;
+      if (value && typeof value === 'string' && !value.match(this.mailFormat)) return INVALID_EMAIL_VALIDATION_MESSAGE;
       return true;
     },
     default: '',
-    className: 'form-input',
+    className: INPUT_CLASS_DEFAULT,
   };
 
   public mailFormat = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

@@ -39,20 +39,20 @@ describe('constants and registerConstructor', () => {
     const mockConstructor: pluginConstructor = jest.fn();
 
     it('registers a new field constructor', () => {
-      constantsFile.registerConstructor('testField', mockConstructor, 'field');
+      constantsFile.registerConstructor('testField', mockConstructor, constantsFile.constructorTypes.field);
       expect(constantsFile.fields).toContain('testField');
       expect(constantsFile.elementConstructors['testField']).toBe(mockConstructor);
       expect(useLicensedFetures).not.toHaveBeenCalled();
     });
 
     it('registers a new group constructor', () => {
-      constantsFile.registerConstructor('testGroup', mockConstructor, 'group');
+      constantsFile.registerConstructor('testGroup', mockConstructor, constantsFile.constructorTypes.group);
       expect(constantsFile.groups).toContain('testGroup');
       expect(constantsFile.elementConstructors['testGroup']).toBe(mockConstructor);
     });
 
     it('registers a new button constructor with licensing', () => {
-      constantsFile.registerConstructor('testButton', mockConstructor, 'button', true);
+      constantsFile.registerConstructor('testButton', mockConstructor, constantsFile.constructorTypes.button, true);
       expect(constantsFile.buttons).toContain('testButton');
       expect(constantsFile.elementConstructors['testButton']).toBe(mockConstructor);
       expect(useLicensedFetures).toHaveBeenCalled();

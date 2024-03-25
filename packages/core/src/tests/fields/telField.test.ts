@@ -8,6 +8,7 @@ import {
 } from './../test.options';
 import * as utils from '../../utils';
 import { TelField } from '../../fields';
+import { FIELD_TYPE_TEL } from '../../constants';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -36,7 +37,7 @@ describe('tel-field', () => {
     expect(field.getValue()).toBe(DEFAULT_PHONE_VALUE);
     expect(field.getId()).toBe(TELEPHONE_FIELD_ID);
     expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), TELEPHONE_FIELD_ID));
-    expect(field.getType()).toBe('tel');
+    expect(field.getType()).toBe(FIELD_TYPE_TEL);
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getForm()).toBe(form);
   });

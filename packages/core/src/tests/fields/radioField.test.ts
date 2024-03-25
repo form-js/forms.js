@@ -8,6 +8,7 @@ import {
 } from './../test.options';
 import * as utils from '../../utils';
 import { RadioField } from '../../fields';
+import { FIELD_TYPE_RADIO } from '../../constants';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -36,7 +37,7 @@ describe('radio-field', () => {
     expect(field.getValue()).toBe(RADIO_FIELD_ID_OPTION_1);
     expect(field.getId()).toBe(RADIO_FIELD_ID);
     expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), RADIO_FIELD_ID));
-    expect(field.getType()).toBe('radio');
+    expect(field.getType()).toBe(FIELD_TYPE_RADIO);
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getForm()).toBe(form);
   });

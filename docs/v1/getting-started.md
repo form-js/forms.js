@@ -1,17 +1,17 @@
-<h1 id="introduction">
-     <img alt="Forms.js" style="margin: 0 auto" src="/images/banner.png" />
-</h1>
+<div align="center">
+
+![Forms.js](https://formsjs.io/images/formsjs-banner.png)
+
+</div>
 
 ## Features
 
--   **Usability - create complex forms in 5 minutes**
--   **High ammount of form fields**
--   **Includes smart selects, file inputs, datetime inputs and rich text fields**
--   **Conditional logic**
--   **Validation**
--   **Easy change events**
--   **Extensible**
--   **Accessable, Clean API...**
+- **Rapid Development**: Create complex, interactive forms in minutes.
+- **Comprehensive Field Types**: Includes text, file, date/time, rich text, and more.
+- **Conditional Logic & Validation**: Tailor form behavior and validation to user input.
+- **Event Handling**: Simplified event management for dynamic user experiences.
+- **Extensibility**: Designed for customization and extension.
+- **Accessibility & Clean API**: Ensures ease of use for developers and accessibility for users.
 
 ## Installation
 

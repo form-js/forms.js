@@ -4,17 +4,28 @@ import { Field } from '../field';
 import { Form } from '../form';
 import { DateFieldOptions } from '../interfaces';
 import { FlatpickrFn } from 'flatpickr/dist/types/instance';
+import {
+  CHANGE_ATTRIBUTE,
+  DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  FIELD_TYPE_DATETIME,
+  ID_ATTRIBUTE,
+  INPUT_CLASS_DEFAULT,
+  INPUT_ELEMENT,
+  NAME_ATTRIBUTE,
+  PLACEHOLDER_ATTRIBUTE,
+  TYPE_ATTRIBUTE,
+} from '../constants';
 
 export class DatetimeField extends Field {
   public options: DateFieldOptions = {
     id: '',
-    type: 'datetime',
+    type: FIELD_TYPE_DATETIME,
     required: false,
     validation: (value, data, required) => {
-      if (required && !value) return 'This field is required';
+      if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;
       return true;
     },
-    className: 'form-input',
+    className: INPUT_CLASS_DEFAULT,
     enhance: true,
     options: {
       altInput: true,
@@ -49,19 +60,19 @@ export class DatetimeField extends Field {
 
   bindChange() {
     if (this.inputElement)
-      this.inputElement.addEventListener('change', (event: any) => {
+      this.inputElement.addEventListener(CHANGE_ATTRIBUTE, (event: any) => {
         this.change(event);
       });
   }
 
   createInputElement() {
     // Input element
-    this.inputElement = document.createElement('input');
-    this.inputElement.setAttribute('id', this.getId());
-    this.inputElement.setAttribute('name', this.options.name || this.getId());
-    this.inputElement.setAttribute('type', this.options.enhance ? 'text' : 'datetime-local');
+    this.inputElement = document.createElement(INPUT_ELEMENT);
+    this.inputElement.setAttribute(ID_ATTRIBUTE, this.getId());
+    this.inputElement.setAttribute(NAME_ATTRIBUTE, this.options.name || this.getId());
+    this.inputElement.setAttribute(TYPE_ATTRIBUTE, this.options.enhance ? 'text' : 'datetime-local');
     this.inputElement.className = this.options.className!;
-    if (this.options.placeholder) this.inputElement.setAttribute('placeholder', this.options.placeholder);
+    if (this.options.placeholder) this.inputElement.setAttribute(PLACEHOLDER_ATTRIBUTE, this.options.placeholder);
   }
 
   getValue(): string | null {

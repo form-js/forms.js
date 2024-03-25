@@ -2,6 +2,7 @@ import { ColorField } from './../../fields/colorField';
 import { describe, expect, it, jest } from '@jest/globals';
 import { createForm, baseColorFieldTestOptions, COLOR_FIELD_ID, DEFAULT_COLOR_VALUE } from './../test.options';
 import * as utils from '../../utils';
+import { FIELD_TYPE_COLOR } from '../../constants';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -30,7 +31,7 @@ describe('color-field', () => {
     expect(field.getValue()).toBe(DEFAULT_COLOR_VALUE);
     expect(field.getId()).toBe(COLOR_FIELD_ID);
     expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), COLOR_FIELD_ID));
-    expect(field.getType()).toBe('color');
+    expect(field.getType()).toBe(FIELD_TYPE_COLOR);
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getForm()).toBe(form);
   });

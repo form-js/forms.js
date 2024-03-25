@@ -1,3 +1,9 @@
+import {
+  CHANGE_ATTRIBUTE,
+  COLOR_CLASS_DEFAULT,
+  DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  FIELD_TYPE_COLOR,
+} from '../constants';
 import { Field } from '../field';
 import { Form } from '../form';
 import { FieldOptions } from '../interfaces';
@@ -5,14 +11,14 @@ import { FieldOptions } from '../interfaces';
 export class ColorField extends Field {
   public options: FieldOptions = {
     id: '',
-    type: 'color',
+    type: FIELD_TYPE_COLOR,
     required: false,
     validation: (value, data, required) => {
-      if (required && !value) return 'This field is required';
+      if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;
       return true;
     },
     default: null,
-    className: 'form-input-color',
+    className: COLOR_CLASS_DEFAULT,
   };
 
   constructor(parent: HTMLElement, form: Form, options: FieldOptions) {
@@ -24,7 +30,7 @@ export class ColorField extends Field {
 
   bindChange() {
     if (this.inputElement)
-      this.inputElement.addEventListener('change', (event: any) => {
+      this.inputElement.addEventListener(CHANGE_ATTRIBUTE, (event: any) => {
         this.change(event);
       });
   }

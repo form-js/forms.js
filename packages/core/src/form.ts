@@ -1,6 +1,17 @@
 import {
+  ACTION_ATTRIBUTE,
+  DIV_ELEMENT,
+  FORM_CLASS_DEFAULT,
+  FORM_ELEMENT,
+  HREF_ATTRIBUTE,
+  ID_ATTRIBUTE,
   LICENSE_STATE,
+  LINK_ELEMENT,
+  METHOD_ATTRIBUTE,
   PACKAGE_LICENSE_URL,
+  RESET_ATTRIBUTE,
+  SPAN_ELEMENT,
+  SUBMIT_ATTRIBUTE,
   constructorTypes,
   elementConstructors,
   licensePlateClass,
@@ -15,7 +26,6 @@ import {
   processLicenseKey,
   setLicenseKey,
   transformFieldName,
-  unmountElement,
   usesLicensedFetures,
 } from './utils';
 import { FormOptions } from './interfaces';
@@ -28,7 +38,7 @@ export class Form {
     schema: [],
     action: null,
     method: null,
-    className: 'formjs-form',
+    className: FORM_CLASS_DEFAULT,
   };
 
   private _parent: HTMLElement | null = null;
@@ -132,7 +142,7 @@ export class Form {
    * @returns The created wrapper element.
    */
   private createWrapper(parent: HTMLElement): HTMLElement {
-    const wrapper = document.createElement('div');
+    const wrapper = document.createElement(DIV_ELEMENT);
     mountElement(wrapper, parent);
     return wrapper;
   }
@@ -291,6 +301,44 @@ export class Form {
       this.setSimpleData(id, value);
     }
     this.update();
+  }
+
+  removeData(id: string): void {
+    if (Object.prototype.hasOwnProperty.call(this._dataPrefixMap, id)) {
+      this.removeMappedData(id);
+    } else {
+      delete this._data[id];
+    }
+  }
+
+  private removeMappedData(id: string) {
+    const fieldMapping = this._dataPrefixMap[id];
+    const { dataKey, key, id: prefixDataId } = fieldMapping;
+
+    // Ensure all necessary properties exist
+    if (!dataKey || !prefixDataId) return;
+
+    if (key) {
+      const list = this.getField(prefixDataId);
+      if (!list || !list.getKeyIndex) return;
+      const prefixId = list.getId();
+      const keyIndex = list.getKeyIndex(key);
+      delete this._data[prefixId][keyIndex][dataKey];
+      if (
+        typeof this._data[prefixId][keyIndex] === 'object' &&
+        Object.keys(this._data[prefixId][keyIndex]).length === 0
+      ) {
+        delete this._data[prefixId][keyIndex];
+      }
+    } else {
+      const group = this.getGroup(prefixDataId);
+      if (!group) return;
+      const prefixId = group.getId();
+      delete this._data[prefixId][dataKey];
+      if (typeof this._data[prefixId] === 'object' && Object.keys(this._data[prefixId]).length === 0) {
+        delete this._data[prefixId];
+      }
+    }
   }
 
   private setDataFromMap(id: string, value: FieldValue) {
@@ -482,22 +530,22 @@ export class Form {
    * Initializes the form's GUI elements.
    */
   onGui(): void {
-    this._formElement = document.createElement('form');
-    this._formElement.setAttribute('id', this._id);
+    this._formElement = document.createElement(FORM_ELEMENT);
+    this._formElement.setAttribute(ID_ATTRIBUTE, this._id);
     this._formElement.className = this.options.className!;
-    if (this.options.action) this._formElement.setAttribute('action', this.options.action);
-    if (this.options.method) this._formElement.setAttribute('method', this.options.method);
-    this._formElement.addEventListener('submit', (event: SubmitEvent) => this.submit(event, this));
-    this._formElement.addEventListener('reset', this.reset);
+    if (this.options.action) this._formElement.setAttribute(ACTION_ATTRIBUTE, this.options.action);
+    if (this.options.method) this._formElement.setAttribute(METHOD_ATTRIBUTE, this.options.method);
+    this._formElement.addEventListener(SUBMIT_ATTRIBUTE, (event: SubmitEvent) => this.submit(event, this));
+    this._formElement.addEventListener(RESET_ATTRIBUTE, this.reset);
     if (usesLicensedFetures() && !this.hasValidLicense()) this.createInvalidElement();
   }
 
   private createInvalidElement() {
-    const invalid = document.createElement('a');
-    invalid.setAttribute('href', PACKAGE_LICENSE_URL);
+    const invalid = document.createElement(LINK_ELEMENT);
+    invalid.setAttribute(HREF_ATTRIBUTE, PACKAGE_LICENSE_URL);
     invalid.className = licensePlateClass;
     invalid.style.cssText = licensePlateStyle;
-    const text = document.createElement('span');
+    const text = document.createElement(SPAN_ELEMENT);
     text.innerText = getLicenseText(this._licenseState);
     mountElement(text, invalid);
     if (this._parent) mountElement(invalid, this._parent);

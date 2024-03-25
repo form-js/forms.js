@@ -1,3 +1,9 @@
+import {
+  DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  FIELD_TYPE_URL,
+  INPUT_CLASS_DEFAULT,
+  INVALID_URL_VALIDATION_MESSAGE,
+} from '../constants';
 import { Field } from '../field';
 import { Form } from '../form';
 import { FieldOptions } from '../interfaces';
@@ -5,15 +11,15 @@ import { FieldOptions } from '../interfaces';
 export class UrlField extends Field {
   public options: FieldOptions = {
     id: '',
-    type: 'url',
+    type: FIELD_TYPE_URL,
     required: false,
     validation: (value, data, required) => {
-      if (required && !value) return 'This field is required';
-      if (value && typeof value === 'string' && !value.match(this.urlFormat)) return 'Not a valid url address.';
+      if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;
+      if (value && typeof value === 'string' && !value.match(this.urlFormat)) return INVALID_URL_VALIDATION_MESSAGE;
       return true;
     },
     default: '',
-    className: 'form-input',
+    className: INPUT_CLASS_DEFAULT,
   };
 
   public urlFormat =

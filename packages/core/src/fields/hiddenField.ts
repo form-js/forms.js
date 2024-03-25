@@ -1,12 +1,22 @@
 import { Form } from '../form';
-import { generateFieldSaveKey, isJson, mountElement, unmountElement } from '../utils';
+import { generateFieldSaveKey, getOverwritenDefaults, isJson, mountElement, unmountElement } from '../utils';
 import { FieldOptions } from '../interfaces';
 import { FieldValue } from '../types';
+import {
+  CONTAINER_DEFINITION,
+  DIV_ELEMENT,
+  FIELD_CLASS_DEFAULT,
+  FIELD_TYPE_HIDDEN,
+  ID_ATTRIBUTE,
+  INPUT_ELEMENT,
+  NAME_ATTRIBUTE,
+  TYPE_ATTRIBUTE,
+} from '../constants';
 
 export class HiddenField {
   public options: FieldOptions = {
     id: '',
-    type: 'hidden',
+    type: FIELD_TYPE_HIDDEN,
     default: null,
   };
 
@@ -35,7 +45,7 @@ export class HiddenField {
   }
 
   initializeOptions(options: FieldOptions) {
-    this.options = Object.assign({}, this.options, options);
+    this.options = Object.assign({}, this.options, getOverwritenDefaults(this.options.type, options));
   }
 
   async initialize(): Promise<void> {
@@ -73,17 +83,17 @@ export class HiddenField {
 
   createContainerElement() {
     // Container element
-    this.containerElement = document.createElement('div');
-    this.containerElement.className = 'form-field ' + this.getType();
-    this.containerElement.setAttribute('id', this.getId() + '_container');
+    this.containerElement = document.createElement(DIV_ELEMENT);
+    this.containerElement.className = FIELD_CLASS_DEFAULT + ' ' + this.getType();
+    this.containerElement.setAttribute(ID_ATTRIBUTE, this.getId() + CONTAINER_DEFINITION);
   }
 
   createInputElement() {
     // Input element
-    this.inputElement = document.createElement('input');
-    this.inputElement.setAttribute('id', this.getId());
-    this.inputElement.setAttribute('name', this.options.name || this.getId());
-    this.inputElement.setAttribute('type', this.getType());
+    this.inputElement = document.createElement(INPUT_ELEMENT);
+    this.inputElement.setAttribute(ID_ATTRIBUTE, this.getId());
+    this.inputElement.setAttribute(NAME_ATTRIBUTE, this.options.name || this.getId());
+    this.inputElement.setAttribute(TYPE_ATTRIBUTE, this.getType());
   }
 
   getId() {

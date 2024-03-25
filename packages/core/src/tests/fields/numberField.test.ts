@@ -2,6 +2,7 @@ import { describe, expect, it, jest } from '@jest/globals';
 import { createForm, baseNumberFieldTestOptions, NUMBER_FIELD_ID, DEFAULT_NUMBER_VALUE } from './../test.options';
 import * as utils from '../../utils';
 import { NumberField } from '../../fields';
+import { FIELD_TYPE_NUMBER } from '../../constants';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -30,7 +31,7 @@ describe('number-field', () => {
     expect(field.getValue()).toBe(DEFAULT_NUMBER_VALUE);
     expect(field.getId()).toBe(NUMBER_FIELD_ID);
     expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), NUMBER_FIELD_ID));
-    expect(field.getType()).toBe('number');
+    expect(field.getType()).toBe(FIELD_TYPE_NUMBER);
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getForm()).toBe(form);
   });

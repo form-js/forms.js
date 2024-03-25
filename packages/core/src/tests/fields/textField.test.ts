@@ -14,7 +14,7 @@ import { Field } from '../../field';
 import { FormOptions } from '../../interfaces';
 import { Form } from '../../index';
 import { HTMLElementEvent } from '../../types';
-import { LICENSE_STATE } from '../../constants';
+import { FIELD_TYPE_TEXT, LICENSE_STATE } from '../../constants';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -57,7 +57,7 @@ describe('text-field', () => {
     expect(field.getValue()).toBe(null);
     expect(field.getId()).toBe(TEXT_FIELD_ID);
     expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), TEXT_FIELD_ID));
-    expect(field.getType()).toBe('text');
+    expect(field.getType()).toBe(FIELD_TYPE_TEXT);
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getValidity()).toBe(null);
     expect(field.isDisabled()).toBeFalsy();

@@ -9,6 +9,7 @@ import {
 import * as utils from '../../utils';
 import { SelectField } from '../../fields';
 import { HTMLElementEvent } from '../../types';
+import { FIELD_TYPE_SELECT } from '../../constants';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -37,7 +38,7 @@ describe('select-field', () => {
     expect(field.getValue()).toBe(DEFAULT_SELECT_VALUE);
     expect(field.getId()).toBe(SELECT_FIELD_ID);
     expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), SELECT_FIELD_ID));
-    expect(field.getType()).toBe('select');
+    expect(field.getType()).toBe(FIELD_TYPE_SELECT);
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getTomselect()).toBeNull();
     expect(field.getForm()).toBe(form);

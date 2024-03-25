@@ -8,6 +8,7 @@ import {
 } from './../test.options';
 import * as utils from '../../utils';
 import { EmailField } from '../../fields';
+import { FIELD_TYPE_EMAIL } from '../../constants';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -36,7 +37,7 @@ describe('email-field', () => {
     expect(field.getValue()).toBe(DEFAULT_EMAIL_VALUE);
     expect(field.getId()).toBe(EMAIL_FIELD_ID);
     expect(field.getSaveKey()).toBe(utils.generateFieldSaveKey(form.getId(), EMAIL_FIELD_ID));
-    expect(field.getType()).toBe('email');
+    expect(field.getType()).toBe(FIELD_TYPE_EMAIL);
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getForm()).toBe(form);
   });

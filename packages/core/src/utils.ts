@@ -1,4 +1,7 @@
 import {
+  DIV_ELEMENT,
+  FIELD_KEY_DEFINITION,
+  FORMSJS_KEY_DEFINITION,
   INVALID_CONSOLE_TEXT,
   INVALID_LICENSE_TEXT,
   LICENSE_STATE,
@@ -16,12 +19,13 @@ import {
   fields,
   groups,
 } from './constants';
-import { Group } from './group';
-import { GroupOptions } from './interfaces';
+import { FieldOptions } from './interfaces';
 import { Schema, FormData, ParsedCondition, Operator, FieldValue } from './types';
 
 let LICENSE_KEY: string | null = null;
 let USES_LICENSED_FETURES: boolean = false;
+
+const OVEWRITE_DEFAULT_OPTIONS: Record<string, FieldOptions> = {};
 
 /**
  * Creates a debounced function that delays invoking the provided callback.
@@ -155,7 +159,7 @@ export const extractFieldsFromSchema = (schema: Schema): string[] => {
  * @returns The created wrapper element.
  */
 export const createWrapper = (parent: HTMLElement): HTMLElement => {
-  const wrapper = document.createElement('div');
+  const wrapper = document.createElement(DIV_ELEMENT);
   mountElement(wrapper, parent);
   return wrapper;
 };
@@ -177,7 +181,7 @@ export const transformFieldName = (parentId: string, key: string, id: string): s
  * @param id - field id.
  */
 export const generateFieldSaveKey = (formId: string, id: string): string => {
-  return '__formsjs_' + formId + '_field_' + id;
+  return FORMSJS_KEY_DEFINITION + formId + FIELD_KEY_DEFINITION + id;
 };
 
 const isDateValid = (d: unknown): d is Date => d instanceof Date && !isNaN(d as unknown as number);
@@ -348,4 +352,15 @@ export const isJson = (str: string): boolean => {
     return false;
   }
   return true;
+};
+
+export const overwriteDefaults = (type: string, defaults: FieldOptions): void => {
+  OVEWRITE_DEFAULT_OPTIONS[type] = defaults;
+};
+
+export const getOverwritenDefaults = (type: string, defaults: FieldOptions): FieldOptions => {
+  if (Object.keys(OVEWRITE_DEFAULT_OPTIONS).includes(type)) {
+    return Object.assign({}, defaults, OVEWRITE_DEFAULT_OPTIONS[type]);
+  }
+  return defaults;
 };

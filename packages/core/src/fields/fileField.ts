@@ -2,19 +2,32 @@ import { FilePond, create as createFilepond, FilePondFile } from 'filepond';
 import { Field } from '../field';
 import { Form } from '../form';
 import { FileFieldOptions } from '../interfaces';
-import { debounce } from '../utils';
+import { debounce, getOverwritenDefaults } from '../utils';
 import { HTMLElementEvent } from '../types';
+import {
+  ACCEPT_ATTRIBUTE,
+  CHANGE_ATTRIBUTE,
+  DEFAULT_REQUIRED_VALIDATION_MESSAGE,
+  FIELD_TYPE_FILE,
+  ID_ATTRIBUTE,
+  INPUT_CLASS_DEFAULT,
+  INPUT_ELEMENT,
+  MULTIPLE_ATTRIBUTE,
+  NAME_ATTRIBUTE,
+  PLACEHOLDER_ATTRIBUTE,
+  TYPE_ATTRIBUTE,
+} from '../constants';
 
 export class FileField extends Field {
   public options: FileFieldOptions = {
     id: '',
-    type: 'file',
+    type: FIELD_TYPE_FILE,
     required: false,
     validation: (value, data, required) => {
-      if (required && !value) return 'This field is required';
+      if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;
       return true;
     },
-    className: 'form-input',
+    className: INPUT_CLASS_DEFAULT,
     enhance: true,
     multiple: false,
     debounce: 50,
@@ -53,7 +66,7 @@ export class FileField extends Field {
           options: { allowMultiple: options.multiple },
         },
       },
-      options,
+      getOverwritenDefaults(this.options.type, options),
     );
   }
 
@@ -66,14 +79,14 @@ export class FileField extends Field {
 
   createInputElement() {
     // Input element
-    this.inputElement = document.createElement('input');
-    this.inputElement.setAttribute('id', this.getId());
-    this.inputElement.setAttribute('name', this.options.name || this.getId());
-    this.inputElement.setAttribute('type', this.getType());
-    if (this.options.placeholder) this.inputElement.setAttribute('placeholder', this.options.placeholder);
+    this.inputElement = document.createElement(INPUT_ELEMENT);
+    this.inputElement.setAttribute(ID_ATTRIBUTE, this.getId());
+    this.inputElement.setAttribute(NAME_ATTRIBUTE, this.options.name || this.getId());
+    this.inputElement.setAttribute(TYPE_ATTRIBUTE, this.getType());
+    if (this.options.placeholder) this.inputElement.setAttribute(PLACEHOLDER_ATTRIBUTE, this.options.placeholder);
     this.inputElement.className = this.options.className!;
-    if (this.options.multiple && !this.options.enhance) this.inputElement.setAttribute('multiple', 'true');
-    if (this.options.accept) this.inputElement.setAttribute('accept', this.options.accept);
+    if (this.options.multiple && !this.options.enhance) this.inputElement.setAttribute(MULTIPLE_ATTRIBUTE, 'true');
+    if (this.options.accept) this.inputElement.setAttribute(ACCEPT_ATTRIBUTE, this.options.accept);
   }
 
   getFilepond() {
@@ -105,7 +118,7 @@ export class FileField extends Field {
         this.filePondChange(files);
       });
     } else {
-      this.inputElement?.addEventListener('change', debounce(this.change, this.options.debounce!, this));
+      this.inputElement?.addEventListener(CHANGE_ATTRIBUTE, debounce(this.change, this.options.debounce!, this));
     }
   }
 
