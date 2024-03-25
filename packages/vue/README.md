@@ -1,16 +1,19 @@
-<h1 id="introduction">
-    <a href="https://formsjs.io/" target="_blank">
-        <img alt="Forms.js" style="margin: 0 auto" src="https://formsjs.io/images/banner.png" />
-    </a>
-</h1>
+<div align="center">
 
-### Forms.js Vue Component
+![Forms.js](https://formsjs.io/images/formsjs-banner.png)
+
+</div>
+
+<p align="center">
+    <a href="https://formsjs.io/"><b>Website</b></a> •
+    <a href="https://formsjs.io/documentation/v1/getting-started"><b>Documentation</b></a>
+</p>
+
+# Forms.js Vue Component
 
 The official <a href="https://vuejs.org/" target="_blank">Vue</a> component for <a href="https://formsjs.io/" target="_blank">Forms.js</a>
 
-<a href="https://formsjs.io/documentation/v1/vue" target="_blank">
-    Documentation
-</a>
+[Get Started with Forms.js](https://formsjs.io/documentation/v1/getting-started) ⚡️
 
 <h2 id="instalation">Instalation</h2>
 
@@ -55,17 +58,18 @@ export default {
 </template>
 ```
 
-### For more information:
+Dive deeper into Forms.js with the [official documentation](https://formsjs.io/documentation/v1/getting-started)
 
-<a href="https://formsjs.io/documentation/v1/vue" target="_blank">
-    Take a look at official documentation!
-</a>
 
-### Support the project:
+Support Forms.js Development:
 
-<p><a href="https://ko-fi.com/formsjs"> <img align="left" src="https://cdn.ko-fi.com/cdn/kofi3.png?v=3" height="50" width="210" alt="myaccount" /></a></p><br/>
+[![Support on Ko-fi](https://cdn.ko-fi.com/cdn/kofi3.png?v=3)](https://ko-fi.com/formsjs)
 
-<h3 id="license">License</h3>
+## Contributing
+
+If you want to contribute look at <a class="link" target="_blank" href="https://github.com/form-js/forms.js/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a>.
+
+## License
 
 Core bundle released under MIT license. This license permits a wide range of use, including free use in commercial projects, assuming all copyright headers are preserved. [Read the license terms](https://opensource.org/license/mit/)
 
