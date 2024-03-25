@@ -23,7 +23,7 @@ export class dummyGroupClass {
   constructor(parent: HTMLElement, form: Form, options: GroupOptions) {
     this.save = groupSaveMock;
     this.load = groupLoadMock;
-    this.update = () => { };
+    this.update = () => {};
   }
 
   save: () => void;
@@ -42,7 +42,7 @@ export class dummyListClass {
   private _parent: HTMLElement;
 
   constructor(parent: HTMLElement, form: Form, options: GroupOptions) {
-    this.update = () => { };
+    this.update = () => {};
     this.assignButton = listButtonMock;
     this.assignGroup = listGroupMock;
     this.assignField = listFieldMock;
@@ -75,7 +75,7 @@ export class dummyListClassNoAssign {
   private _parent: HTMLElement;
 
   constructor(parent: HTMLElement, form: Form, options: GroupOptions) {
-    this.update = () => { };
+    this.update = () => {};
     this._form = form;
     this._options = options;
     this._parent = parent;
@@ -181,7 +181,7 @@ describe('form', () => {
       error: jest.fn(),
     };
 
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => { });
+    const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
     createForm();
 
@@ -635,7 +635,7 @@ describe('form', () => {
       ],
     });
 
-    form.setData('testId', 'testData')
+    form.setData('testId', 'testData');
     expect(form.getData()['testId']).toBe('testData');
     form.removeData('testId');
     expect(form.getData()['testId']).toBeUndefined();
@@ -648,9 +648,7 @@ describe('form', () => {
         {
           type: 'list',
           id: 'list1',
-          schema: [
-            { ...baseTextFieldTestOptions },
-          ],
+          schema: [{ ...baseTextFieldTestOptions }],
         },
       ],
     });
@@ -682,6 +680,5 @@ describe('form', () => {
     expect(form.getData()['group1']['groupField']).toEqual(DEFAULT_STRING_VALUE);
     form.removeData('groupField');
     expect(form.getData()['group1']).not.toBeDefined();
-
   });
 });
