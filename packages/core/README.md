@@ -23,9 +23,9 @@
 
 </div>
 
-# Forms.js - Elevate Your Form Creation Experience
+# Forms.js - Streamline web forms
 
-**Forms.js** is an advanced, lightweight JavaScript library designed to revolutionize form creation and management. Utilizing JSON for data input, it effortlessly generates dynamic, user-centric forms, offering an unparalleled development experience.
+**Forms.js** is an advanced, lightweight JavaScript library designed to ease form creation and management. Utilizing JSON for data input, it generates dynamic, user-centric forms, offering an unparalleled development experience.
 
 [Get Started with Forms.js](https://formsjs.io/documentation/v1/getting-started) ⚡️
 
