@@ -5,7 +5,7 @@
 The options object can include the following properties (you can find full list below):
 
 -   `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
--   `template: string` - Defines html content of static field.
+-   `template: string | (() => HTMLElement)` - Defines string content or function that returns HTML content of static field.
 
 <iframe height="400" style="width: 100%;" scrolling="no" title="forms.js - static example" src="https://codepen.io/trilmatic/embed/NWomBOb?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
   See the Pen <a href="https://codepen.io/trilmatic/pen/NWomBOb">
@@ -73,7 +73,7 @@ conditions: (value: FieldValue, data: FormData) => boolean;
   </thead>
   <tbody>
     <tr>
-      <td><code>setTemplate(template: string, save?: boolean): void</code></td>
+      <td><code>setTemplate(template: string | (() => HTMLElement), save?: boolean): void</code></td>
       <td>Sets new field template.</td>
     </tr>
     <tr>

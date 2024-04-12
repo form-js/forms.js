@@ -113,7 +113,12 @@ export class Button {
     this.buttonElement.className = this.options.className!;
     this.buttonElement.setAttribute(ID_ATTRIBUTE, this._id);
     this.buttonElement.setAttribute(TYPE_ATTRIBUTE, this.options.buttonType);
-    this.buttonElement.innerHTML = this.options.template;
+    if (typeof this.options.template === 'string') {
+      this.buttonElement.innerText = this.options.template;
+    } else if (typeof this.options.template === 'function') {
+      this.buttonElement.innerHTML = '';
+      this.buttonElement.append(this.options.template());
+    }
     this.buttonElement.addEventListener(CLICK_ATTRIBUTE, (event: MouseEvent): void => this.onClick(event));
   }
 

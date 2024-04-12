@@ -170,7 +170,12 @@ export class Tab {
     this.headerElement.setAttribute('role', 'tab');
     this.headerElement.setAttribute('aria-controls', this._id + '_body');
     this.headerElement.className = 'tab-header';
-    this.headerElement.innerHTML = this.options.label;
+    if (typeof this.options.label === 'string') {
+      this.headerElement.innerText = this.options.label;
+    } else if (typeof this.options.label === 'function') {
+      this.headerElement.innerHTML = '';
+      this.headerElement.append(this.options.label());
+    }
   }
 
   /**
@@ -381,7 +386,7 @@ export class Tab {
 
 export interface TabOptions {
   id: string;
-  label: string;
+  label: string | (() => HTMLElement);
   conditions?: ((data: FormData) => boolean) | string;
   validation?: ((fields: string[], form: Form) => true | string) | string;
   disabled?: ((data: FormData) => boolean) | boolean | string;

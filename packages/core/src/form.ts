@@ -535,7 +535,7 @@ export class Form {
     this._formElement.className = this.options.className!;
     if (this.options.action) this._formElement.setAttribute(ACTION_ATTRIBUTE, this.options.action);
     if (this.options.method) this._formElement.setAttribute(METHOD_ATTRIBUTE, this.options.method);
-    this._formElement.addEventListener(SUBMIT_ATTRIBUTE, (event: SubmitEvent) => this.submit(event, this));
+    this._formElement.addEventListener(SUBMIT_ATTRIBUTE, (event: SubmitEvent) => this.submit(event));
     this._formElement.addEventListener(RESET_ATTRIBUTE, this.reset);
     if (usesLicensedFetures() && !this.hasValidLicense()) this.createInvalidElement();
   }
@@ -556,22 +556,22 @@ export class Form {
    * @param event - The event that triggered the submission.
    * @param form - The current form instance.
    */
-  submit(event: SubmitEvent, form: Form): void {
-    event.preventDefault();
-    form.validate();
+  submit(event?: SubmitEvent): void {
+    if(!this.options.action) event?.preventDefault();
+    this.validate();
 
-    if (!form.isValid()) {
+    if (!this.isValid()) {
       return;
     }
     if (this.options.action) {
       const element = this.getFormElement();
       if (element) element.submit();
     }
-    let data = form.getData();
+    let data = this.getData();
     if (this.options.useFormData) {
-      data = objectToFormData(form.getData());
+      data = objectToFormData(this.getData());
     }
-    if (form.options.submit) form.options.submit(data);
+    if (this.options.submit) this.options.submit(data);
   }
 
   /**

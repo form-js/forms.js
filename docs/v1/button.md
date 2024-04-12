@@ -5,7 +5,7 @@
 The options object can include the following properties (you can find full list below):
 
 -   `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
--   `template: string` - Button template, it can be just text or html string.
+-   `template: string | (() => HTMLElement)` - Button template, it can be just string or an function that returns HTML element.
 -   `buttonType: 'submit' | 'reset' | 'button'` - Defines a button type attribute.
 -   `click: (event: MouseEvent, data: FormData) => void;` - Defines custom on click function. Form `data` are passed into the function.
 
@@ -52,7 +52,7 @@ click: (event: MouseEvent, data: FormData) => void;
     <tr>
       <td><code>template</code></td>
       <td>string</td>
-      <td>Button template, it can be just text or html string.</td>
+      <td>Button template, it can be just string or an function that returns HTML element.</td>
     </tr>
     <tr>
       <td><code>conditions</code></td>

@@ -62,7 +62,7 @@ describe('Button', () => {
     expect(button.containerElement).toBeDefined();
     expect(button.buttonElement).toBeDefined();
     expect(button.containerElement?.className).toBe('form-button-container');
-    expect(button.buttonElement?.innerHTML).toBe(buttonOptions.template);
+    expect(button.buttonElement?.innerText).toBe(buttonOptions.template);
   });
 
   it('handles button click events', () => {

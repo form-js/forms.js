@@ -133,10 +133,18 @@ export class StaticField {
    * Sets new htm template
    * @param template is a html valid string.
    */
-  setTemplate(template: string, save: boolean = true): void {
-    this._value = template;
-    if (this.staticElement) this.staticElement.innerHTML = template;
-    if (save) this.save();
+  setTemplate(template: string | (() => HTMLElement), save: boolean = true): void {
+    if (this.staticElement) {
+      if (typeof template === 'string') {
+        this._value = template;
+        this.staticElement.innerText = template;
+      } else if (typeof template === 'function') {
+        this._value = template() as unknown as string;
+        this.staticElement.innerHTML = '';
+        this.staticElement.append(template());
+      }
+      if (save) this.save();
+    }
   }
 
   /** Creates a container element for the field. */

@@ -201,6 +201,10 @@ You can do so by setting the `saveProgress` option to true. Saved values are res
       <td>Resets all elements of the form.</td>
     </tr>
     <tr>
+      <td><code>submit(event?)</code></td>
+      <td>Submits the form manually.</td>
+    </tr>
+    <tr>
       <td><code>validate()</code></td>
       <td>Validates all fields of the form.</td>
     </tr>

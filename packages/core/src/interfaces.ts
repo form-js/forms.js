@@ -42,7 +42,7 @@ export interface GroupOptions {
 
 export interface ButtonOptions {
   id: string;
-  template: string;
+  template: string | (() => HTMLElement);
   buttonType: 'submit' | 'reset' | 'button';
   type: typeof BUTTON_TYPE_BUTTON;
   conditions?: ((data: FormData) => boolean) | string;
@@ -70,7 +70,7 @@ export interface StaticFieldOptions {
   id: string;
   type: typeof FIELD_TYPE_STATIC;
   conditions?: ((value: FieldValue, data: FormData) => boolean) | string;
-  template: string;
+  template: string | (() => HTMLElement);
   className?: string;
 }
 
