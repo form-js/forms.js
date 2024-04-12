@@ -237,7 +237,7 @@ describe('form', () => {
     const mockPreventDefault = jest.fn();
     const mockEvent = { preventDefault: mockPreventDefault } as unknown as SubmitEvent;
 
-    form.submit(mockEvent, form);
+    form.submit(mockEvent);
     expect(mockPreventDefault).toHaveBeenCalled();
   });
 
@@ -372,7 +372,7 @@ describe('form', () => {
     const formElement = form.getFormElement()!;
     formElement.submit = jest.fn();
 
-    form.submit(mockEvent, form);
+    form.submit(mockEvent);
 
     expect(mockPreventDefault).toHaveBeenCalled();
     expect(formElement.submit).toHaveBeenCalled();

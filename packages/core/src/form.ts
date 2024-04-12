@@ -557,7 +557,7 @@ export class Form {
    * @param form - The current form instance.
    */
   submit(event?: SubmitEvent): void {
-    if (!this.options.action) event?.preventDefault();
+    event?.preventDefault();
     this.validate();
 
     if (!this.isValid()) {

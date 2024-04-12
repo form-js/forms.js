@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1711377695297" clover="3.2.0">
-  <project timestamp="1711377695297" name="All files">
-    <metrics statements="1612" coveredstatements="1598" conditionals="708" coveredconditionals="674" methods="394" coveredmethods="367" elements="2714" coveredelements="2639" complexity="0" loc="1612" ncloc="1612" packages="3" files="28" classes="28"/>
+<coverage generated="1712944313964" clover="3.2.0">
+  <project timestamp="1712944313964" name="All files">
+    <metrics statements="1622" coveredstatements="1601" conditionals="714" coveredconditionals="676" methods="394" coveredmethods="367" elements="2730" coveredelements="2644" complexity="0" loc="1622" ncloc="1622" packages="3" files="28" classes="28"/>
     <package name="src">
-      <metrics statements="840" coveredstatements="838" conditionals="337" coveredconditionals="325" methods="216" coveredmethods="192"/>
+      <metrics statements="844" coveredstatements="839" conditionals="340" coveredconditionals="326" methods="216" coveredmethods="192"/>
       <file name="button.ts" path="C:\www\forms.js\packages\core\src\button.ts">
-        <metrics statements="54" coveredstatements="54" conditionals="18" coveredconditionals="18" methods="21" coveredmethods="21"/>
+        <metrics statements="58" coveredstatements="55" conditionals="21" coveredconditionals="19" methods="21" coveredmethods="21"/>
         <line num="2" count="25" type="stmt"/>
         <line num="11" count="25" type="stmt"/>
         <line num="22" count="25" type="stmt"/>
@@ -39,27 +39,31 @@
         <line num="113" count="14" type="stmt"/>
         <line num="114" count="14" type="stmt"/>
         <line num="115" count="14" type="stmt"/>
-        <line num="116" count="14" type="stmt"/>
+        <line num="116" count="14" type="cond" truecount="1" falsecount="1"/>
         <line num="117" count="14" type="stmt"/>
+        <line num="118" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="119" count="0" type="stmt"/>
+        <line num="120" count="0" type="stmt"/>
         <line num="122" count="14" type="stmt"/>
-        <line num="123" count="14" type="stmt"/>
-        <line num="124" count="14" type="cond" truecount="3" falsecount="0"/>
-        <line num="129" count="11" type="cond" truecount="1" falsecount="0"/>
-        <line num="130" count="11" type="stmt"/>
-        <line num="135" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="136" count="2" type="stmt"/>
-        <line num="141" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="146" count="24" type="cond" truecount="3" falsecount="0"/>
-        <line num="147" count="24" type="cond" truecount="3" falsecount="0"/>
-        <line num="155" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="160" count="16" type="stmt"/>
-        <line num="165" count="24" type="stmt"/>
-        <line num="166" count="24" type="stmt"/>
-        <line num="171" count="24" type="cond" truecount="1" falsecount="0"/>
-        <line num="172" count="15" type="cond" truecount="2" falsecount="0"/>
-        <line num="173" count="6" type="stmt"/>
-        <line num="174" count="9" type="cond" truecount="1" falsecount="0"/>
-        <line num="175" count="4" type="stmt"/>
+        <line num="127" count="14" type="stmt"/>
+        <line num="128" count="14" type="stmt"/>
+        <line num="129" count="14" type="cond" truecount="3" falsecount="0"/>
+        <line num="134" count="11" type="cond" truecount="1" falsecount="0"/>
+        <line num="135" count="11" type="stmt"/>
+        <line num="140" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="141" count="2" type="stmt"/>
+        <line num="146" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="151" count="24" type="cond" truecount="3" falsecount="0"/>
+        <line num="152" count="24" type="cond" truecount="3" falsecount="0"/>
+        <line num="160" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="165" count="16" type="stmt"/>
+        <line num="170" count="24" type="stmt"/>
+        <line num="171" count="24" type="stmt"/>
+        <line num="176" count="24" type="cond" truecount="1" falsecount="0"/>
+        <line num="177" count="15" type="cond" truecount="2" falsecount="0"/>
+        <line num="178" count="6" type="stmt"/>
+        <line num="179" count="9" type="cond" truecount="1" falsecount="0"/>
+        <line num="180" count="4" type="stmt"/>
       </file>
       <file name="constants.ts" path="C:\www\forms.js\packages\core\src\constants.ts">
         <metrics statements="133" coveredstatements="133" conditionals="5" coveredconditionals="5" methods="1" coveredmethods="1"/>
@@ -867,7 +871,7 @@
       </file>
     </package>
     <package name="src.fields">
-      <metrics statements="691" coveredstatements="679" conditionals="371" coveredconditionals="349" methods="176" coveredmethods="173"/>
+      <metrics statements="697" coveredstatements="681" conditionals="374" coveredconditionals="350" methods="176" coveredmethods="173"/>
       <file name="checkboxField.ts" path="C:\www\forms.js\packages\core\src\fields\checkboxField.ts">
         <metrics statements="52" coveredstatements="52" conditionals="36" coveredconditionals="36" methods="12" coveredmethods="12"/>
         <line num="1" count="25" type="stmt"/>
@@ -1419,7 +1423,7 @@
         <line num="169" count="26" type="stmt"/>
       </file>
       <file name="staticField.ts" path="C:\www\forms.js\packages\core\src\fields\staticField.ts">
-        <metrics statements="67" coveredstatements="67" conditionals="30" coveredconditionals="29" methods="23" coveredmethods="23"/>
+        <metrics statements="73" coveredstatements="69" conditionals="33" coveredconditionals="30" methods="23" coveredmethods="23"/>
         <line num="2" count="25" type="stmt"/>
         <line num="13" count="25" type="stmt"/>
         <line num="22" count="25" type="stmt"/>
@@ -1450,43 +1454,49 @@
         <line num="113" count="1" type="stmt"/>
         <line num="121" count="4" type="stmt"/>
         <line num="129" count="1" type="stmt"/>
-        <line num="137" count="14" type="stmt"/>
-        <line num="138" count="14" type="cond" truecount="1" falsecount="0"/>
-        <line num="139" count="14" type="cond" truecount="1" falsecount="0"/>
-        <line num="145" count="7" type="stmt"/>
-        <line num="146" count="7" type="stmt"/>
-        <line num="147" count="7" type="stmt"/>
+        <line num="137" count="14" type="cond" truecount="1" falsecount="0"/>
+        <line num="138" count="14" type="cond" truecount="1" falsecount="1"/>
+        <line num="139" count="14" type="stmt"/>
+        <line num="140" count="14" type="stmt"/>
+        <line num="141" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="142" count="0" type="stmt"/>
+        <line num="143" count="0" type="stmt"/>
+        <line num="144" count="0" type="stmt"/>
+        <line num="146" count="14" type="cond" truecount="1" falsecount="0"/>
         <line num="153" count="7" type="stmt"/>
         <line num="154" count="7" type="stmt"/>
         <line num="155" count="7" type="stmt"/>
-        <line num="160" count="7" type="stmt"/>
         <line num="161" count="7" type="stmt"/>
-        <line num="163" count="7" type="cond" truecount="3" falsecount="0"/>
-        <line num="168" count="5" type="cond" truecount="1" falsecount="0"/>
-        <line num="169" count="5" type="stmt"/>
-        <line num="174" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="175" count="1" type="stmt"/>
-        <line num="180" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="185" count="12" type="cond" truecount="3" falsecount="0"/>
-        <line num="186" count="12" type="cond" truecount="3" falsecount="0"/>
-        <line num="191" count="5" type="cond" truecount="4" falsecount="0"/>
-        <line num="192" count="3" type="stmt"/>
-        <line num="198" count="9" type="cond" truecount="3" falsecount="0"/>
-        <line num="199" count="2" type="stmt"/>
-        <line num="200" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="201" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="202" count="1" type="stmt"/>
-        <line num="205" count="8" type="stmt"/>
+        <line num="162" count="7" type="stmt"/>
+        <line num="163" count="7" type="stmt"/>
+        <line num="168" count="7" type="stmt"/>
+        <line num="169" count="7" type="stmt"/>
+        <line num="171" count="7" type="cond" truecount="3" falsecount="0"/>
+        <line num="176" count="5" type="cond" truecount="1" falsecount="0"/>
+        <line num="177" count="5" type="stmt"/>
+        <line num="182" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="183" count="1" type="stmt"/>
+        <line num="188" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="193" count="12" type="cond" truecount="3" falsecount="0"/>
+        <line num="194" count="12" type="cond" truecount="3" falsecount="0"/>
+        <line num="199" count="5" type="cond" truecount="4" falsecount="0"/>
+        <line num="200" count="3" type="stmt"/>
+        <line num="206" count="9" type="cond" truecount="3" falsecount="0"/>
+        <line num="207" count="2" type="stmt"/>
+        <line num="208" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="209" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="210" count="1" type="stmt"/>
-        <line num="211" count="1" type="stmt"/>
-        <line num="212" count="1" type="stmt"/>
-        <line num="217" count="12" type="stmt"/>
-        <line num="218" count="12" type="stmt"/>
-        <line num="223" count="12" type="cond" truecount="1" falsecount="0"/>
-        <line num="224" count="7" type="cond" truecount="2" falsecount="0"/>
-        <line num="225" count="5" type="stmt"/>
-        <line num="226" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="227" count="2" type="stmt"/>
+        <line num="213" count="8" type="stmt"/>
+        <line num="218" count="1" type="stmt"/>
+        <line num="219" count="1" type="stmt"/>
+        <line num="220" count="1" type="stmt"/>
+        <line num="225" count="12" type="stmt"/>
+        <line num="226" count="12" type="stmt"/>
+        <line num="231" count="12" type="cond" truecount="1" falsecount="0"/>
+        <line num="232" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="233" count="5" type="stmt"/>
+        <line num="234" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="235" count="2" type="stmt"/>
       </file>
       <file name="telField.ts" path="C:\www\forms.js\packages\core\src\fields\telField.ts">
         <metrics statements="13" coveredstatements="13" conditionals="7" coveredconditionals="7" methods="3" coveredmethods="3"/>
