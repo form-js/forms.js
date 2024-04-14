@@ -467,6 +467,7 @@ export class Field {
         const validity = this.options.validation(this._value, this._form.getData(), this._isRequired);
         this.setValidationValues(validity);
       } else this._isValid = true;
+      this.handleValidatedField();
     } else this._isValid = true;
     return this._isValid;
   }
@@ -483,7 +484,6 @@ export class Field {
   change(event: HTMLElementEvent<HTMLInputElement>): void {
     this.setValue(event.target.value);
     this.validate();
-    this.handleValidatedField();
     if (this.options.change) this.options.change(this._value);
   }
 }

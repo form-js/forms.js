@@ -484,6 +484,7 @@ export class Form {
       const button = this._buttons[key];
       if (button.reset && typeof button.reset === 'function') button.reset();
     });
+    this._isValid = null;
   }
 
   /**
@@ -494,6 +495,7 @@ export class Form {
       const field = this._fields[key];
       if (field.validate && typeof field.validate === 'function') field.validate();
     });
+    this._isValid = this._errors.length === 0;
   }
 
   /**
@@ -557,15 +559,11 @@ export class Form {
    * @param form - The current form instance.
    */
   submit(event?: SubmitEvent): void {
-    event?.preventDefault();
+    if (!this.options.action && event) event.preventDefault();
     this.validate();
 
     if (!this.isValid()) {
       return;
-    }
-    if (this.options.action) {
-      const element = this.getFormElement();
-      if (element) element.submit();
     }
     let data = this.getData();
     if (this.options.useFormData) {

@@ -374,8 +374,8 @@ describe('form', () => {
 
     form.submit(mockEvent);
 
-    expect(mockPreventDefault).toHaveBeenCalled();
-    expect(formElement.submit).toHaveBeenCalled();
+    expect(mockPreventDefault).not.toHaveBeenCalled();
+    expect(formElement.submit).not.toHaveBeenCalled();
   });
 
   describe('converts object to form data', () => {
