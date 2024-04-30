@@ -133,7 +133,7 @@ describe('formUtils', () => {
     });
 
     it('should return outdated license when key is outdated', () => {
-      setLicenseKey('1234567891@1614267797');
+      setLicenseKey('cUVYnaRFxj@1614267797');
       expect(processLicenseKey()).toEqual(LICENSE_STATE.OUTDATED);
     });
 
