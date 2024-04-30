@@ -27,6 +27,7 @@ import {
   setLicenseKey,
   transformFieldName,
   usesLicensedFetures,
+  useLicensedFetures
 } from './utils';
 import { FormOptions } from './interfaces';
 import { FieldValue, FormElement, Schema, FormData, DataPrefixMap } from './types';
@@ -91,6 +92,10 @@ export class Form {
     this._id = options.id;
     this._schema = options.schema;
     this._saveProgress = options.saveProgress!;
+    if(this._saveProgress){
+      useLicensedFetures();
+    }
+
   }
 
   /**

@@ -192,7 +192,7 @@ const calculateDateAfterAddingDays = (date: Date, days: number): Date => {
   return result;
 };
 
-const parseKey = (key: string) => key.match(/^(\d+)@(\d+)$/);
+const parseKey = (key: string) => key.match(/^([a-zA-Z]+)@(\d+)$/);
 
 const isKeyInLicenseKeys = (key: string) => OS_LICENSE_KEYS.includes(key);
 
