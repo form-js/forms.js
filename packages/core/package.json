@@ -1,6 +1,6 @@
 {
   "name": "@forms.js/core",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Javascript form generator that streamlines web forms",
   "module": "lib/index.js",
   "type": "module",
@@ -20,6 +20,18 @@
     ".": {
       "import": "./lib/index.js",
       "require": "./lib/cjs/index.js"
+    },
+    "./constants": {
+      "import": "./lib/constants.js",
+      "require": "./lib/cjs/constants.js"
+    },
+    "./types": {
+      "import": "./lib/types.d.ts",
+      "require": "./lib/cjs/types.d.ts"
+    },
+    "./interfaces": {
+      "import": "./lib/interfaces.d.ts",
+      "require": "./lib/cjs/interfaces.d.ts"
     },
     "./css/index.css": {
       "import": "./css/index.css",

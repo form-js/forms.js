@@ -12,7 +12,7 @@
         "build": "tsc  && tsc -p tsconfig-cjs.json",
         "format": "prettier --write \"src/**/*.ts\"",
         "lint": "eslint src/** -c eslint.json",
-        "test": "jest",
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --collectCoverage --coverageDirectory=src/tests/coverage",
         "patch": "npm run format && npm run lint && npm run build && npm version patch"
     },
     "exports": {
@@ -56,7 +56,7 @@
         "typescript": "^5.1.6"
     },
     "dependencies": {
-        "@forms.js/core": "^1.1.4",
+        "@forms.js/core": "^1.1.5",
         "install": "^0.13.0",
         "npm": "^10.1.0"
     }

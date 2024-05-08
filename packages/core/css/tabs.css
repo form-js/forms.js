@@ -60,16 +60,16 @@
     border-top: 15px solid var(--formsjs-primary-color);
 }
 
-.form-tabs .form-tabs-header > .tab-header.active:hover::after{
-    border-top: 15px solid var(--formsjs-primary-focus-color);
-}
-
 .form-tabs .form-tabs-header > .tab-header.error.active{
     background-color: var(--formsjs-error-color);
     border-color:  var(--formsjs-error-color);
 }
 
-.form-tabs .form-tabs-header > .tab-header.error::after{
+.form-tabs .form-tabs-header > .tab-header.active:hover::after{
+    border-top: 15px solid var(--formsjs-primary-focus-color);
+}
+
+.form-tabs .form-tabs-header > .tab-header.error::after, .form-tabs .form-tabs-header > .tab-header.error.active::after, .form-tabs .form-tabs-header > .tab-header.error.active:hover::after{
     border-top: 15px solid var(--formsjs-error-color);
 }
 

@@ -26,13 +26,20 @@ html.dark{
 You can write your custom plugins very easily 
 
 ```js
-import { registerConstructor, constructorTypes, Field } from "@formsjs/core";
+import { usePlugin, constructorTypes, Field } from "@formsjs/core";
 
-class myField extends Field {
+class MyField extends Field {
  ...
 }
 
-registerConstructor('my-field', myField, constructorTypes.field);
+const pluginSettings = {
+  type: 'my-field',
+  constructor: MyField,
+  constructorType: constructorTypes.field,
+  licensed: false,
+}
+
+usePlugin(pluginSettings);
 ```
 
 then you can use your new field as any other field. It does not even need to extend the Field class, but if it has the required functions it can be a completly new class.

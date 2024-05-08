@@ -1,4 +1,5 @@
 export default {
+  extensionsToTreatAsEsm: ['.ts'],
   preset: 'ts-jest',
   testMatch: ['**/?(*.)+(spec|test).+(ts|tsx|js)'],
   transform: {
@@ -6,5 +7,12 @@ export default {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   testEnvironment: 'jsdom',
-  transform: {},
+  transform: {
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        useESM: true,
+      },
+    ],
+  },
 };

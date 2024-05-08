@@ -13,7 +13,13 @@ import {
   validationFail,
 } from './test.options';
 import * as utils from '../utils';
-import { BUTTON_TYPE_BUTTON, FIELD_TYPE_TEXT, GROUP_TYPE_GROUP, LICENSE_STATE, registerConstructor } from '../constants';
+import {
+  BUTTON_TYPE_BUTTON,
+  FIELD_TYPE_TEXT,
+  GROUP_TYPE_GROUP,
+  LICENSE_STATE,
+  registerConstructor,
+} from '../constants';
 import { TextField } from '../fields';
 import { Form, GroupOptions, constructorTypes } from '../index';
 

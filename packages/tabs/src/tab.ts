@@ -366,7 +366,6 @@ export class Tab {
     if (!this._isVisible || this._isDisabled) return;
     this.headerElement?.classList.add('active');
     this.headerElement?.setAttribute('aria-selected', 'true');
-    this.headerElement?.removeAttribute('hidden');
     this.bodyElement?.classList.add('active');
     this._isActive = true;
   }
@@ -378,7 +377,6 @@ export class Tab {
     if (!this._isVisible || this._isDisabled) return;
     this.headerElement?.classList.remove('active');
     this.headerElement?.removeAttribute('aria-selected');
-    this.headerElement?.setAttribute('hidden', 'true');
     this.bodyElement?.classList.remove('active');
     this._isActive = false;
   }

@@ -1,5 +1,4 @@
-import QuillNamespace, { Quill as QuillEditor } from 'quill';
-const Quill: any = QuillNamespace;
+import Quill from 'quill';
 import { Form, Field, mountElement, FormData, FieldValue } from '@forms.js/core';
 
 export class RitchtextField extends Field {
@@ -35,7 +34,7 @@ export class RitchtextField extends Field {
 
   public editorElement: HTMLElement | null = null;
   public inputElement: HTMLInputElement | null = null;
-  private _editor: QuillEditor | null = null;
+  private _editor: Quill | null = null;
 
   constructor(parent: HTMLElement, form: Form, options: RitchtextFieldOptions) {
     super(parent, form, options);
