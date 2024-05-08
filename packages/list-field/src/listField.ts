@@ -135,6 +135,11 @@ export class ListField {
     return this._id;
   }
 
+  /** Returns the Form. */
+  getForm(): Form {
+    return this._form;
+  }
+
   /** Returns fields. */
   getFields(): Record<string, any> {
     return this._fields;
@@ -387,7 +392,7 @@ export interface ListFieldOptions {
   className?: string;
   listRemoveClassName?: string;
   listAddClassName?: string;
-  listRemoveTemplate?: string;
-  listAddTemplate?: string;
+  listRemoveTemplate?: string | (() => HTMLElement);
+  listAddTemplate?: string | (() => HTMLElement);
   schema: Schema;
 }

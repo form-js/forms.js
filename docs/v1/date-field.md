@@ -160,11 +160,6 @@ change: (value: FieldValue) => void;
       <td>Defines fields placeholder.</td>
     </tr>
     <tr>
-      <td>debounce</td>
-      <td><code>number</code></td>
-      <td>Debounce time for the change event.</td>
-    </tr>
-    <tr>
       <td>className</td>
       <td><code>string</code></td>
       <td>Field css classes.</td>

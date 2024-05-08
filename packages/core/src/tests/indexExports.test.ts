@@ -17,7 +17,6 @@ describe('Module Exports', () => {
     'buttons',
     'groups',
     'constructorTypes',
-    'registerConstructor',
     'evaluateParsedConditions',
     'parseConditionString',
   ];

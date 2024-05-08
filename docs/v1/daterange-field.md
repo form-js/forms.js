@@ -1,32 +1,34 @@
-# Datetime Field
+# Daterange Field
+
+### Introduction
+
+Daterange field is an separate premium plugin that can be used in forms.js package. User can pick a date range as an output value of the field.
+
+You you can easily use this plugin with forms.js by provided `usePlugin` function.
+
+app.js
+```js
+import { Form, usePlugin } from "@forms.js/core";
+import { pluginSettings as DateRangePlugin } from "@forms.js/daterange-field";
+
+usePlugin(DateRangePlugin);
+window.Form = Form;
+```
+
+To get valid license please look at <a class="link" href="https://formsjs.io/documentation/v1/licensing">licensing page</a>.
 
 #### Options
 
 The options object can include the following properties (you can find full list below):
 
 -   `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
--   `enhance: boolean` - Defines if field uses standard html5 input or enhanced date input version. Defaultly set to true.
 -   `options: FlatpickrOptions` - Defines enhanced fields options for flatpickr.
 
-<iframe height="300" style="width: 100%;" scrolling="no" title="forms.js - datetime example not enhanced" src="https://codepen.io/trilmatic/embed/GRzLBNb?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/trilmatic/pen/GRzLBNb">
-  forms.js - datetime example not enhanced</a> by Trilmatic (<a href="https://codepen.io/trilmatic">@trilmatic</a>)
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
 
-### Datetime formatting
 
-The field accepts RFC 3339 format string date formatting `YYYY-MM-DDThh:mm`. You can change formatting and adjust 24h clock through flatpickr options.
+### Date formatting
 
-### Enhancing datetime field
-
-You can enhance the date field so it uses <a href="https://flatpickr.js.org/" target="_blank">flatpickr</a> under the hood. Any additional options can be passed through `options` parameter. To enhance the field set `enhance` option to true. Any additional settings you can field in <a href="https://flatpickr.js.org/examples/" target="_blank">flatpickr documentation</a>. 
-
-<iframe height="300" style="width: 100%;" scrolling="no" title="forms.js - datetime example enhanced" src="https://codepen.io/trilmatic/embed/vYbMaXb?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/trilmatic/pen/vYbMaXb">
-  forms.js - datetime example enhanced</a> by Trilmatic (<a href="https://codepen.io/trilmatic">@trilmatic</a>)
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
+The field accepts RFC 3339 format string date formatting `YYYY-MM-DD`. The range is defined by ` to ` separator, so example of daterange value is `YYYY-MM-DD to `YYYY-MM-DD``. You can change formatting through flatpickr options. 
 
 ### Conditional logic
 
@@ -41,7 +43,8 @@ conditions: (value: FieldValue, data: FormData) => boolean;
 Validation can be defined by the `validation` option inside the field options. It accepts function that returns `true` if the field is validated correctly or validation message `string` if there is an validation error. Field `value` and `required` attribute and form `data` are passed into the function.
 
 ```js
-validation: (value: FieldValue, data: FormData, required: boolean) => true | string;
+validation: (value: FieldValue, data: FormData, required: boolean) =>
+    true | string;
 ```
 
 **Default value**
@@ -76,7 +79,6 @@ disabled: boolean | ((value: FieldValue, data: FormData) => boolean);
 In most fields you can retrive fields value with `getValue()` function called on the field instance.
 
 If you need to set the fields value programically you can eather use `default` option in field options or `setValue(value: FieldValue, save: boolean = true)` function called on the field instance.
-
 
 ## Change event
 
@@ -118,11 +120,6 @@ change: (value: FieldValue) => void;
       <td>name</td>
       <td><code>string</code></td>
       <td>Defiles fields name.</td>
-    </tr>
-    <tr>
-      <td>enhance</td>
-      <td><code>boolean</code> default <code>true</code></td>
-      <td>Defines if field uses standard html5 input or enhanced date input version.</td>
     </tr>
     <tr>
       <td>options</td>
