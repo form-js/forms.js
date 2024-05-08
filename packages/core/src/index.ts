@@ -97,7 +97,6 @@ export {
   buttons,
   groups,
   constructorTypes,
-  registerConstructor,
   GROUP_TYPE_GROUP,
   BUTTON_TYPE_BUTTON,
   FIELD_TYPE_CHECKBOX,

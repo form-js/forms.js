@@ -99,7 +99,7 @@ export class Form {
 
   /**
    * Initiates the form, builds the schema and mounts the form to the parent.
-   */
+  */
   private initForm(): void {
     if (this._formElement) this.buildSchema(this._schema, this._formElement);
     if (this._formElement && this._parent) mountElement(this._formElement, this._parent);
