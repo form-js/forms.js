@@ -11,7 +11,7 @@
 
 <div align="center">
 
-[![Npm package monthly downloads](https://badgen.net/npm/dm/@forms.js/core)](https://npmjs.com/package/@forms.js/core)
+[![Npm package total downloads](https://badgen.net/npm/dt/@forms.js/core)](https://npmjs.com/package/@forms.js/core)
 [![Code Coverage](https://img.shields.io/badge/code_coverage-99%25-brightgreen)](https://github.com/form-js/forms.js)
 [![GitHub issues](https://img.shields.io/github/issues/form-js/forms.js)](https://github.com/form-js/forms.js/issues)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
