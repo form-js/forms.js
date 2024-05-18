@@ -1,6 +1,6 @@
 {
     "name": "@forms.js/rating-field",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Rating field component for @forms.js package",
     "module": "lib/index.js",
     "type": "module",

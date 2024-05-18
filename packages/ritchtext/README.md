@@ -1,23 +1,26 @@
-<h1 id="introduction">
-    <a href="https://formsjs.io/" target="_blank">
-        <img alt="Forms.js" style="margin: 0 auto" src="https://formsjs.io/images/banner.png" />
-    </a>
-</h1>
+<div align="center">
 
-### Ritchtext field for @forms.js package
+![Forms.js](https://formsjs.io/images/formsjs-banner.png)
 
-#### Forms.js is a highly versatile, flexible, and lightweight JavaScript library that simplifies the process of form creation and management. Leveraging the power of JSON data input, it programmatically generates dynamic forms, enabling developers to create sophisticated, interactive, and user-friendly forms with ease.
+</div>
 
-<a href="https://formsjs.io/documentation/v1/getting-started" target="_blank">
-    Official documentation
-</a>
+<p align="center">
+    <a href="https://formsjs.io/"><b>Website</b></a> •
+    <a href="https://formsjs.io/documentation/v1/getting-started"><b>Documentation</b></a>
+</p>
+
+# RitchText field for forms.js package
+
+**Forms.js** is an advanced, lightweight JavaScript library designed to ease form creation and management. Utilizing JSON for data input, it generates dynamic, user-centric forms, offering an unparalleled development experience.
+
+[Get Started with Forms.js](https://formsjs.io/documentation/v1/getting-started) ⚡️
 
 <h2 id="instalation">Instalation</h2>
 
 ### NPM
 
 ```bash
-npm i @forms.js/ritchtext-field
+npm i @forms.js/core @forms.js/ritchtext-field
 ```
 
 ### JS DELIVR
@@ -27,7 +30,18 @@ npm i @forms.js/ritchtext-field
   href="https://cdn.jsdelivr.net/npm/@forms.js/core/css/index.css"
   rel="stylesheet"
 />
-<script src="https://cdn.jsdelivr.net/npm/@forms.js/daterange-field/lib/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@forms.js/ritchtext-field/lib/index.js"></script>
+```
+
+### Usage
+
+app.js
+```js
+import { Form, usePlugin } from "@forms.js/core";
+import { pluginSettings as RitchTextFieldPlugin } from "@forms.js/ritchtext-field";
+
+usePlugin(RitchTextFieldPlugin);
+window.Form = Form;
 ```
 
 ### For more information:

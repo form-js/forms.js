@@ -1,6 +1,6 @@
 {
     "name": "@forms.js/ritchtext-field",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Daterange field component for @forms.js package",
     "module": "lib/index.js",
     "type": "module",
