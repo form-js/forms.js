@@ -253,7 +253,7 @@ export class ListField {
     // Label element
     this.labelElement = document.createElement('h3');
     // Label text
-    if (this.options.label){
+    if (this.options.label) {
       if (typeof this.options.label === 'string') {
         this.labelElement.innerText = this.options.label;
       } else if (typeof this.options.label === 'function') {
