@@ -5,7 +5,7 @@
 The options object can include the following properties (you can find full list below):
 
 -   `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
--   `required: boolean | Function` - Defines if field is required.
+-   `required: boolean | ((value: FieldValue, data: FormData) => boolean)` - Defines if field is required.
 -   `default: number` - Defines default value.
 -   `min: number` - Defines minimum value.
 -   `max: number` - Defines maximum value.
@@ -113,6 +113,11 @@ change: (value: FieldValue) => void;
       <td><code>(value: FieldValue, data: FormData) => boolean;</code></td>
       <td>Conditional logic fuinction that returns boolean value defining if the field is currently visible or not.</td>
     </tr>
+    <tr>
+      <td>change</td>
+      <td><code>(value: FieldValue) => void;</code></td>
+      <td>Custom function triggered when field value is changed.</td>
+    </tr>    
     <tr>
       <td>required</td>
       <td><code>boolean | value: FieldValue, data: FormData) => boolean</code></td>

@@ -1,4 +1,4 @@
-import Quill from 'quill';
+import Quill, { QuillOptions } from 'quill';
 import { Form, Field, mountElement, FormData, FieldValue } from '@forms.js/core';
 
 export class RitchtextField extends Field {
@@ -165,5 +165,5 @@ export interface RitchtextFieldOptions {
   disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   className?: string;
   default?: string | null;
-  options?: object;
+  options?: QuillOptions;
 }

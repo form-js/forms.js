@@ -1,13 +1,28 @@
 import * as flatpickerNamespace from 'flatpickr';
 const flatpickr = (flatpickerNamespace as any).default;
 import { FlatpickrFn } from 'flatpickr/dist/types/instance';
-import { Form, Field, FieldValue, FormData, FIELD_TYPE_DATE, FIELD_TYPE_WEEK, FIELD_TYPE_TIME, FIELD_TYPE_DATETIME, FIELD_TYPE_DATERANGE } from '@forms.js/core';
+import {
+  Form,
+  Field,
+  FieldValue,
+  FormData,
+  FIELD_TYPE_DATE,
+  FIELD_TYPE_WEEK,
+  FIELD_TYPE_TIME,
+  FIELD_TYPE_DATETIME,
+  FIELD_TYPE_DATERANGE,
+} from '@forms.js/core';
 
 export interface DateFieldOptions {
   id: string;
   name?: string;
   label?: string;
-  type: typeof FIELD_TYPE_DATE | typeof FIELD_TYPE_WEEK | typeof FIELD_TYPE_DATETIME | typeof FIELD_TYPE_TIME | typeof FIELD_TYPE_DATERANGE;
+  type:
+    | typeof FIELD_TYPE_DATE
+    | typeof FIELD_TYPE_WEEK
+    | typeof FIELD_TYPE_DATETIME
+    | typeof FIELD_TYPE_TIME
+    | typeof FIELD_TYPE_DATERANGE;
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   change?: (value: FieldValue) => void;
   validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;

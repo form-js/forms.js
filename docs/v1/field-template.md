@@ -5,7 +5,7 @@
 The options object can include the following properties (you can find full list below):
 
 -   `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
--   `required: boolean | Function` - Defines if field is required.
+-   `required: boolean | ((value: FieldValue, data: FormData) => boolean)` - Defines if field is required.
 -   `default: FieldValue` - Defines default value.
 
 ### Conditional logic

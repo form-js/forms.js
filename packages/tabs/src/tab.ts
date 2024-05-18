@@ -162,6 +162,22 @@ export class Tab {
   }
 
   /**
+   * Gets the form to which this field belongs.
+   * @returns The form instance.
+   */
+  getForm(): Form {
+    return this._form;
+  }
+
+  /**
+   * Gets the validation message for the field.
+   * @returns The validation message or null if there is none.
+   */
+  getValidationMessage(): string | null {
+    return this._vMessage;
+  }
+
+  /**
    * Creates the header element for the tab.
    */
   createHeaderElement(): void {

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1715071109474" clover="3.2.0">
-  <project timestamp="1715071109474" name="All files">
+<coverage generated="1715192127166" clover="3.2.0">
+  <project timestamp="1715192127166" name="All files">
     <metrics statements="39" coveredstatements="39" conditionals="10" coveredconditionals="8" methods="10" coveredmethods="10" elements="59" coveredelements="57" complexity="0" loc="39" ncloc="39" packages="2" files="3" classes="3"/>
     <package name="src">
       <metrics statements="26" coveredstatements="26" conditionals="10" coveredconditionals="8" methods="9" coveredmethods="9"/>
       <file name="daterangeField.ts" path="C:\www\forms.js\packages\daterange\src\daterangeField.ts">
         <metrics statements="25" coveredstatements="25" conditionals="10" coveredconditionals="8" methods="9" coveredmethods="9"/>
-        <line num="3" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
         <line num="24" count="4" type="stmt"/>
         <line num="29" count="2" type="cond" truecount="3" falsecount="0"/>
         <line num="30" count="1" type="stmt"/>

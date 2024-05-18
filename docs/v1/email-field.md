@@ -4,9 +4,9 @@
 
 The options object can include the following properties (you can find full list below):
 
--   `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
--   `required: boolean | Function` - Defines if field is required.
--   `default: string` - Defines default value.
+- `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
+- `required: boolean | ((value: FieldValue, data: FormData) => boolean)` - Defines if field is required.
+- `default: string` - Defines default value.
 
 <iframe height="300" style="width: 100%;" scrolling="no" title="forms.js - email example" src="https://codepen.io/trilmatic/embed/XWOQBpz?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
   See the Pen <a href="https://codepen.io/trilmatic/pen/XWOQBpz">
@@ -27,7 +27,8 @@ conditions: (value: FieldValue, data: FormData) => boolean;
 Validation can be defined by the `validation` option inside the field options. It accepts function that returns `true` if the field is validated correctly or validation message `string` if there is an validation error. Field `value` and `required` attribute and form `data` are passed into the function.
 
 ```js
-validation: (value: FieldValue, data: FormData, required: boolean) => true | string;
+validation: (value: FieldValue, data: FormData, required: boolean) =>
+  true | string;
 ```
 
 **Default value**
@@ -67,7 +68,6 @@ disabled: boolean | ((value: FieldValue, data: FormData) => boolean);
 In most fields you can retrive fields value with `getValue()` function called on the field instance.
 
 If you need to set the fields value programically you can eather use `default` option in field options or `setValue(value: FieldValue, save: boolean = true)` function called on the field instance.
-
 
 ## Change event
 
@@ -114,6 +114,11 @@ change: (value: FieldValue) => void;
       <td>conditions</td>
       <td><code>(value: FieldValue, data: FormData) => boolean;</code></td>
       <td>Conditional logic fuinction that returns boolean value defining if the field is currently visible or not.</td>
+    </tr>
+    <tr>
+      <td>change</td>
+      <td><code>(value: FieldValue) => void;</code></td>
+      <td>Custom function triggered when field value is changed.</td>
     </tr>
     <tr>
       <td>required</td>

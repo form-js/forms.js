@@ -1,5 +1,7 @@
 # Daterange Field
 
+<span class="badge primary">Premium</span>
+
 ### Introduction
 
 Daterange field is an separate premium plugin that can be used in forms.js package. User can pick a date range as an output value of the field.
@@ -10,9 +12,9 @@ app.js
 
 ```js
 import { Form, usePlugin } from "@forms.js/core";
-import { pluginSettings as ListPlugin } from "@forms.js/list-field";
+import { pluginSettings as ListFieldPlugin } from "@forms.js/list-field";
 
-usePlugin(ListPlugin);
+usePlugin(ListFieldPlugin);
 window.Form = Form;
 ```
 

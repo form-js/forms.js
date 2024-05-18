@@ -50,6 +50,11 @@ conditions: (value: FieldValue, data: FormData) => boolean;
       <td>Conditional logic fuinction that returns boolean value defining if the field is currently visible or not.</td>
     </tr>
     <tr>
+      <td>change</td>
+      <td><code>(value: FieldValue) => void;</code></td>
+      <td>Custom function triggered when field value is changed.</td>
+    </tr>    
+    <tr>
       <td>template</td>
       <td><code>string</code></td>
       <td>Defines html content of field.</td>

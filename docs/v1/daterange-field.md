@@ -1,5 +1,7 @@
 # Daterange Field
 
+<span class="badge primary">Premium</span>
+
 ### Introduction
 
 Daterange field is an separate premium plugin that can be used in forms.js package. User can pick a date range as an output value of the field.
@@ -131,6 +133,11 @@ change: (value: FieldValue) => void;
       <td><code>(value: FieldValue, data: FormData) => boolean;</code></td>
       <td>Conditional logic fuinction that returns boolean value defining if the field is currently visible or not.</td>
     </tr>
+    <tr>
+      <td>change</td>
+      <td><code>(value: FieldValue) => void;</code></td>
+      <td>Custom function triggered when field value is changed.</td>
+    </tr>    
     <tr>
       <td>required</td>
       <td><code>boolean | value: FieldValue, data: FormData) => boolean</code></td>

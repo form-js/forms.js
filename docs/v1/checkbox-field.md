@@ -115,6 +115,11 @@ change: (value: FieldValue) => void;
       <td>Conditional logic fuinction that returns boolean value defining if the field is currently visible or not.</td>
     </tr>
     <tr>
+      <td>change</td>
+      <td><code>(value: FieldValue) => void;</code></td>
+      <td>Custom function triggered when field value is changed.</td>
+    </tr>    
+    <tr>
       <td>required</td>
       <td><code>boolean | value: FieldValue, data: FormData) => boolean</code></td>
       <td>Defines if the field is required or not. Default is false.</td>

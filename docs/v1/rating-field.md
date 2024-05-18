@@ -1,32 +1,15 @@
-# Radio Field
+# Email Field
+
+<span class="badge primary">Premium</span>
 
 #### Options
 
 The options object can include the following properties (you can find full list below):
 
--   `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
--   `schema: RadioFieldItemOptions` - Defines single radios inside the radio field.
--   `default: FieldValue` - Defines default value.
-
-<iframe height="300" style="width: 100%;" scrolling="no" title="forms.js - radio example" src="https://codepen.io/trilmatic/embed/jOdRpLV?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/trilmatic/pen/jOdRpLV">
-  forms.js - radio example</a> by Trilmatic (<a href="https://codepen.io/trilmatic">@trilmatic</a>)
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
-
-### Defining radio elements
-
-You can define single radio elements by the `schema` option. It accepts array of objects with id, label and value parameters.
-
-```js
-schema: [
-    {
-        id: string,
-        label: string,
-        value: string,
-    }
-]
-```
+- `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
+- `default: number | null` - Defines default value.
+- `starEmpty?: () => HTMLElement` - Defines a empty star element.
+- `starFull?: () => HTMLElement` - Defines a full star element.
 
 ### Conditional logic
 
@@ -41,7 +24,8 @@ conditions: (value: FieldValue, data: FormData) => boolean;
 Validation can be defined by the `validation` option inside the field options. It accepts function that returns `true` if the field is validated correctly or validation message `string` if there is an validation error. Field `value` and `required` attribute and form `data` are passed into the function.
 
 ```js
-validation: (value: FieldValue, data: FormData, required: boolean) => true | string;
+validation: (value: FieldValue, data: FormData, required: boolean) =>
+  true | string;
 ```
 
 **Default value**
@@ -76,7 +60,6 @@ disabled: boolean | ((value: FieldValue, data: FormData) => boolean);
 In most fields you can retrive fields value with `getValue()` function called on the field instance.
 
 If you need to set the fields value programically you can eather use `default` option in field options or `setValue(value: FieldValue, save: boolean = true)` function called on the field instance.
-
 
 ## Change event
 
@@ -115,6 +98,21 @@ change: (value: FieldValue) => void;
       <td>Defiles fields label.</td>
     </tr>
     <tr>
+      <td>starEmpty</td>
+      <td><code>() => HTMLElement</code></td>
+      <td>Defiles empty star element.</td>
+    </tr>
+    <tr>
+      <td>starFull</td>
+      <td><code>() => HTMLElement</code></td>
+      <td>Defiles full star element.</td>
+    </tr>
+    <tr>
+      <td>name</td>
+      <td><code>string</code></td>
+      <td>Defiles fields name.</td>
+    </tr>
+    <tr>
       <td>conditions</td>
       <td><code>(value: FieldValue, data: FormData) => boolean;</code></td>
       <td>Conditional logic fuinction that returns boolean value defining if the field is currently visible or not.</td>
@@ -123,7 +121,7 @@ change: (value: FieldValue) => void;
       <td>change</td>
       <td><code>(value: FieldValue) => void;</code></td>
       <td>Custom function triggered when field value is changed.</td>
-    </tr>    
+    </tr>
     <tr>
       <td>required</td>
       <td><code>boolean | value: FieldValue, data: FormData) => boolean</code></td>
@@ -143,16 +141,6 @@ change: (value: FieldValue) => void;
       <td>default</td>
       <td><code>boolean</code></td>
       <td>Default value of the field.</td>
-    </tr>
-    <tr>
-      <td>placeholder</td>
-      <td><code>string</code></td>
-      <td>Defines fields placeholder.</td>
-    </tr>
-    <tr>
-      <td>debounce</td>
-      <td><code>number</code></td>
-      <td>Debounce time for the change event.</td>
     </tr>
     <tr>
       <td>className</td>

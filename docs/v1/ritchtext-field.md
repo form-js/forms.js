@@ -1,32 +1,29 @@
-# Radio Field
+# RitchText Field
+
+### Introduction
+
+Ritchtext field is an separate premium plugin that can be used in forms.js package. It is used for defining structured html. The html is serialized. Under the hood ritchtext field uses <a class="link" target="_blank" href="https://quilljs.com/">Quill</a> editor. Any additional options can be set up through `options` parameter in field definition.
+
+You you can easily use this plugin with forms.js by provided `usePlugin` function.
+
+app.js
+```js
+import { Form, usePlugin } from "@forms.js/core";
+import { pluginSettings as RitchtextFieldPlugin } from "@forms.js/ritchtext-field";
+
+usePlugin(RitchtextFieldPlugin);
+window.Form = Form;
+```
+
+To get valid license please look at <a class="link" href="https://formsjs.io/documentation/v1/licensing">licensing page</a>.
 
 #### Options
 
 The options object can include the following properties (you can find full list below):
 
 -   `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
--   `schema: RadioFieldItemOptions` - Defines single radios inside the radio field.
 -   `default: FieldValue` - Defines default value.
-
-<iframe height="300" style="width: 100%;" scrolling="no" title="forms.js - radio example" src="https://codepen.io/trilmatic/embed/jOdRpLV?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/trilmatic/pen/jOdRpLV">
-  forms.js - radio example</a> by Trilmatic (<a href="https://codepen.io/trilmatic">@trilmatic</a>)
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
-
-### Defining radio elements
-
-You can define single radio elements by the `schema` option. It accepts array of objects with id, label and value parameters.
-
-```js
-schema: [
-    {
-        id: string,
-        label: string,
-        value: string,
-    }
-]
-```
+-   `options: QuillOptions` - Defines any options passed to quill editor.
 
 ### Conditional logic
 
@@ -115,6 +112,11 @@ change: (value: FieldValue) => void;
       <td>Defiles fields label.</td>
     </tr>
     <tr>
+      <td>name</td>
+      <td><code>string</code></td>
+      <td>Defiles fields name.</td>
+    </tr>
+    <tr>
       <td>conditions</td>
       <td><code>(value: FieldValue, data: FormData) => boolean;</code></td>
       <td>Conditional logic fuinction that returns boolean value defining if the field is currently visible or not.</td>
@@ -159,6 +161,11 @@ change: (value: FieldValue) => void;
       <td><code>string</code></td>
       <td>Field css classes.</td>
     </tr>
+    <tr>
+      <td>rows</td>
+      <td><code>number</code></td>
+      <td>Defines textarea rows.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -179,6 +186,10 @@ change: (value: FieldValue) => void;
     <tr>
       <td><code>getValue(): FieldValue</code></td>
       <td>Retrieves the field's value.</td>
+    </tr>
+    <tr>
+      <td><code>getEditor(): Quill | null</code></td>
+      <td>Retrieves the Quill editor instance.</td>
     </tr>
     <tr>
       <td><code>update()</code></td>

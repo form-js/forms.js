@@ -108,10 +108,18 @@ export class Tabs {
   }
 
   /**
+   * Gets the form to which this field belongs.
+   * @returns The form instance.
+   */
+  getForm(): Form {
+    return this._form;
+  }
+
+  /**
    * Retrieves all tab instances.
    * @returns An object containing all tab instances.
    */
-  getTabs(): object {
+  getTabs(): Record<string, Tab> {
     return this._tabs;
   }
 
