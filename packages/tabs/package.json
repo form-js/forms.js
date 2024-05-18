@@ -56,7 +56,7 @@
         "typescript": "^5.1.6"
     },
     "dependencies": {
-        "@forms.js/core": "^1.1.4",
+        "@forms.js/core": "^1.1.5",
         "install": "^0.13.0",
         "npm": "^10.1.0"
     }
