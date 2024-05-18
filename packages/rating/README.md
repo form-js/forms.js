@@ -44,9 +44,7 @@ window.Form = Form;
 
 ### For more information:
 
-<a href="https://formsjs.io/documentation/v1/getting-started" target="_blank">
-    Take a look at official documentation!
-</a>
+Dive deeper into Forms.js with the [official documentation](https://formsjs.io/documentation/v1/getting-started)
 
 <h2 id="license">License</h2>
 
