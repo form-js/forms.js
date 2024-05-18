@@ -253,7 +253,14 @@ export class Field {
     this.labelElement = document.createElement(LABEL_ELEMENT);
     // Label text
     const label: HTMLElement = document.createElement(PARAGRAPH_ELEMENT);
-    if (this.options.label) label.innerText = this.options.label;
+    if (this.options.label) {
+      if (typeof this.options.label === 'string') {
+        label.innerText = this.options.label;
+      } else if (typeof this.options.label === 'function') {
+        label.innerHTML = '';
+        label.append(this.options.label());
+      }
+    }
     label.setAttribute(ID_ATTRIBUTE, this._id + LABEL_DEFINITION);
     this.labelElement.setAttribute(FOR_ATTRIBUTE, this._id);
     label.className = LABEL_CLASS_DEFAULT;

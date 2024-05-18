@@ -53,7 +53,7 @@ export interface ButtonOptions {
 export interface FieldOptions {
   id: string;
   name?: string;
-  label?: string;
+  label?: string | (() => HTMLElement);
   type: FieldType;
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean | string;
   change?: (value: FieldValue) => void;
@@ -77,7 +77,7 @@ export interface StaticFieldOptions {
 export interface CheckboxFieldOptions extends FieldOptions {
   id: string;
   name?: string;
-  label?: string;
+  label?: string | (() => HTMLElement);
   type: typeof FIELD_TYPE_CHECKBOX;
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   change?: (value: FieldValue) => void;
@@ -92,7 +92,7 @@ export interface CheckboxFieldOptions extends FieldOptions {
 export interface DateFieldOptions extends FieldOptions {
   id: string;
   name?: string;
-  label?: string;
+  label?: string | (() => HTMLElement);
   type:
     | typeof FIELD_TYPE_DATE
     | typeof FIELD_TYPE_WEEK
@@ -114,7 +114,7 @@ export interface DateFieldOptions extends FieldOptions {
 export interface TextareaFieldOptions extends FieldOptions {
   id: string;
   name?: string;
-  label?: string;
+  label?: string | (() => HTMLElement);
   type: typeof FIELD_TYPE_TEXTAREA;
   rows?: number;
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
@@ -130,7 +130,7 @@ export interface TextareaFieldOptions extends FieldOptions {
 export interface SelectFieldOptions extends FieldOptions {
   id: string;
   name?: string;
-  label?: string;
+  label?: string | (() => HTMLElement);
   type: typeof FIELD_TYPE_SELECT;
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   change?: (value: FieldValue) => void;
@@ -149,7 +149,7 @@ export interface SelectFieldOptions extends FieldOptions {
 export interface FileFieldOptions extends FieldOptions {
   id: string;
   name?: string;
-  label?: string;
+  label?: string | (() => HTMLElement);
   type: typeof FIELD_TYPE_FILE;
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   change?: (value: FieldValue) => void;
@@ -175,7 +175,7 @@ export interface HiddenFieldOptions {
 export interface NumberFieldOptions extends FieldOptions {
   id: string;
   name?: string;
-  label?: string;
+  label?: string | (() => HTMLElement);
   min?: number;
   max?: number;
   step?: number;
@@ -193,7 +193,7 @@ export interface NumberFieldOptions extends FieldOptions {
 export interface RadioFieldOptions extends FieldOptions {
   id: string;
   name?: string;
-  label?: string;
+  label?: string | (() => HTMLElement);
   type: typeof FIELD_TYPE_RADIO;
   schema: RadioFieldItemOptions[];
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
@@ -207,6 +207,6 @@ export interface RadioFieldOptions extends FieldOptions {
 
 export interface RadioFieldItemOptions {
   id: string;
-  label: string;
+  label: string | (() => HTMLElement);
   value: string;
 }

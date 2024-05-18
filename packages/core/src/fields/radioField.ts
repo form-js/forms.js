@@ -67,14 +67,26 @@ export class RadioField extends Field {
     });
   }
 
-  createRadioLabelElement(labelText: string, id: string, input: HTMLInputElement, container: HTMLElement) {
+  createRadioLabelElement(
+    labelText: string | (() => HTMLElement),
+    id: string,
+    input: HTMLInputElement,
+    container: HTMLElement,
+  ) {
     // Label element
     const labelElement: HTMLElement = document.createElement(LABEL_ELEMENT);
     // Append input first
     if (input && labelElement) mountElement(input, labelElement);
     // Label text
     const label: HTMLElement = document.createElement(PARAGRAPH_ELEMENT);
-    if (labelText) label.innerText = labelText;
+    if (labelText) {
+      if (typeof labelText === 'string') {
+        label.innerText = labelText;
+      } else if (typeof labelText === 'function') {
+        label.innerHTML = '';
+        label.append(labelText());
+      }
+    }
     label.setAttribute(ID_ATTRIBUTE, id + LABEL_DEFINITION);
     labelElement.setAttribute(FOR_ATTRIBUTE, id);
     label.className = LABEL_CLASS_DEFAULT;
@@ -100,7 +112,14 @@ export class RadioField extends Field {
   onGui() {
     this.createContainerElement();
     const label: HTMLElement = document.createElement('p');
-    if (this.options.label) label.innerText = this.options.label;
+    if (this.options.label) {
+      if (typeof this.options.label === 'string') {
+        label.innerText = this.options.label;
+      } else if (typeof this.options.label === 'function') {
+        label.innerHTML = '';
+        label.append(this.options.label());
+      }
+    }
     if (this.options.label && this.containerElement) mountElement(label, this.containerElement);
     label.setAttribute(ID_ATTRIBUTE, this.getId() + LABEL_DEFINITION);
     label.className = LABEL_CLASS_DEFAULT;

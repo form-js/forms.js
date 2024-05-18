@@ -76,7 +76,14 @@ export class CheckboxField extends Field {
     if (this.sliderElement && this.labelElement) mountElement(this.sliderElement, this.labelElement);
     // Label text
     const label: HTMLElement = document.createElement(PARAGRAPH_ELEMENT);
-    if (this.options.label) label.innerText = this.options.label;
+    if (this.options.label) {
+      if (typeof this.options.label === 'string') {
+        label.innerText = this.options.label;
+      } else if (typeof this.options.label === 'function') {
+        label.innerHTML = '';
+        label.append(this.options.label());
+      }
+    }
     label.setAttribute(ID_ATTRIBUTE, this.getId() + LABEL_DEFINITION);
     this.labelElement.setAttribute(FOR_ATTRIBUTE, this.options.name || this.getId());
     label.className = LABEL_CLASS_DEFAULT;

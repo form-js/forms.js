@@ -1,9 +1,9 @@
-import { Form, Field, FieldValue, FormData, mountElement } from '@forms.js/core';
+import { Form, Field, FieldValue, FormData, mountElement, FieldOptions } from '@forms.js/core';
 
-export interface RatingFieldOptions {
+export interface RatingFieldOptions extends FieldOptions {
   id: string;
   name?: string;
-  label?: string;
+  label?: string | (() => HTMLElement);
   type: 'rating';
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   change?: (value: FieldValue) => void;

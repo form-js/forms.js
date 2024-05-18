@@ -11,12 +11,13 @@ import {
   FIELD_TYPE_TIME,
   FIELD_TYPE_DATETIME,
   FIELD_TYPE_DATERANGE,
+  FieldOptions,
 } from '@forms.js/core';
 
-export interface DateFieldOptions {
+export interface DateFieldOptions extends FieldOptions {
   id: string;
   name?: string;
-  label?: string;
+  label?: string | (() => HTMLElement);
   type:
     | typeof FIELD_TYPE_DATE
     | typeof FIELD_TYPE_WEEK

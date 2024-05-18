@@ -156,7 +156,7 @@ export class RitchtextField extends Field {
 export interface RitchtextFieldOptions {
   id: string;
   name?: string;
-  label?: string;
+  label?: string | (() => HTMLElement);
   type: 'ritchtext';
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   change?: (value: FieldValue) => void;

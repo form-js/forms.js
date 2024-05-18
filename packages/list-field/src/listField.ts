@@ -10,6 +10,7 @@ import {
   evaluateParsedConditions,
   parseConditionString,
   ParsedCondition,
+  FieldOptions,
 } from '@forms.js/core';
 
 export class ListField {
@@ -252,7 +253,14 @@ export class ListField {
     // Label element
     this.labelElement = document.createElement('h3');
     // Label text
-    if (this.options.label) this.labelElement.innerText = this.options.label;
+    if (this.options.label){
+      if (typeof this.options.label === 'string') {
+        this.labelElement.innerText = this.options.label;
+      } else if (typeof this.options.label === 'function') {
+        this.labelElement.innerHTML = '';
+        this.labelElement.append(this.options.label());
+      }
+    }
     this.labelElement.setAttribute('id', this._id + '_label');
     this.labelElement.className = 'form-list-label';
   }
@@ -383,9 +391,9 @@ export class ListField {
   }
 }
 
-export interface ListFieldOptions {
+export interface ListFieldOptions extends FieldOptions {
   id: string;
-  label?: string;
+  label?: string | (() => HTMLElement);
   type: 'list';
   conditions?: ((data: FormData) => boolean) | string;
   buildButtons?: boolean;
