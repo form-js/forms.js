@@ -105,7 +105,7 @@ export class ListField {
    */
   removeListRow(key: string, save: boolean = true): void {
     if (this._groups[key]) {
-      this._groups[key]['form-list-' + key + '-group']?.destroy();
+      this._groups[key]['form_list_' + key + '_group']?.destroy();
       delete this._fields[key];
       delete this._groups[key];
       delete this._buttons[key];
