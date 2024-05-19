@@ -19,12 +19,6 @@ window.Form = Form;
 
 To get valid license please look at <a class="link" href="https://formsjs.io/documentation/v1/licensing">licensing page</a>.
 
-<iframe height="300" style="width: 100%;" scrolling="no" title="Daterange field" src="https://codepen.io/trilmatic/embed/qBGbjyo?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/trilmatic/pen/qBGbjyo">
-  Daterange field</a> by Trilmatic (<a href="https://codepen.io/trilmatic">@trilmatic</a>)
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
-
 #### Options
 
 The options object can include the following properties (you can find full list below):
@@ -32,7 +26,11 @@ The options object can include the following properties (you can find full list 
 -   `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
 -   `options: FlatpickrOptions` - Defines enhanced fields options for flatpickr.
 
-
+<iframe height="300" style="width: 100%;" scrolling="no" title="forms.js - date range example" src="https://codepen.io/trilmatic/embed/qBGbjyo?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/trilmatic/pen/qBGbjyo">
+  Daterange field</a> by Trilmatic (<a href="https://codepen.io/trilmatic">@trilmatic</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
 
 ### Date formatting
 
