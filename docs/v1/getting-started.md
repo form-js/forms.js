@@ -50,7 +50,7 @@ const form = new Form("form-element", options);
 ### CSS
 
 ```css
-@import '@forms.js/core/css/index.css'
+@import "@forms.js/core/css/index.css";
 ```
 
 <iframe height="400" style="width: 100%;" scrolling="no" title="forms.js - login form" src="https://codepen.io/trilmatic/embed/yLZrNQJ?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
@@ -61,7 +61,20 @@ const form = new Form("form-element", options);
 
 ### Individual plugins
 
-`This part of documentation is still in progress.`
+You can use any or every one of the premium packages. The premium packages require a license, but they are free for non profit projects.
+
+app.js
+
+```js
+import { Form, usePlugin, setLicenseKey } from "@forms.js/core";
+import { pluginSettings as DateRangePlugin } from "@forms.js/daterange-field";
+import { pluginSettings as RatingPlugin } from "@forms.js/rating-field";
+
+setLicenseKey("license");
+
+usePlugin([DateRangePlugin, RatingPlugin]);
+window.Form = Form;
+```
 
 ## Plugins List
 
