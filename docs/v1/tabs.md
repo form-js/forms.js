@@ -24,6 +24,12 @@ The options object can include the following properties (you can find full list 
 -   `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
 -   `tabs: Tab[]` - <span class="badge warning">required</span> Define form tabs.
 
+<iframe height="300" style="width: 100%;" scrolling="no" title="Untitled" src="https://codepen.io/trilmatic/embed/MWdKZQr?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/trilmatic/pen/MWdKZQr">
+  Untitled</a> by Trilmatic (<a href="https://codepen.io/trilmatic">@trilmatic</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
 ### Conditional logic
 
 Conditional logic can be defined by the `conditions` option inside the tabs options. It accepts function that returns true if the element should be visible and false if not. Form `data` are passed into the function.

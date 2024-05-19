@@ -30,7 +30,11 @@ The options object can include the following properties (you can find full list 
 
 You can work with a list key fields the same way as with any other field. The fields value will be prefixed by the list field id and index of the current row in the list.
 
-
+<iframe height="400" style="width: 100%;" scrolling="no" title="forms.js - list field example" src="https://codepen.io/trilmatic/embed/YzbwLGM?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/trilmatic/pen/YzbwLGM">
+  forms.js - list field example</a> by Trilmatic (<a href="https://codepen.io/trilmatic">@trilmatic</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
 
 ### Conditional logic
 

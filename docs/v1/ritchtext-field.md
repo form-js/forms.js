@@ -25,6 +25,12 @@ The options object can include the following properties (you can find full list 
 -   `default: FieldValue` - Defines default value.
 -   `options: QuillOptions` - Defines any options passed to quill editor.
 
+<iframe height="300" style="width: 100%;" scrolling="no" title="Untitled" src="https://codepen.io/trilmatic/embed/YzbwdYm?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/trilmatic/pen/YzbwdYm">
+  Untitled</a> by Trilmatic (<a href="https://codepen.io/trilmatic">@trilmatic</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
 ### Conditional logic
 
 Conditional logic can be defined by the `conditions` option inside the field options. It accepts function that returns true if the element should be visible and false if not. Field `value` and form `data` are passed into the function.

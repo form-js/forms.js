@@ -1,4 +1,4 @@
-# Email Field
+# Rating Field
 
 <span class="badge primary">Premium</span>
 
@@ -10,6 +10,12 @@ The options object can include the following properties (you can find full list 
 - `default: number | null` - Defines default value.
 - `starEmpty?: () => HTMLElement` - Defines a empty star element.
 - `starFull?: () => HTMLElement` - Defines a full star element.
+
+<iframe height="300" style="width: 100%;" scrolling="no" title="forms.js - rating field" src="https://codepen.io/trilmatic/embed/mdYVaMb?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/trilmatic/pen/mdYVaMb">
+  forms.js - rating field</a> by Trilmatic (<a href="https://codepen.io/trilmatic">@trilmatic</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
 
 ### Conditional logic
 
