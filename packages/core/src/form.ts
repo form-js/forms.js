@@ -194,10 +194,10 @@ export class Form {
     const formElementType: string | null = getFormElementType(options.type);
 
     if (listId && key && formElementType === constructorTypes.field) {
-      this.mapFieldToDataPrefix(options, listId, key);
+      this.mapFieldToDataPrefix(duplicatedOptions, listId, key);
     }
     if (groupId && formElementType === constructorTypes.field) {
-      this.mapFieldToDataPrefix(options, groupId, null);
+      this.mapFieldToDataPrefix(duplicatedOptions, groupId, null);
     }
 
     const Constructed: FormElement = new Constructor(wrapper, this, duplicatedOptions);

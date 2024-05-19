@@ -19,7 +19,7 @@
 ### NPM
 
 ```bash
-npm i @forms.js/core @forms.js/daterange-field
+npm i @forms.js/core @forms.js/rating-field
 ```
 
 ### JS DELIVR

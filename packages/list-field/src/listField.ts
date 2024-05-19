@@ -186,7 +186,7 @@ export class ListField {
   private newListSchema(key: string): Schema {
     const schema = [...this.options.schema];
     const removeButton = {
-      id: 'form-list-button-remove',
+      id: this.getId() + 'form_list_button_remove',
       type: 'button',
       buttonType: 'button',
       className: this.options.listRemoveClassName!,
@@ -204,7 +204,7 @@ export class ListField {
     }
     return [
       {
-        id: 'form-list-' + key + '-group',
+        id: 'form_list_' + key + '_group',
         className: 'form-list-group',
         type: 'group',
         schema: [...schema],
