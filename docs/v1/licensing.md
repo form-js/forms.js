@@ -38,6 +38,10 @@ If you meet the criteria for this license, you may begin using Formsjs premium p
 
 For questions about more complex scenarios, please contact us.
 
+### Purchase license
+
+For purchasing a forms.js license please look at our [pricing](https://formsjs.io/pricing)
+
 ## Adding an license
 
 app.js
