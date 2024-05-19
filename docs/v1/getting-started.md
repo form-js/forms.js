@@ -84,5 +84,30 @@ const form = new Form("form-element", options);
       <td>Vue component for Forms.js.</td>
       <td><a class="link" href="https://www.npmjs.com/package/@forms.js/vue" target="_blank">https://www.npmjs.com/package/@forms.js/vue</a></td>
     </tr>
+    <tr>
+      <td><span class="font-bold">@formsjs/daterange-field</span></td>
+      <td>Date Range field for Forms.js.</td>
+      <td><a class="link" href="https://www.npmjs.com/package/@forms.js/daterange-field" target="_blank">https://www.npmjs.com/package/@forms.js/daterange-field</a></td>
+    </tr>
+    <tr>
+      <td><span class="font-bold">@formsjs/list-field</span></td>
+      <td>List field for Forms.js.</td>
+      <td><a class="link" href="https://www.npmjs.com/package/@forms.js/daterange-field" target="_blank">https://www.npmjs.com/package/@forms.js/list-field</a></td>
+    </tr>
+    <tr>
+      <td><span class="font-bold">@formsjs/rating-field</span></td>
+      <td>Rating field for Forms.js.</td>
+      <td><a class="link" href="https://www.npmjs.com/package/@forms.js/daterange-field" target="_blank">https://www.npmjs.com/package/@forms.js/rating-field</a></td>
+    </tr>
+    <tr>
+      <td><span class="font-bold">@formsjs/ritchtext-field</span></td>
+      <td>Ritch Text field for Forms.js.</td>
+      <td><a class="link" href="https://www.npmjs.com/package/@forms.js/daterange-field" target="_blank">https://www.npmjs.com/package/@forms.js/ritchtext-field</a></td>
+    </tr>
+    <tr>
+      <td><span class="font-bold">@formsjs/tabs</span></td>
+      <td>Tabs component for Forms.js.</td>
+      <td><a class="link" href="https://www.npmjs.com/package/@forms.js/daterange-field" target="_blank">https://www.npmjs.com/package/@forms.js/tabs</a></td>
+    </tr>
   </tbody>
 </table>
