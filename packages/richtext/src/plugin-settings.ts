@@ -1,9 +1,9 @@
-import { RitchtextField } from './ritchtextField';
+import { RichtextField } from './richtextField';
 import { PluginSettings, constructorTypes } from '@forms.js/core';
 
 export const pluginSettings: PluginSettings = {
-  type: 'ritchtext',
-  constructor: RitchtextField,
+  type: 'richtext',
+  constructor: RichtextField,
   constructorType: constructorTypes.field,
   licensed: true,
 };

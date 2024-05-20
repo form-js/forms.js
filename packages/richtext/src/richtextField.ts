@@ -1,16 +1,16 @@
 import Quill, { QuillOptions } from 'quill';
 import { Form, Field, mountElement, FormData, FieldValue } from '@forms.js/core';
 
-export class RitchtextField extends Field {
-  public options: RitchtextFieldOptions = {
+export class RichtextField extends Field {
+  public options: RichtextFieldOptions = {
     id: '',
-    type: 'ritchtext',
+    type: 'richtext',
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return 'This field is required';
       return true;
     },
-    className: 'form-input-ritchtext',
+    className: 'form-input-richtext',
     options: {
       modules: {
         toolbar: [
@@ -36,7 +36,7 @@ export class RitchtextField extends Field {
   public inputElement: HTMLInputElement | null = null;
   private _editor: Quill | null = null;
 
-  constructor(parent: HTMLElement, form: Form, options: RitchtextFieldOptions) {
+  constructor(parent: HTMLElement, form: Form, options: RichtextFieldOptions) {
     super(parent, form, options);
     this.initializeOptions(options);
     this.onGui();
@@ -153,11 +153,11 @@ export class RitchtextField extends Field {
   }
 }
 
-export interface RitchtextFieldOptions {
+export interface RichtextFieldOptions {
   id: string;
   name?: string;
   label?: string | (() => HTMLElement);
-  type: 'ritchtext';
+  type: 'richtext';
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   change?: (value: FieldValue) => void;
   validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;

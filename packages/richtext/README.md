@@ -9,7 +9,7 @@
     <a href="https://formsjs.io/documentation/v1/getting-started"><b>Documentation</b></a>
 </p>
 
-# RitchText field for forms.js package
+# RichText field for forms.js package
 
 **Forms.js** is an advanced, lightweight JavaScript library designed to ease form creation and management. Utilizing JSON for data input, it generates dynamic, user-centric forms, offering an unparalleled development experience.
 
@@ -20,7 +20,7 @@
 ### NPM
 
 ```bash
-npm i @forms.js/core @forms.js/ritchtext-field
+npm i @forms.js/core @forms.js/richtext-field
 ```
 
 ### JS DELIVR
@@ -30,7 +30,7 @@ npm i @forms.js/core @forms.js/ritchtext-field
   href="https://cdn.jsdelivr.net/npm/@forms.js/core/css/index.css"
   rel="stylesheet"
 />
-<script src="https://cdn.jsdelivr.net/npm/@forms.js/ritchtext-field/lib/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@forms.js/richtext-field/lib/index.js"></script>
 ```
 
 ### Usage
@@ -38,9 +38,9 @@ npm i @forms.js/core @forms.js/ritchtext-field
 app.js
 ```js
 import { Form, usePlugin } from "@forms.js/core";
-import { pluginSettings as RitchTextFieldPlugin } from "@forms.js/ritchtext-field";
+import { pluginSettings as RichTextFieldPlugin } from "@forms.js/richtext-field";
 
-usePlugin(RitchTextFieldPlugin);
+usePlugin(RichTextFieldPlugin);
 window.Form = Form;
 ```
 

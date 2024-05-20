@@ -1,7 +1,7 @@
 {
-    "name": "@forms.js/ritchtext-field",
+    "name": "@forms.js/richtext-field",
     "version": "1.0.1",
-    "description": "Daterange field component for @forms.js package",
+    "description": "Rich text field component for @forms.js package",
     "module": "lib/index.js",
     "type": "module",
     "types": "lib/index.d.ts",

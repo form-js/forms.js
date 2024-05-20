@@ -1,17 +1,17 @@
-# RitchText Field
+# RichText Field
 
 ### Introduction
 
-Ritchtext field is an separate premium plugin that can be used in forms.js package. It is used for defining structured html. The html is serialized. Under the hood ritchtext field uses <a class="link" target="_blank" href="https://quilljs.com/">Quill</a> editor. Any additional options can be set up through `options` parameter in field definition.
+Richtext field is an separate premium plugin that can be used in forms.js package. It is used for defining structured html. The html is serialized. Under the hood richtext field uses <a class="link" target="_blank" href="https://quilljs.com/">Quill</a> editor. Any additional options can be set up through `options` parameter in field definition.
 
 You you can easily use this plugin with forms.js by provided `usePlugin` function.
 
 app.js
 ```js
 import { Form, usePlugin } from "@forms.js/core";
-import { pluginSettings as RitchtextFieldPlugin } from "@forms.js/ritchtext-field";
+import { pluginSettings as RichtextFieldPlugin } from "@forms.js/richtext-field";
 
-usePlugin(RitchtextFieldPlugin);
+usePlugin(RichtextFieldPlugin);
 window.Form = Form;
 ```
 
