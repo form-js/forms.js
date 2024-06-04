@@ -135,13 +135,13 @@ jobs:
         working-directory: ./packages/rating
         run: npm run lint
 
-      #ritchtext
-      - name: Install ritchtext dependencies
-        working-directory: ./packages/ritchtext
+      #richtext
+      - name: Install richtext dependencies
+        working-directory: ./packages/richtext
         run: npm install
 
-      - name: Lint ritchtext package
-        working-directory: ./packages/ritchtext
+      - name: Lint richtext package
+        working-directory: ./packages/richtext
         run: npm run lint
 
       #tabs
