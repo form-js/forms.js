@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1715192127166" clover="3.2.0">
-  <project timestamp="1715192127166" name="All files">
+<coverage generated="1717485238071" clover="3.2.0">
+  <project timestamp="1717485238071" name="All files">
     <metrics statements="39" coveredstatements="39" conditionals="10" coveredconditionals="8" methods="10" coveredmethods="10" elements="59" coveredelements="57" complexity="0" loc="39" ncloc="39" packages="2" files="3" classes="3"/>
     <package name="src">
       <metrics statements="26" coveredstatements="26" conditionals="10" coveredconditionals="8" methods="9" coveredmethods="9"/>
       <file name="daterangeField.ts" path="C:\www\forms.js\packages\daterange\src\daterangeField.ts">
         <metrics statements="25" coveredstatements="25" conditionals="10" coveredconditionals="8" methods="9" coveredmethods="9"/>
         <line num="2" count="1" type="stmt"/>
-        <line num="24" count="4" type="stmt"/>
-        <line num="29" count="2" type="cond" truecount="3" falsecount="0"/>
-        <line num="30" count="1" type="stmt"/>
-        <line num="39" count="4" type="stmt"/>
-        <line num="42" count="4" type="stmt"/>
-        <line num="43" count="4" type="stmt"/>
-        <line num="44" count="4" type="stmt"/>
-        <line num="45" count="4" type="stmt"/>
-        <line num="49" count="4" type="stmt"/>
-        <line num="50" count="4" type="stmt"/>
-        <line num="51" count="4" type="stmt"/>
-        <line num="52" count="4" type="stmt"/>
-        <line num="56" count="1" type="stmt"/>
-        <line num="60" count="4" type="cond" truecount="2" falsecount="1"/>
-        <line num="64" count="4" type="cond" truecount="1" falsecount="0"/>
+        <line num="40" count="4" type="stmt"/>
+        <line num="45" count="2" type="cond" truecount="3" falsecount="0"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="55" count="4" type="stmt"/>
+        <line num="58" count="4" type="stmt"/>
+        <line num="59" count="4" type="stmt"/>
+        <line num="60" count="4" type="stmt"/>
+        <line num="61" count="4" type="stmt"/>
         <line num="65" count="4" type="stmt"/>
-        <line num="66" count="1" type="stmt"/>
-        <line num="72" count="4" type="stmt"/>
-        <line num="73" count="4" type="stmt"/>
-        <line num="74" count="4" type="cond" truecount="1" falsecount="1"/>
-        <line num="75" count="4" type="stmt"/>
-        <line num="76" count="4" type="stmt"/>
-        <line num="77" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="81" count="1" type="stmt"/>
+        <line num="66" count="4" type="stmt"/>
+        <line num="67" count="4" type="stmt"/>
+        <line num="68" count="4" type="stmt"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="76" count="4" type="cond" truecount="2" falsecount="1"/>
+        <line num="80" count="4" type="cond" truecount="1" falsecount="0"/>
+        <line num="81" count="4" type="stmt"/>
+        <line num="82" count="1" type="stmt"/>
+        <line num="88" count="4" type="stmt"/>
+        <line num="89" count="4" type="stmt"/>
+        <line num="90" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="91" count="4" type="stmt"/>
+        <line num="92" count="4" type="stmt"/>
+        <line num="93" count="4" type="cond" truecount="1" falsecount="0"/>
+        <line num="97" count="1" type="stmt"/>
       </file>
       <file name="plugin-settings.ts" path="C:\www\forms.js\packages\daterange\src\plugin-settings.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>

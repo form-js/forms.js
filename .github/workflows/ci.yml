@@ -185,3 +185,12 @@ jobs:
       - name: Test core package
         working-directory: ./packages/core
         run: npm run test
+
+      #daterange
+      - name: Install daterange dependencies
+        working-directory: ./packages/daterange
+        run: npm install
+
+      - name: Test daterange package
+        working-directory: ./packages/daterange
+        run: npm run test
