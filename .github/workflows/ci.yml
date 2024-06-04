@@ -57,13 +57,13 @@ jobs:
         working-directory: ./packages/rating
         run: npm run build
 
-      #ritchtext
-      - name: Install ritchtext dependencies
-        working-directory: ./packages/ritchtext
+      #richtext
+      - name: Install richtext dependencies
+        working-directory: ./packages/richtext
         run: npm install
 
-      - name: Build ritchtext package
-        working-directory: ./packages/ritchtext
+      - name: Build richtext package
+        working-directory: ./packages/richtext
         run: npm run build
 
       #tabs

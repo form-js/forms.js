@@ -33,10 +33,9 @@ class MyField extends Field {
 }
 
 const pluginSettings = {
-  type: 'my-field',
+  type: 'fieldtype',
   constructor: MyField,
   constructorType: constructorTypes.field,
-  licensed: false,
 }
 
 usePlugin(pluginSettings);

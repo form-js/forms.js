@@ -103,13 +103,17 @@ change: (value: FieldValue) => void;
 - <a class="link" href="https://formsjs.io/documentation/v1/color-field">Color field</a>
 - <a class="link" href="https://formsjs.io/documentation/v1/date-field">Date field</a>
 - <a class="link" href="https://formsjs.io/documentation/v1/datetime-field">Datetime field</a>
+- <a class="link" href="https://formsjs.io/documentation/v1/daterange-field">Daterange field</a>
 - <a class="link" href="https://formsjs.io/documentation/v1/email-field">Email field</a>
 - <a class="link" href="https://formsjs.io/documentation/v1/file-field">File field</a>
 - <a class="link" href="https://formsjs.io/documentation/v1/hidden-field">Hidden field</a>
+- <a class="link" href="https://formsjs.io/documentation/v1/list-field">List field</a>
 - <a class="link" href="https://formsjs.io/documentation/v1/number-field">Number field</a>
 - <a class="link" href="https://formsjs.io/documentation/v1/pasword-field">Password field</a>
 - <a class="link" href="https://formsjs.io/documentation/v1/radio-field">Radio field</a>
 - <a class="link" href="https://formsjs.io/documentation/v1/range-field">Range field</a>
+- <a class="link" href="https://formsjs.io/documentation/v1/rating-field">Rating field</a>
+- <a class="link" href="https://formsjs.io/documentation/v1/richtext-field">Richtext field</a>
 - <a class="link" href="https://formsjs.io/documentation/v1/select-field">Select field</a>
 - <a class="link" href="https://formsjs.io/documentation/v1/static-field">Static field</a>
 - <a class="link" href="https://formsjs.io/documentation/v1/tel-field">Telephone field</a>
