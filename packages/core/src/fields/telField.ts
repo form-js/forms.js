@@ -22,8 +22,8 @@ export class TelField extends Field {
     className: INPUT_CLASS_DEFAULT,
   };
 
-  public telFormat = /^\+[1-9]\d{1,14}$/;
-
+  public telFormat = /^\+?\d{1,3}?[-.\s]?\(?\d{1,4}?\)?([-.\s]?\d{1,9})*$/;
+  
   constructor(parent: HTMLElement, form: Form, options: FieldOptions) {
     super(parent, form, options);
     this.initializeOptions(options);

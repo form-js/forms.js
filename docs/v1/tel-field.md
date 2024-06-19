@@ -33,7 +33,7 @@ validation: (value: FieldValue, data: FormData, required: boolean) => true | str
 **Default value**
 
 ```js
-public telFormat = /^\+[1-9]\d{1,14}$/;
+public telFormat = /^\+?\d{1,3}?[-.\s]?\(?\d{1,4}?\)?([-.\s]?\d{1,9})*$/;
 
 validation: (value, data, required) => {
     if (required && !value) return 'This field is required';
