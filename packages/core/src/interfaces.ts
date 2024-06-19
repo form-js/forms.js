@@ -15,7 +15,6 @@ import {
   FIELD_TYPE_STATIC,
   FIELD_TYPE_TEXTAREA,
 } from './constants';
-import { Form } from './form';
 import { FieldType, FieldValue, HTMLElementEvent, Option, Schema, FormData } from './types';
 
 export interface FormOptions {
@@ -138,7 +137,7 @@ export interface SelectFieldOptions extends FieldOptions {
   conditions?: (value: FieldValue, data: FormData) => boolean;
   disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   placeholder?: string;
-  optionsList?: Option[];
+  optionsList?: Option[] | ((query: string) => Promise<Option[]>);
   className?: string;
   default?: string | string[] | object | object[] | null;
   multiple?: boolean;

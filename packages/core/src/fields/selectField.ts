@@ -3,7 +3,7 @@ const TomSelectInitiator = (TomSelectNamespace as any).default;
 import { Field } from '../field';
 import { Form } from '../form';
 import { SelectFieldOptions } from '../interfaces';
-import { FieldValue, HTMLElementEvent, Option, SelectFieldValue } from '../types';
+import { HTMLElementEvent, Option, SelectFieldValue } from '../types';
 import { debounce, mountElement } from '../utils';
 import {
   CHANGE_ATTRIBUTE,
@@ -35,7 +35,11 @@ export class SelectField extends Field {
     multiple: false,
     optionsList: [],
     className: SELECT_CLASS_DEFAULT,
-    options: {},
+    options: {
+      valueField: 'value',
+      labelField: 'label',
+      searchField: 'label',
+    },
   };
 
   private _tomselect: TomSelect | null = null;
@@ -49,6 +53,9 @@ export class SelectField extends Field {
 
   async initialize(): Promise<void> {
     this.initTomselect();
+    if (typeof this.options.optionsList !== 'function') {
+      this.syncOptions(this.options.optionsList || []);
+    }
     this.load();
     this.update();
     this.bindChange();
@@ -83,7 +90,23 @@ export class SelectField extends Field {
     return this._tomselect;
   }
 
+  async pullOptions(query: string, callback: (options?: Option[]) => void, fetchOptions: Option[] | ((query: string) => Promise<Option[]>)) {
+    if (typeof fetchOptions === 'function') {
+      const options: Option[] = await fetchOptions(query);
+      callback(options);
+    }
+  }
+
   initTomselect(): void {
+    if (this.options.optionsList && typeof this.options.optionsList === 'function') {
+      this.options.options = Object.assign(this.options.options!, {
+        load: (query: string, callback: (options?: Option[]) => void) => {
+          this.pullOptions(query, callback, this.options.optionsList!);
+        },
+        preload: true,
+      });
+    }
+
     if (this.inputElement && this.options.enhance)
       this._tomselect = new TomSelectInitiator(this.inputElement, this.options.options || {});
   }
@@ -107,24 +130,34 @@ export class SelectField extends Field {
     if (this.options.multiple) this.inputElement.setAttribute(MULTIPLE_ATTRIBUTE, '');
     if (this.options.placeholder) this.inputElement.setAttribute(PLACEHOLDER_ATTRIBUTE, this.options.placeholder);
     this.inputElement.className = this.options.className!;
-    this.options.optionsList?.forEach((option: Option) => {
-      const optionElement: HTMLOptionElement = document.createElement(OPTION_ELEMENT);
-      optionElement.setAttribute(VALUE_ATTRIBUTE, option.value);
-      if (
-        typeof option.value === 'string' &&
-        this.options.default &&
-        Array.isArray(this.options.default) &&
-        this.options.default?.findIndex((val) => val === option.value) >= 0
-      ) {
-        optionElement.setAttribute(SELECTED_ATTRIBUTE, 'true');
-      } else if (this.options.default && this.options.default === option.value) {
-        optionElement.setAttribute(SELECTED_ATTRIBUTE, 'true');
-      }
+  }
 
-      if (option.disabled) optionElement.setAttribute(DISABLED_ATTRIBUTE, String(option.disabled));
-      optionElement.innerText = option.label;
-      this.inputElement?.append(optionElement);
-    });
+  syncOptions(options: Option[]) {
+    if (!this.options.enhance) {
+      const select = this.inputElement as HTMLSelectElement;
+      select.innerHTML = '';
+      options.forEach((option: Option) => {
+        const optionElement: HTMLOptionElement = document.createElement(OPTION_ELEMENT);
+        optionElement.setAttribute(VALUE_ATTRIBUTE, option.value);
+        if (
+          typeof option.value === 'string' &&
+          this.options.default &&
+          Array.isArray(this.options.default) &&
+          this.options.default?.findIndex((val) => val === option.value) >= 0
+        ) {
+          optionElement.setAttribute(SELECTED_ATTRIBUTE, 'true');
+        } else if (this.options.default && this.options.default === option.value) {
+          optionElement.setAttribute(SELECTED_ATTRIBUTE, 'true');
+        }
+
+        if (option.disabled) optionElement.setAttribute(DISABLED_ATTRIBUTE, String(option.disabled));
+        optionElement.innerText = option.label;
+        this.inputElement?.append(optionElement);
+      });
+    } else {
+      this._tomselect?.clearOptions();
+      this._tomselect?.addOptions(options);
+    }
   }
 
   onGui() {
