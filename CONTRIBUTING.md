@@ -43,7 +43,12 @@ To quickly reproduce the bug you can use the [forms.js codepen template!](https:
 - What actually happens
 - Notes (possibly including why you think this might be happening, or stuff you tried that didn't work)
 
-* run `npm run lint` for style unification
+## Available commands
+
+- run `npm run lint` for style unification
+- run `npm run format` to format the code
+- run `npm run build` to build each package
+- run `npm run test` to run automated tests
 
 ## Local Testing
 
