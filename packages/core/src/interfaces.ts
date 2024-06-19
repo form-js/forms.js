@@ -210,3 +210,7 @@ export interface RadioFieldItemOptions {
   label: string | (() => HTMLElement);
   value: string;
 }
+
+export interface PasswordFieldOptions extends FieldOptions {
+  allowPeek?: boolean;
+}
