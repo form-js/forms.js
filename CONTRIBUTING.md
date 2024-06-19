@@ -66,6 +66,10 @@ Run local server:
 npm start
 ```
 
+## Automated tests
+
+We use jest for automated tests. Each package has folder where tests can be written and we try to keep the coverage as close to 100% as possible. Each major change or feature should introduce a updated or new test that covers it.
+
 ## License
 
 By contributing, you agree that your contributions will be licensed under its MIT License.
