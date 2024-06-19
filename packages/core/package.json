@@ -10,7 +10,7 @@
     "css/**/*"
   ],
   "scripts": {
-    "build": "tsc  && tsc -p tsconfig-cjs.json",
+    "build": "tsc  && tsc -p tsconfig-cjs.json && tsc -p tsconfig-local-testing.json",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint src/** -c eslint.json",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --collectCoverage --coverageDirectory=src/tests/coverage",
