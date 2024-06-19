@@ -24,18 +24,26 @@ export class PasswordField extends Field {
     this.initialize();
 
     if (options.allowPeek) {
-      this.addPeekButton(parent);
+      this.addPeekButton();
     }
   }
 
-  /** add a button to show password */
-  private addPeekButton(parent: HTMLElement) {
+  /** Add a button to show/hide password */
+  private addPeekButton() {
     const button = document.createElement('button');
-    const input = parent.querySelector('input')!;
-    let isHidden = true;
+    const input = this.inputElement as HTMLInputElement;
 
+    // Place the input and button into a container element
+    const container = document.createElement('div');
+    container.classList.add('password-container');
+    input.insertAdjacentElement('afterend', container);
+    container.append(input, button);
+
+    // Initially, the password is hidden
+    let isHidden = true;
     hide();
 
+    // Toggle password visibility when the button is clicked
     button.addEventListener('click', event => {
       event.preventDefault();
       if (isHidden) {
@@ -45,19 +53,17 @@ export class PasswordField extends Field {
       }
     });
 
-    parent.appendChild(button);
-
     function hide() {
-      button.classList.add('pwd-hidden');
-      button.classList.remove('pwd-shown');
+      button.classList.add('pass-hidden');
+      button.classList.remove('pass-shown');
       button.ariaLabel = 'show password';
       input.type = 'password';
       isHidden = true;
     }
 
     function show() {
-      button.classList.add('pwd-shown');
-      button.classList.remove('pwd-hidden');
+      button.classList.add('pass-shown');
+      button.classList.remove('pass-hidden');
       button.ariaLabel = 'hide password';
       input.type = 'text';
       isHidden = false;
