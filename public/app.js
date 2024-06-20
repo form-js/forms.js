@@ -114,6 +114,14 @@ function initForm() {
         id: "select",
         type: "select",
         label: "Select",
+        options: {
+          maxItems: null,
+          plugins: ["remove_button"],
+        },
+        required: true,
+        change: (value) => {
+          console.log(value);
+        },
         optionsList: async function (query) {
           if (!query) return [...options];
           const search = [

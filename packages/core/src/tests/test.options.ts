@@ -75,7 +75,7 @@ export const SELECT_OPTIONS = [
     value: DEFAULT_SELECT_VALUE,
   },
   {
-    label: '1',
+    label: '2',
     value: SECOND_SELECT_VALUE,
   },
   {
@@ -266,10 +266,24 @@ export const baseSelectFieldTestOptions = {
   label: 'Testing Field',
   type: FIELD_TYPE_SELECT,
   default: DEFAULT_SELECT_VALUE,
-  className: 'textarea-field-class',
-  placeholder: 'textarea-placeholder',
+  className: 'select-field-class',
+  placeholder: 'select-placeholder',
   optionsList: SELECT_OPTIONS,
   enhance: false,
+};
+
+export const baseSelectFieldTestOptionsListAsFunction = {
+  id: SELECT_FIELD_ID,
+  name: 'test-select',
+  label: 'Testing Field',
+  type: FIELD_TYPE_SELECT,
+  default: null,
+  className: 'select-field-class',
+  placeholder: 'select-placeholder',
+  optionsList: async (query: string) => {
+    return SELECT_OPTIONS;
+  },
+  enhance: true,
 };
 
 export const baseStaticFieldTestOptions = {

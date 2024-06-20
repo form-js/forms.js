@@ -92,6 +92,7 @@ export const MIN_ATTRIBUTE = 'min';
 export const MAX_ATTRIBUTE = 'max';
 export const STEP_ATTRIBUTE = 'step';
 export const VALUE_ATTRIBUTE = 'value';
+export const LABEL_ATTRIBUTE = 'label';
 export const SELECTED_ATTRIBUTE = 'selected';
 export const ROWS_ATTRIBUTE = 'rows';
 

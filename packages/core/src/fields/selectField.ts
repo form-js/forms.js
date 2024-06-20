@@ -11,6 +11,7 @@ import {
   DISABLED_ATTRIBUTE,
   FIELD_TYPE_SELECT,
   ID_ATTRIBUTE,
+  LABEL_ATTRIBUTE,
   MULTIPLE_ATTRIBUTE,
   NAME_ATTRIBUTE,
   OPTION_ELEMENT,
@@ -21,7 +22,6 @@ import {
   TYPE_ATTRIBUTE,
   VALUE_ATTRIBUTE,
 } from '../constants';
-
 export class SelectField extends Field {
   public options: SelectFieldOptions = {
     id: '',
@@ -29,6 +29,7 @@ export class SelectField extends Field {
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;
+      if (required && Array.isArray(value) && value.length === 0) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;
       return true;
     },
     enhance: true,
@@ -38,7 +39,7 @@ export class SelectField extends Field {
     options: {
       valueField: 'value',
       labelField: 'label',
-      searchField: 'label',
+      searchField: ['label'],
     },
   };
 
@@ -98,17 +99,22 @@ export class SelectField extends Field {
   }
 
   initTomselect(): void {
-    if (this.options.optionsList && typeof this.options.optionsList === 'function') {
-      this.options.options = Object.assign(this.options.options!, {
-        load: (query: string, callback: (options?: Option[]) => void) => {
-          this.pullOptions(query, callback, this.options.optionsList!);
-        },
-        preload: true,
-      });
-    }
+    if (this.options.enhance) {
+      if (this.options.optionsList && typeof this.options.optionsList === 'function') {
+        this.options.options = Object.assign(this.options.options!, {
+          load: (query: string, callback: (options?: Option[]) => void) => {
+            this.pullOptions(query, callback, this.options.optionsList!);
+          },
+          preload: this.options.options?.preload ?? true,
+          valueField: this.options.options?.valueField ?? VALUE_ATTRIBUTE,
+          labelField: this.options.options?.labelField ?? LABEL_ATTRIBUTE,
+          searchField: this.options.options?.searchField ?? [LABEL_ATTRIBUTE],
+        });
+      }
 
-    if (this.inputElement && this.options.enhance)
-      this._tomselect = new TomSelectInitiator(this.inputElement, this.options.options || {});
+      if (this.inputElement)
+        this._tomselect = new TomSelectInitiator(this.inputElement, this.options.options || {});
+    }
   }
 
   handleDisabled() {
@@ -157,6 +163,7 @@ export class SelectField extends Field {
     } else {
       this._tomselect?.clearOptions();
       this._tomselect?.addOptions(options);
+      this._tomselect?.sync();
     }
   }
 

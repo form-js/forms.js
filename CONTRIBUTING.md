@@ -58,7 +58,7 @@ To test the changes locally you will need to build the package that you made cha
 npm --prefix ./packages/core run build
 ```
 
-You can then create your test case in `public\app.js` to watch the changes run `npm run watch-local`. 
+You can then create your test case in `public\app.js` to watch the changes run `npm run watch`. 
 
 Run local server:
 
