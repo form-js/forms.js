@@ -4,6 +4,7 @@
 @import './fields/dates.css';
 @import './fields/file.css';
 @import './fields/list.css';
+@import './fields/password.css';
 @import './fields/radio.css';
 @import './fields/range.css';
 @import './fields/rating.css';

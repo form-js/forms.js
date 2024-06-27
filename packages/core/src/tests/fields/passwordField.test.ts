@@ -53,4 +53,44 @@ describe('password-field', () => {
     field.validate();
     expect(field.getValidity()).toBeTruthy();
   });
+
+  it('creates show/hide password button', () => {
+    const form = createForm({
+      schema: [
+        {
+          ...basePasswordFieldTestOptions,
+          allowPeek: true,
+        },
+      ],
+    });
+    const field = form.getField(PASSWORD_FIELD_ID)! as unknown as PasswordField;
+    const input = field.inputElement as HTMLInputElement;
+    const button = field.containerElement!.querySelector('button.pass-hidden') as HTMLButtonElement;
+
+    expect(input).toBeTruthy();
+    expect(button).toBeTruthy();
+    expect(input.type).toBe('password');
+    expect(button.ariaLabel).toBe('show password');
+    button.click();
+    expect(input.type).toBe('text');
+    expect(button.ariaLabel).toBe('hide password');
+    expect(button.classList.contains('pass-shown')).toBeTruthy();
+    expect(button.classList.contains('pass-hidden')).toBeFalsy();
+    button.click();
+    expect(input.type).toBe('password');
+    expect(button.ariaLabel).toBe('show password');
+    expect(button.classList.contains('pass-hidden')).toBeTruthy();
+    expect(button.classList.contains('pass-shown')).toBeFalsy();
+  });
+
+  it('does not create show/hide password button by default', () => {
+    const form = createForm({
+      schema: [basePasswordFieldTestOptions],
+    });
+
+    const field = form.getField(PASSWORD_FIELD_ID)! as unknown as PasswordField;
+    const button = field.containerElement!.querySelector('button.pass-hidden');
+
+    expect(button).toBeFalsy();
+  });
 });

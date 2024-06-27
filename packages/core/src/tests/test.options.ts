@@ -73,16 +73,31 @@ export const SELECT_OPTIONS = [
   {
     label: '1',
     value: DEFAULT_SELECT_VALUE,
+    group: 'group1'
   },
   {
-    label: '1',
+    label: '2',
     value: SECOND_SELECT_VALUE,
+    group: 'group1'
   },
   {
     label: '3',
     value: THIRD_SELECT_VALUE,
     disabled: true,
+    group: 'group2'
   },
+];
+
+export const SELECT_OPTION_GROUPS = [
+  {
+    id: 'group1',
+    label: 'Group 1',
+  },
+  {
+    id: 'group2',
+    label: 'Group 2',
+  },
+
 ];
 
 export const DEFAULT_STATIC_VALUE = '<span id="' + STATIC_FIELD_ID + '_template" />';
@@ -266,10 +281,28 @@ export const baseSelectFieldTestOptions = {
   label: 'Testing Field',
   type: FIELD_TYPE_SELECT,
   default: DEFAULT_SELECT_VALUE,
-  className: 'textarea-field-class',
-  placeholder: 'textarea-placeholder',
+  className: 'select-field-class',
+  placeholder: 'select-placeholder',
   optionsList: SELECT_OPTIONS,
   enhance: false,
+  optionGroups: SELECT_OPTION_GROUPS
+};
+
+export const baseSelectFieldTestOptionsListAsFunction = {
+  id: SELECT_FIELD_ID,
+  name: 'test-select',
+  label: 'Testing Field',
+  type: FIELD_TYPE_SELECT,
+  default: null,
+  className: 'select-field-class',
+  placeholder: 'select-placeholder',
+  optionsList: async (query: string) => {
+    return SELECT_OPTIONS;
+  },
+  optionGroups: async (query: string) => {
+    return SELECT_OPTION_GROUPS;
+  },
+  enhance: true,
 };
 
 export const baseStaticFieldTestOptions = {
