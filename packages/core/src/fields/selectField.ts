@@ -71,7 +71,10 @@ export class SelectField extends Field {
   async initialize(): Promise<void> {
     this.initTomselect();
     if (typeof this.options.optionsList !== 'function') {
-      this.syncOptions(this.options.optionsList || [], typeof this.options.optionGroups !== 'function' ? this.options.optionGroups || [] : []);
+      this.syncOptions(
+        this.options.optionsList || [],
+        typeof this.options.optionGroups !== 'function' ? this.options.optionGroups || [] : [],
+      );
     }
     this.load();
     this.update();
@@ -107,7 +110,12 @@ export class SelectField extends Field {
     return this._tomselect;
   }
 
-  async pullOptions(query: string, callback: (options?: Option[], groups?: OptionGroup[]) => void, fetchOptions: Option[] | ((query: string) => Promise<Option[]>), fetchGroups?: OptionGroup[] | ((query: string) => Promise<OptionGroup[]>)) {
+  async pullOptions(
+    query: string,
+    callback: (options?: Option[], groups?: OptionGroup[]) => void,
+    fetchOptions: Option[] | ((query: string) => Promise<Option[]>),
+    fetchGroups?: OptionGroup[] | ((query: string) => Promise<OptionGroup[]>),
+  ) {
     if (typeof fetchOptions === 'function') {
       const options: Option[] = await fetchOptions(query);
       let optionGroups: null | OptionGroup[] = null;
@@ -133,8 +141,7 @@ export class SelectField extends Field {
         });
       }
 
-      if (this.inputElement)
-        this._tomselect = new TomSelectInitiator(this.inputElement, this.options.options || {});
+      if (this.inputElement) this._tomselect = new TomSelectInitiator(this.inputElement, this.options.options || {});
     }
   }
 
@@ -174,7 +181,7 @@ export class SelectField extends Field {
             }
           });
           this.inputElement?.append(groupElement);
-        })
+        });
       } else {
         options.forEach((option: Option) => {
           if (this.inputElement) {

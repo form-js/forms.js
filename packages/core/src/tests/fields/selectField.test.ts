@@ -32,7 +32,7 @@ describe('select-field', () => {
       schema: [
         {
           ...baseSelectFieldTestOptions,
-          optionGroups: undefined
+          optionGroups: undefined,
         },
       ],
     });
@@ -97,7 +97,7 @@ describe('select-field', () => {
       schema: [
         {
           ...baseSelectFieldTestOptionsListAsFunction,
-          optionGroups: SELECT_OPTION_GROUPS
+          optionGroups: SELECT_OPTION_GROUPS,
         },
       ],
     });
@@ -236,7 +236,6 @@ describe('select-field', () => {
     field.change(event);
     expect(mockChange).toHaveBeenCalledWith([SECOND_SELECT_VALUE]);
   });
-
 
   it('enhanced input handles change', () => {
     const mockChange = jest.fn();

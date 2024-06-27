@@ -95,11 +95,11 @@ export interface DateFieldOptions extends FieldOptions {
   name?: string;
   label?: string | (() => HTMLElement);
   type:
-  | typeof FIELD_TYPE_DATE
-  | typeof FIELD_TYPE_WEEK
-  | typeof FIELD_TYPE_DATETIME
-  | typeof FIELD_TYPE_TIME
-  | typeof FIELD_TYPE_DATERANGE;
+    | typeof FIELD_TYPE_DATE
+    | typeof FIELD_TYPE_WEEK
+    | typeof FIELD_TYPE_DATETIME
+    | typeof FIELD_TYPE_TIME
+    | typeof FIELD_TYPE_DATERANGE;
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   change?: (value: FieldValue) => void;
   validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;

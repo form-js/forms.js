@@ -73,18 +73,18 @@ export const SELECT_OPTIONS = [
   {
     label: '1',
     value: DEFAULT_SELECT_VALUE,
-    group: 'group1'
+    group: 'group1',
   },
   {
     label: '2',
     value: SECOND_SELECT_VALUE,
-    group: 'group1'
+    group: 'group1',
   },
   {
     label: '3',
     value: THIRD_SELECT_VALUE,
     disabled: true,
-    group: 'group2'
+    group: 'group2',
   },
 ];
 
@@ -97,7 +97,6 @@ export const SELECT_OPTION_GROUPS = [
     id: 'group2',
     label: 'Group 2',
   },
-
 ];
 
 export const DEFAULT_STATIC_VALUE = '<span id="' + STATIC_FIELD_ID + '_template" />';
@@ -285,7 +284,7 @@ export const baseSelectFieldTestOptions = {
   placeholder: 'select-placeholder',
   optionsList: SELECT_OPTIONS,
   enhance: false,
-  optionGroups: SELECT_OPTION_GROUPS
+  optionGroups: SELECT_OPTION_GROUPS,
 };
 
 export const baseSelectFieldTestOptionsListAsFunction = {

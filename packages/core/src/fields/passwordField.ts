@@ -44,7 +44,7 @@ export class PasswordField extends Field {
     hide();
 
     // Toggle password visibility when the button is clicked
-    button.addEventListener('click', event => {
+    button.addEventListener('click', (event) => {
       event.preventDefault();
       if (isHidden) {
         show();
