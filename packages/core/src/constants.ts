@@ -36,6 +36,10 @@ export const RANGE_MAX_CLASS_DEFAULT = 'form-input-range-max';
 export const RANGE_VALUE_CLASS_DEFAULT = 'form-input-range-value';
 export const SELECT_CLASS_DEFAULT = 'form-input-select';
 export const STATIC_CLASS_DEFAULT = 'form-input-static';
+export const FIELD_CONTAINER_PASSWORD_CLASS = 'password-container';
+export const PASSWORD_SHOWN_CLASS = 'pass-shown';
+export const PASSWORD_HIDDEN_CLASS = 'pass-hidden';
+
 
 export const DEFAULT_REQUIRED_VALIDATION_MESSAGE = 'This field is required';
 export const INVALID_EMAIL_VALIDATION_MESSAGE = 'Not a valid email address';

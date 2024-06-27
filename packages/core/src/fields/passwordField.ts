@@ -1,4 +1,4 @@
-import { DEFAULT_REQUIRED_VALIDATION_MESSAGE, FIELD_TYPE_PASSWORD, INPUT_CLASS_DEFAULT } from '../constants';
+import { BUTTON_ELEMENT, CLICK_ATTRIBUTE, DEFAULT_REQUIRED_VALIDATION_MESSAGE, DIV_ELEMENT, FIELD_CONTAINER_PASSWORD_CLASS, FIELD_TYPE_PASSWORD, FIELD_TYPE_TEXT, INPUT_CLASS_DEFAULT, PASSWORD_HIDDEN_CLASS, PASSWORD_SHOWN_CLASS } from '../constants';
 import { Field } from '../field';
 import { Form } from '../form';
 import { PasswordFieldOptions } from '../interfaces';
@@ -23,19 +23,19 @@ export class PasswordField extends Field {
     this.onGui();
     this.initialize();
 
-    if (options.allowPeek) {
+    if (this.options.allowPeek) {
       this.addPeekButton();
     }
   }
 
   /** Add a button to show/hide password */
   private addPeekButton() {
-    const button = document.createElement('button');
+    const button = document.createElement(BUTTON_ELEMENT);
     const input = this.inputElement as HTMLInputElement;
 
     // Place the input and button into a container element
-    const container = document.createElement('div');
-    container.classList.add('password-container');
+    const container = document.createElement(DIV_ELEMENT);
+    container.classList.add(FIELD_CONTAINER_PASSWORD_CLASS);
     input.insertAdjacentElement('afterend', container);
     container.append(input, button);
 
@@ -44,7 +44,7 @@ export class PasswordField extends Field {
     hide();
 
     // Toggle password visibility when the button is clicked
-    button.addEventListener('click', (event) => {
+    button.addEventListener(CLICK_ATTRIBUTE, (event) => {
       event.preventDefault();
       if (isHidden) {
         show();
@@ -54,18 +54,18 @@ export class PasswordField extends Field {
     });
 
     function hide() {
-      button.classList.add('pass-hidden');
-      button.classList.remove('pass-shown');
+      button.classList.add(PASSWORD_HIDDEN_CLASS);
+      button.classList.remove(PASSWORD_SHOWN_CLASS);
       button.ariaLabel = 'show password';
-      input.type = 'password';
+      input.type = FIELD_TYPE_PASSWORD;
       isHidden = true;
     }
 
     function show() {
-      button.classList.add('pass-shown');
-      button.classList.remove('pass-hidden');
+      button.classList.add(PASSWORD_SHOWN_CLASS);
+      button.classList.remove(PASSWORD_HIDDEN_CLASS);
       button.ariaLabel = 'hide password';
-      input.type = 'text';
+      input.type = FIELD_TYPE_TEXT;
       isHidden = false;
     }
   }

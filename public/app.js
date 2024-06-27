@@ -117,7 +117,7 @@ function initForm() {
   new Form("form", {
     id: "form",
     schema: [
-      {
+      /*{
         id: "select",
         type: "select",
         label: "Select",
@@ -129,8 +129,6 @@ function initForm() {
         change: (value) => {
           console.log(value);
         },
-        /*optionsList: options,
-        optionGroups: groups,*/
         optionsList: async function (query) {
           if (!query) return [...options];
           const search = [
@@ -150,6 +148,12 @@ function initForm() {
         optionGroups: async function (query) {
           return groups;
         },
+      },*/
+      {
+        id: "password",
+        type: "password",
+        allowPeek: true,
+        label: "Pasword",
       },
     ],
   });
