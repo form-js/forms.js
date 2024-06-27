@@ -16,7 +16,7 @@ import {
   FIELD_TYPE_STATIC,
   FIELD_TYPE_TEXTAREA,
 } from './constants';
-import { FieldType, FieldValue, Option, Schema, FormData } from './types';
+import { FieldType, FieldValue, Option, Schema, FormData, OptionGroup } from './types';
 import { TPluginHash, TPluginItem } from 'tom-select/dist/types/contrib/microplugin';
 
 export interface FormOptions {
@@ -145,6 +145,7 @@ export interface SelectFieldOptions extends FieldOptions {
   multiple?: boolean;
   options?: TomSelectSettings;
   enhance?: boolean;
+  optionGroups?: OptionGroup[] | ((query: string) => Promise<OptionGroup[]>);
 }
 
 export interface FileFieldOptions extends FieldOptions {

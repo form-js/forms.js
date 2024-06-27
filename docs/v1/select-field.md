@@ -7,7 +7,7 @@ The options object can include the following properties (you can find full list 
 - `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
 - `enhance: boolean` - Defines if field uses standard html5 input or enhanced date input version. Defaultly set to true.
 - `multiple: boolean` - Defines if select is multiselect.
-- `optionsList: Option[] | ((query: string) => Promise<Option[]>)` - the list of available options.
+- `optionsList: Option[] | ((query: string) => Promise<Option[]>)` - the list of available options. Single option contains `value`, `label` and `group` parameters. Group is optional and if filled it will need to contain `id` of available otpion group. Option groups can be defined through `optionGroups`.
 - `options: TomSelectOptions` - If input is enhanced you can define additional options used by TomSelect.
 
 <iframe height="400" style="width: 100%;" scrolling="no" title="forms.js - select example not enhanced" src="https://codepen.io/trilmatic/embed/dyaLjer?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
@@ -37,6 +37,7 @@ Example optionsList:
   {
     value: "option1",
     label: "Option 1",
+    group: "group1"
   },
 ];
 ```
@@ -125,6 +126,16 @@ change: (value: FieldValue) => void;
       <td>Type of the field.</td>
     </tr>
     <tr>
+      <td>optionsList</td>
+      <td><code>Option[] | ((query: string) => Promise&lt;Option[]&gt;)</code></td>
+      <td>The available options list. This can be an array of options or an async function that returns array of options.</td>
+    </tr>
+    <tr>
+      <td>optionGroups</td>
+      <td><code>OptionGroup[] | ((query: string) => Promise&lt;OptionGroup[]&gt;)</code></td>
+      <td>The array of option groups. The Option groups as function is only triggered when `optionsList` is also an function otherwise it will not detect the groups. The `OptionGroup` is an object that has `id` and `label` parameters. ID connects the group to option. Label is the group name.</td>
+    </tr>
+    <tr>
       <td>label</td>
       <td><code>string</code></td>
       <td>Defiles fields label.</td>
@@ -168,11 +179,6 @@ change: (value: FieldValue) => void;
       <td>placeholder</td>
       <td><code>string</code></td>
       <td>Defines fields placeholder.</td>
-    </tr>
-    <tr>
-      <td>optionsList</td>
-      <td><code>Option[] | ((query: string) => Promise&lt;Option[]&gt;)</code></td>
-      <td>The available options list. This can be an array of options or an async function that returns array of options.</td>
     </tr>
     <tr>
       <td>debounce</td>

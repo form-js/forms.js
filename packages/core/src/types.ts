@@ -14,6 +14,12 @@ export type Option = {
   value: string;
   label: string;
   disabled?: boolean;
+  group?: string,
+};
+
+export type OptionGroup = {
+  id: string;
+  label: string;
 };
 
 export type FieldType = (typeof fields)[number];
@@ -32,7 +38,7 @@ export type SelectFieldValue =
   | Record<string, any>;
 
 export type FormElement = {
-  new (parent: HTMLElement, form: Form, options: Record<string, any>): any;
+  new(parent: HTMLElement, form: Form, options: Record<string, any>): any;
   getId(): string;
   initialize(): void;
   getSchemaContainer?(): HTMLElement | null;

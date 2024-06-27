@@ -3,12 +3,12 @@ import "../packages/core/css/index.css";
 import { Form } from "./js/core/index";
 
 const options = [
-  { value: "vincent_van_gogh", label: "Vincent van Gogh" },
-  { value: "pablo_picasso", label: "Pablo Picasso" },
+  { value: "vincent_van_gogh", label: "Vincent van Gogh", group: "painters" },
+  { value: "pablo_picasso", label: "Pablo Picasso", group: "painters" },
   { value: "leonardo_da_vinci", label: "Leonardo da Vinci" },
-  { value: "claude_monet", label: "Claude Monet" },
-  { value: "michelangelo", label: "Michelangelo" },
-  { value: "rembrandt", label: "Rembrandt" },
+  { value: "claude_monet", label: "Claude Monet", group: "painters" },
+  { value: "michelangelo", label: "Michelangelo", group: "painters" },
+  { value: "rembrandt", label: "Rembrandt", group: "painters" },
   { value: "andy_warhol", label: "Andy Warhol" },
   { value: "salvador_dali", label: "Salvador Dali" },
   { value: "frida_kahlo", label: "Frida Kahlo" },
@@ -106,6 +106,13 @@ const options = [
   { value: "anna_ostroumova_lebedeva", label: "Anna Ostroumova-Lebedeva" },
 ];
 
+const groups = [
+  {
+    id: "painters",
+    label: "Painters",
+  },
+];
+
 function initForm() {
   new Form("form", {
     id: "form",
@@ -122,6 +129,8 @@ function initForm() {
         change: (value) => {
           console.log(value);
         },
+        /*optionsList: options,
+        optionGroups: groups,*/
         optionsList: async function (query) {
           if (!query) return [...options];
           const search = [
@@ -137,6 +146,9 @@ function initForm() {
               label: item.label,
             };
           });
+        },
+        optionGroups: async function (query) {
+          return groups;
         },
       },
     ],

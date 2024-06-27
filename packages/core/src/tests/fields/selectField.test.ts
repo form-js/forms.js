@@ -6,6 +6,7 @@ import {
   DEFAULT_SELECT_VALUE,
   SECOND_SELECT_VALUE,
   baseSelectFieldTestOptionsListAsFunction,
+  SELECT_OPTION_GROUPS,
 } from './../test.options';
 import * as utils from '../../utils';
 import { SelectField } from '../../fields';
@@ -31,6 +32,7 @@ describe('select-field', () => {
       schema: [
         {
           ...baseSelectFieldTestOptions,
+          optionGroups: undefined
         },
       ],
     });
@@ -43,6 +45,18 @@ describe('select-field', () => {
     expect(field.getVisibility()).toBeTruthy();
     expect(field.getTomselect()).toBeNull();
     expect(field.getForm()).toBe(form);
+  });
+
+  it('handles option groups on base select', () => {
+    const form = createForm({
+      schema: [
+        {
+          ...baseSelectFieldTestOptions,
+        },
+      ],
+    });
+
+    expect(document.querySelector('optgroup')).not.toBeNull();
   });
 
   it('uses tom select', () => {
@@ -59,12 +73,31 @@ describe('select-field', () => {
     expect(field.getTomselect()).not.toBeNull();
   });
 
-  it('accepts optionsList as function', async () => {
+  it('accepts optionsList as function and optionGroups as function', async () => {
     jest.useFakeTimers();
     const form = createForm({
       schema: [
         {
           ...baseSelectFieldTestOptionsListAsFunction,
+        },
+      ],
+    });
+
+    const field = form.getField(SELECT_FIELD_ID)! as unknown as SelectField;
+    const tomSelect = field.getTomselect();
+    expect(tomSelect).not.toBeNull();
+    await jest.runAllTimersAsync();
+    expect(tomSelect?.getOption(DEFAULT_SELECT_VALUE)).toBeDefined();
+    expect(tomSelect?.getOption(DEFAULT_SELECT_VALUE)).not.toBeNull();
+  });
+
+  it('accepts optionsList as function and optionGroups as static array', async () => {
+    jest.useFakeTimers();
+    const form = createForm({
+      schema: [
+        {
+          ...baseSelectFieldTestOptionsListAsFunction,
+          optionGroups: SELECT_OPTION_GROUPS
         },
       ],
     });

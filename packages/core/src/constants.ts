@@ -56,6 +56,7 @@ export const H3_ELEMENT = 'h3';
 export const OUTPUT_ELEMENT = 'output';
 export const SELECT_ELEMENT = 'select';
 export const OPTION_ELEMENT = 'option';
+export const OPTION_GROUP_ELEMENT = 'optgroup';
 export const TEXTAREA_ELEMENT = 'textarea';
 
 export const CONTAINER_DEFINITION = '_container';
