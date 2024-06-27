@@ -213,6 +213,9 @@ export interface RadioFieldItemOptions {
   value: string;
 }
 
+export interface PasswordFieldOptions extends FieldOptions {
+  allowPeek?: boolean;
+}
 export interface TomSelectSettings {
   options?: any[];
   optgroups?: any[];
