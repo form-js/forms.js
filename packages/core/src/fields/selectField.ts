@@ -3,7 +3,7 @@ const TomSelectInitiator = (TomSelectNamespace as any).default;
 import { Field } from '../field';
 import { Form } from '../form';
 import { SelectFieldOptions } from '../interfaces';
-import { FieldValue, HTMLElementEvent, Option, SelectFieldValue } from '../types';
+import { HTMLElementEvent, Option, OptionGroup, SelectFieldValue } from '../types';
 import { debounce, mountElement } from '../utils';
 import {
   CHANGE_ATTRIBUTE,
@@ -11,9 +11,11 @@ import {
   DISABLED_ATTRIBUTE,
   FIELD_TYPE_SELECT,
   ID_ATTRIBUTE,
+  LABEL_ATTRIBUTE,
   MULTIPLE_ATTRIBUTE,
   NAME_ATTRIBUTE,
   OPTION_ELEMENT,
+  OPTION_GROUP_ELEMENT,
   PLACEHOLDER_ATTRIBUTE,
   SELECTED_ATTRIBUTE,
   SELECT_CLASS_DEFAULT,
@@ -21,7 +23,6 @@ import {
   TYPE_ATTRIBUTE,
   VALUE_ATTRIBUTE,
 } from '../constants';
-
 export class SelectField extends Field {
   public options: SelectFieldOptions = {
     id: '',
@@ -29,13 +30,21 @@ export class SelectField extends Field {
     required: false,
     validation: (value, data, required) => {
       if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;
+      if (required && Array.isArray(value) && value.length === 0) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;
       return true;
     },
     enhance: true,
     multiple: false,
     optionsList: [],
     className: SELECT_CLASS_DEFAULT,
-    options: {},
+    options: {
+      valueField: 'value',
+      labelField: 'label',
+      searchField: ['label'],
+      optgroupField: 'group',
+      optgroupLabelField: 'label',
+      optgroupValueField: 'id',
+    },
   };
 
   private _tomselect: TomSelect | null = null;
@@ -43,12 +52,27 @@ export class SelectField extends Field {
   constructor(parent: HTMLElement, form: Form, options: SelectFieldOptions) {
     super(parent, form, options);
     this.initializeOptions(options);
+    this.ensureTomSelectDefaultOptions();
     this.onGui();
     this.initialize();
   }
 
+  private ensureTomSelectDefaultOptions() {
+    this.options.options = Object.assign(this.options.options!, {
+      valueField: this.options.options?.valueField ?? VALUE_ATTRIBUTE,
+      labelField: this.options.options?.labelField ?? LABEL_ATTRIBUTE,
+      searchField: this.options.options?.searchField ?? [LABEL_ATTRIBUTE],
+      optgroupField: this.options.options?.optgroupField ?? 'group',
+      optgroupLabelField: this.options.options?.optgroupLabelField ?? LABEL_ATTRIBUTE,
+      optgroupValueField: this.options.options?.optgroupValueField ?? ID_ATTRIBUTE,
+    });
+  }
+
   async initialize(): Promise<void> {
     this.initTomselect();
+    if (typeof this.options.optionsList !== 'function') {
+      this.syncOptions(this.options.optionsList || [], typeof this.options.optionGroups !== 'function' ? this.options.optionGroups || [] : []);
+    }
     this.load();
     this.update();
     this.bindChange();
@@ -83,9 +107,35 @@ export class SelectField extends Field {
     return this._tomselect;
   }
 
+  async pullOptions(query: string, callback: (options?: Option[], groups?: OptionGroup[]) => void, fetchOptions: Option[] | ((query: string) => Promise<Option[]>), fetchGroups?: OptionGroup[] | ((query: string) => Promise<OptionGroup[]>)) {
+    if (typeof fetchOptions === 'function') {
+      const options: Option[] = await fetchOptions(query);
+      let optionGroups: null | OptionGroup[] = null;
+      if (fetchGroups) {
+        if (typeof fetchGroups === 'function') {
+          optionGroups = await fetchGroups(query);
+        } else if (fetchGroups.length > 0) {
+          optionGroups = fetchGroups;
+        }
+      }
+      callback(options, optionGroups ? optionGroups : undefined);
+    }
+  }
+
   initTomselect(): void {
-    if (this.inputElement && this.options.enhance)
-      this._tomselect = new TomSelectInitiator(this.inputElement, this.options.options || {});
+    if (this.options.enhance) {
+      if (this.options.optionsList && typeof this.options.optionsList === 'function') {
+        this.options.options = Object.assign(this.options.options!, {
+          load: (query: string, callback: (options?: Option[], groups?: OptionGroup[]) => void) => {
+            this.pullOptions(query, callback, this.options.optionsList!, this.options.optionGroups);
+          },
+          preload: this.options.options?.preload ?? true,
+        });
+      }
+
+      if (this.inputElement)
+        this._tomselect = new TomSelectInitiator(this.inputElement, this.options.options || {});
+    }
   }
 
   handleDisabled() {
@@ -107,24 +157,61 @@ export class SelectField extends Field {
     if (this.options.multiple) this.inputElement.setAttribute(MULTIPLE_ATTRIBUTE, '');
     if (this.options.placeholder) this.inputElement.setAttribute(PLACEHOLDER_ATTRIBUTE, this.options.placeholder);
     this.inputElement.className = this.options.className!;
-    this.options.optionsList?.forEach((option: Option) => {
-      const optionElement: HTMLOptionElement = document.createElement(OPTION_ELEMENT);
-      optionElement.setAttribute(VALUE_ATTRIBUTE, option.value);
-      if (
-        typeof option.value === 'string' &&
-        this.options.default &&
-        Array.isArray(this.options.default) &&
-        this.options.default?.findIndex((val) => val === option.value) >= 0
-      ) {
-        optionElement.setAttribute(SELECTED_ATTRIBUTE, 'true');
-      } else if (this.options.default && this.options.default === option.value) {
-        optionElement.setAttribute(SELECTED_ATTRIBUTE, 'true');
-      }
+  }
 
-      if (option.disabled) optionElement.setAttribute(DISABLED_ATTRIBUTE, String(option.disabled));
-      optionElement.innerText = option.label;
-      this.inputElement?.append(optionElement);
-    });
+  syncOptions(options: Option[], groups: OptionGroup[]) {
+    if (!this.options.enhance) {
+      const select = this.inputElement as HTMLSelectElement;
+      select.innerHTML = '';
+      if (groups.length > 0) {
+        groups.forEach((group: OptionGroup) => {
+          const groupElement: HTMLOptGroupElement = document.createElement(OPTION_GROUP_ELEMENT);
+          groupElement.label = group.label;
+          const groupOptions = options.filter((option: Option) => option.group === group.id);
+          groupOptions.forEach((option: Option) => {
+            if (this.inputElement) {
+              this.createOption(option, groupElement);
+            }
+          });
+          this.inputElement?.append(groupElement);
+        })
+      } else {
+        options.forEach((option: Option) => {
+          if (this.inputElement) {
+            this.createOption(option, this.inputElement);
+          }
+        });
+      }
+    } else {
+      this._tomselect?.clearOptions();
+      this._tomselect?.addOptions(options);
+      if (groups.length > 0) {
+        this._tomselect?.clearOptionGroups();
+        groups.forEach((group: OptionGroup) => {
+          this._tomselect?.addOptionGroup(group.id, group);
+        });
+      }
+      this._tomselect?.sync();
+    }
+  }
+
+  private createOption(option: Option, parent: HTMLElement) {
+    const optionElement: HTMLOptionElement = document.createElement(OPTION_ELEMENT);
+    optionElement.setAttribute(VALUE_ATTRIBUTE, option.value);
+    if (
+      typeof option.value === 'string' &&
+      this.options.default &&
+      Array.isArray(this.options.default) &&
+      this.options.default?.findIndex((val) => val === option.value) >= 0
+    ) {
+      optionElement.setAttribute(SELECTED_ATTRIBUTE, 'true');
+    } else if (this.options.default && this.options.default === option.value) {
+      optionElement.setAttribute(SELECTED_ATTRIBUTE, 'true');
+    }
+
+    if (option.disabled) optionElement.setAttribute(DISABLED_ATTRIBUTE, String(option.disabled));
+    optionElement.innerText = option.label;
+    parent?.append(optionElement);
   }
 
   onGui() {

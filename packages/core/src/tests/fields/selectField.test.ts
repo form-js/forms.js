@@ -5,6 +5,8 @@ import {
   SELECT_FIELD_ID,
   DEFAULT_SELECT_VALUE,
   SECOND_SELECT_VALUE,
+  baseSelectFieldTestOptionsListAsFunction,
+  SELECT_OPTION_GROUPS,
 } from './../test.options';
 import * as utils from '../../utils';
 import { SelectField } from '../../fields';
@@ -30,6 +32,7 @@ describe('select-field', () => {
       schema: [
         {
           ...baseSelectFieldTestOptions,
+          optionGroups: undefined
         },
       ],
     });
@@ -44,6 +47,18 @@ describe('select-field', () => {
     expect(field.getForm()).toBe(form);
   });
 
+  it('handles option groups on base select', () => {
+    const form = createForm({
+      schema: [
+        {
+          ...baseSelectFieldTestOptions,
+        },
+      ],
+    });
+
+    expect(document.querySelector('optgroup')).not.toBeNull();
+  });
+
   it('uses tom select', () => {
     const form = createForm({
       schema: [
@@ -56,6 +71,43 @@ describe('select-field', () => {
 
     const field = form.getField(SELECT_FIELD_ID)! as unknown as SelectField;
     expect(field.getTomselect()).not.toBeNull();
+  });
+
+  it('accepts optionsList as function and optionGroups as function', async () => {
+    jest.useFakeTimers();
+    const form = createForm({
+      schema: [
+        {
+          ...baseSelectFieldTestOptionsListAsFunction,
+        },
+      ],
+    });
+
+    const field = form.getField(SELECT_FIELD_ID)! as unknown as SelectField;
+    const tomSelect = field.getTomselect();
+    expect(tomSelect).not.toBeNull();
+    await jest.runAllTimersAsync();
+    expect(tomSelect?.getOption(DEFAULT_SELECT_VALUE)).toBeDefined();
+    expect(tomSelect?.getOption(DEFAULT_SELECT_VALUE)).not.toBeNull();
+  });
+
+  it('accepts optionsList as function and optionGroups as static array', async () => {
+    jest.useFakeTimers();
+    const form = createForm({
+      schema: [
+        {
+          ...baseSelectFieldTestOptionsListAsFunction,
+          optionGroups: SELECT_OPTION_GROUPS
+        },
+      ],
+    });
+
+    const field = form.getField(SELECT_FIELD_ID)! as unknown as SelectField;
+    const tomSelect = field.getTomselect();
+    expect(tomSelect).not.toBeNull();
+    await jest.runAllTimersAsync();
+    expect(tomSelect?.getOption(DEFAULT_SELECT_VALUE)).toBeDefined();
+    expect(tomSelect?.getOption(DEFAULT_SELECT_VALUE)).not.toBeNull();
   });
 
   it('handles disabeling', () => {
@@ -128,6 +180,25 @@ describe('select-field', () => {
     expect(field.getValidity()).toBeTruthy();
   });
 
+  it('input uses validate function when multiple options allowed', () => {
+    const form = createForm({
+      schema: [
+        {
+          ...baseSelectFieldTestOptions,
+          required: true,
+          multiple: true,
+          default: [],
+        },
+      ],
+    });
+    const field = form.getField(SELECT_FIELD_ID)! as unknown as SelectField;
+    field.validate();
+    expect(field.getValidity()).toBeFalsy();
+    field.setValue([DEFAULT_SELECT_VALUE, SECOND_SELECT_VALUE]);
+    field.validate();
+    expect(field.getValidity()).toBeTruthy();
+  });
+
   it('not enhanced input handles change', () => {
     const mockChange = jest.fn();
     const form = createForm({
@@ -166,7 +237,8 @@ describe('select-field', () => {
     expect(mockChange).toHaveBeenCalledWith([SECOND_SELECT_VALUE]);
   });
 
-  it('not enhanced input handles change', () => {
+
+  it('enhanced input handles change', () => {
     const mockChange = jest.fn();
     const form = createForm({
       schema: [
@@ -180,6 +252,8 @@ describe('select-field', () => {
     });
     const field = form.getField(SELECT_FIELD_ID)! as unknown as SelectField;
     expect(field.getValue()).toBe(null);
+    const tomSelect = field.getTomselect();
+    tomSelect?.setValue(DEFAULT_SELECT_VALUE); //Need to hack this and set value manualy
     const event = { target: { value: DEFAULT_SELECT_VALUE } } as HTMLElementEvent<HTMLInputElement>;
     field.change(event);
     expect(field.getValue()).toBe(DEFAULT_SELECT_VALUE);

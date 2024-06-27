@@ -56,6 +56,7 @@ export const H3_ELEMENT = 'h3';
 export const OUTPUT_ELEMENT = 'output';
 export const SELECT_ELEMENT = 'select';
 export const OPTION_ELEMENT = 'option';
+export const OPTION_GROUP_ELEMENT = 'optgroup';
 export const TEXTAREA_ELEMENT = 'textarea';
 
 export const CONTAINER_DEFINITION = '_container';
@@ -92,6 +93,7 @@ export const MIN_ATTRIBUTE = 'min';
 export const MAX_ATTRIBUTE = 'max';
 export const STEP_ATTRIBUTE = 'step';
 export const VALUE_ATTRIBUTE = 'value';
+export const LABEL_ATTRIBUTE = 'label';
 export const SELECTED_ATTRIBUTE = 'selected';
 export const ROWS_ATTRIBUTE = 'rows';
 

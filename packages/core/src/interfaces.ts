@@ -1,3 +1,4 @@
+import { TomCreate, TomCreateFilter, TomLoadCallback, TomOption, TomTemplates } from 'tom-select/dist/types/types';
 import {
   GROUP_TYPE_GROUP,
   BUTTON_TYPE_BUTTON,
@@ -15,8 +16,8 @@ import {
   FIELD_TYPE_STATIC,
   FIELD_TYPE_TEXTAREA,
 } from './constants';
-import { Form } from './form';
-import { FieldType, FieldValue, HTMLElementEvent, Option, Schema, FormData } from './types';
+import { FieldType, FieldValue, Option, Schema, FormData, OptionGroup } from './types';
+import { TPluginHash, TPluginItem } from 'tom-select/dist/types/contrib/microplugin';
 
 export interface FormOptions {
   id: string;
@@ -94,11 +95,11 @@ export interface DateFieldOptions extends FieldOptions {
   name?: string;
   label?: string | (() => HTMLElement);
   type:
-    | typeof FIELD_TYPE_DATE
-    | typeof FIELD_TYPE_WEEK
-    | typeof FIELD_TYPE_DATETIME
-    | typeof FIELD_TYPE_TIME
-    | typeof FIELD_TYPE_DATERANGE;
+  | typeof FIELD_TYPE_DATE
+  | typeof FIELD_TYPE_WEEK
+  | typeof FIELD_TYPE_DATETIME
+  | typeof FIELD_TYPE_TIME
+  | typeof FIELD_TYPE_DATERANGE;
   required?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   change?: (value: FieldValue) => void;
   validation?: (value: FieldValue, data: FormData, required: boolean) => true | string;
@@ -138,12 +139,13 @@ export interface SelectFieldOptions extends FieldOptions {
   conditions?: (value: FieldValue, data: FormData) => boolean;
   disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   placeholder?: string;
-  optionsList?: Option[];
+  optionsList?: Option[] | ((query: string) => Promise<Option[]>);
   className?: string;
   default?: string | string[] | object | object[] | null;
   multiple?: boolean;
-  options?: object;
+  options?: TomSelectSettings;
   enhance?: boolean;
+  optionGroups?: OptionGroup[] | ((query: string) => Promise<OptionGroup[]>);
 }
 
 export interface FileFieldOptions extends FieldOptions {
@@ -213,4 +215,80 @@ export interface RadioFieldItemOptions {
 
 export interface PasswordFieldOptions extends FieldOptions {
   allowPeek?: boolean;
+}
+export interface TomSelectSettings {
+  options?: any[];
+  optgroups?: any[];
+  items?: string[];
+  plugins?: string[] | TPluginItem[] | TPluginHash;
+  delimiter_?: string;
+  splitOn?: RegExp | string;
+  persist?: boolean;
+  diacritics?: boolean;
+  create?: boolean | TomCreate;
+  createOnBlur?: boolean;
+  createFilter?: RegExp | string | TomCreateFilter;
+  highlight?: boolean;
+  openOnFocus?: boolean;
+  shouldOpen?: boolean;
+  maxOptions?: number;
+  maxItems?: null | number;
+  hideSelected?: boolean;
+  duplicates?: boolean;
+  addPrecedence?: boolean;
+  selectOnTab?: boolean;
+  preload?: boolean | string;
+  allowEmptyOption?: boolean;
+  closeAfterSelect?: boolean;
+  refreshThrottle?: number;
+  loadThrottle?: number;
+  loadingClass?: string;
+  dataAttr?: string;
+  optgroupField?: string;
+  valueField?: string;
+  labelField?: string;
+  disabledField?: string;
+  optgroupLabelField?: string;
+  optgroupValueField?: string;
+  lockOptgroupOrder?: boolean;
+  sortField?: string;
+  searchField?: string[];
+  searchConjunction?: string;
+  nesting?: boolean;
+  mode?: string;
+  wrapperClass?: string;
+  controlClass?: string;
+  dropdownClass?: string;
+  dropdownContentClass?: string;
+  itemClass?: string;
+  optionClass?: string;
+  dropdownParent?: string;
+  controlInput?: string | HTMLInputElement;
+  copyClassesToDropdown?: boolean;
+  placeholder?: string;
+  hidePlaceholder?: boolean;
+  load?: (value: string, callback: TomLoadCallback) => void;
+  score?: (query: string) => () => any;
+  shouldLoad?: (query: string) => boolean;
+  onInitialize?: () => void;
+  onChange?: (value: string | number | string[] | number[]) => void;
+  onItemAdd?: (value: string | number, item: HTMLDivElement) => void;
+  onItemRemove?: (value: string | number, item: HTMLDivElement) => void;
+  onClear?: () => void;
+  onOptionAdd?: (value: string | number, data: TomOption) => void;
+  onOptionRemove?: (value: string | number) => void;
+  onOptionClear?: () => void;
+  onOptionGroupAdd?: (value: string | number, data: TomOption) => void;
+  onOptionGroupRemove?: (value: string | number) => void;
+  onOptionGroupClear?: () => void;
+  onDropdownOpen?: (dropdown: HTMLDivElement) => void;
+  onDropdownClose?: (dropdown: HTMLDivElement) => void;
+  onType?: (str: string) => void;
+  onLoad?: (options: TomOption[], optgroups: TomOption[]) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  onDelete?: (values: string[], evt: KeyboardEvent | MouseEvent) => boolean;
+  render?: TomTemplates;
+  firstUrl?: (query: string) => any;
+  shouldLoadMore?: () => boolean;
 }
