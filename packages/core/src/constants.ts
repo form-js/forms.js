@@ -40,7 +40,6 @@ export const FIELD_CONTAINER_PASSWORD_CLASS = 'password-container';
 export const PASSWORD_SHOWN_CLASS = 'pass-shown';
 export const PASSWORD_HIDDEN_CLASS = 'pass-hidden';
 
-
 export const DEFAULT_REQUIRED_VALIDATION_MESSAGE = 'This field is required';
 export const INVALID_EMAIL_VALIDATION_MESSAGE = 'Not a valid email address';
 export const INVALID_PHONE_VALIDATION_MESSAGE = 'Not a valid telephone number';
