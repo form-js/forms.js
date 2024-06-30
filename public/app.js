@@ -1,15 +1,15 @@
 import "./style.css";
 import "../packages/core/css/index.css";
-//import { Form } from "./js/core/index";
-import { createApp } from "vue";
+import { Form } from "./js/core/index";
+import { FormEvents } from "./js/core/constants";
+/*import { createApp } from "vue";
 import App from "./App.vue";
 
 function initVue() {
   const app = createApp(App);
   app.mount("#app");
-}
+}*/
 
-/*
 const options = [
   { value: "vincent_van_gogh", label: "Vincent van Gogh", group: "painters" },
   { value: "pablo_picasso", label: "Pablo Picasso", group: "painters" },
@@ -122,7 +122,7 @@ const groups = [
 ];
 
 function initForm() {
-  new Form("form", {
+  const form = new Form("form", {
     id: "form",
     schema: [
       {
@@ -163,8 +163,59 @@ function initForm() {
         allowPeek: true,
         label: "Pasword",
       },
+      {
+        id: "submit",
+        type: "button",
+        template: "Submit",
+      },
+      {
+        id: "reset",
+        type: "button",
+        template: "Reset",
+        buttonType: "button",
+        click: () => {
+          form.reset();
+        },
+      },
     ],
   });
-}*/
 
-document.addEventListener("DOMContentLoaded", initVue, false);
+  form.on(
+    "submitted",
+    () => {
+      console.log("submitted");
+    },
+    true
+  );
+  form.on(
+    "dataUpdated",
+    (event) => {
+      console.log("data updated");
+      console.log(event);
+    },
+    true
+  );
+  form.on(
+    "initialized",
+    () => {
+      console.log("initialized");
+    },
+    true
+  );
+  form.on(
+    "resetted",
+    () => {
+      console.log("resetted");
+    },
+    true
+  );
+  form.on(
+    "validationFailed",
+    () => {
+      console.log("validation failed");
+    },
+    true
+  );
+}
+
+document.addEventListener("DOMContentLoaded", initForm, false);

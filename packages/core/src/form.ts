@@ -56,6 +56,7 @@ export class Form {
   private _licenseState: number = LICENSE_STATE.INVALID;
   private _schema: Schema = [];
   private _dataPrefixMap: DataPrefixMap = {};
+  private _triggerEvents = true;
   /**
    * Constructs a new Form instance.
    * @param parent - The parent HTML element or string id.
@@ -104,7 +105,6 @@ export class Form {
   private initForm(): void {
     if (this._formElement) this.buildSchema(this._schema, this._formElement);
     if (this._formElement && this._parent) mountElement(this._formElement, this._parent);
-    this.dispatchEvent(FormEvents.Initialized);
   }
 
   /* processes license */
@@ -265,15 +265,21 @@ export class Form {
    * Updates all elements of the form (groups, rows, fields, buttons).
    */
   async update(): Promise<void> {
-    Object.keys(this._groups).forEach((key: string) => {
-      this._groups[key].update();
-    });
-    Object.keys(this._fields).forEach((key: string) => {
-      this._fields[key].update();
-    });
-    Object.keys(this._buttons).forEach((key: string) => {
-      this._buttons[key].update();
-    });
+    if (this._groups) {
+      Object.keys(this._groups).forEach((key: string) => {
+        this._groups[key].update();
+      });
+    }
+    if (this._fields) {
+      Object.keys(this._fields).forEach((key: string) => {
+        this._fields[key].update();
+      });
+    }
+    if (this._buttons) {
+      Object.keys(this._buttons).forEach((key: string) => {
+        this._buttons[key].update();
+      });
+    }
   }
 
   /**
@@ -294,14 +300,13 @@ export class Form {
   }
 
   private dispatchEvent(event: FormEvents, data: object | null = null) {
-    const dispatched = new CustomEvent(
+    if (!this._triggerEvents) return;
+    const dispatched = data ? new CustomEvent(
       event,
-      data
-        ? {
-            detail: data,
-          }
-        : undefined,
-    );
+      {
+        detail: data,
+      }
+    ) : new CustomEvent(event);
     this._formElement?.dispatchEvent(dispatched);
   }
 
@@ -491,31 +496,41 @@ export class Form {
    * @param event - Optional event that triggered the reset.
    */
   reset(event?: Event): void {
+    this._triggerEvents = false;
     if (event) event.preventDefault();
-    Object.keys(this._groups).forEach((key: string) => {
-      const group = this._groups[key];
-      if (group.reset && typeof group.reset === 'function') group.reset();
-    });
-    Object.keys(this._fields).forEach((key: string) => {
-      const field = this._fields[key];
-      if (field.reset && typeof field.reset === 'function') field.reset();
-    });
-    Object.keys(this._buttons).forEach((key: string) => {
-      const button = this._buttons[key];
-      if (button.reset && typeof button.reset === 'function') button.reset();
-    });
+    if (this._groups) {
+      Object.keys(this._groups).forEach((key: string) => {
+        const group = this._groups[key];
+        if (group.reset && typeof group.reset === 'function') group.reset();
+      });
+    }
+    if (this._fields) {
+      Object.keys(this._fields).forEach((key: string) => {
+        const field = this._fields[key];
+        if (field.reset && typeof field.reset === 'function') field.reset();
+      });
+    }
+    if (this._buttons) {
+      Object.keys(this._buttons).forEach((key: string) => {
+        const button = this._buttons[key];
+        if (button.reset && typeof button.reset === 'function') button.reset();
+      });
+    }
     this._isValid = null;
-    this.dispatchEvent(FormEvents.Reset);
+    this._triggerEvents = true;
+    this.dispatchEvent(FormEvents.Resetted);
   }
 
   /**
    * Validates all fields of the form.
    */
   validate(): void {
-    Object.keys(this._fields).forEach((key: string) => {
-      const field = this._fields[key];
-      if (field.validate && typeof field.validate === 'function') field.validate();
-    });
+    if (this._fields) {
+      Object.keys(this._fields).forEach((key: string) => {
+        const field = this._fields[key];
+        if (field.validate && typeof field.validate === 'function') field.validate();
+      });
+    }
     this._isValid = this._errors.length === 0;
   }
 
@@ -524,14 +539,18 @@ export class Form {
    */
   save(): void {
     if (!this._saveProgress || !this.hasValidLicense()) return;
-    Object.keys(this._fields).forEach((key: string) => {
-      const field = this._fields[key];
-      if (field.save && typeof field.save === 'function') field.save();
-    });
-    Object.keys(this._groups).forEach((key: string) => {
-      const group = this._groups[key];
-      if (group.save && typeof group.save === 'function') group.save();
-    });
+    if (this._fields) {
+      Object.keys(this._fields).forEach((key: string) => {
+        const field = this._fields[key];
+        if (field.save && typeof field.save === 'function') field.save();
+      });
+    }
+    if (this._groups) {
+      Object.keys(this._groups).forEach((key: string) => {
+        const group = this._groups[key];
+        if (group.save && typeof group.save === 'function') group.save();
+      });
+    }
   }
 
   /**
@@ -539,14 +558,18 @@ export class Form {
    */
   load(): void {
     if (!this._saveProgress || !this.hasValidLicense()) return;
-    Object.keys(this._fields).forEach((key: string) => {
-      const field = this._fields[key];
-      if (field.load && typeof field.load === 'function') field.load();
-    });
-    Object.keys(this._groups).forEach((key: string) => {
-      const group = this._groups[key];
-      if (group.load && typeof group.load === 'function') group.load();
-    });
+    if (this._fields) {
+      Object.keys(this._fields).forEach((key: string) => {
+        const field = this._fields[key];
+        if (field.load && typeof field.load === 'function') field.load();
+      });
+    }
+    if (this._groups) {
+      Object.keys(this._groups).forEach((key: string) => {
+        const group = this._groups[key];
+        if (group.load && typeof group.load === 'function') group.load();
+      });
+    }
   }
 
   /**
@@ -592,7 +615,7 @@ export class Form {
       data = objectToFormData(this.getData());
     }
     if (this.options.submit) this.options.submit(data);
-    this.dispatchEvent(FormEvents.Submit, data);
+    this.dispatchEvent(FormEvents.Submitted, data);
   }
 
   /**

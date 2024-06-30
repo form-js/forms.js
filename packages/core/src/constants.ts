@@ -208,9 +208,8 @@ export const registerConstructor = (
 };
 
 export const enum FormEvents {
-  Submit = 'submit',
-  Reset = 'reset',
+  Submitted = 'submitted',
+  Resetted = 'resetted',
   ValidationFailed = 'validationFailed',
   DataUpdated = 'dataUpdated',
-  Initialized = 'initialized',
 }
