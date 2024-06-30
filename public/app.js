@@ -1,7 +1,15 @@
 import "./style.css";
 import "../packages/core/css/index.css";
-import { Form } from "./js/core/index";
+//import { Form } from "./js/core/index";
+import { createApp } from "vue";
+import App from "./App.vue";
 
+function initVue() {
+  const app = createApp(App);
+  app.mount("#app");
+}
+
+/*
 const options = [
   { value: "vincent_van_gogh", label: "Vincent van Gogh", group: "painters" },
   { value: "pablo_picasso", label: "Pablo Picasso", group: "painters" },
@@ -117,7 +125,7 @@ function initForm() {
   new Form("form", {
     id: "form",
     schema: [
-      /*{
+      {
         id: "select",
         type: "select",
         label: "Select",
@@ -148,7 +156,7 @@ function initForm() {
         optionGroups: async function (query) {
           return groups;
         },
-      },*/
+      },
       {
         id: "password",
         type: "password",
@@ -157,6 +165,6 @@ function initForm() {
       },
     ],
   });
-}
+}*/
 
-document.addEventListener("DOMContentLoaded", initForm, false);
+document.addEventListener("DOMContentLoaded", initVue, false);

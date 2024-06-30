@@ -1,4 +1,4 @@
-import { Form as FormConstructor, PluginSettings, usePlugin, FormOptions } from '@forms.js/core';
+import { Form as FormConstructor, PluginSettings, usePlugin, FormOptions, FormData as Data } from '@forms.js/core';
 import { PropType, defineComponent, h } from 'vue';
 
 const Form = defineComponent({
@@ -23,26 +23,46 @@ const Form = defineComponent({
     getForm(): FormConstructor | null {
       return this.formInstance as FormConstructor | null;
     },
+    initForm() {
+      this.formInstance = new FormConstructor(this.$el as HTMLDivElement, this.$props.options);
+      const formElement = this.formInstance.getFormElement();
+      formElement?.addEventListener('submit', () => {
+        this.$emit('submit', this.formData ?? null);
+      });
+    },
   },
 
   render() {
-    return h('div', {
-      attrs: { 'data-formsjs-id': this.$props.options.id },
-    });
+    return h('div');
   },
 
   mounted() {
     usePlugin(this.$props.plugins ?? []);
-    this.formInstance = new FormConstructor(this.$el as HTMLElement, this.$props.options);
+    this.initForm();
   },
 
   beforeUnmount() {
-    const form = this.getForm();
-    form?.destroy();
+    this.formInstance?.destroy();
   },
 
   watch: {
-    // check for option changes and rerender form
+    options: {
+      handler: function () {
+        this.formInstance?.destroy();
+        this.initForm();
+      },
+      deep: true,
+    },
+  },
+
+  computed: {
+    formData: function () {
+      return this.formInstance?.getData();
+    },
+  },
+
+  emits: {
+    submit: (data: Data | null) => true,
   },
 });
 

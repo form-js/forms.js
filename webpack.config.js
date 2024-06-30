@@ -1,4 +1,5 @@
 const path = require("path");
+const { VueLoaderPlugin } = require("vue-loader");
 
 module.exports = {
   entry: "./public/app.js", // Adjust this to your main compiled JavaScript file
@@ -7,26 +8,33 @@ module.exports = {
     path: path.resolve(__dirname, "public/dist"),
   },
   resolve: {
-    extensions: [".js"],
+    extensions: [".ts", ".tsx", ".js"],
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
-            presets: ['@babel/preset-env']
-          }
-        }
+            presets: ["@babel/preset-env"],
+          },
+        },
+        resolve: {
+          fullySpecified: false,
+        },
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader']
-      }
-    ]
+        use: ["style-loader", "css-loader", "postcss-loader"],
+      },
+      {
+        test: /\.vue$/,
+        loader: "vue-loader",
+      },
+    ],
   },
+  plugins: [new VueLoaderPlugin()],
   devServer: {
     static: {
       directory: path.join(__dirname, "public"),

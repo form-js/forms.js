@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ES6",
+    "removeComments": true,
+    "moduleResolution": "Node",
+    "allowJs": true,
+    "checkJs": true,
+    "declaration": true,
+    "outDir": "../../public/js/vue",
+    "esModuleInterop": true,
+    "downlevelIteration": true,
+    "strict": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "src/tests"]
+}
