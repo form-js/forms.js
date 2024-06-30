@@ -206,3 +206,11 @@ export const registerConstructor = (
 
   elementConstructors[type] = constructor;
 };
+
+export const enum FormEvents {
+  Submit = 'submit',
+  Reset = 'reset',
+  ValidationFailed = 'validationFailed',
+  DataUpdated = 'dataUpdated',
+  Initialized = 'initialized',
+}

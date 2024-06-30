@@ -3,6 +3,7 @@ import {
   DIV_ELEMENT,
   FORM_CLASS_DEFAULT,
   FORM_ELEMENT,
+  FormEvents,
   HREF_ATTRIBUTE,
   ID_ATTRIBUTE,
   LICENSE_STATE,
@@ -103,6 +104,7 @@ export class Form {
   private initForm(): void {
     if (this._formElement) this.buildSchema(this._schema, this._formElement);
     if (this._formElement && this._parent) mountElement(this._formElement, this._parent);
+    this.dispatchEvent(FormEvents.Initialized);
   }
 
   /* processes license */
@@ -291,6 +293,18 @@ export class Form {
     return this._formElement;
   }
 
+  private dispatchEvent(event: FormEvents, data: object | null = null) {
+    const dispatched = new CustomEvent(
+      event,
+      data
+        ? {
+            detail: data,
+          }
+        : undefined,
+    );
+    this._formElement?.dispatchEvent(dispatched);
+  }
+
   /**
    * Updates the form data with the provided value.
    * @param id - The ID of the data point.
@@ -305,6 +319,7 @@ export class Form {
       this.setSimpleData(id, value);
     }
     this.update();
+    this.dispatchEvent(FormEvents.DataUpdated, this._data);
   }
 
   removeData(id: string): void {
@@ -313,6 +328,7 @@ export class Form {
     } else {
       delete this._data[id];
     }
+    this.dispatchEvent(FormEvents.DataUpdated, this._data);
   }
 
   private removeMappedData(id: string) {
@@ -489,6 +505,7 @@ export class Form {
       if (button.reset && typeof button.reset === 'function') button.reset();
     });
     this._isValid = null;
+    this.dispatchEvent(FormEvents.Reset);
   }
 
   /**
@@ -567,6 +584,7 @@ export class Form {
     this.validate();
 
     if (!this.isValid()) {
+      this.dispatchEvent(FormEvents.ValidationFailed);
       return;
     }
     let data = this.getData();
@@ -574,6 +592,7 @@ export class Form {
       data = objectToFormData(this.getData());
     }
     if (this.options.submit) this.options.submit(data);
+    this.dispatchEvent(FormEvents.Submit, data);
   }
 
   /**
@@ -581,5 +600,19 @@ export class Form {
    */
   destroy() {
     if (this._parent) this._parent.remove();
+  }
+
+  /**
+   * Adds event listener to the form.
+   */
+  on(event: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions) {
+    this._formElement?.addEventListener(event, listener, options);
+  }
+
+  /**
+   * Removes event listener to the form.
+   */
+  off(event: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions) {
+    this._formElement?.removeEventListener(event, listener, options);
   }
 }
