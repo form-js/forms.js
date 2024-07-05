@@ -3,6 +3,7 @@ import {
   CHANGE_ATTRIBUTE,
   DEFAULT_REQUIRED_VALIDATION_MESSAGE,
   FIELD_TYPE_RANGE,
+  FieldEvents,
   ID_ATTRIBUTE,
   INPUT_ELEMENT,
   LESS_THAN_VALIDATION_MESSAGE,
@@ -113,10 +114,13 @@ export class RangeField extends Field {
   }
 
   async reset(): Promise<void> {
+    this.triggerEvents(false);
     localStorage.removeItem(this.getSaveKey());
     this.setValue(this.options.default ?? null, false);
     this.updateRangeValues();
     this.update();
+    this.triggerEvents(true);
+    this.dispatchEvent(FieldEvents.Resetted);
   }
 
   bindChange() {

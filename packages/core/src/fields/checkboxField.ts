@@ -8,6 +8,7 @@ import {
   FIELD_CLASS_DEFAULT,
   FIELD_TYPE_CHECKBOX,
   FOR_ATTRIBUTE,
+  FieldEvents,
   ID_ATTRIBUTE,
   INPUT_ELEMENT,
   LABEL_CLASS_DEFAULT,
@@ -127,6 +128,7 @@ export class CheckboxField extends Field {
     this.setValue(event.target.checked);
     if (this.options.change) this.options.change(this.getValue());
     this.validate();
+    this.dispatchEvent(FieldEvents.Changed, this._value);
   }
 
   getValue(): boolean | null {

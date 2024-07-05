@@ -22,8 +22,7 @@ import {
 } from '../constants';
 import { Field } from '../field';
 import { Form } from '../form';
-import { FieldOptions, RadioFieldOptions } from '../interfaces';
-import { HTMLElementEvent } from '../types';
+import { RadioFieldOptions } from '../interfaces';
 import { mountElement } from '../utils';
 
 export class RadioField extends Field {

@@ -10,6 +10,7 @@ import {
   DEFAULT_REQUIRED_VALIDATION_MESSAGE,
   DISABLED_ATTRIBUTE,
   FIELD_TYPE_SELECT,
+  FieldEvents,
   ID_ATTRIBUTE,
   LABEL_ATTRIBUTE,
   MULTIPLE_ATTRIBUTE,
@@ -257,6 +258,7 @@ export class SelectField extends Field {
     }
     this.validate();
     if (this.options.change) this.options.change(this.getValue());
+    this.dispatchEvent(FieldEvents.Changed, this.getValue());
   }
 
   getValue(): SelectFieldValue {

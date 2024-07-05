@@ -23,6 +23,7 @@ import {
   FIELD_TYPE_TEXT,
   FORM_ERROR_CLASS_DEFAULT,
   FOR_ATTRIBUTE,
+  FieldEvents,
   ID_ATTRIBUTE,
   INPUT_ATTRIBUTE,
   INPUT_CLASS_DEFAULT,
@@ -67,12 +68,13 @@ export class Field {
   private _isVisible: boolean = true;
   private _saveKey: string;
   private _vMessage: string | null = null;
-  protected _value: FieldValue = null;
+  _value: FieldValue = null;
   private _type: string;
   private _parsedConditions: ParsedCondition[] | null = null;
   private _parsedValidationConditions: ParsedCondition[] | null = null;
   private _parsedRequiredConditions: ParsedCondition[] | null = null;
   private _parsedDisabledConditions: ParsedCondition[] | null = null;
+  private _triggerEvents: boolean = true;
 
   /**
    * Creates an instance of the Field class.
@@ -148,8 +150,7 @@ export class Field {
     }
   }
 
-  /**
-   * Gets the current value of the field.
+  /**   * Gets the current value of the field.
    * @returns The value of the field.
    */
   getValue(): FieldValue {
@@ -386,10 +387,13 @@ export class Field {
 
   /** Resets the field to its initial state. */
   async reset(): Promise<void> {
+    this._triggerEvents = false;
     localStorage.removeItem(this._saveKey);
     if (this.options.default !== undefined) this.setValue(this.options.default, false);
     else this.setValue(null, false);
     this.update();
+    this._triggerEvents = true;
+    this.dispatchEvent(FieldEvents.Resetted);
   }
 
   /** Updates the field's properties and visibility. */
@@ -404,6 +408,7 @@ export class Field {
 
   /** Updates visibility based on options. */
   private updateVisibilityBasedOnConditions(): void {
+    const visibleNow = this._isVisible;
     if (this.options.conditions) {
       if (this._parsedConditions) {
         this._isVisible = evaluateParsedConditions(
@@ -416,10 +421,14 @@ export class Field {
         this._isVisible = this.options.conditions(this._value, this._form.getData());
       }
     }
+    if (visibleNow !== this._isVisible) {
+      this.dispatchEvent(FieldEvents.VisibilityChanged, this._isVisible);
+    }
   }
 
   /** Updates the field's properties and visibility. */
   private updateDisabledStatus(): void {
+    const disabledNow = this._isDisabled;
     if (this.options.disabled) {
       if (typeof this.options.disabled === 'string' && this._parsedDisabledConditions) {
         this._isDisabled = evaluateParsedConditions(
@@ -436,10 +445,14 @@ export class Field {
         }
       }
     }
+    if (disabledNow !== this._isDisabled) {
+      this.dispatchEvent(FieldEvents.DisabledStateChanged, this._isDisabled);
+    }
   }
 
   /** Updates the required status based on field options. */
   private updateRequiredStatus(): void {
+    const requiredNow = this._isRequired;
     if (this.options.required) {
       if (typeof this.options.required === 'string' && this._parsedRequiredConditions) {
         this._isRequired = evaluateParsedConditions(
@@ -454,6 +467,9 @@ export class Field {
           this._isRequired = this.options.required;
         }
       }
+    }
+    if (requiredNow !== this._isRequired) {
+      this.dispatchEvent(FieldEvents.RequiredStateChanged, this._isRequired);
     }
   }
 
@@ -482,6 +498,9 @@ export class Field {
   private setValidationValues(validity: string | true) {
     this._isValid = validity === true;
     this._vMessage = validity === true ? '' : validity;
+    if (!this._isValid) {
+      this.dispatchEvent(FieldEvents.ValidationFailed);
+    }
   }
 
   /**
@@ -492,5 +511,34 @@ export class Field {
     this.setValue(event.target.value);
     this.validate();
     if (this.options.change) this.options.change(this._value);
+    this.dispatchEvent(FieldEvents.Changed, this._value);
+  }
+
+  triggerEvents(trigger: boolean) {
+    this._triggerEvents = trigger;
+  }
+
+  dispatchEvent(event: FieldEvents, data: FieldValue = null) {
+    if (!this._triggerEvents) return;
+    const dispatched = data
+      ? new CustomEvent(event, {
+          detail: data,
+        })
+      : new CustomEvent(event);
+    this.inputElement?.dispatchEvent(dispatched);
+  }
+
+  /**
+   * Adds event listener to the field.
+   */
+  on(event: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions) {
+    this.inputElement?.addEventListener(event, listener, options);
+  }
+
+  /**
+   * Removes event listener to the field.
+   */
+  off(event: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions) {
+    this.inputElement?.removeEventListener(event, listener, options);
   }
 }

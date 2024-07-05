@@ -213,3 +213,12 @@ export const enum FormEvents {
   ValidationFailed = 'validationFailed',
   DataUpdated = 'dataUpdated',
 }
+
+export const enum FieldEvents {
+  Changed = 'changed',
+  Resetted = 'resetted',
+  ValidationFailed = 'validationFailed',
+  VisibilityChanged = 'visibilityChanged',
+  DisabledStateChanged = 'disabledStateChanged',
+  RequiredStateChanged = 'requiredStateChanged',
+}
