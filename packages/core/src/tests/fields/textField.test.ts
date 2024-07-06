@@ -1,6 +1,5 @@
 import {
   baseTextFieldTestOptions,
-  baseFormOptions,
   VALIDATION_ERROR,
   DEFAULT_STRING_VALUE_SECOND,
   createForm,
@@ -11,10 +10,8 @@ import { TextField } from './../../fields/textField';
 import { describe, expect, it, jest } from '@jest/globals';
 import * as utils from '../../utils';
 import { Field } from '../../field';
-import { FormOptions } from '../../interfaces';
-import { Form } from '../../index';
 import { HTMLElementEvent } from '../../types';
-import { FIELD_TYPE_TEXT, LICENSE_STATE } from '../../constants';
+import { DIV_ELEMENT, FIELD_TYPE_TEXT, FieldEvents, LICENSE_STATE } from '../../constants';
 
 jest.mock('../../utils', () => {
   const originalModule = jest.requireActual('../../utils') as object;
@@ -386,5 +383,107 @@ describe('text-field', () => {
     field2.options.validation = undefined;
     field2.validate();
     expect(field2.getValidity()).toBe(true);
+  });
+
+  it('accepts label as function', () => {
+    const mockFunction = jest.fn();
+    mockFunction.mockReturnValue(document.createElement(DIV_ELEMENT));
+    createForm({
+      schema: [
+        {
+          ...baseTextFieldTestOptions,
+          label: mockFunction,
+        },
+      ],
+    });
+
+    expect(mockFunction).toHaveBeenCalled();
+  });
+
+  it('triggers events properly', () => {
+    const mockChangedListener = jest.fn();
+    const mockResettedListener = jest.fn();
+    const mockDisabledStateChangedListener = jest.fn();
+    const mockRequiredStateChangedListener = jest.fn();
+    const mockValidationFailedListener = jest.fn();
+    const mockVisibilityChangedListener = jest.fn();
+
+    const form = createForm({
+      schema: [
+        {
+          ...baseTextFieldTestOptions,
+          default: null,
+          disabled: (value: string) => {
+            return value === 'disabled';
+          },
+          required: (value: string) => {
+            return value === 'required';
+          },
+          conditions: (value: string) => {
+            return value !== 'conditions';
+          },
+          validation: (value: string | null) => {
+            if (!value) return 'failed';
+            return true;
+          },
+        },
+      ],
+    });
+
+    const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
+
+    field?.on(FieldEvents.Changed, mockChangedListener, true);
+    field?.on(FieldEvents.DisabledStateChanged, mockDisabledStateChangedListener, true);
+    field?.on(FieldEvents.RequiredStateChanged, mockRequiredStateChangedListener, true);
+    field?.on(FieldEvents.Resetted, mockResettedListener, true);
+    field?.on(FieldEvents.ValidationFailed, mockValidationFailedListener, true);
+    field?.on(FieldEvents.VisibilityChanged, mockVisibilityChangedListener, true);
+
+    field?.setValue('disabled');
+    field?.update();
+    expect(mockDisabledStateChangedListener).toHaveBeenCalledTimes(1);
+    field?.setValue('required');
+    field?.update();
+    expect(mockDisabledStateChangedListener).toHaveBeenCalledTimes(2);
+    expect(mockRequiredStateChangedListener).toHaveBeenCalledTimes(1);
+    field?.setValue('conditions');
+    field?.update();
+    expect(mockRequiredStateChangedListener).toHaveBeenCalledTimes(2);
+    expect(mockVisibilityChangedListener).toHaveBeenCalledTimes(1);
+    field?.setValue(null);
+    field?.validate();
+    expect(mockVisibilityChangedListener).toHaveBeenCalledTimes(2);
+    expect(mockValidationFailedListener).toHaveBeenCalledTimes(1);
+    field?.reset();
+    expect(mockResettedListener).toHaveBeenCalledTimes(1);
+    const event = { target: { value: DEFAULT_STRING_VALUE } } as HTMLElementEvent<HTMLInputElement>;
+    field?.change(event);
+    expect(mockChangedListener).toHaveBeenCalledTimes(1);
+
+    field?.off(FieldEvents.Changed, mockChangedListener, true);
+    field?.off(FieldEvents.DisabledStateChanged, mockDisabledStateChangedListener, true);
+    field?.off(FieldEvents.RequiredStateChanged, mockRequiredStateChangedListener, true);
+    field?.off(FieldEvents.Resetted, mockResettedListener, true);
+    field?.off(FieldEvents.ValidationFailed, mockValidationFailedListener, true);
+    field?.off(FieldEvents.VisibilityChanged, mockVisibilityChangedListener, true);
+
+    field?.setValue('disabled');
+    field?.update();
+    expect(mockDisabledStateChangedListener).toHaveBeenCalledTimes(2);
+    field?.setValue('required');
+    field?.update();
+    expect(mockDisabledStateChangedListener).toHaveBeenCalledTimes(2);
+    expect(mockRequiredStateChangedListener).toHaveBeenCalledTimes(2);
+    field?.setValue('conditions');
+    field?.update();
+    expect(mockRequiredStateChangedListener).toHaveBeenCalledTimes(2);
+    expect(mockVisibilityChangedListener).toHaveBeenCalledTimes(2);
+    field?.setValue(null);
+    field?.validate();
+    expect(mockValidationFailedListener).toHaveBeenCalledTimes(1);
+    field?.reset();
+    expect(mockResettedListener).toHaveBeenCalledTimes(1);
+    field?.change(event);
+    expect(mockChangedListener).toHaveBeenCalledTimes(1);
   });
 });

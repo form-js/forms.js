@@ -4,6 +4,7 @@ import { Group } from '../group';
 import { GROUP_ID, createForm } from './test.options';
 import { Form } from '../form';
 import { GroupOptions } from '../interfaces';
+import { GroupEvents } from '../constants';
 
 jest.mock('../utils', () => {
   const originalModule = jest.requireActual('../utils') as object;
@@ -113,6 +114,37 @@ describe('Group', () => {
   it('destroys the group, removing it from the DOM and cleaning up', () => {
     group.destroy();
     expect(document.querySelector('#' + GROUP_ID)).toBeNull();
+  });
+
+  it('triggers events properly', () => {
+    const mockVisibilityChangedListener = jest.fn();
+
+    let testingValue = true;
+
+    const form = createForm({
+      schema: [
+        {
+          ...groupOptions,
+          conditions: () => {
+            return testingValue;
+          },
+        },
+      ],
+    });
+
+    const group = form.getGroup(GROUP_ID)! as unknown as Group;
+
+    group?.on(GroupEvents.VisibilityChanged, mockVisibilityChangedListener, true);
+
+    testingValue = false;
+    group.update();
+    expect(mockVisibilityChangedListener).toHaveBeenCalledTimes(1);
+
+    group?.off(GroupEvents.VisibilityChanged, mockVisibilityChangedListener, true);
+
+    testingValue = true;
+    group.update();
+    expect(mockVisibilityChangedListener).toHaveBeenCalledTimes(1);
   });
 
   //expand on tests
