@@ -1,7 +1,7 @@
 import "./style.css";
 import "../packages/core/css/index.css";
 import { Form } from "./js/core/index";
-import { FormEvents } from "./js/core/constants";
+import { FormEvents, FieldEvents } from "./js/core/constants";
 /*import { createApp } from "vue";
 import App from "./App.vue";
 
@@ -134,9 +134,6 @@ function initForm() {
           plugins: ["remove_button"],
         },
         required: true,
-        change: (value) => {
-          console.log(value);
-        },
         optionsList: async function (query) {
           if (!query) return [...options];
           const search = [
@@ -162,6 +159,11 @@ function initForm() {
         type: "password",
         allowPeek: true,
         label: "Pasword",
+        required: true,
+        conditions: (value, data) => {
+          if (data) return !data.select?.includes("vincent_van_gogh");
+          return true;
+        },
       },
       {
         id: "submit",
@@ -180,7 +182,56 @@ function initForm() {
     ],
   });
 
-  form.on(
+  const password = form.getField("password");
+
+  password?.on(
+    "changed",
+    (event) => {
+      console.log(event);
+    },
+    true
+  );
+  password?.on(
+    "resetted",
+    (event) => {
+      console.log("resetted");
+    },
+    true
+  );
+
+  password?.on(
+    "validationFailed",
+    (event) => {
+      console.log("failed");
+    },
+    true
+  );
+
+  password?.on(
+    "visibilityChanged",
+    (event) => {
+      console.log(event);
+    },
+    true
+  );
+
+  password?.on(
+    "disabledStateChanged",
+    (event) => {
+      console.log(event);
+    },
+    true
+  );
+
+  password?.on(
+    "requiredStateChanged",
+    (event) => {
+      console.log(event);
+    },
+    true
+  );
+
+  /*form.on(
     "submitted",
     () => {
       console.log("submitted");
@@ -215,7 +266,7 @@ function initForm() {
       console.log("validation failed");
     },
     true
-  );
+  );*/
 }
 
 document.addEventListener("DOMContentLoaded", initForm, false);
