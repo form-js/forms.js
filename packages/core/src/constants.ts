@@ -222,3 +222,12 @@ export const enum FieldEvents {
   DisabledStateChanged = 'disabledStateChanged',
   RequiredStateChanged = 'requiredStateChanged',
 }
+
+export const enum ButtonEvents {
+  Clicked = 'clicked',
+  VisibilityChanged = 'visibilityChanged',
+}
+
+export const enum GroupEvents {
+  VisibilityChanged = 'visibilityChanged',
+}

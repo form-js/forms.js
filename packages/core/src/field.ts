@@ -520,11 +520,12 @@ export class Field {
 
   dispatchEvent(event: FieldEvents, data: FieldValue = null) {
     if (!this._triggerEvents) return;
-    const dispatched = data
-      ? new CustomEvent(event, {
-          detail: data,
-        })
-      : new CustomEvent(event);
+    const dispatched =
+      data !== null
+        ? new CustomEvent(event, {
+            detail: data,
+          })
+        : new CustomEvent(event);
     this.inputElement?.dispatchEvent(dispatched);
   }
 

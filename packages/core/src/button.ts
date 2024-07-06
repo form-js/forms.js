@@ -12,6 +12,7 @@ import {
   BUTTON_CLASS_DEFAULT,
   BUTTON_CONTAINER_CLASS_DEFAULT,
   BUTTON_ELEMENT,
+  ButtonEvents,
   CLICK_ATTRIBUTE,
   CONTAINER_DEFINITION,
   DIV_ELEMENT,
@@ -158,6 +159,7 @@ export class Button {
    */
   onClick(event: MouseEvent) {
     if (this.options.click) this.options.click(event, this._form.getData());
+    this.dispatchEvent(ButtonEvents.Clicked);
   }
 
   /** Reset the button state. */
@@ -173,6 +175,7 @@ export class Button {
 
   /** Updates visibility based on options. */
   private updateVisibilityBasedOnConditions(): void {
+    const visibilityNow = this._isVisible;
     if (this.options.conditions) {
       if (this._parsedConditions) {
         this._isVisible = evaluateParsedConditions(this._parsedConditions, this._form.getData()) as boolean;
@@ -180,5 +183,38 @@ export class Button {
         this._isVisible = this.options.conditions(this._form.getData());
       }
     }
+    if (visibilityNow !== this._isVisible) {
+      this.dispatchEvent(ButtonEvents.VisibilityChanged);
+    }
+  }
+
+  dispatchEvent(event: ButtonEvents, data: boolean | null | MouseEvent = null) {
+    function getDispathedEvent(data: boolean | null | MouseEvent) {
+      if (data != null) {
+        if (typeof data === 'boolean') {
+          return new CustomEvent(event, {
+            detail: data,
+          });
+        }
+        new CustomEvent(event, data);
+      }
+      return new CustomEvent(event);
+    }
+    const dispatched = getDispathedEvent(data);
+    this.buttonElement?.dispatchEvent(dispatched);
+  }
+
+  /**
+   * Adds event listener to the field.
+   */
+  on(event: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions) {
+    this.buttonElement?.addEventListener(event, listener, options);
+  }
+
+  /**
+   * Removes event listener to the field.
+   */
+  off(event: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions) {
+    this.buttonElement?.removeEventListener(event, listener, options);
   }
 }
