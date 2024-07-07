@@ -19,10 +19,10 @@ import {
   GROUP_TYPE_GROUP,
   LICENSE_STATE,
   registerConstructor,
+  FormEvents,
 } from '../constants';
 import { TextField } from '../fields';
 import { Form, GroupOptions, constructorTypes } from '../index';
-import { FormEvents } from '../../../../public/js/core';
 
 const groupSaveMock = jest.fn();
 const groupLoadMock = jest.fn();
