@@ -101,7 +101,7 @@ form.on("submitted", listener, true);
     </tr>
     <tr>
       <td><code>validationFailed</code></td>
-      <td>Triggers when validation fails. On form it is triggered only after user submitted the form but the validation failed. It is not triggered by single field fails before submission.</td>
+      <td>Triggers when validation fails.</td>
     </tr>
     <tr>
       <td><code>dataUpdated</code></td>

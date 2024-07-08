@@ -1,12 +1,11 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import FormComponent from "./js/vue/index.js";
+
+const form = ref(null);
 
 const options = {
   id: "form",
-  submit: () => {
-    console.log("second submit");
-  },
   schema: [
     {
       id: "select",
@@ -27,28 +26,35 @@ const options = {
       type: "password",
       allowPeek: true,
       label: "Pasword",
+      required: true,
     },
     {
       id: "submit",
       type: "button",
       templete: "Test",
     },
+    {
+      id: "reset",
+      type: "button",
+      template: "Reset",
+      buttonType: "button",
+      click: () => {
+        console.log(form.value?.getId());
+      },
+    },
   ],
 };
-
-const form = ref(null);
-
-onMounted(() => {
-  console.log(form.value);
-});
 </script>
 <template>
   <div>
     <FormComponent
       ref="form"
-      @submit="console.log('submit')"
+      @submitted="(event) => console.log(event)"
+      @data-updated="(event) => console.log(event)"
+      @resetted="(event) => console.log(event)"
+      @validation-failed="(event) => console.log(event)"
       :options="options"
     />
-    {{ form?.formData }}
+    <span v-if="form">{{ form.formData }}</span>
   </div>
 </template>

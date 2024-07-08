@@ -1,14 +1,13 @@
 import "./style.css";
 import "../packages/core/css/index.css";
 import { Form } from "./js/core/index";
-import { FormEvents, FieldEvents } from "./js/core/constants";
-/*import { createApp } from "vue";
+import { createApp } from "vue";
 import App from "./App.vue";
 
 function initVue() {
   const app = createApp(App);
   app.mount("#app");
-}*/
+}
 
 const options = [
   { value: "vincent_van_gogh", label: "Vincent van Gogh", group: "painters" },
@@ -231,7 +230,7 @@ function initForm() {
     true
   );
 
-  /*form.on(
+  form.on(
     "submitted",
     () => {
       console.log("submitted");
@@ -266,7 +265,7 @@ function initForm() {
       console.log("validation failed");
     },
     true
-  );*/
+  );
 }
 
-document.addEventListener("DOMContentLoaded", initForm, false);
+document.addEventListener("DOMContentLoaded", initVue, false);
