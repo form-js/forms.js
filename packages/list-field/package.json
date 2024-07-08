@@ -1,6 +1,6 @@
 {
     "name": "@forms.js/list-field",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "List field component for @forms.js package",
     "module": "lib/index.js",
     "type": "module",
