@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1720292609692" clover="3.2.0">
-  <project timestamp="1720292609693" name="All files">
+<coverage generated="1720445109967" clover="3.2.0">
+  <project timestamp="1720445109967" name="All files">
     <metrics statements="1786" coveredstatements="1756" conditionals="803" coveredconditionals="750" methods="422" coveredmethods="395" elements="3011" coveredelements="2901" complexity="0" loc="1786" ncloc="1786" packages="3" files="28" classes="28"/>
     <package name="src">
       <metrics statements="920" coveredstatements="915" conditionals="376" coveredconditionals="362" methods="229" coveredmethods="205"/>
-      <file name="button.ts" path="C:\www\sideprojects\forms.js\packages\core\src\button.ts">
+      <file name="button.ts" path="C:\www\forms.js\packages\core\src\button.ts">
         <metrics statements="71" coveredstatements="68" conditionals="25" coveredconditionals="23" methods="25" coveredmethods="25"/>
         <line num="2" count="25" type="stmt"/>
         <line num="11" count="25" type="stmt"/>
@@ -78,7 +78,7 @@
         <line num="211" count="2" type="stmt"/>
         <line num="218" count="2" type="stmt"/>
       </file>
-      <file name="constants.ts" path="C:\www\sideprojects\forms.js\packages\core\src\constants.ts">
+      <file name="constants.ts" path="C:\www\forms.js\packages\core\src\constants.ts">
         <metrics statements="138" coveredstatements="138" conditionals="5" coveredconditionals="5" methods="1" coveredmethods="1"/>
         <line num="2" count="26" type="stmt"/>
         <line num="4" count="26" type="stmt"/>
@@ -219,7 +219,7 @@
         <line num="205" count="497" type="cond" truecount="1" falsecount="0"/>
         <line num="207" count="497" type="stmt"/>
       </file>
-      <file name="field.ts" path="C:\www\sideprojects\forms.js\packages\core\src\field.ts">
+      <file name="field.ts" path="C:\www\forms.js\packages\core\src\field.ts">
         <metrics statements="199" coveredstatements="199" conditionals="107" coveredconditionals="104" methods="44" coveredmethods="44"/>
         <line num="2" count="25" type="stmt"/>
         <line num="14" count="25" type="stmt"/>
@@ -421,7 +421,7 @@
         <line num="536" count="6" type="stmt"/>
         <line num="543" count="6" type="stmt"/>
       </file>
-      <file name="form.ts" path="C:\www\sideprojects\forms.js\packages\core\src\form.ts">
+      <file name="form.ts" path="C:\www\forms.js\packages\core\src\form.ts">
         <metrics statements="237" coveredstatements="237" conditionals="161" coveredconditionals="155" methods="55" coveredmethods="55"/>
         <line num="1" count="24" type="stmt"/>
         <line num="21" count="24" type="stmt"/>
@@ -661,7 +661,7 @@
         <line num="632" count="4" type="stmt"/>
         <line num="639" count="4" type="stmt"/>
       </file>
-      <file name="group.ts" path="C:\www\sideprojects\forms.js\packages\core\src\group.ts">
+      <file name="group.ts" path="C:\www\forms.js\packages\core\src\group.ts">
         <metrics statements="66" coveredstatements="66" conditionals="26" coveredconditionals="26" methods="23" coveredmethods="23"/>
         <line num="2" count="25" type="stmt"/>
         <line num="11" count="25" type="stmt"/>
@@ -730,7 +730,7 @@
         <line num="202" count="1" type="stmt"/>
         <line num="209" count="1" type="stmt"/>
       </file>
-      <file name="index.ts" path="C:\www\sideprojects\forms.js\packages\core\src\index.ts">
+      <file name="index.ts" path="C:\www\forms.js\packages\core\src\index.ts">
         <metrics statements="70" coveredstatements="70" conditionals="6" coveredconditionals="5" methods="40" coveredmethods="17"/>
         <line num="1" count="24" type="stmt"/>
         <line num="2" count="24" type="stmt"/>
@@ -803,7 +803,7 @@
         <line num="121" count="24" type="stmt"/>
         <line num="128" count="25" type="stmt"/>
       </file>
-      <file name="utils.ts" path="C:\www\sideprojects\forms.js\packages\core\src\utils.ts">
+      <file name="utils.ts" path="C:\www\forms.js\packages\core\src\utils.ts">
         <metrics statements="139" coveredstatements="137" conditionals="46" coveredconditionals="44" methods="41" coveredmethods="40"/>
         <line num="1" count="25" type="stmt"/>
         <line num="25" count="25" type="stmt"/>
@@ -948,7 +948,7 @@
     </package>
     <package name="src.fields">
       <metrics statements="781" coveredstatements="756" conditionals="427" coveredconditionals="388" methods="189" coveredmethods="186"/>
-      <file name="checkboxField.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\checkboxField.ts">
+      <file name="checkboxField.ts" path="C:\www\forms.js\packages\core\src\fields\checkboxField.ts">
         <metrics statements="58" coveredstatements="55" conditionals="39" coveredconditionals="37" methods="12" coveredmethods="12"/>
         <line num="1" count="25" type="stmt"/>
         <line num="24" count="25" type="stmt"/>
@@ -1009,7 +1009,7 @@
         <line num="131" count="2" type="stmt"/>
         <line num="135" count="21" type="stmt"/>
       </file>
-      <file name="colorField.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\colorField.ts">
+      <file name="colorField.ts" path="C:\www\forms.js\packages\core\src\fields\colorField.ts">
         <metrics statements="14" coveredstatements="14" conditionals="4" coveredconditionals="4" methods="5" coveredmethods="5"/>
         <line num="1" count="25" type="stmt"/>
         <line num="7" count="25" type="stmt"/>
@@ -1026,7 +1026,7 @@
         <line num="34" count="1" type="stmt"/>
         <line num="39" count="1" type="stmt"/>
       </file>
-      <file name="dateField.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\dateField.ts">
+      <file name="dateField.ts" path="C:\www\forms.js\packages\core\src\fields\dateField.ts">
         <metrics statements="30" coveredstatements="30" conditionals="14" coveredconditionals="12" methods="9" coveredmethods="9"/>
         <line num="1" count="25" type="stmt"/>
         <line num="2" count="25" type="stmt"/>
@@ -1059,7 +1059,7 @@
         <line num="74" count="4" type="cond" truecount="1" falsecount="0"/>
         <line num="78" count="1" type="stmt"/>
       </file>
-      <file name="datetimeField.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\datetimeField.ts">
+      <file name="datetimeField.ts" path="C:\www\forms.js\packages\core\src\fields\datetimeField.ts">
         <metrics statements="30" coveredstatements="30" conditionals="14" coveredconditionals="12" methods="9" coveredmethods="9"/>
         <line num="1" count="25" type="stmt"/>
         <line num="2" count="25" type="stmt"/>
@@ -1092,7 +1092,7 @@
         <line num="75" count="4" type="cond" truecount="1" falsecount="0"/>
         <line num="79" count="1" type="stmt"/>
       </file>
-      <file name="emailField.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\emailField.ts">
+      <file name="emailField.ts" path="C:\www\forms.js\packages\core\src\fields\emailField.ts">
         <metrics statements="13" coveredstatements="13" conditionals="7" coveredconditionals="7" methods="3" coveredmethods="3"/>
         <line num="1" count="25" type="stmt"/>
         <line num="7" count="25" type="stmt"/>
@@ -1108,7 +1108,7 @@
         <line num="31" count="4" type="stmt"/>
         <line num="35" count="1" type="stmt"/>
       </file>
-      <file name="fileField.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\fileField.ts">
+      <file name="fileField.ts" path="C:\www\forms.js\packages\core\src\fields\fileField.ts">
         <metrics statements="53" coveredstatements="41" conditionals="23" coveredconditionals="18" methods="16" coveredmethods="13"/>
         <line num="1" count="25" type="stmt"/>
         <line num="2" count="25" type="stmt"/>
@@ -1164,7 +1164,7 @@
         <line num="141" count="2" type="stmt"/>
         <line num="145" count="2" type="stmt"/>
       </file>
-      <file name="hiddenField.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\hiddenField.ts">
+      <file name="hiddenField.ts" path="C:\www\forms.js\packages\core\src\fields\hiddenField.ts">
         <metrics statements="56" coveredstatements="56" conditionals="27" coveredconditionals="24" methods="19" coveredmethods="19"/>
         <line num="2" count="25" type="stmt"/>
         <line num="5" count="25" type="stmt"/>
@@ -1223,7 +1223,7 @@
         <line num="157" count="2" type="stmt"/>
         <line num="161" count="13" type="stmt"/>
       </file>
-      <file name="index.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\index.ts">
+      <file name="index.ts" path="C:\www\forms.js\packages\core\src\fields\index.ts">
         <metrics statements="19" coveredstatements="19" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="25" type="stmt"/>
         <line num="2" count="25" type="stmt"/>
@@ -1245,7 +1245,7 @@
         <line num="18" count="25" type="stmt"/>
         <line num="19" count="25" type="stmt"/>
       </file>
-      <file name="numberField.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\numberField.ts">
+      <file name="numberField.ts" path="C:\www\forms.js\packages\core\src\fields\numberField.ts">
         <metrics statements="22" coveredstatements="22" conditionals="14" coveredconditionals="14" methods="5" coveredmethods="5"/>
         <line num="1" count="25" type="stmt"/>
         <line num="11" count="25" type="stmt"/>
@@ -1270,7 +1270,7 @@
         <line num="52" count="8" type="cond" truecount="1" falsecount="0"/>
         <line num="57" count="1" type="stmt"/>
       </file>
-      <file name="passwordField.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\passwordField.ts">
+      <file name="passwordField.ts" path="C:\www\forms.js\packages\core\src\fields\passwordField.ts">
         <metrics statements="36" coveredstatements="36" conditionals="6" coveredconditionals="6" methods="7" coveredmethods="7"/>
         <line num="1" count="25" type="stmt"/>
         <line num="13" count="25" type="stmt"/>
@@ -1309,7 +1309,7 @@
         <line num="80" count="1" type="stmt"/>
         <line num="85" count="1" type="stmt"/>
       </file>
-      <file name="radioField.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\radioField.ts">
+      <file name="radioField.ts" path="C:\www\forms.js\packages\core\src\fields\radioField.ts">
         <metrics statements="85" coveredstatements="79" conditionals="45" coveredconditionals="40" methods="15" coveredmethods="15"/>
         <line num="1" count="25" type="stmt"/>
         <line num="23" count="25" type="stmt"/>
@@ -1397,7 +1397,7 @@
         <line num="171" count="1" type="stmt"/>
         <line num="176" count="28" type="stmt"/>
       </file>
-      <file name="rangeField.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\rangeField.ts">
+      <file name="rangeField.ts" path="C:\www\forms.js\packages\core\src\fields\rangeField.ts">
         <metrics statements="64" coveredstatements="64" conditionals="42" coveredconditionals="41" methods="12" coveredmethods="12"/>
         <line num="1" count="25" type="stmt"/>
         <line num="25" count="25" type="stmt"/>
@@ -1464,7 +1464,7 @@
         <line num="130" count="1" type="stmt"/>
         <line num="136" count="16" type="stmt"/>
       </file>
-      <file name="selectField.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\selectField.ts">
+      <file name="selectField.ts" path="C:\www\forms.js\packages\core\src\fields\selectField.ts">
         <metrics statements="115" coveredstatements="115" conditionals="110" coveredconditionals="99" methods="24" coveredmethods="24"/>
         <line num="1" count="25" type="stmt"/>
         <line num="2" count="25" type="stmt"/>
@@ -1582,7 +1582,7 @@
         <line num="261" count="3" type="stmt"/>
         <line num="265" count="34" type="stmt"/>
       </file>
-      <file name="staticField.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\staticField.ts">
+      <file name="staticField.ts" path="C:\www\forms.js\packages\core\src\fields\staticField.ts">
         <metrics statements="73" coveredstatements="69" conditionals="33" coveredconditionals="30" methods="23" coveredmethods="23"/>
         <line num="2" count="25" type="stmt"/>
         <line num="13" count="25" type="stmt"/>
@@ -1658,7 +1658,7 @@
         <line num="234" count="2" type="cond" truecount="1" falsecount="0"/>
         <line num="235" count="2" type="stmt"/>
       </file>
-      <file name="telField.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\telField.ts">
+      <file name="telField.ts" path="C:\www\forms.js\packages\core\src\fields\telField.ts">
         <metrics statements="13" coveredstatements="13" conditionals="7" coveredconditionals="7" methods="3" coveredmethods="3"/>
         <line num="1" count="25" type="stmt"/>
         <line num="7" count="25" type="stmt"/>
@@ -1674,7 +1674,7 @@
         <line num="31" count="4" type="stmt"/>
         <line num="35" count="1" type="stmt"/>
       </file>
-      <file name="textField.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\textField.ts">
+      <file name="textField.ts" path="C:\www\forms.js\packages\core\src\fields\textField.ts">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="25" type="stmt"/>
         <line num="5" count="25" type="stmt"/>
@@ -1684,7 +1684,7 @@
         <line num="10" count="53" type="stmt"/>
         <line num="14" count="8" type="stmt"/>
       </file>
-      <file name="textareaField.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\textareaField.ts">
+      <file name="textareaField.ts" path="C:\www\forms.js\packages\core\src\fields\textareaField.ts">
         <metrics statements="19" coveredstatements="19" conditionals="7" coveredconditionals="6" methods="4" coveredmethods="4"/>
         <line num="1" count="25" type="stmt"/>
         <line num="12" count="25" type="stmt"/>
@@ -1706,7 +1706,7 @@
         <line num="45" count="3" type="stmt"/>
         <line num="49" count="1" type="stmt"/>
       </file>
-      <file name="timeField.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\timeField.ts">
+      <file name="timeField.ts" path="C:\www\forms.js\packages\core\src\fields\timeField.ts">
         <metrics statements="30" coveredstatements="30" conditionals="14" coveredconditionals="12" methods="9" coveredmethods="9"/>
         <line num="1" count="25" type="stmt"/>
         <line num="2" count="25" type="stmt"/>
@@ -1739,7 +1739,7 @@
         <line num="76" count="4" type="cond" truecount="1" falsecount="0"/>
         <line num="80" count="1" type="stmt"/>
       </file>
-      <file name="urlField.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\urlField.ts">
+      <file name="urlField.ts" path="C:\www\forms.js\packages\core\src\fields\urlField.ts">
         <metrics statements="13" coveredstatements="13" conditionals="7" coveredconditionals="7" methods="3" coveredmethods="3"/>
         <line num="1" count="25" type="stmt"/>
         <line num="7" count="25" type="stmt"/>
@@ -1755,7 +1755,7 @@
         <line num="32" count="4" type="stmt"/>
         <line num="36" count="1" type="stmt"/>
       </file>
-      <file name="weekField.ts" path="C:\www\sideprojects\forms.js\packages\core\src\fields\weekField.ts">
+      <file name="weekField.ts" path="C:\www\forms.js\packages\core\src\fields\weekField.ts">
         <metrics statements="31" coveredstatements="31" conditionals="14" coveredconditionals="12" methods="9" coveredmethods="9"/>
         <line num="1" count="25" type="stmt"/>
         <line num="2" count="25" type="stmt"/>
@@ -1792,7 +1792,7 @@
     </package>
     <package name="src.tests">
       <metrics statements="85" coveredstatements="85" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
-      <file name="test.options.ts" path="C:\www\sideprojects\forms.js\packages\core\src\tests\test.options.ts">
+      <file name="test.options.ts" path="C:\www\forms.js\packages\core\src\tests\test.options.ts">
         <metrics statements="85" coveredstatements="85" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
         <line num="1" count="22" type="stmt"/>
         <line num="24" count="22" type="stmt"/>

@@ -14,7 +14,7 @@
     border-color: transparent;
 }
 
-.form-input-ritchtext{
+.form-input-richtext{
     border-bottom-left-radius: var(--formsjs-border-radius);
     border-bottom-right-radius: var(--formsjs-border-radius);
     background-color: var(--formsjs-background-color);

@@ -31,6 +31,37 @@ click: (event: MouseEvent, data: FormData) => void;
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>
 
+## Events
+
+Buttons have events that can be listened to if needed. You can add listener using on function avilable on fields that supports events. Data related to the event are stored in event detail. You can import the `ButtonEvents` variable to have a constant with all available events.
+
+```js
+function listener(event) {
+  //do stuff
+}
+
+button.on("clicked", listener, true);
+```
+
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>clicked</code></td>
+      <td>Triggers after button vis clicked.</td>
+    </tr>
+    <tr>
+      <td><code>visibilityChanged</code></td>
+      <td>Triggers when visibility condition of field is changed. The <code>isVisible</code> boolean is in the event detail.</td>
+    </tr>
+  </tbody>
+</table>
+
 ## Reference
 
 ### Available Options

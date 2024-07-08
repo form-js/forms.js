@@ -27,6 +27,7 @@ The options object can include the following properties (you can find full list 
 Schema defines form fields and structure. Each form field must have unique `id` and `type` that defines what field will be generated. Other that that there might be more options needed based on specific field. You can find more in each fields documentation.
 
 Example schema:
+
 ```js
   ...,
   schema: [
@@ -69,6 +70,45 @@ Example schema:
 You can save the users progress for the form so even if he leaves the page, when he comes back, previously filled values will be loaded.
 
 You can do so by setting the `saveProgress` option to true. Saved values are reset on form resets, but you will need to manually reset the form on successfull sumission on the backend to clear the values.
+
+## Events
+
+Form has events that can be listened to if needed. You can add listener using on function avilable on fields that supports events. Data related to the event are stored in event detail. You can import the `FormEvents` variable to have a constant with all available events.
+
+```js
+function listener(event) {
+  //do stuff
+}
+
+form.on("submitted", listener, true);
+```
+
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>submitted</code></td>
+      <td>Triggers after form submission. The form data are in the event detail.</td>
+    </tr>
+    <tr>
+      <td><code>resetted</code></td>
+      <td>Triggers after field reset.</td>
+    </tr>
+    <tr>
+      <td><code>validationFailed</code></td>
+      <td>Triggers when validation fails. On form it is triggered only after user submitted the form but the validation failed. It is not triggered by single field fails before submission.</td>
+    </tr>
+    <tr>
+      <td><code>dataUpdated</code></td>
+      <td>Triggers when form data changed. The form data are in the event detail.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Reference
 

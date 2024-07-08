@@ -6,10 +6,10 @@ Group is designed to manage a group of form elements within a larger form struct
 
 The options object can include the following properties (you can find full list below):
 
--   `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
--   `schema: Schema[]` - <span class="badge warning">required</span> Schema defining the form structure.
--   `label: string` - Group label (heading) that will appear at the top of the grouped elements.
--   `prefixSchema: boolean` - You can prefix the grouped fileds inside the form `data` object by group id.
+- `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
+- `schema: Schema[]` - <span class="badge warning">required</span> Schema defining the form structure.
+- `label: string` - Group label (heading) that will appear at the top of the grouped elements.
+- `prefixSchema: boolean` - You can prefix the grouped fileds inside the form `data` object by group id.
 
 ### Conditional logic
 
@@ -38,6 +38,33 @@ prefixSchema: boolean;
   forms.js - group example</a> by Trilmatic (<a href="https://codepen.io/trilmatic">@trilmatic</a>)
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>
+
+## Events
+
+Groups have events that can be listened to if needed. You can add listener using on function avilable on fields that supports events. Data related to the event are stored in event detail. You can import the `GroupEvents` variable to have a constant with all available events.
+
+```js
+function listener(event) {
+  //do stuff
+}
+
+group.on("visibilityChanged", listener, true);
+```
+
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>visibilityChanged</code></td>
+      <td>Triggers when visibility condition of field is changed. The <code>isVisible</code> boolean is in the event detail.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Reference
 

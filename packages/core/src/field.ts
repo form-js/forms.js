@@ -499,7 +499,7 @@ export class Field {
     this._isValid = validity === true;
     this._vMessage = validity === true ? '' : validity;
     if (!this._isValid) {
-      this.dispatchEvent(FieldEvents.ValidationFailed);
+      this.dispatchEvent(FieldEvents.ValidationFailed, this._vMessage);
     }
   }
 
