@@ -43,7 +43,7 @@ export default {
 <template>
   <div>
     <h1>Demo Form</h1>
-    <forms-js :options="options" @validation-failed="" />
+    <forms-js :options="options" @validation-failed="handleFailedValidation" />
   </div>
 </template>
 ```
