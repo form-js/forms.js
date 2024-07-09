@@ -10,7 +10,7 @@ $ npm i @forms.js/core @forms.js/vue
 
 ### Usage
 
-```javascript
+```vue
 <script>
 import Form from '@forms.js/vue';
 
