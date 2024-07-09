@@ -50,7 +50,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@forms.js/core": "^1.1.9",
+    "@forms.js/core": "^1.1.10",
     "install": "^0.13.0",
     "npm": "^10.8.0",
     "vue": "^3.4.18"

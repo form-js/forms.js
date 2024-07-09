@@ -7,7 +7,16 @@ import {
   FormEvents,
   setLicenseKey,
 } from '@forms.js/core';
-import { PropType, defineComponent, h } from 'vue';
+import { PropType, defineComponent, h, createApp, VNode, Component, ref, Ref } from 'vue';
+
+interface MountVNode {
+  to: string;
+  vnode: Component;
+}
+
+const vNodes = [] as MountVNode[];
+
+const formData = ref<null | Data>(null);
 
 const FormComponent = defineComponent({
   props: {
@@ -30,7 +39,7 @@ const FormComponent = defineComponent({
   data() {
     return {
       formInstance: null as Form | null,
-      formData: null as Data | null,
+      processedOptions: {} as FormOptions,
     };
   },
 
@@ -74,9 +83,13 @@ const FormComponent = defineComponent({
     isValid() {
       return this.formInstance?.isValid();
     },
-    initForm() {
+    getErrors() {
+      return this.formInstance?.getErrors();
+    },
+    async initForm() {
+      this.processedOptions = (await this.resolveVNodes({ ...this.$props.options })) as unknown as FormOptions;
       this.formInstance = new Form(this.$el as HTMLDivElement, this.$props.options);
-      this.formData = this.formInstance?.getData();
+      formData.value = { ...this.formInstance?.getData() };
       this.formInstance?.on(
         FormEvents.Submitted,
         () => {
@@ -94,8 +107,8 @@ const FormComponent = defineComponent({
       this.formInstance?.on(
         FormEvents.DataUpdated,
         () => {
-          this.formData = this.formInstance?.getData() ?? null;
-          this.$emit('dataUpdated', this.formInstance?.getData() ?? null);
+          formData.value = { ...this.formInstance?.getData() } ?? null;
+          this.$emit('dataUpdated', formData.value ?? null);
         },
         true,
       );
@@ -107,10 +120,61 @@ const FormComponent = defineComponent({
         true,
       );
     },
+    pushVNode(to: string, node: Component) {
+      vNodes.push({
+        to: to,
+        vnode: node,
+      });
+    },
+    isRenderable(param: unknown) {
+      return param && typeof param === 'object' && Object.prototype.hasOwnProperty.call(param, 'render');
+    },
+    acceptVNode(key: string, record: Record<string, unknown>, mutator: string = '') {
+      if (record.id && this.isRenderable(record[key])) {
+        const renderer = record[key] as Component;
+        this.pushVNode(record.id + mutator, renderer);
+        record[key] = () => {
+          const div = document.createElement('div');
+          createApp({
+            render: () => h(renderer, { data: formData.value }),
+          }).mount(div);
+          return div;
+        };
+      }
+    },
+    async resolveVNodes(parent: Record<string, unknown>) {
+      if (parent.schema) {
+        const schema = parent.schema as Record<string, unknown>[];
+        parent.schema = await Promise.all(
+          schema.map(async (record: Record<string, unknown>) => {
+            this.acceptVNode('label', record, '_label');
+            this.acceptVNode('template', record);
+            if (record.shcema) {
+              record = await this.resolveVNodes(record);
+            }
+            return record;
+          }),
+        );
+      }
+      return parent;
+    },
+    mountVNodes() {
+      vNodes.forEach((node) => {
+        createApp({
+          render: () => h(node.vnode, { data: formData.value }),
+        }).mount('#' + node.to);
+      });
+    },
   },
 
   render() {
     return h('div');
+  },
+
+  computed: {
+    data() {
+      return formData.value;
+    },
   },
 
   mounted() {
@@ -123,6 +187,7 @@ const FormComponent = defineComponent({
 
   beforeUnmount() {
     this.formInstance?.destroy();
+    vNodes.splice(0, vNodes.length);
   },
 
   watch: {
