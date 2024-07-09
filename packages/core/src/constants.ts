@@ -210,7 +210,7 @@ export const registerConstructor = (
 export const enum FormEvents {
   Submitted = 'submitted',
   Resetted = 'resetted',
-  ValidationFailed = 'validationFailed',
+  ValidationFailed = 'validationFailedOnSubmit',
   DataUpdated = 'dataUpdated',
 }
 

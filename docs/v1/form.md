@@ -100,8 +100,8 @@ form.on("submitted", listener, true);
       <td>Triggers after field reset.</td>
     </tr>
     <tr>
-      <td><code>validationFailed</code></td>
-      <td>Triggers when validation fails.</td>
+      <td><code>validationFailedOnSubmit</code></td>
+      <td>Triggers when validation fails on form submit.</td>
     </tr>
     <tr>
       <td><code>dataUpdated</code></td>
@@ -247,6 +247,10 @@ form.on("submitted", listener, true);
     <tr>
       <td><code>validate()</code></td>
       <td>Validates all fields of the form.</td>
+    </tr>
+    <tr>
+      <td><code>getErrors()</code></td>
+      <td>Returns array of ids of fields where are errors.</td>
     </tr>
     <tr>
       <td><code>save()</code> <span class="badge primary">premium</span></td>
