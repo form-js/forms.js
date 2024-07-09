@@ -113,9 +113,9 @@ window.Form = Form;
       <td><a class="link" href="https://www.npmjs.com/package/@forms.js/daterange-field" target="_blank">https://www.npmjs.com/package/@forms.js/rating-field</a></td>
     </tr>
     <tr>
-      <td><span class="font-bold">@formsjs/ritchtext-field</span></td>
+      <td><span class="font-bold">@formsjs/richtext-field</span></td>
       <td>Ritch Text field for Forms.js.</td>
-      <td><a class="link" href="https://www.npmjs.com/package/@forms.js/daterange-field" target="_blank">https://www.npmjs.com/package/@forms.js/ritchtext-field</a></td>
+      <td><a class="link" href="https://www.npmjs.com/package/@forms.js/daterange-field" target="_blank">https://www.npmjs.com/package/@forms.js/richtext-field</a></td>
     </tr>
     <tr>
       <td><span class="font-bold">@formsjs/tabs</span></td>

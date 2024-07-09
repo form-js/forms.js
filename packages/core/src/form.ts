@@ -3,6 +3,7 @@ import {
   DIV_ELEMENT,
   FORM_CLASS_DEFAULT,
   FORM_ELEMENT,
+  FormEvents,
   HREF_ATTRIBUTE,
   ID_ATTRIBUTE,
   LICENSE_STATE,
@@ -55,6 +56,7 @@ export class Form {
   private _licenseState: number = LICENSE_STATE.INVALID;
   private _schema: Schema = [];
   private _dataPrefixMap: DataPrefixMap = {};
+  private _triggerEvents = true;
   /**
    * Constructs a new Form instance.
    * @param parent - The parent HTML element or string id.
@@ -263,15 +265,21 @@ export class Form {
    * Updates all elements of the form (groups, rows, fields, buttons).
    */
   async update(): Promise<void> {
-    Object.keys(this._groups).forEach((key: string) => {
-      this._groups[key].update();
-    });
-    Object.keys(this._fields).forEach((key: string) => {
-      this._fields[key].update();
-    });
-    Object.keys(this._buttons).forEach((key: string) => {
-      this._buttons[key].update();
-    });
+    if (this._groups) {
+      Object.keys(this._groups).forEach((key: string) => {
+        this._groups[key].update();
+      });
+    }
+    if (this._fields) {
+      Object.keys(this._fields).forEach((key: string) => {
+        this._fields[key].update();
+      });
+    }
+    if (this._buttons) {
+      Object.keys(this._buttons).forEach((key: string) => {
+        this._buttons[key].update();
+      });
+    }
   }
 
   /**
@@ -291,6 +299,17 @@ export class Form {
     return this._formElement;
   }
 
+  private dispatchEvent(event: FormEvents, data: object | null = null) {
+    if (!this._triggerEvents) return;
+    const dispatched =
+      data !== null
+        ? new CustomEvent(event, {
+            detail: data,
+          })
+        : new CustomEvent(event);
+    this._formElement?.dispatchEvent(dispatched);
+  }
+
   /**
    * Updates the form data with the provided value.
    * @param id - The ID of the data point.
@@ -305,6 +324,7 @@ export class Form {
       this.setSimpleData(id, value);
     }
     this.update();
+    this.dispatchEvent(FormEvents.DataUpdated, this._data);
   }
 
   removeData(id: string): void {
@@ -313,6 +333,7 @@ export class Form {
     } else {
       delete this._data[id];
     }
+    this.dispatchEvent(FormEvents.DataUpdated, this._data);
   }
 
   private removeMappedData(id: string) {
@@ -475,30 +496,41 @@ export class Form {
    * @param event - Optional event that triggered the reset.
    */
   reset(event?: Event): void {
+    this._triggerEvents = false;
     if (event) event.preventDefault();
-    Object.keys(this._groups).forEach((key: string) => {
-      const group = this._groups[key];
-      if (group.reset && typeof group.reset === 'function') group.reset();
-    });
-    Object.keys(this._fields).forEach((key: string) => {
-      const field = this._fields[key];
-      if (field.reset && typeof field.reset === 'function') field.reset();
-    });
-    Object.keys(this._buttons).forEach((key: string) => {
-      const button = this._buttons[key];
-      if (button.reset && typeof button.reset === 'function') button.reset();
-    });
+    if (this._groups) {
+      Object.keys(this._groups).forEach((key: string) => {
+        const group = this._groups[key];
+        if (group.reset && typeof group.reset === 'function') group.reset();
+      });
+    }
+    if (this._fields) {
+      Object.keys(this._fields).forEach((key: string) => {
+        const field = this._fields[key];
+        if (field.reset && typeof field.reset === 'function') field.reset();
+      });
+    }
+    if (this._buttons) {
+      Object.keys(this._buttons).forEach((key: string) => {
+        const button = this._buttons[key];
+        if (button.reset && typeof button.reset === 'function') button.reset();
+      });
+    }
     this._isValid = null;
+    this._triggerEvents = true;
+    this.dispatchEvent(FormEvents.Resetted);
   }
 
   /**
    * Validates all fields of the form.
    */
   validate(): void {
-    Object.keys(this._fields).forEach((key: string) => {
-      const field = this._fields[key];
-      if (field.validate && typeof field.validate === 'function') field.validate();
-    });
+    if (this._fields) {
+      Object.keys(this._fields).forEach((key: string) => {
+        const field = this._fields[key];
+        if (field.validate && typeof field.validate === 'function') field.validate();
+      });
+    }
     this._isValid = this._errors.length === 0;
   }
 
@@ -507,14 +539,18 @@ export class Form {
    */
   save(): void {
     if (!this._saveProgress || !this.hasValidLicense()) return;
-    Object.keys(this._fields).forEach((key: string) => {
-      const field = this._fields[key];
-      if (field.save && typeof field.save === 'function') field.save();
-    });
-    Object.keys(this._groups).forEach((key: string) => {
-      const group = this._groups[key];
-      if (group.save && typeof group.save === 'function') group.save();
-    });
+    if (this._fields) {
+      Object.keys(this._fields).forEach((key: string) => {
+        const field = this._fields[key];
+        if (field.save && typeof field.save === 'function') field.save();
+      });
+    }
+    if (this._groups) {
+      Object.keys(this._groups).forEach((key: string) => {
+        const group = this._groups[key];
+        if (group.save && typeof group.save === 'function') group.save();
+      });
+    }
   }
 
   /**
@@ -522,14 +558,18 @@ export class Form {
    */
   load(): void {
     if (!this._saveProgress || !this.hasValidLicense()) return;
-    Object.keys(this._fields).forEach((key: string) => {
-      const field = this._fields[key];
-      if (field.load && typeof field.load === 'function') field.load();
-    });
-    Object.keys(this._groups).forEach((key: string) => {
-      const group = this._groups[key];
-      if (group.load && typeof group.load === 'function') group.load();
-    });
+    if (this._fields) {
+      Object.keys(this._fields).forEach((key: string) => {
+        const field = this._fields[key];
+        if (field.load && typeof field.load === 'function') field.load();
+      });
+    }
+    if (this._groups) {
+      Object.keys(this._groups).forEach((key: string) => {
+        const group = this._groups[key];
+        if (group.load && typeof group.load === 'function') group.load();
+      });
+    }
   }
 
   /**
@@ -567,6 +607,7 @@ export class Form {
     this.validate();
 
     if (!this.isValid()) {
+      this.dispatchEvent(FormEvents.ValidationFailed);
       return;
     }
     let data = this.getData();
@@ -574,6 +615,7 @@ export class Form {
       data = objectToFormData(this.getData());
     }
     if (this.options.submit) this.options.submit(data);
+    this.dispatchEvent(FormEvents.Submitted, data);
   }
 
   /**
@@ -581,5 +623,19 @@ export class Form {
    */
   destroy() {
     if (this._parent) this._parent.remove();
+  }
+
+  /**
+   * Adds event listener to the form.
+   */
+  on(event: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions) {
+    this._formElement?.addEventListener(event, listener, options);
+  }
+
+  /**
+   * Removes event listener to the form.
+   */
+  off(event: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions) {
+    this._formElement?.removeEventListener(event, listener, options);
   }
 }

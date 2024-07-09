@@ -206,3 +206,28 @@ export const registerConstructor = (
 
   elementConstructors[type] = constructor;
 };
+
+export const enum FormEvents {
+  Submitted = 'submitted',
+  Resetted = 'resetted',
+  ValidationFailed = 'validationFailed',
+  DataUpdated = 'dataUpdated',
+}
+
+export const enum FieldEvents {
+  Changed = 'changed',
+  Resetted = 'resetted',
+  ValidationFailed = 'validationFailed',
+  VisibilityChanged = 'visibilityChanged',
+  DisabledStateChanged = 'disabledStateChanged',
+  RequiredStateChanged = 'requiredStateChanged',
+}
+
+export const enum ButtonEvents {
+  Clicked = 'clicked',
+  VisibilityChanged = 'visibilityChanged',
+}
+
+export const enum GroupEvents {
+  VisibilityChanged = 'visibilityChanged',
+}

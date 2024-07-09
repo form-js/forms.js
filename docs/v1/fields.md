@@ -23,7 +23,8 @@ conditions: (value: FieldValue, data: FormData) => boolean;
 Validation can be defined by the `validation` option inside the field options. It accepts function that returns `true` if the field is validated correctly or validation message `string` if there is an validation error. Field `value` and `required` attribute and form `data` are passed into the function.
 
 ```js
-validation: (value: FieldValue, data: FormData, required: boolean) => true | string;
+validation: (value: FieldValue, data: FormData, required: boolean) =>
+  true | string;
 ```
 
 **Default value**
@@ -96,6 +97,53 @@ change: (value: FieldValue) => void;
   forms.js - change event</a> by Trilmatic (<a href="https://codepen.io/trilmatic">@trilmatic</a>)
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>
+
+## Events
+
+Fields have events that can be listened to if needed. You can add listener using on function avilable on fields that supports events. Data related to the event are stored in event detail. You can import the `FieldEvents` variable to have a constant with all available events.
+
+```js
+function listener(event) {
+  //do stuff
+}
+
+field.on("changed", listener, true);
+```
+
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>changed</code></td>
+      <td>Triggers after field change. The field value is in the event detail.</td>
+    </tr>
+    <tr>
+      <td><code>resetted</code></td>
+      <td>Triggers after field reset.</td>
+    </tr>
+    <tr>
+      <td><code>validationFailed</code></td>
+      <td>Triggers when validation fails. The validation message is in the event detail.</td>
+    </tr>
+    <tr>
+      <td><code>visibilityChanged</code></td>
+      <td>Triggers when visibility condition of field is changed. The <code>isVisible</code> boolean is in the event detail.</td>
+    </tr>
+    <tr>
+      <td><code>disabledStateChanged</code></td>
+      <td>Triggers when disabled state of field is changed. The <code>isDisabled</code> boolean is in the event detail.</td>
+    </tr>
+    <tr>
+      <td><code>requiredStateChanged</code></td>
+      <td>Triggers when required vstate of field is changed. The <code>isRequired</code> boolean is in the event detail.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Fields list
 

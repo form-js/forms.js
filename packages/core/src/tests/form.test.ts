@@ -19,6 +19,7 @@ import {
   GROUP_TYPE_GROUP,
   LICENSE_STATE,
   registerConstructor,
+  FormEvents,
 } from '../constants';
 import { TextField } from '../fields';
 import { Form, GroupOptions, constructorTypes } from '../index';
@@ -686,5 +687,50 @@ describe('form', () => {
     expect(form.getData()['group1']['groupField']).toEqual(DEFAULT_STRING_VALUE);
     form.removeData('groupField');
     expect(form.getData()['group1']).not.toBeDefined();
+  });
+
+  it('triggers events properly', () => {
+    const mockDataUpdateListener = jest.fn();
+    const mockResettedListener = jest.fn();
+    const mockSubmittedListener = jest.fn();
+    const mockValidationFailedListener = jest.fn();
+    const form = createForm({
+      schema: [
+        {
+          type: GROUP_TYPE_GROUP,
+          id: 'group1',
+          schema: [{ type: FIELD_TYPE_TEXT, id: 'groupField', required: true }],
+        },
+      ],
+    });
+
+    form.on(FormEvents.DataUpdated, mockDataUpdateListener, true);
+    form.on(FormEvents.Resetted, mockResettedListener, true);
+    form.on(FormEvents.Submitted, mockSubmittedListener, true);
+    form.on(FormEvents.ValidationFailed, mockValidationFailedListener, true);
+
+    form.submit();
+    expect(mockValidationFailedListener).toHaveBeenCalledTimes(1);
+    form.reset();
+    expect(mockResettedListener).toHaveBeenCalledTimes(1);
+    const field = form.getField('groupField') as unknown as TextField;
+    field?.setValue(DEFAULT_STRING_VALUE);
+    expect(mockDataUpdateListener).toHaveBeenCalledTimes(1);
+    form.submit();
+    expect(mockSubmittedListener).toHaveBeenCalledTimes(1);
+
+    form.off(FormEvents.DataUpdated, mockDataUpdateListener, true);
+    form.off(FormEvents.Resetted, mockResettedListener, true);
+    form.off(FormEvents.Submitted, mockSubmittedListener, true);
+    form.off(FormEvents.ValidationFailed, mockValidationFailedListener, true);
+
+    form.reset();
+    expect(mockResettedListener).toHaveBeenCalledTimes(1);
+    form.submit();
+    expect(mockValidationFailedListener).toHaveBeenCalledTimes(1);
+    field?.setValue(DEFAULT_STRING_VALUE);
+    expect(mockDataUpdateListener).toHaveBeenCalledTimes(1);
+    form.submit();
+    expect(mockSubmittedListener).toHaveBeenCalledTimes(1);
   });
 });

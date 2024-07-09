@@ -1,8 +1,8 @@
 import { fields, formElements } from './constants';
 import { Form } from './form';
 
-export type Schema = object[];
-export type Tabs = object[];
+export type Schema = Record<string, unknown>[];
+export type Tabs = Record<string, unknown>[];
 
 export type HTMLElementEvent<T extends HTMLElement> = Event & {
   target: T;
@@ -38,7 +38,7 @@ export type SelectFieldValue =
   | Record<string, any>;
 
 export type FormElement = {
-  new (parent: HTMLElement, form: Form, options: Record<string, any>): any;
+  new(parent: HTMLElement, form: Form, options: Record<string, any>): any;
   getId(): string;
   initialize(): void;
   getSchemaContainer?(): HTMLElement | null;

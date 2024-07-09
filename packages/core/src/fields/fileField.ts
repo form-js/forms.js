@@ -9,6 +9,7 @@ import {
   CHANGE_ATTRIBUTE,
   DEFAULT_REQUIRED_VALIDATION_MESSAGE,
   FIELD_TYPE_FILE,
+  FieldEvents,
   ID_ATTRIBUTE,
   INPUT_CLASS_DEFAULT,
   INPUT_ELEMENT,
@@ -137,6 +138,7 @@ export class FileField extends Field {
     this.validate();
     this.handleValidatedField();
     if (this.options.change) this.options.change(this._value);
+    this.dispatchEvent(FieldEvents.Changed, value);
   }
 
   getValue(): FileList | FilePondFile[] | null {

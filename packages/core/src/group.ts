@@ -18,6 +18,7 @@ import {
   H3_ELEMENT,
   ID_ATTRIBUTE,
   LABEL_DEFINITION,
+  GroupEvents,
 } from './constants';
 
 export class Group {
@@ -171,6 +172,7 @@ export class Group {
 
   /** Updates visibility based on options. */
   private updateVisibilityBasedOnConditions(): void {
+    const visibilityNow = this._isVisible;
     if (this.options.conditions) {
       if (this._parsedConditions) {
         this._isVisible = evaluateParsedConditions(this._parsedConditions, this._form.getData()) as boolean;
@@ -178,5 +180,32 @@ export class Group {
         this._isVisible = this.options.conditions(this._form.getData());
       }
     }
+    if (visibilityNow !== this._isVisible) {
+      this.dispatchEvent(GroupEvents.VisibilityChanged, this._isVisible);
+    }
+  }
+
+  dispatchEvent(event: GroupEvents, data: boolean | null = null) {
+    const dispatched =
+      data !== null
+        ? new CustomEvent(event, {
+            detail: data,
+          })
+        : new CustomEvent(event);
+    this.containerElement?.dispatchEvent(dispatched);
+  }
+
+  /**
+   * Adds event listener to the field.
+   */
+  on(event: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions) {
+    this.containerElement?.addEventListener(event, listener, options);
+  }
+
+  /**
+   * Removes event listener to the field.
+   */
+  off(event: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions) {
+    this.containerElement?.removeEventListener(event, listener, options);
   }
 }

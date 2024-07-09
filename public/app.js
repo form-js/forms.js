@@ -1,6 +1,13 @@
 import "./style.css";
 import "../packages/core/css/index.css";
 import { Form } from "./js/core/index";
+import { createApp } from "vue";
+import App from "./App.vue";
+
+function initVue() {
+  const app = createApp(App);
+  app.mount("#app");
+}
 
 const options = [
   { value: "vincent_van_gogh", label: "Vincent van Gogh", group: "painters" },
@@ -114,10 +121,10 @@ const groups = [
 ];
 
 function initForm() {
-  new Form("form", {
+  const form = new Form("form", {
     id: "form",
     schema: [
-      /*{
+      {
         id: "select",
         type: "select",
         label: "Select",
@@ -126,9 +133,6 @@ function initForm() {
           plugins: ["remove_button"],
         },
         required: true,
-        change: (value) => {
-          console.log(value);
-        },
         optionsList: async function (query) {
           if (!query) return [...options];
           const search = [
@@ -148,15 +152,120 @@ function initForm() {
         optionGroups: async function (query) {
           return groups;
         },
-      },*/
+      },
       {
         id: "password",
         type: "password",
         allowPeek: true,
         label: "Pasword",
+        required: true,
+        conditions: (value, data) => {
+          if (data) return !data.select?.includes("vincent_van_gogh");
+          return true;
+        },
+      },
+      {
+        id: "submit",
+        type: "button",
+        template: "Submit",
+      },
+      {
+        id: "reset",
+        type: "button",
+        template: "Reset",
+        buttonType: "button",
+        click: () => {
+          form.reset();
+        },
       },
     ],
   });
+
+  const password = form.getField("password");
+
+  password?.on(
+    "changed",
+    (event) => {
+      console.log(event);
+    },
+    true
+  );
+  password?.on(
+    "resetted",
+    (event) => {
+      console.log("resetted");
+    },
+    true
+  );
+
+  password?.on(
+    "validationFailed",
+    (event) => {
+      console.log("failed");
+    },
+    true
+  );
+
+  password?.on(
+    "visibilityChanged",
+    (event) => {
+      console.log(event);
+    },
+    true
+  );
+
+  password?.on(
+    "disabledStateChanged",
+    (event) => {
+      console.log(event);
+    },
+    true
+  );
+
+  password?.on(
+    "requiredStateChanged",
+    (event) => {
+      console.log(event);
+    },
+    true
+  );
+
+  form.on(
+    "submitted",
+    () => {
+      console.log("submitted");
+    },
+    true
+  );
+  form.on(
+    "dataUpdated",
+    (event) => {
+      console.log("data updated");
+      console.log(event);
+    },
+    true
+  );
+  form.on(
+    "initialized",
+    () => {
+      console.log("initialized");
+    },
+    true
+  );
+  form.on(
+    "resetted",
+    () => {
+      console.log("resetted");
+    },
+    true
+  );
+  form.on(
+    "validationFailed",
+    () => {
+      console.log("validation failed");
+    },
+    true
+  );
 }
 
-document.addEventListener("DOMContentLoaded", initForm, false);
+document.addEventListener("DOMContentLoaded", initVue, false);
