@@ -1,6 +1,6 @@
 {
   "name": "@forms.js/core",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "description": "Javascript form generator that streamlines web forms",
   "module": "lib/index.js",
   "type": "module",
