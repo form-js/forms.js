@@ -114,8 +114,8 @@ change: (value: FieldValue) => void;
     </tr>
     <tr>
       <td>label</td>
-      <td><code>string</code></td>
-      <td>Defiles fields label.</td>
+      <td><code>string | ()=> HtmlElement</code></td>
+      <td>Defiles fields label. It can also be function returning html element.</td>
     </tr>
     <tr>
       <td>name</td>

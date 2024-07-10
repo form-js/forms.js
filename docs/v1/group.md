@@ -8,7 +8,7 @@ The options object can include the following properties (you can find full list 
 
 - `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
 - `schema: Schema[]` - <span class="badge warning">required</span> Schema defining the form structure.
-- `label: string` - Group label (heading) that will appear at the top of the grouped elements.
+- `label: string | () => HtmlElement` - Group label (heading) that will appear at the top of the grouped elements.
 - `prefixSchema: boolean` - You can prefix the grouped fileds inside the form `data` object by group id.
 
 ### Conditional logic
@@ -85,9 +85,9 @@ group.on("visibilityChanged", listener, true);
       <td>Identifier for the group.</td>
     </tr>
     <tr>
-      <td><code>label</code></td>
-      <td>string</td>
-      <td>Group label.</td>
+      <td>label</td>
+      <td><code>string | ()=> HtmlElement</code></td>
+      <td>Defiles group label. It can also be function returning html element.</td>
     </tr>
     <tr>
       <td><code>conditions</code></td>

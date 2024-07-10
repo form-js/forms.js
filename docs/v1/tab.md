@@ -60,7 +60,7 @@ disabled: boolean | ((data: FormData) => boolean);
     <tr>
       <td>label <span class="badge warning">required</span></td>
       <td><code>string | (() => HTMLElement)</code></td>
-      <td>Defines tab label.</td>
+      <td>Defines tab label. Can also be function returning HtmlElement</td>
     </tr>
     <tr>
       <td>schema <span class="badge warning">required</span></td>

@@ -120,7 +120,14 @@ export class Group {
   /** Creates and sets up the label element for the group. */
   createLabelElement(): void {
     this.labelElement = document.createElement(H3_ELEMENT);
-    if (this.options.label) this.labelElement.innerText = this.options.label;
+    if (this.options.label) {
+      if (typeof this.options.label === 'string') {
+        this.labelElement.innerText = this.options.label;
+      } else if (typeof this.options.label === 'function') {
+        this.labelElement.innerHTML = '';
+        this.labelElement.append(this.options.label());
+      }
+    }
     this.labelElement.setAttribute(ID_ATTRIBUTE, this._id + LABEL_DEFINITION);
     this.labelElement.className = GROUP_LABEL_CLASS_DEFAULT;
   }

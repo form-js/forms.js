@@ -1,6 +1,7 @@
 <script setup>
-import { ref } from "vue";
+import { markRaw, ref } from "vue";
 import FormComponent from "./js/vue/index.js";
+import Label from "./Label.vue";
 
 const form = ref(null);
 
@@ -8,9 +9,17 @@ const options = {
   id: "form",
   schema: [
     {
+      id: "group",
+      type: "group",
+      label: Label,
+    },
+    {
       id: "select",
       type: "select",
-      label: "Select",
+      label: Label,
+      conditions: (value, data) => {
+        return data.password;
+      },
       required: true,
       optionsList: [
         {
@@ -39,7 +48,7 @@ const options = {
       template: "Reset",
       buttonType: "button",
       click: () => {
-        console.log(form.value?.getId());
+        console.log(form.value?.reset());
       },
     },
   ],
@@ -55,6 +64,6 @@ const options = {
       @validation-failed="(event) => console.log(event)"
       :options="options"
     />
-    <span v-if="form">{{ form.formData }}</span>
+    <span v-if="form">{{ form.errors }}</span>
   </div>
 </template>

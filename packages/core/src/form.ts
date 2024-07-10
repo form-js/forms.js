@@ -468,6 +468,14 @@ export class Form {
   }
 
   /**
+   * Fetches save progress option.
+   * @returns array of string errors.
+   */
+  getErrors(): string[] {
+    return this._errors;
+  }
+
+  /**
    * Looks if form has valid license
    * @returns Boolean.
    */
@@ -628,14 +636,14 @@ export class Form {
   /**
    * Adds event listener to the form.
    */
-  on(event: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions) {
+  on(event: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions) {
     this._formElement?.addEventListener(event, listener, options);
   }
 
   /**
    * Removes event listener to the form.
    */
-  off(event: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions) {
+  off(event: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions) {
     this._formElement?.removeEventListener(event, listener, options);
   }
 }

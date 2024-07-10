@@ -12,28 +12,28 @@ $ npm i @forms.js/core @forms.js/vue
 
 ```vue
 <script>
-import Form from '@forms.js/vue';
+import Form from "@forms.js/vue";
 
 export default {
   components: {
-    'forms-js': Form,
+    "forms-js": Form,
   },
   data: function () {
     return {
       options: {
-        id: 'demo-form',
+        id: "demo-form",
         schema: [
           {
-            id: 'name',
-            label: 'Name',
-            type: 'text',
+            id: "name",
+            label: "Name",
+            type: "text",
           },
         ],
       },
     };
   },
-  methods:{
-    handleFailedValidation(){
+  methods: {
+    handleFailedValidation() {
       //do stuff
     },
   },
@@ -61,6 +61,10 @@ export default {
   forms.js - vue example</a> by Trilmatic (<a href="https://codepen.io/trilmatic">@trilmatic</a>)
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>
+
+### Component support
+
+Vue component also brings a component support for some form element traits. You can now pass a vue component into field and group `label` option and also on static fields and buttons `template` option.
 
 ## Reference
 
@@ -122,6 +126,10 @@ export default {
       <td><code>validate()</code></td>
       <td>Validates all fields of the form.</td>
     </tr>
+    <tr>
+      <td><code>getErrors()</code></td>
+      <td>Returns array of ids of fields where are errors.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -149,12 +157,10 @@ export default {
     </tr>
     <tr>
       <td><code>validationFailed</code></td>
-      <td>Emits when form validation failed.</td>
+      <td>Emits when form validation failed on form submit.</td>
     </tr>
   </tbody>
 </table>
-
-Vue component currently does not support templating, the feature is being developed.
 
 <h2 id="license">License</h2>
 
