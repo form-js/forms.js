@@ -62,6 +62,10 @@ export default {
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>
 
+### Component support
+
+Vue component also brings a component support for some form element traits. You can now pass a vue component into field and group `label` option and also on static fields and buttons `template` option.
+
 ## Reference
 
 ### Supported methods
@@ -157,8 +161,6 @@ export default {
     </tr>
   </tbody>
 </table>
-
-Vue component currently does not support templating, the feature is being developed.
 
 <h2 id="license">License</h2>
 

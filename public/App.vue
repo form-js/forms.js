@@ -9,6 +9,11 @@ const options = {
   id: "form",
   schema: [
     {
+      id: "group",
+      type: "group",
+      label: Label,
+    },
+    {
       id: "select",
       type: "select",
       label: Label,
