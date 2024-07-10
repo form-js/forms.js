@@ -7,14 +7,7 @@ import {
   FormEvents,
   setLicenseKey,
 } from '@forms.js/core';
-import { PropType, defineComponent, h, createApp, VNode, Component, ref, Ref } from 'vue';
-
-interface MountVNode {
-  to: string;
-  vnode: Component;
-}
-
-const vNodes = [] as MountVNode[];
+import { PropType, defineComponent, h, createApp, Component, ref } from 'vue';
 
 const formData = ref<null | Data>(null);
 
@@ -120,19 +113,12 @@ const FormComponent = defineComponent({
         true,
       );
     },
-    pushVNode(to: string, node: Component) {
-      vNodes.push({
-        to: to,
-        vnode: node,
-      });
-    },
     isRenderable(param: unknown) {
       return param && typeof param === 'object' && Object.prototype.hasOwnProperty.call(param, 'render');
     },
     acceptVNode(key: string, record: Record<string, unknown>, mutator: string = '') {
       if (record.id && this.isRenderable(record[key])) {
         const renderer = record[key] as Component;
-        this.pushVNode(record.id + mutator, renderer);
         record[key] = () => {
           const div = document.createElement('div');
           createApp({
@@ -158,13 +144,6 @@ const FormComponent = defineComponent({
       }
       return parent;
     },
-    mountVNodes() {
-      vNodes.forEach((node) => {
-        createApp({
-          render: () => h(node.vnode, { data: formData.value }),
-        }).mount('#' + node.to);
-      });
-    },
   },
 
   render() {
@@ -187,7 +166,6 @@ const FormComponent = defineComponent({
 
   beforeUnmount() {
     this.formInstance?.destroy();
-    vNodes.splice(0, vNodes.length);
   },
 
   watch: {
