@@ -33,7 +33,7 @@ export interface FormOptions {
 
 export interface GroupOptions {
   id: string;
-  label?: string;
+  label?: string | (() => HTMLElement);
   type: typeof GROUP_TYPE_GROUP;
   conditions?: ((data: FormData) => boolean) | string;
   prefixSchema?: boolean;
