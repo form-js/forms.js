@@ -60,7 +60,7 @@ export default {
 
 Dive deeper into Forms.js with the [official documentation](https://formsjs.io/documentation/v1/getting-started)
 
-### Support Forms.js Development:
+## Support Forms.js Development:
 
 Purchase an software [license](https://formsjs.io/pricing).
 
