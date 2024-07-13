@@ -64,9 +64,32 @@ export default {
 
 ### Component support
 
-Vue component also brings a component support for some form element traits. You can now pass a vue component into field and group `label` option and also on static fields and buttons `template` option.
+Vue component also brings a component support for some form element traits. You can now pass a vue component into field and group `label` option and also on static fields and buttons `template` option. You can see this in the example above. Reactive prop `formData` is passed into each component.
 
 ## Reference
+
+You can access methods and variables through the component instance.
+
+### Data
+
+<table>
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>formData</code></td>
+      <td>Reactive variable containing formData.</td>
+    </tr>
+    <tr>
+      <td><code>formInstance</code></td>
+      <td>Variable containing form instance.</td>
+    </tr>
+  </tbody>
+</table>
 
 ### Supported methods
 
