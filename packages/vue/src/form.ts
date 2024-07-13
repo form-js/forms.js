@@ -33,6 +33,7 @@ const FormComponent = defineComponent({
     return {
       formInstance: null as Form | null,
       processedOptions: {} as FormOptions,
+      disableOptionUpdates: false,
     };
   },
 
@@ -80,8 +81,10 @@ const FormComponent = defineComponent({
       return this.formInstance?.getErrors();
     },
     async initForm() {
+      this.disableOptionUpdates = true;
       this.processedOptions = (await this.resolveVNodes({ ...this.$props.options })) as unknown as FormOptions;
-      this.formInstance = new Form(this.$el as HTMLDivElement, this.$props.options);
+      this.formInstance = new Form(this.$el as HTMLDivElement, this.processedOptions);
+      this.disableOptionUpdates = false;
       formData.value = { ...this.formInstance?.getData() };
       this.formInstance?.on(
         FormEvents.Submitted,
@@ -122,7 +125,7 @@ const FormComponent = defineComponent({
         record[key] = () => {
           const div = document.createElement('div');
           createApp({
-            render: () => h(renderer, { data: formData.value }),
+            render: () => h(renderer, { formData: formData.value }),
           }).mount(div);
           return div;
         };
@@ -171,6 +174,7 @@ const FormComponent = defineComponent({
   watch: {
     options: {
       handler: function () {
+        if (this.disableOptionUpdates) return;
         this.formInstance?.destroy();
         this.initForm();
       },

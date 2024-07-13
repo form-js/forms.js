@@ -9,47 +9,14 @@ const options = {
   id: "form",
   schema: [
     {
-      id: "group",
-      type: "group",
-      label: Label,
+      id: "name",
+      label: "Name",
+      type: "text",
     },
     {
-      id: "select",
-      type: "select",
-      label: Label,
-      conditions: (value, data) => {
-        return data.password;
-      },
-      required: true,
-      optionsList: [
-        {
-          value: "vincent_van_gogh",
-          label: "Vincent van Gogh",
-          group: "painters",
-        },
-        { value: "pablo_picasso", label: "Pablo Picasso", group: "painters" },
-      ],
-    },
-    {
-      id: "password",
-      type: "password",
-      allowPeek: true,
-      label: "Pasword",
-      required: true,
-    },
-    {
-      id: "submit",
-      type: "button",
-      templete: "Test",
-    },
-    {
-      id: "reset",
-      type: "button",
-      template: "Reset",
-      buttonType: "button",
-      click: () => {
-        console.log(form.value?.reset());
-      },
+      id: "static",
+      type: "static",
+      template: Label,
     },
   ],
 };
