@@ -311,7 +311,12 @@ export class Field {
     if (!this._isValid) {
       this.labelElement?.classList.add(FORM_ERROR_CLASS_DEFAULT);
       if (this.validationElement && this._vMessage) {
-        this.validationElement.innerText = this._vMessage;
+        if (this.options.renderValidationError) {
+          this.validationElement.innerHTML = '';
+          this.validationElement.append(this.options.renderValidationError(this._vMessage, this._form.getData()));
+        } else {
+          this.validationElement.innerText = this._vMessage;
+        }
         this.validationElement.style.display = 'block';
       }
       this.inputElement?.setAttribute(ARIA_INVALID_ATTRIBUTE, 'true');
@@ -319,6 +324,7 @@ export class Field {
     } else {
       if (this.validationElement) {
         this.validationElement.style.display = 'none';
+        this.validationElement.innerHTML = '';
       }
       this.labelElement?.classList.remove(FORM_ERROR_CLASS_DEFAULT);
       this.inputElement?.removeAttribute(ARIA_INVALID_ATTRIBUTE);

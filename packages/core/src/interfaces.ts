@@ -65,6 +65,7 @@ export interface FieldOptions {
   debounce?: number;
   default?: FieldValue;
   className?: string;
+  renderValidationError?: (validationMessage: string, data: FormData) => HTMLElement;
 }
 
 export interface StaticFieldOptions {
@@ -88,6 +89,7 @@ export interface CheckboxFieldOptions extends FieldOptions {
   default?: boolean | null;
   className?: string;
   toggle?: boolean;
+  renderValidationError?: (validationMessage: string, data: FormData) => HTMLElement;
 }
 
 export interface DateFieldOptions extends FieldOptions {
@@ -110,6 +112,7 @@ export interface DateFieldOptions extends FieldOptions {
   default?: string | Date | null;
   options?: object;
   enhance?: boolean;
+  renderValidationError?: (validationMessage: string, data: FormData) => HTMLElement;
 }
 
 export interface TextareaFieldOptions extends FieldOptions {
@@ -165,6 +168,7 @@ export interface FileFieldOptions extends FieldOptions {
   enhance?: boolean;
   multiple?: boolean;
   accept?: string;
+  renderValidationError?: (validationMessage: string, data: FormData) => HTMLElement;
 }
 
 export interface HiddenFieldOptions {
@@ -190,6 +194,7 @@ export interface NumberFieldOptions extends FieldOptions {
   placeholder?: string;
   default?: number | null;
   className?: string;
+  renderValidationError?: (validationMessage: string, data: FormData) => HTMLElement;
 }
 
 export interface RadioFieldOptions extends FieldOptions {
@@ -205,6 +210,7 @@ export interface RadioFieldOptions extends FieldOptions {
   disabled?: ((value: FieldValue, data: FormData) => boolean) | boolean;
   default?: string | null;
   className?: string;
+  renderValidationError?: (validationMessage: string, data: FormData) => HTMLElement;
 }
 
 export interface RadioFieldItemOptions {

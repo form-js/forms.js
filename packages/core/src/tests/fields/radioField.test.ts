@@ -58,6 +58,25 @@ describe('radio-field', () => {
     expect(field.getValidity()).toBeFalsy();
   });
 
+  it('input uses renderValidationError correctly', () => {
+    const mockError = jest.fn();
+
+    const form = createForm({
+      schema: [
+        {
+          ...baseRadioFieldTestOptions,
+          renderValidationError: mockError,
+          required: true,
+          default: null,
+        },
+      ],
+    });
+    const field = form.getField(RADIO_FIELD_ID)! as unknown as RadioField;
+    field.validate();
+    expect(field.getValidity()).toBeFalsy();
+    expect(mockError).toHaveBeenCalledTimes(1);
+  });
+
   it('input passes validation with valid string', () => {
     const form = createForm({
       schema: [
