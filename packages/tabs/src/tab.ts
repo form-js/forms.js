@@ -238,6 +238,7 @@ export class Tab {
       this.bodyElement?.classList.add('validated');
       if (this.validationElement) {
         this.validationElement.style.display = 'none';
+        this.validationElement.innerHTML = '';
       }
     } else {
       this.headerElement?.classList.remove('validated');
@@ -245,7 +246,12 @@ export class Tab {
       this.headerElement?.classList.add('error');
       this.bodyElement?.classList.add('error');
       if (this.validationElement && this._vMessage) {
-        this.validationElement.innerText = this._vMessage;
+        if (this.options.renderValidationError) {
+          this.validationElement.innerHTML = '';
+          this.validationElement.append(this.options.renderValidationError(this._vMessage, this._form.getData()));
+        } else {
+          this.validationElement.innerText = this._vMessage;
+        }
         this.validationElement.style.display = 'block';
       }
     }
@@ -403,6 +409,7 @@ export interface TabOptions {
   label: string | (() => HTMLElement);
   conditions?: ((data: FormData) => boolean) | string;
   validation?: ((fields: string[], form: Form) => true | string) | string;
+  renderValidationError?: (validationMessage: string, data: FormData) => HTMLElement;
   disabled?: ((data: FormData) => boolean) | boolean | string;
   schema: Schema;
 }

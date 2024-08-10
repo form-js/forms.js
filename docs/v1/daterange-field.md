@@ -9,6 +9,7 @@ Daterange field is an separate premium plugin that can be used in forms.js packa
 You you can easily use this plugin with forms.js by provided `usePlugin` function.
 
 app.js
+
 ```js
 import { Form, usePlugin } from "@forms.js/core";
 import { pluginSettings as DateRangePlugin } from "@forms.js/daterange-field";
@@ -23,8 +24,8 @@ To get valid license please look at <a class="link" href="https://formsjs.io/doc
 
 The options object can include the following properties (you can find full list below):
 
--   `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
--   `options: FlatpickrOptions` - Defines enhanced fields options for flatpickr.
+- `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
+- `options: FlatpickrOptions` - Defines enhanced fields options for flatpickr.
 
 <iframe height="300" style="width: 100%;" scrolling="no" title="forms.js - date range example" src="https://codepen.io/trilmatic/embed/qBGbjyo?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
   See the Pen <a href="https://codepen.io/trilmatic/pen/qBGbjyo">
@@ -34,7 +35,7 @@ The options object can include the following properties (you can find full list 
 
 ### Date formatting
 
-The field accepts RFC 3339 format string date formatting `YYYY-MM-DD`. The range is defined by ` to ` separator, so example of daterange value is `YYYY-MM-DD to `YYYY-MM-DD``. You can change formatting through flatpickr options. 
+The field accepts RFC 3339 format string date formatting `YYYY-MM-DD`. The range is defined by `to` separator, so example of daterange value is `YYYY-MM-DD to `YYYY-MM-DD``. You can change formatting through flatpickr options.
 
 ### Conditional logic
 
@@ -46,11 +47,11 @@ conditions: (value: FieldValue, data: FormData) => boolean;
 
 ### Validation and validation message
 
-Validation can be defined by the `validation` option inside the field options. It accepts function that returns `true` if the field is validated correctly or validation message `string` if there is an validation error. Field `value` and `required` attribute and form `data` are passed into the function.
+Validation can be defined by the `validation` option inside the field options. It accepts function that returns `true` if the field is validated correctly or validation message `string` if there is an validation error. Field `value` and `required` attribute and form `data` are passed into the function. You can also create a custom validation errors render function and pass it to option `renderValidationError`.
 
 ```js
 validation: (value: FieldValue, data: FormData, required: boolean) =>
-    true | string;
+  true | string;
 ```
 
 **Default value**
@@ -151,6 +152,11 @@ change: (value: FieldValue) => void;
       <td>validation</td>
       <td><code>(value: FieldValue, data: FormData, required: boolean) => true | string;</code></td>
       <td>Defines the validation method of the field. By default validates empty required field as not valid.</td>
+    </tr>
+    <tr>
+      <td>renderValidationError</td>
+      <td><code>(validationMessage: string, data: FormData) => HTMLElement;</code></td>
+      <td>Defines custom render function for validation errors.</td>
     </tr>
     <tr>
       <td>disabled</td>
