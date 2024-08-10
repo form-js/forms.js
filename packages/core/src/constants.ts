@@ -181,7 +181,7 @@ export const LICENSE_STATE = {
 /**
  * Release date.
  */
-export const RELEASE_DATE = '2024-05-08';
+export const RELEASE_DATE = '2024-08-10';
 
 /* Register new constructor */
 export const registerConstructor = (
