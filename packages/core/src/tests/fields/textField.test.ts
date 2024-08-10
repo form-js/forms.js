@@ -115,6 +115,25 @@ describe('text-field', () => {
     expect(field.getValidationMessage()).toBe(VALIDATION_ERROR);
   });
 
+  it('input uses renderValidationError correctly', () => {
+    const mockError = jest.fn();
+
+    const form = createForm({
+      schema: [
+        {
+          ...baseTextFieldTestOptions,
+          required: true,
+          default: null,
+          renderValidationError: mockError,
+        },
+      ],
+    });
+    const field = form.getField(TEXT_FIELD_ID)! as unknown as TextField;
+    field.validate();
+    expect(field.getValidity()).toBeFalsy();
+    expect(mockError).toHaveBeenCalledTimes(1);
+  });
+
   it('handles disability correctly', () => {
     const form = createForm({
       schema: [
