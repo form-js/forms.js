@@ -78,6 +78,11 @@ disabled: boolean | ((data: FormData) => boolean);
       <td>Defines the validation method of the tab. By default there is no extra tab validation.</td>
     </tr>
     <tr>
+      <td>renderValidationError</td>
+      <td><code>(validationMessage: string, data: FormData) => HTMLElement;</code></td>
+      <td>Defines custom render function for validation errors.</td>
+    </tr>
+    <tr>
       <td>disabled</td>
       <td><code>boolean | (data: FormData) => boolean</code></td>
       <td>Defines if the tab is disabled or not. Default is false.</td>

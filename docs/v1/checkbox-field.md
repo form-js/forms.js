@@ -4,8 +4,8 @@
 
 The options object can include the following properties (you can find full list below):
 
--   `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
--   `toggle: boolean` - Defines if the checkox is toggle/switch style.
+- `id: string` - <span class="badge warning">required</span> Unique identifier for the group.
+- `toggle: boolean` - Defines if the checkox is toggle/switch style.
 
 <iframe height="300" style="width: 100%;" scrolling="no" title="forms.js - checkbox example" src="https://codepen.io/trilmatic/embed/wvNZqXy?default-tab=js%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
   See the Pen <a href="https://codepen.io/trilmatic/pen/wvNZqXy">
@@ -23,10 +23,11 @@ conditions: (value: FieldValue, data: FormData) => boolean;
 
 ### Validation and validation message
 
-Validation can be defined by the `validation` option inside the field options. It accepts function that returns `true` if the field is validated correctly or validation message `string` if there is an validation error. Field `value` and `required` attribute and form `data` are passed into the function.
+Validation can be defined by the `validation` option inside the field options. It accepts function that returns `true` if the field is validated correctly or validation message `string` if there is an validation error. Field `value` and `required` attribute and form `data` are passed into the function. You can also create a custom validation errors render function and pass it to option `renderValidationError`. You can also create a custom validation errors render function and pass it to option `renderValidationError`.
 
 ```js
-validation: (value: FieldValue, data: FormData, required: boolean) => true | string;
+validation: (value: FieldValue, data: FormData, required: boolean) =>
+  true | string;
 ```
 
 **Default value**
@@ -61,7 +62,6 @@ disabled: boolean | ((value: FieldValue, data: FormData) => boolean);
 In most fields you can retrive fields value with `getValue()` function called on the field instance.
 
 If you need to set the fields value programically you can eather use `default` option in field options or `setValue(value: FieldValue, save: boolean = true)` function called on the field instance.
-
 
 ## Change event
 
@@ -128,6 +128,11 @@ change: (value: FieldValue) => void;
       <td>validation</td>
       <td><code>(value: FieldValue, data: FormData, required: boolean) => true | string;</code></td>
       <td>Defines the validation method of the field. By default validates empty required field as not valid.</td>
+    </tr>
+    <tr>
+      <td>renderValidationError</td>
+      <td><code>(validationMessage: string, data: FormData) => HTMLElement;</code></td>
+      <td>Defines custom render function for validation errors.</td>
     </tr>
     <tr>
       <td>disabled</td>

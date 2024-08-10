@@ -148,7 +148,12 @@ export class RadioField extends Field {
       });
       const vMessage = this.getValidationMessage();
       if (this.validationElement && vMessage) {
-        this.validationElement.innerText = vMessage;
+        if (this.options.renderValidationError) {
+          this.validationElement.innerHTML = '';
+          this.validationElement.append(this.options.renderValidationError(vMessage, this.getForm().getData()));
+        } else {
+          this.validationElement.innerText = vMessage;
+        }
         this.validationElement.style.display = 'block';
       }
     } else {

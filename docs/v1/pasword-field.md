@@ -24,7 +24,7 @@ conditions: (value: FieldValue, data: FormData) => boolean;
 
 ### Validation and validation message
 
-Validation can be defined by the `validation` option inside the field options. It accepts function that returns `true` if the field is validated correctly or validation message `string` if there is an validation error. Field `value` and `required` attribute and form `data` are passed into the function.
+Validation can be defined by the `validation` option inside the field options. It accepts function that returns `true` if the field is validated correctly or validation message `string` if there is an validation error. Field `value` and `required` attribute and form `data` are passed into the function. You can also create a custom validation errors render function and pass it to option `renderValidationError`.
 
 ```js
 validation: (value: FieldValue, data: FormData, required: boolean) => true | string;
@@ -126,6 +126,11 @@ change: (value: FieldValue) => void;
       <td><code>(value: FieldValue, data: FormData, required: boolean) => true | string;</code></td>
       <td>Defines the validation method of the field. By default validates empty required field as not valid.</td>
     </tr>
+    <tr>
+      <td>renderValidationError</td>
+      <td><code>(validationMessage: string, data: FormData) => HTMLElement;</code></td>
+      <td>Defines custom render function for validation errors.</td>
+    </tr>    
     <tr>
       <td>disabled</td>
       <td><code>boolean | (value: FieldValue, data: FormData) => boolean</code></td>
