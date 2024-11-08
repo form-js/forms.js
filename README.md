@@ -46,13 +46,6 @@
 npm i @forms.js/core
 ```
 
-### JS DELIVR
-
-```html
-<link href="https://cdn.jsdelivr.net/npm/@forms.js/core/css/index.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/@forms.js/core/lib/index.js"></script>
-```
-
 ### Quick start
 
 ```js

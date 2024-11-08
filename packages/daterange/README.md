@@ -23,16 +23,6 @@
 npm i @forms.js/core @forms.js/daterange-field
 ```
 
-### JS DELIVR
-
-```html
-<link
-  href="https://cdn.jsdelivr.net/npm/@forms.js/core/css/index.css"
-  rel="stylesheet"
-/>
-<script src="https://cdn.jsdelivr.net/npm/@forms.js/daterange-field/lib/index.js"></script>
-```
-
 ### Usage
 
 app.js

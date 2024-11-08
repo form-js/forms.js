@@ -22,15 +22,6 @@
 npm i @forms.js/core @forms.js/rating-field
 ```
 
-### JS DELIVR
-
-```html
-<link
-  href="https://cdn.jsdelivr.net/npm/@forms.js/core/css/index.css"
-  rel="stylesheet"
-/>
-<script src="https://cdn.jsdelivr.net/npm/@forms.js/rating-field/lib/index.js"></script>
-```
 ### Usage
 
 app.js
