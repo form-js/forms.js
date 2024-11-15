@@ -2,15 +2,15 @@
   "name": "@forms.js/core",
   "version": "1.1.12",
   "description": "Javascript form generator that streamlines web forms",
-  "module": "lib/index.js",
+  "module": "dist/index.js",
   "type": "module",
-  "types": "lib/index.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
-    "lib/**/*",
+    "dist/**/*",
     "css/**/*"
   ],
   "scripts": {
-    "build": "tsc  && tsc -p tsconfig-cjs.json && tsc -p tsconfig-local-testing.json",
+    "build": "webpack && webpack --config webpack.local.config.js",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint src/** -c eslint.json",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --collectCoverage --coverageDirectory=src/tests/coverage",
@@ -19,20 +19,8 @@
   },
   "exports": {
     ".": {
-      "import": "./lib/index.js",
-      "require": "./lib/cjs/index.js"
-    },
-    "./constants": {
-      "import": "./lib/constants.js",
-      "require": "./lib/cjs/constants.js"
-    },
-    "./types": {
-      "import": "./lib/types.d.ts",
-      "require": "./lib/cjs/types.d.ts"
-    },
-    "./interfaces": {
-      "import": "./lib/interfaces.d.ts",
-      "require": "./lib/cjs/interfaces.d.ts"
+      "import": "./dist/index.js",
+      "require": "./dist/cjs/index.js"
     },
     "./css/index.css": {
       "import": "./css/index.css",
@@ -47,12 +35,7 @@
     "form",
     "forms",
     "forms js",
-    "form generator",
-    "form builder",
-    "input",
-    "javascript",
-    "buider",
-    "generator"
+    "form library"
   ],
   "author": "",
   "license": "MIT",
@@ -73,13 +56,16 @@
     "jest-environment-jsdom": "^29.7.0",
     "prettier": "^3.2.5",
     "ts-jest": "^29.1.2",
-    "typescript": "^5.4.5"
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.5",
+    "webpack": "^5.96.1"
   },
   "dependencies": {
     "filepond": "^4.31.1",
     "flatpickr": "^4.6.13",
     "install": "^0.13.0",
     "npm": "^10.8.0",
+    "rxjs": "^7.8.1",
     "tom-select": "^2.3.1"
   }
 }

@@ -5,7 +5,7 @@ html {
     --formsjs-disabled-color: rgb(97, 97, 97);
     --formsjs-disabled-focus-color: rgb(150, 150, 150);
     --formsjs-background-color: rgb(255, 255, 255);
-    --formsjs-border-radius: .5rem;
+    --formsjs-border-radius: .25rem;
     --formsjs-border-width: 1px;
 }
 

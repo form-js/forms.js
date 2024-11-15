@@ -7,10 +7,13 @@
       "allowJs": true,
       "checkJs": true,
       "declaration": true,
-      "outDir": "./lib",
+      "declarationDir": "./dist/types",
+      "outDir": "./dist",
       "esModuleInterop": true,
       "downlevelIteration": true,
       "strict": true,
+      "jsx": "react",
+      "skipLibCheck": true
     },
     "include": ["src"],
     "exclude": ["node_modules", "src/tests"]

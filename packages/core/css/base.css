@@ -10,9 +10,14 @@
     margin-bottom: 1rem;
 }
 
+.form-field-label .required-symbol{
+    color: var(--formsjs-error-color);
+    margin-left: .25rem;
+}
+
 .form-field-container{
     display: flex;
-    gap: 1.5rem;
+    /*gap: 1.5rem;*/
     flex-wrap: wrap;
 }
 

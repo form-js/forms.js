@@ -1,13 +1,11 @@
 import "./style.css";
 import "../packages/core/css/index.css";
-import { Form } from "./js/core/index";
-import { createApp } from "vue";
-import App from "./App.vue";
-
-function initVue() {
-  const app = createApp(App);
-  app.mount("#app");
-}
+import {
+  Form,
+  Field,
+  numberFieldRenderer,
+  requiredValidator,
+} from "./js/core/index.js";
 
 const options = [
   { value: "vincent_van_gogh", label: "Vincent van Gogh", group: "painters" },
@@ -120,152 +118,45 @@ const groups = [
   },
 ];
 
+const syncValidators = [
+  (value) => (value.length < 3 ? "Value is too short" : null),
+  (value) => (!value.match(/^[a-zA-Z]+$/) ? "Only letters are allowed" : null),
+];
+
+const asyncValidators = [
+  async (value) => {
+    await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate delay
+    return value === "taken" ? ["Value is already taken"] : null;
+  },
+  async (value) => {
+    await new Promise((resolve) => setTimeout(resolve, 300)); // Simulate delay
+    return value === "error"
+      ? ["Error in async validation", "Another issue"]
+      : null;
+  },
+];
+
+const validators = [...syncValidators, ...asyncValidators];
+
 function initForm() {
-  const form = new Form("form", {
-    id: "form",
-    schema: [
-      {
-        id: "select",
-        type: "select",
-        label: "Select",
-        options: {
-          maxItems: null,
-          plugins: ["remove_button"],
-        },
-        required: true,
-        optionsList: async function (query) {
-          if (!query) return [...options];
-          const search = [
-            ...options.filter((item) => {
-              return item.label
-                .toLocaleLowerCase()
-                .includes(query.toLocaleLowerCase());
-            }),
-          ];
-          return search.map((item) => {
-            return {
-              value: item.value,
-              label: item.label,
-            };
-          });
-        },
-        optionGroups: async function (query) {
-          return groups;
-        },
-      },
-      {
-        id: "password",
-        type: "password",
-        allowPeek: true,
-        label: "Pasword",
-        required: true,
-        conditions: (value, data) => {
-          if (data) return !data.select?.includes("vincent_van_gogh");
-          return true;
-        },
-      },
-      {
-        id: "submit",
-        type: "button",
-        template: "Submit",
-      },
-      {
-        id: "reset",
-        type: "button",
-        template: "Reset",
-        buttonType: "button",
-        click: () => {
-          form.reset();
-        },
-      },
-    ],
-  });
+  const nameField = new Field(
+    {
+      id: "name",
+      label: "Name",
+      initialValue: "",
+      required: true,
+      validators: [requiredValidator],
+    },
+    numberFieldRenderer
+  );
+  const myForm = new Form({ name: nameField });
 
-  const password = form.getField("password");
+  //nameField.value.subscribe((value) => console.log(value));
 
-  password?.on(
-    "changed",
-    (event) => {
-      console.log(event);
-    },
-    true
-  );
-  password?.on(
-    "resetted",
-    (event) => {
-      console.log("resetted");
-    },
-    true
-  );
-
-  password?.on(
-    "validationFailed",
-    (event) => {
-      console.log("failed");
-    },
-    true
-  );
-
-  password?.on(
-    "visibilityChanged",
-    (event) => {
-      console.log(event);
-    },
-    true
-  );
-
-  password?.on(
-    "disabledStateChanged",
-    (event) => {
-      console.log(event);
-    },
-    true
-  );
-
-  password?.on(
-    "requiredStateChanged",
-    (event) => {
-      console.log(event);
-    },
-    true
-  );
-
-  form.on(
-    "submitted",
-    () => {
-      console.log("submitted");
-    },
-    true
-  );
-  form.on(
-    "dataUpdated",
-    (event) => {
-      console.log("data updated");
-      console.log(event);
-    },
-    true
-  );
-  form.on(
-    "initialized",
-    () => {
-      console.log("initialized");
-    },
-    true
-  );
-  form.on(
-    "resetted",
-    () => {
-      console.log("resetted");
-    },
-    true
-  );
-  form.on(
-    "validationFailed",
-    () => {
-      console.log("validation failed");
-    },
-    true
-  );
+  const appContainer = document.getElementById("form");
+  if (appContainer) {
+    myForm.render(appContainer);
+  }
 }
 
-document.addEventListener("DOMContentLoaded", initVue, false);
+document.addEventListener("DOMContentLoaded", initForm, false);
