@@ -2,36 +2,44 @@ import { mountElement } from '../utils/utils';
 import { Field } from '../Field';
 import { BaseInputTypes, ClassList } from '../utils/enums';
 
-export function renderInputField(container: HTMLElement, field: Field, type: BaseInputTypes) {
+export function renderInputField<T>(
+  container: HTMLElement,
+  field: Field<T>, // Field is generic, with T being the value type of the field
+  type: BaseInputTypes
+): HTMLElement {
+  // Create field container
   const wrapper = document.createElement('div');
   wrapper.className = ClassList.FieldContainer;
+
+  // Create and configure the label
   const label = document.createElement('label');
+  label.className = ClassList.FieldLabel;
+
   const labelSpan = document.createElement('span');
+  labelSpan.innerText = field.label ?? '';
+
   const requiredSpan = document.createElement('span');
   requiredSpan.innerText = '*';
   requiredSpan.className = ClassList.FieldRequiredSymbol;
-  labelSpan.innerText = field.label ?? '';
-  label.className = ClassList.FieldLabel;
 
+  // Create and configure the input
   const input = document.createElement('input');
   input.type = type;
-  input.value = String(field.value) || '';
-  input.oninput = (e) => field.setValue((e.target as HTMLInputElement).value);
   input.className = ClassList.FieldInput;
-  input.name = field.name ? field.name : field.id;
+  input.name = field.name || field.id;
 
+  // Sync the initial value
+  field.value.subscribe((value) => (input.value = value != null ? String(value) : ''));
+  input.oninput = (e) => field.setValue((e.target as HTMLInputElement).value as T);
+
+  // Create error container
   const errorContainer = document.createElement('div');
+  errorContainer.className = ClassList.FieldValidation;
 
-  // Subscribe to value and errors observables
-  field.value.subscribe((value) => (input.value = value || ''));
+  // Subscribe to field observables
   field.errors.subscribe((errors) => {
-    if (errors.length > 0) {
-      wrapper.classList.add(ClassList.Error);
-    } else {
-      wrapper.classList.remove(ClassList.Error);
-    }
+    wrapper.classList.toggle(ClassList.Error, errors.length > 0);
     errorContainer.innerHTML = ''; // Clear previous errors
-    errorContainer.className = ClassList.FieldValidation;
     errors.forEach((error) => {
       const errorElement = document.createElement('div');
       errorElement.innerText = error;
@@ -39,27 +47,18 @@ export function renderInputField(container: HTMLElement, field: Field, type: Bas
     });
   });
 
-  field.disabled.subscribe((value) => {
-    input.disabled = value;
-    if (value) {
-      wrapper.classList.add(ClassList.FieldDisabled);
-    } else {
-      wrapper.classList.remove(ClassList.FieldDisabled);
-    }
+  field.disabled.subscribe((disabled) => {
+    input.disabled = disabled;
+    wrapper.classList.toggle(ClassList.FieldDisabled, disabled);
   });
 
-  field.required.subscribe((value) => {
-    input.required = value;
-    if (value) {
-      wrapper.classList.add(ClassList.FieldRequired);
-      requiredSpan.style.display = 'inline-block';
-    } else {
-      wrapper.classList.remove(ClassList.FieldRequired);
-      requiredSpan.style.display = 'none';
-    }
+  field.required.subscribe((required) => {
+    input.required = required;
+    requiredSpan.style.display = required ? 'inline-block' : 'none';
+    wrapper.classList.toggle(ClassList.FieldRequired, required);
   });
 
-  // Append to container
+  // Append elements to the DOM
   mountElement(labelSpan, label);
   mountElement(requiredSpan, label);
   mountElement(label, wrapper);

@@ -1,8 +1,8 @@
 import { Field } from '../Field';
 
-export type SyncValidator = (value: any, required: boolean) => string | null;
-export type AsyncValidator = (value: any, required: boolean) => Promise<string[] | null>;
+export type SyncValidator<T> = (value: T | null, required: boolean) => string | null;
+export type AsyncValidator<T> = (value: T | null, required: boolean) => Promise<string | string[] | null>;
 
-export type Validator = SyncValidator | AsyncValidator;
+export type Validator<T> = SyncValidator<T> | AsyncValidator<T>;
 
-export type Renderer = (container: HTMLElement, field: Field) => HTMLElement;
+export type Renderer<T> = (container: HTMLElement, field: Field<T>) => void;

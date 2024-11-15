@@ -1,43 +1,25 @@
 import { BehaviorSubject, of, Subject, switchMap, debounceTime, catchError, Observable, from } from 'rxjs';
 import { AsyncValidator, Renderer, Validator } from './types/types';
+import { FieldConfig } from './types/interfaces';
 
-export class Field {
-  private value$ = new BehaviorSubject<any>(null);
-  private errors$ = new Subject<string[]>();
-  private required$ = new BehaviorSubject<boolean>(false);
-  private disabled$ = new BehaviorSubject<boolean>(false);
-  private visible$ = new BehaviorSubject<boolean>(true);
-  private label$: string | null = null;
-  private description$: string | null = null;
-  private asyncValidationInProgress$ = new BehaviorSubject<boolean>(false);
-  private isDirty = false; // Track whether validation should run
-  private id$: string;
-  private name$: string | null = null;
+export class Field<T, C extends FieldConfig<T> = FieldConfig<T>> {
+  protected value$ = new BehaviorSubject<T | null>(null);
+  protected errors$ = new Subject<string[]>();
+  protected required$ = new BehaviorSubject<boolean>(false);
+  protected disabled$ = new BehaviorSubject<boolean>(false);
+  protected visible$ = new BehaviorSubject<boolean>(true);
+  protected validationInProgress$ = new BehaviorSubject<boolean>(false);
+  protected isDirty = false; // Track whether validation should run
+  protected config: C;
 
   constructor(
-    private config: {
-      id: string;
-      name?: string;
-      label?: string;
-      placeholder?: string;
-      description?: string;
-      initialValue?: any;
-      required?: boolean;
-      disabled?: boolean;
-      visible?: boolean;
-      validators?: Validator[];
-      validatorsDebounce?: number;
-    },
-    private renderer$: Renderer | null = null,
+    config: C,
+    protected renderer$: Renderer<T> | null = null,
   ) {
-    this.id$ = config.id;
+    this.config = config;
 
     if (config.initialValue !== undefined) {
       this.value$.next(config.initialValue);
-    }
-
-    if (config.name !== undefined) {
-      this.name$ = config.name;
     }
     if (config.required !== undefined) {
       this.required$.next(config.required);
@@ -49,95 +31,79 @@ export class Field {
       this.visible$.next(config.visible);
     }
 
-    if (config.label) {
-      this.label$ = config.label;
-    }
-    if (config.description) {
-      this.description$ = config.description;
-    }
-
-    // Run initial validation
     this.setupValidation();
   }
 
   private setupValidation() {
     this.value$
       .pipe(
-        debounceTime(this.config.validatorsDebounce ?? 300), // Avoid rapid-fire validations
+        debounceTime(this.config.validatorsDebounce ?? 300),
         switchMap((value) => {
-          if (!this.isDirty) return of([]); // Skip validation until the field is dirty
-          return this.runValidators(value); // Handle sync and async validation
+          if (!this.isDirty) return of([]);
+          return this.runValidators(value);
         }),
       )
       .subscribe((errors) => {
-        this.errors$.next(errors); // Update errors
+        this.errors$.next(errors);
       });
   }
 
-  private runValidators(value: any): Observable<string[]> {
+  private runValidators(value: T | null): Observable<string[]> {
     const { validators } = this.config;
 
     if (!validators || validators.length === 0) {
-      return of([]); // No validators, no errors
+      return of([]);
     }
 
-    this.asyncValidationInProgress$.next(true);
+    this.validationInProgress$.next(true);
 
     const syncErrors: string[] = [];
-    const asyncValidators: AsyncValidator[] = [];
+    const asyncValidators: AsyncValidator<T>[] = [];
 
-    // Process validators
     for (const validator of validators) {
       try {
-        const result = validator(value, this.required$.getValue()); // Pass required to each validator
+        const result = validator(value, this.required$.getValue());
         if (result instanceof Promise) {
-          // Async validator
           asyncValidators.push(() => result);
         } else if (result) {
-          // Sync error
           syncErrors.push(result);
         }
       } catch (e) {
-        console.error('Validator error:', e);
+        console.error(e);
       }
     }
 
-    // Handle async validators
     if (asyncValidators.length > 0) {
-      const asyncValidationPromises = asyncValidators.map(
-        (validator) =>
-          validator(value, this.required$.getValue())
-            .then((result) => result || []) // Ensure null is treated as an empty array
-            .catch(() => []), // Handle errors gracefully
+      const asyncValidationPromises = asyncValidators.map((validator) =>
+        validator(value, this.required$.getValue())
+          .then((result) => result || [])
+          .catch(() => []),
       );
 
       return from(Promise.all(asyncValidationPromises)).pipe(
         switchMap((results) => {
-          this.asyncValidationInProgress$.next(false);
-
-          // Combine sync and async errors
+          this.validationInProgress$.next(false);
           const asyncErrors = results.flat();
           return of([...syncErrors, ...asyncErrors]);
         }),
         catchError(() => {
-          this.asyncValidationInProgress$.next(false);
-          return of(syncErrors); // Return only sync errors on failure
+          this.validationInProgress$.next(false);
+          return of(syncErrors);
         }),
       );
     }
 
-    this.asyncValidationInProgress$.next(false);
-    return of(syncErrors); // Only sync errors
+    this.validationInProgress$.next(false);
+    return of(syncErrors);
   }
 
   render(container: HTMLElement) {
     if (this.renderer$) this.renderer$(container, this);
   }
 
-  //Setters
-
-  setValue(value: any) {
-    this.isDirty = true; // Mark the field as dirty
+  // Setters
+  setValue(value: T) {
+    this.isDirty = true;
     this.value$.next(value);
   }
 
@@ -153,9 +119,20 @@ export class Field {
     this.visible$.next(value);
   }
 
-  //Getters
+  // Getters
+  get label(): string | null {
+    return this.config.label || null;
+  }
 
-  get value(): Observable<any> {
+  get name(): string | null {
+    return this.config.name || null;
+  }
+
+  get id(): string {
+    return this.config.id;
+  }
+
+  get value(): Observable<T | null> {
     return this.value$.asObservable();
   }
 
@@ -175,23 +152,7 @@ export class Field {
     return this.visible$.asObservable();
   }
 
-  get label(): string | null {
-    return this.label$;
-  }
-
-  get description(): string | null {
-    return this.description$;
-  }
-
-  get id(): string {
-    return this.id$;
-  }
-
-  get name(): string | null {
-    return this.name$;
-  }
-
-  get asyncValidationInProgress(): Observable<boolean> {
-    return this.asyncValidationInProgress$.asObservable();
+  get validationInProgress(): Observable<boolean> {
+    return this.validationInProgress$.asObservable();
   }
 }
