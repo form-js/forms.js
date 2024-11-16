@@ -1,8 +1,8 @@
 import { BehaviorSubject, of, Subject, switchMap, debounceTime, catchError, Observable, from } from 'rxjs';
-import { AsyncValidator, Renderer, Validator } from './types/types';
+import { AsyncValidator, Renderer } from './types/types';
 import { FieldConfig } from './types/interfaces';
 
-export class Field<T, C extends FieldConfig<T> = FieldConfig<T>> {
+export class Field<T, C extends FieldConfig<T>> {
   protected value$ = new BehaviorSubject<T | null>(null);
   protected errors$ = new Subject<string[]>();
   protected required$ = new BehaviorSubject<boolean>(false);
@@ -10,11 +10,11 @@ export class Field<T, C extends FieldConfig<T> = FieldConfig<T>> {
   protected visible$ = new BehaviorSubject<boolean>(true);
   protected validationInProgress$ = new BehaviorSubject<boolean>(false);
   protected isDirty = false; // Track whether validation should run
-  protected config: C;
+  public config: C;
 
   constructor(
     config: C,
-    protected renderer$: Renderer<T> | null = null,
+    protected renderer$:  Renderer<T, C>,
   ) {
     this.config = config;
 
@@ -97,8 +97,18 @@ export class Field<T, C extends FieldConfig<T> = FieldConfig<T>> {
     return of(syncErrors);
   }
 
-  render(container: HTMLElement) {
-    if (this.renderer$) this.renderer$(container, this);
+  render(container?: HTMLElement) {
+    if (!this.renderer$) return;
+    if (container) {
+      this.renderer$(container, this);
+      return;
+    }
+    const dynamicContainer = document.querySelector(`[data-field="${this.config.id}"]`) as HTMLElement | null;
+    if (dynamicContainer) {
+      this.renderer$(dynamicContainer, this);
+    } else {
+      console.error(`No container specified for field ${this.config.id}`);
+    }
   }
 
   // Setters
@@ -154,5 +164,9 @@ export class Field<T, C extends FieldConfig<T> = FieldConfig<T>> {
 
   get validationInProgress(): Observable<boolean> {
     return this.validationInProgress$.asObservable();
+  }
+
+  get fieldName(): string {
+    return this.config.name ?? this.config.id;
   }
 }

@@ -2,7 +2,7 @@ import "./style.css";
 import "../packages/core/css/index.css";
 import {
   Form,
-  Field,
+  TextField,
   numberFieldRenderer,
   requiredValidator,
 } from "./js/core/index.js";
@@ -139,24 +139,22 @@ const asyncValidators = [
 const validators = [...syncValidators, ...asyncValidators];
 
 function initForm() {
-  const nameField = new Field(
+  const nameField = new TextField(
     {
       id: "name",
       label: "Name",
       initialValue: "",
       required: true,
       validators: [requiredValidator],
+      maxLength: 5,
     },
     numberFieldRenderer
   );
-  const myForm = new Form({ name: nameField });
+  const myForm = new Form({}, { name: nameField });
 
   //nameField.value.subscribe((value) => console.log(value));
 
-  const appContainer = document.getElementById("form");
-  if (appContainer) {
-    myForm.render(appContainer);
-  }
+  myForm.render();
 }
 
 document.addEventListener("DOMContentLoaded", initForm, false);

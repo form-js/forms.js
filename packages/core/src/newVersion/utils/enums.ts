@@ -17,3 +17,8 @@ export const enum BaseInputTypes {
   Tel = 'tel',
   Url = 'url',
 }
+
+export const enum FieldTypes {
+  Text = 'text',
+  Number = 'number',
+}

@@ -13,3 +13,11 @@ export interface FieldConfig<T> {
   validators?: Validator<T>[];
   validatorsDebounce?: number;
 }
+
+export interface FormConfig {
+  autorender?: boolean;
+}
+
+export interface TextFieldConfig extends FieldConfig<string> {
+  maxLength?: number;
+}

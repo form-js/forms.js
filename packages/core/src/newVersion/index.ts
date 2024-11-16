@@ -1,5 +1,5 @@
 export { Form } from './Form';
 export { Field } from './Field';
-export { textFieldRenderer } from './renderers/textFieldRenderer';
-export { numberFieldRenderer } from './renderers/numberFieldRenderer';
+export { TextField } from './fields/TextField';
+export { RenderTextField } from './renderers/TextFieldRenderer';
 export { requiredValidator } from './validators/validators';

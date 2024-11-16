@@ -2,24 +2,36 @@ import { combineLatest, map, Observable } from 'rxjs';
 import { Field } from './Field';
 import { mountElement } from '../utils';
 import { ClassList } from './utils/enums';
+import { FieldConfig, FormConfig } from './types/interfaces';
 
 export class Form<TFields extends Record<string, any>> {
-  private fields: Record<keyof TFields, Field<any>>;
+  private fields: Record<keyof TFields, Field<any, any>>;
+  private config: FormConfig;
 
-  constructor(fieldsConfig: { [K in keyof TFields]: Field<TFields[K]> }) {
+  constructor(formConfig: FormConfig, fieldsConfig: { [K in keyof TFields]: Field<TFields[K], any> }) {
     this.fields = fieldsConfig;
+    this.config = formConfig;
+
+    if (this.config.autorender) {
+      this.render();
+    }
   }
 
   // Render the form and its fields into the container
-  render(container: HTMLElement) {
-    const formElement = document.createElement('form');
-    formElement.className = ClassList.Form;
+  render(container?: HTMLElement) {
+    if (container) {
+      const formElement = document.createElement('div');
+      formElement.className = ClassList.Form;
 
+      Object.values(this.fields).forEach((field) => {
+        field.render(formElement);
+      });
+      mountElement(formElement, container);
+      return;
+    }
     Object.values(this.fields).forEach((field) => {
-      field.render(formElement);
+      field.render();
     });
-
-    mountElement(formElement, container);
   }
 
   // Get all field values as an observable object
@@ -28,9 +40,7 @@ export class Form<TFields extends Record<string, any>> {
       field.value.pipe(map((value) => ({ [key]: value }))),
     );
 
-    return combineLatest(fieldObservables).pipe(
-      map((fieldEntries) => Object.assign({}, ...fieldEntries) as TFields),
-    );
+    return combineLatest(fieldObservables).pipe(map((fieldEntries) => Object.assign({}, ...fieldEntries) as TFields));
   }
 
   // Validate all fields and return their errors as an observable object
@@ -63,7 +73,7 @@ export class Form<TFields extends Record<string, any>> {
   }
 
   // Get a reference to a specific field
-  getField<K extends keyof TFields>(fieldName: K): Field<TFields[K]> | undefined {
+  getField<K extends keyof TFields>(fieldName: K): Field<TFields[K], any> | undefined {
     return this.fields[fieldName];
   }
 
