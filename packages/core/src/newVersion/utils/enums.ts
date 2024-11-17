@@ -22,3 +22,11 @@ export const enum FieldTypes {
   Text = 'text',
   Number = 'number',
 }
+
+export const enum FlowActionTypes {
+  SetValue = 'SET_VALUE',
+  SetRequired = 'SET_REQUIRED',
+  SetDisabled = 'SET_DISABLED',
+  SetVisible = 'SET_VISIBLE',
+  ClearValue = 'CLEAR_VALUE',
+}

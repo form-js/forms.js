@@ -14,7 +14,7 @@ export class Field<T, C extends FieldConfig<T>> {
 
   constructor(
     config: C,
-    protected renderer$:  Renderer<T, C>,
+    protected renderer$: Renderer<T, C>,
   ) {
     this.config = config;
 
@@ -127,6 +127,23 @@ export class Field<T, C extends FieldConfig<T>> {
 
   setVisible(value: boolean) {
     this.visible$.next(value);
+  }
+
+  reset() {
+    if (this.config.initialValue !== undefined) {
+      this.value$.next(this.config.initialValue);
+    } else {
+      this.value$.next(null);
+    }
+    if (this.config.required !== undefined) {
+      this.required$.next(this.config.required);
+    }
+    if (this.config.disabled !== undefined) {
+      this.disabled$.next(this.config.disabled);
+    }
+    if (this.config.visible !== undefined) {
+      this.visible$.next(this.config.visible);
+    }
   }
 
   // Getters

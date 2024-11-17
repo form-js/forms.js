@@ -2,7 +2,7 @@ import { combineLatest, map, Observable } from 'rxjs';
 import { Field } from './Field';
 import { mountElement } from '../utils';
 import { ClassList } from './utils/enums';
-import { FieldConfig, FormConfig } from './types/interfaces';
+import { FormConfig } from './types/interfaces';
 
 export class Form<TFields extends Record<string, any>> {
   private fields: Record<keyof TFields, Field<any, any>>;
