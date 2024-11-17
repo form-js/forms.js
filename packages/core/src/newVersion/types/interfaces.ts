@@ -24,6 +24,12 @@ export interface TextFieldConfig extends FieldConfig<string> {
   maxLength?: number;
 }
 
+export interface NumberFieldConfig extends FieldConfig<string> {
+  step?: number;
+  min?: number;
+  max?: number;
+}
+
 export interface FormFlowRule {
   id: string;
   condition: (fields: Record<string, Field<any, any>>) => boolean;

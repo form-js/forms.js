@@ -9,14 +9,14 @@ export class Field<T, C extends FieldConfig<T>> {
   protected disabled$ = new BehaviorSubject<boolean>(false);
   protected visible$ = new BehaviorSubject<boolean>(true);
   protected validationInProgress$ = new BehaviorSubject<boolean>(false);
+  protected config$: C;
   protected isDirty = false; // Track whether validation should run
-  public config: C;
 
   constructor(
     config: C,
     protected renderer$: Renderer<T, C>,
   ) {
-    this.config = config;
+    this.config$ = config;
 
     if (config.initialValue !== undefined) {
       this.value$.next(config.initialValue);
@@ -37,7 +37,7 @@ export class Field<T, C extends FieldConfig<T>> {
   private setupValidation() {
     this.value$
       .pipe(
-        debounceTime(this.config.validatorsDebounce ?? 300),
+        debounceTime(this.config$.validatorsDebounce ?? 300),
         switchMap((value) => {
           if (!this.isDirty) return of([]);
           return this.runValidators(value);
@@ -49,7 +49,7 @@ export class Field<T, C extends FieldConfig<T>> {
   }
 
   private runValidators(value: T | null): Observable<string[]> {
-    const { validators } = this.config;
+    const { validators } = this.config$;
 
     if (!validators || validators.length === 0) {
       return of([]);
@@ -103,11 +103,11 @@ export class Field<T, C extends FieldConfig<T>> {
       this.renderer$(container, this);
       return;
     }
-    const dynamicContainer = document.querySelector(`[data-field="${this.config.id}"]`) as HTMLElement | null;
+    const dynamicContainer = document.querySelector(`[data-field="${this.config$.id}"]`) as HTMLElement | null;
     if (dynamicContainer) {
       this.renderer$(dynamicContainer, this);
     } else {
-      console.error(`No container specified for field ${this.config.id}`);
+      console.error(`No container specified for field ${this.config$.id}`);
     }
   }
 
@@ -130,33 +130,29 @@ export class Field<T, C extends FieldConfig<T>> {
   }
 
   reset() {
-    if (this.config.initialValue !== undefined) {
-      this.value$.next(this.config.initialValue);
+    if (this.config$.initialValue !== undefined) {
+      this.value$.next(this.config$.initialValue);
     } else {
       this.value$.next(null);
     }
-    if (this.config.required !== undefined) {
-      this.required$.next(this.config.required);
+    if (this.config$.required !== undefined) {
+      this.required$.next(this.config$.required);
     }
-    if (this.config.disabled !== undefined) {
-      this.disabled$.next(this.config.disabled);
+    if (this.config$.disabled !== undefined) {
+      this.disabled$.next(this.config$.disabled);
     }
-    if (this.config.visible !== undefined) {
-      this.visible$.next(this.config.visible);
+    if (this.config$.visible !== undefined) {
+      this.visible$.next(this.config$.visible);
     }
   }
 
   // Getters
   get label(): string | null {
-    return this.config.label || null;
-  }
-
-  get name(): string | null {
-    return this.config.name || null;
+    return this.config$.label || null;
   }
 
   get id(): string {
-    return this.config.id;
+    return this.config$.id;
   }
 
   get value(): Observable<T | null> {
@@ -183,7 +179,11 @@ export class Field<T, C extends FieldConfig<T>> {
     return this.validationInProgress$.asObservable();
   }
 
-  get fieldName(): string {
-    return this.config.name ?? this.config.id;
+  get name(): string {
+    return this.config$.name ?? this.config$.id;
+  }
+
+  get config() {
+    return this.config$;
   }
 }

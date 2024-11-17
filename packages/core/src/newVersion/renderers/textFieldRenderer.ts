@@ -1,6 +1,5 @@
 import { mountElement } from '../utils/utils';
 import { ClassList, FieldTypes } from '../utils/enums';
-import { TextField } from '../fields/TextField';
 import { Renderer } from '../types/types';
 import { TextFieldConfig } from '../types/interfaces';
 
@@ -27,7 +26,7 @@ export const RenderTextField: Renderer<string, TextFieldConfig> = (
   const input = document.createElement('input');
   input.type = FieldTypes.Text;
   input.className = ClassList.FieldInput;
-  input.name = field.fieldName;
+  input.name = field.name;
 
   // Sync the initial value
   field.value.subscribe((value) => (input.value = value != null ? String(value) : ''));
