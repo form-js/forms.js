@@ -8,6 +8,8 @@ export type Validator<T> = SyncValidator<T> | AsyncValidator<T>;
 
 export type Renderer<T, C extends FieldConfig<T>> = (container: HTMLElement, field: Field<T, C>) => HTMLElement;
 
+export type FieldMask = (value: any) => { raw: any; formatted: any };
+
 //Form configs
 export interface FormConfig {
   autorender?: boolean;
@@ -28,6 +30,7 @@ export interface FieldConfig<T> {
   visible?: boolean;
   validators?: Validator<T>[];
   validatorsDebounce?: number;
+  mask: FieldMask;
 }
 
 export interface TextFieldConfig extends FieldConfig<string> {

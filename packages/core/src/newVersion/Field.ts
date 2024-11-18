@@ -104,8 +104,6 @@ export class Field<T, C extends FieldConfig<T>> {
   }
 
   validate(): void {
-    console.log('here');
-
     this.validateTrigger$.next();
   }
 
@@ -126,7 +124,13 @@ export class Field<T, C extends FieldConfig<T>> {
   // Setters
   setValue(value: T) {
     this.isDirty = true;
-    this.value$.next(value);
+
+    if (!this.config$.mask) {
+      this.value$.next(value);
+    } else {
+      const { raw } = this.config$.mask(value);
+      this.value$.next(raw);
+    }
   }
 
   setRequired(value: boolean) {

@@ -177,6 +177,12 @@ const asyncValidators = [
   },
 ];
 
+const phoneMask = (value) => {
+  const raw = value.replace(/\D/g, "");
+  const formatted = raw.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
+  return { raw, formatted };
+};
+
 const validators = [...syncValidators, ...asyncValidators];
 
 function initForm() {
@@ -203,6 +209,11 @@ function initForm() {
       id: "age",
       label: "Age",
       required: false,
+    }),
+    phone: new TextField({
+      id: "phone",
+      label: "Phone",
+      mask: phoneMask,
     }),
   };
   const myForm = new Form(fields, {}, rules);

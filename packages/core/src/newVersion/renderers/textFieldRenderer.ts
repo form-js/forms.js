@@ -30,7 +30,15 @@ export const RenderTextField: Renderer<string, TextFieldConfig> = (
   input.id = field.id; // Unique ID for label association
 
   // Sync the initial value
-  field.value.subscribe((value) => (input.value = value != null ? String(value) : ''));
+  field.value.subscribe((value) => {
+    if (field.config.mask && value != null) {
+      const { formatted } = field.config.mask(input.value);
+      input.value = String(formatted);
+    } else {
+      input.value = value != null ? String(value) : '';
+    }
+  });
+
   input.oninput = (e) => field.setValue((e.target as HTMLInputElement).value);
   if (field.config.maxLength != null) input.maxLength = field.config.maxLength;
   if (field.config.placeholder != null) input.placeholder = field.config.placeholder;
