@@ -11,7 +11,6 @@ export type Renderer<T, C extends FieldConfig<T>> = (container: HTMLElement, fie
 //Form configs
 export interface FormConfig {
   autorender?: boolean;
-  useFormData?: boolean;
   licenseKey?: string;
 }
 
@@ -32,10 +31,12 @@ export interface FieldConfig<T> {
 }
 
 export interface TextFieldConfig extends FieldConfig<string> {
+  placeholder?: string;
   maxLength?: number;
 }
 
 export interface NumberFieldConfig extends FieldConfig<string> {
+  placeholder?: string;
   step?: number;
   min?: number;
   max?: number;

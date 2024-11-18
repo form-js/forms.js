@@ -35,6 +35,7 @@ export const RenderNumberField: Renderer<string, NumberFieldConfig> = (
   if (field.config.step != null) input.step = String(field.config.step);
   if (field.config.min != null) input.min = String(field.config.min);
   if (field.config.max != null) input.max = String(field.config.max);
+  if (field.config.placeholder != null) input.placeholder = field.config.placeholder;
 
   // Error container
   const errorContainer = document.createElement('div');

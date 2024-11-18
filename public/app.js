@@ -185,7 +185,7 @@ function initForm() {
       id: "firstName",
       label: "First Name",
       initialValue: "name",
-      required: false,
+      required: true,
     }),
     lastName: new TextField({
       id: "lastName",
@@ -207,6 +207,11 @@ function initForm() {
   };
   const myForm = new Form(fields, {}, rules);
   //nameField.value.subscribe((value) => console.log(value));
+
+  const btn = document.getElementById("btn");
+  btn.addEventListener("click", () => {
+    console.log(myForm.trackFormProgress());
+  });
 
   myForm.render();
 }

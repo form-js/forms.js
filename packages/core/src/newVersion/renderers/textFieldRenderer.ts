@@ -33,6 +33,7 @@ export const RenderTextField: Renderer<string, TextFieldConfig> = (
   field.value.subscribe((value) => (input.value = value != null ? String(value) : ''));
   input.oninput = (e) => field.setValue((e.target as HTMLInputElement).value);
   if (field.config.maxLength != null) input.maxLength = field.config.maxLength;
+  if (field.config.placeholder != null) input.placeholder = field.config.placeholder;
 
   // Error container
   const errorContainer = document.createElement('div');

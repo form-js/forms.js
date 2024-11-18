@@ -8,9 +8,10 @@ export class Field<T, C extends FieldConfig<T>> {
   protected disabled$ = new BehaviorSubject<boolean>(false);
   protected visible$ = new BehaviorSubject<boolean>(true);
   protected validationInProgress$ = new BehaviorSubject<boolean>(false);
+  private validateTrigger$ = new Subject<void>();
   protected config$: C;
   protected isDirty = false; // Track whether validation should run
-  protected validated = false;
+  private validated = false;
 
   constructor(
     config: C,
@@ -46,17 +47,21 @@ export class Field<T, C extends FieldConfig<T>> {
       .subscribe((errors) => {
         this.errors$.next(errors);
       });
+
+    this.validateTrigger$.pipe(switchMap(() => this.runValidators(this.getValue()))).subscribe((errors) => {
+      this.errors$.next(errors);
+    });
   }
 
   private runValidators(value: T | null): Observable<string[]> {
     const { validators } = this.config$;
+    this.validated = true;
 
     if (!validators || validators.length === 0) {
       return of([]);
     }
 
     this.validationInProgress$.next(true);
-    this.validated = true;
 
     const syncErrors: string[] = [];
     const asyncValidators: AsyncValidator<T>[] = [];
@@ -98,8 +103,10 @@ export class Field<T, C extends FieldConfig<T>> {
     return of(syncErrors);
   }
 
-  public validate() {
-    this.runValidators(this.getValue());
+  validate(): void {
+    console.log('here');
+
+    this.validateTrigger$.next();
   }
 
   render(container?: HTMLElement) {
@@ -134,7 +141,7 @@ export class Field<T, C extends FieldConfig<T>> {
     this.visible$.next(value);
   }
 
-  reset() {
+  async reset() {
     if (this.config$.initialValue !== undefined) {
       this.value$.next(this.config$.initialValue);
     } else {
@@ -172,13 +179,14 @@ export class Field<T, C extends FieldConfig<T>> {
     return this.errors$.getValue();
   }
 
+  isValid(): boolean {
+    console.log(this.validated);
+    return this.validated && this.errors$.getValue().length == 0;
+  }
+
   // Getters
   get label(): string | null {
     return this.config$.label || null;
-  }
-
-  get valid(): boolean {
-    return this.validated && this.errors$.getValue().length > 0;
   }
 
   get id(): string {

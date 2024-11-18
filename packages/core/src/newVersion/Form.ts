@@ -4,10 +4,10 @@ import { mountElement } from './utils/utils';
 import { ClassList } from './utils/enums';
 import { FormConfig, FlowRule, FlowConfig } from './types';
 import { FlowManager } from './FlowManager';
+import { objectToFormData } from '../utils';
 
 const defaultFormConfig: FormConfig = {
   autorender: false,
-  useFormData: true,
 };
 
 export class Form<TFields extends Record<string, any>> {
@@ -84,7 +84,7 @@ export class Form<TFields extends Record<string, any>> {
   }
 
   // Synchronous getter for form values
-  getFormValues(): TFields {
+  data(): TFields {
     return Object.keys(this.fields).reduce((acc, key) => {
       const fieldKey = key as keyof TFields;
       acc[fieldKey] = this.fields[fieldKey].getValue(); // Explicitly cast
@@ -93,7 +93,7 @@ export class Form<TFields extends Record<string, any>> {
   }
 
   // Synchronous getter for form errors
-  getFormErrors(): Record<keyof TFields, string[]> {
+  errors(): Record<keyof TFields, string[]> {
     return Object.keys(this.fields).reduce(
       (acc, key) => {
         const fieldKey = key as keyof TFields;
@@ -104,8 +104,12 @@ export class Form<TFields extends Record<string, any>> {
     );
   }
 
+  formData() {
+    return objectToFormData(this.data());
+  }
+
   // Debounced observer for form changes
-  observeFormChangesWithDebounce(debounceTimeMs: number, callback: (values: TFields) => void) {
+  watchData(debounceTimeMs: number, callback: (values: TFields) => void) {
     const formValues$ = combineLatest(
       Object.entries(this.fields).map(([key, field]) => field.value.pipe(map((value) => ({ [key]: value })))),
     ).pipe(map((fieldValues) => Object.assign({}, ...fieldValues) as TFields));
@@ -114,7 +118,7 @@ export class Form<TFields extends Record<string, any>> {
   }
 
   // Load a set of values into the form
-  loadFormValues(values: Partial<TFields>) {
+  load(values: Partial<TFields>) {
     Object.entries(values).forEach(([key, value]) => {
       if (this.fields[key]) {
         this.fields[key].setValue(value);
@@ -122,8 +126,44 @@ export class Form<TFields extends Record<string, any>> {
     });
   }
 
-  // Validate all fields in the form
-  validateForm() {
+  reset() {
+    Object.values(this.fields).forEach((field) => field.reset());
+  }
+
+  validate() {
     Object.values(this.fields).forEach((field) => field.validate());
+  }
+
+  trackFormProgress(): {
+    correctlyFilledFields: number;
+    correctlyFilledRequiredFields: number;
+    totalRequiredFields: number;
+    totalFields: number;
+  } {
+    let correctlyFilledFields = 0;
+    let correctlyFilledRequiredFields = 0;
+    let totalRequiredFields = 0;
+    const totalFields = Object.keys(this.fields).length;
+
+    Object.values(this.fields).forEach((field) => {
+      const isValid = field.isValid();
+      const isRequired = field.isRequired();
+
+      if (isValid) {
+        correctlyFilledFields++;
+        if (isRequired) correctlyFilledRequiredFields++;
+      }
+
+      if (isRequired) {
+        totalRequiredFields++;
+      }
+    });
+
+    return {
+      correctlyFilledFields,
+      correctlyFilledRequiredFields,
+      totalRequiredFields,
+      totalFields,
+    };
   }
 }
