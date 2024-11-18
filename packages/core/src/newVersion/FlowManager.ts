@@ -1,71 +1,93 @@
 import { Field } from './Field';
-import { FieldConfig, FlowAction, FormFlowConfig, FormFlowRule } from './types/interfaces';
+import { FlowAction, FlowRule, FlowConfig, FieldConfig } from './types';
 import { FlowActionTypes } from './utils/enums';
 
 export class FlowManager {
-  private rules: FormFlowRule[] = [];
+  private rules: FlowRule[] = [];
 
   constructor(
     private fields: Record<string, Field<any, FieldConfig<any>>>,
-    private config: FormFlowConfig,
+    private config: FlowConfig,
   ) {
-    this.rules = config.rules;
+    this.rules = config;
   }
 
   initialize() {
-    // Subscribe to field changes based on flow triggers
     this.rules.forEach((rule) => this.setupRule(rule));
   }
 
-  private setupRule(rule: FormFlowRule) {
+  private setupRule(rule: FlowRule) {
     const triggerFields = rule.triggers || Object.keys(this.fields);
 
     triggerFields.forEach((fieldId) => {
-      this.fields[fieldId].value.subscribe(() => this.evaluateRule(rule));
+      const field = this.fields[fieldId];
+      if (!field) return;
+
+      field.value.subscribe(() => {
+        try {
+          const conditionMet = rule.condition(this.fields);
+          if (conditionMet) {
+            this.executeActions(rule.actions);
+          } else if (rule.elseActions) {
+            this.executeActions(rule.elseActions);
+          }
+        } catch (error) {
+          console.error(`Error evaluating rule "${rule.id}" for field "${fieldId}":`, error);
+        }
+      });
     });
-  }
-
-  private evaluateRule(rule: FormFlowRule) {
-    const { condition, actions } = rule;
-
-    if (condition(this.fields)) {
-      this.executeActions(actions);
-    }
   }
 
   private executeActions(actions: FlowAction[]) {
     actions.forEach((action) => {
-      const targetField = this.fields[action.targetField];
-      if (!targetField) return;
+      action.targetFields.forEach((targetFieldId) => {
+        const targetField = this.fields[targetFieldId];
+        if (!targetField) {
+          console.warn(`Target field "${targetFieldId}" not found. Skipping action.`);
+          return;
+        }
 
-      switch (action.type) {
-        case FlowActionTypes.SetValue:
-          targetField.setValue(action.payload);
-          break;
-        case FlowActionTypes.SetRequired:
-          targetField.setRequired(action.payload);
-          break;
-        case FlowActionTypes.SetDisabled:
-          targetField.setDisabled(action.payload);
-          break;
-        case FlowActionTypes.SetVisible:
-          targetField.setVisible(action.payload);
-          break;
-        case FlowActionTypes.ClearValue:
-          targetField.setValue(null);
-          break;
-      }
+        try {
+          switch (action.type) {
+            case FlowActionTypes.SetValue:
+              targetField.setValue(action.payload);
+              break;
+            case FlowActionTypes.SetRequired:
+              targetField.setRequired(action.payload);
+              break;
+            case FlowActionTypes.SetDisabled:
+              targetField.setDisabled(action.payload);
+              break;
+            case FlowActionTypes.SetVisible:
+              targetField.setVisible(action.payload);
+              break;
+            case FlowActionTypes.ClearValue:
+              targetField.setValue(null);
+              break;
+            default:
+              console.warn(`Unknown action type "${action.type}" for field "${targetFieldId}".`);
+          }
+        } catch (error) {
+          console.error(`Error executing action for field "${targetFieldId}":`, error);
+        }
+      });
     });
   }
 
-  // Dynamically add a rule
-  addRule(rule: FormFlowRule) {
-    this.rules.push(rule);
-    this.setupRule(rule);
+  addRule(rule: FlowRule) {
+    try {
+      this.rules.push(rule);
+      this.setupRule(rule);
+    } catch (error) {
+      console.error(`Error adding rule "${rule.id}":`, error);
+    }
   }
 
-  // Dynamically remove a rule by a unique ID
   removeRule(ruleId: string) {
-    this.rules = this.rules.filter((rule) => rule.id !== ruleId);
+    try {
+      this.rules = this.rules.filter((rule) => rule.id !== ruleId);
+    } catch (error) {
+      console.error(`Error removing rule "${ruleId}":`, error);
+    }
   }
 }

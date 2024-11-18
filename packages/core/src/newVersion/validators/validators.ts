@@ -1,4 +1,4 @@
-import { SyncValidator } from '../types/types';
+import { SyncValidator } from '../types';
 
 export const requiredValidator: SyncValidator<string> = (value, required) => {
   if (required && (value === null || value === undefined || value === '')) {

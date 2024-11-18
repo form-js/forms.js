@@ -111,6 +111,47 @@ const options = [
   { value: "anna_ostroumova_lebedeva", label: "Anna Ostroumova-Lebedeva" },
 ];
 
+const rules = [
+  {
+    id: "disable-email",
+    condition: (fields) => Number(fields["age"].getValue()) < 18,
+    actions: [
+      {
+        type: "SET_DISABLED",
+        payload: true,
+        targetFields: ["email"],
+      },
+    ],
+    elseActions: [
+      {
+        type: "SET_DISABLED",
+        payload: false,
+        targetFields: ["email"],
+      },
+    ],
+    triggers: ["age"],
+  },
+  {
+    id: "hide-name",
+    condition: (fields) => Number(fields["age"].getValue()) < 18,
+    actions: [
+      {
+        type: "SET_VISIBLE",
+        payload: false,
+        targetFields: ["lastName"],
+      },
+    ],
+    elseActions: [
+      {
+        type: "SET_VISIBLE",
+        payload: true,
+        targetFields: ["lastName"],
+      },
+    ],
+    triggers: ["age"],
+  },
+];
+
 const groups = [
   {
     id: "painters",
@@ -139,26 +180,32 @@ const asyncValidators = [
 const validators = [...syncValidators, ...asyncValidators];
 
 function initForm() {
-  const nameField = new TextField({
-    id: "name",
-    label: "Name",
-    initialValue: "",
-    required: true,
-    validators: [requiredValidator],
-    maxLength: 5,
-  });
-  const ageField = new NumberField({
-    id: "age",
-    label: "Age",
-    initialValue: "",
-    required: true,
-    validators: [requiredValidator],
-    min: 5,
-    max: 25,
-    step: 5,
-  });
-  const myForm = new Form({}, { name: nameField, age: ageField });
-
+  const fields = {
+    firstName: new TextField({
+      id: "firstName",
+      label: "First Name",
+      initialValue: "name",
+      required: false,
+    }),
+    lastName: new TextField({
+      id: "lastName",
+      label: "Last Name",
+      initialValue: "",
+      required: false,
+    }),
+    email: new TextField({
+      id: "email",
+      label: "Email",
+      initialValue: "",
+      visible: true,
+    }),
+    age: new NumberField({
+      id: "age",
+      label: "Age",
+      required: false,
+    }),
+  };
+  const myForm = new Form(fields, {}, rules);
   //nameField.value.subscribe((value) => console.log(value));
 
   myForm.render();

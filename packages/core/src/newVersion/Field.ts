@@ -1,16 +1,16 @@
 import { BehaviorSubject, of, Subject, switchMap, debounceTime, catchError, Observable, from } from 'rxjs';
-import { AsyncValidator, Renderer } from './types/types';
-import { FieldConfig } from './types/interfaces';
+import { AsyncValidator, Renderer, FieldConfig } from './types';
 
 export class Field<T, C extends FieldConfig<T>> {
   protected value$ = new BehaviorSubject<T | null>(null);
-  protected errors$ = new Subject<string[]>();
+  protected errors$ = new BehaviorSubject<string[]>([]);
   protected required$ = new BehaviorSubject<boolean>(false);
   protected disabled$ = new BehaviorSubject<boolean>(false);
   protected visible$ = new BehaviorSubject<boolean>(true);
   protected validationInProgress$ = new BehaviorSubject<boolean>(false);
   protected config$: C;
   protected isDirty = false; // Track whether validation should run
+  protected validated = false;
 
   constructor(
     config: C,
@@ -56,6 +56,7 @@ export class Field<T, C extends FieldConfig<T>> {
     }
 
     this.validationInProgress$.next(true);
+    this.validated = true;
 
     const syncErrors: string[] = [];
     const asyncValidators: AsyncValidator<T>[] = [];
@@ -95,6 +96,10 @@ export class Field<T, C extends FieldConfig<T>> {
 
     this.validationInProgress$.next(false);
     return of(syncErrors);
+  }
+
+  public validate() {
+    this.runValidators(this.getValue());
   }
 
   render(container?: HTMLElement) {
@@ -146,9 +151,34 @@ export class Field<T, C extends FieldConfig<T>> {
     }
   }
 
+  // Synchronous getter for the current value
+  getValue(): T | null {
+    return this.value$.getValue();
+  }
+
+  getVisibility(): boolean {
+    return this.visible$.getValue();
+  }
+
+  isRequired(): boolean {
+    return this.required$.getValue();
+  }
+
+  isDisabled(): boolean {
+    return this.disabled$.getValue();
+  }
+
+  getErrors(): string[] {
+    return this.errors$.getValue();
+  }
+
   // Getters
   get label(): string | null {
     return this.config$.label || null;
+  }
+
+  get valid(): boolean {
+    return this.validated && this.errors$.getValue().length > 0;
   }
 
   get id(): string {

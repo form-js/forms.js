@@ -1,6 +1,6 @@
-import { NumberField } from './../fields/numberField';
 export { Form } from './Form';
 export { Field } from './Field';
+export { FlowManager } from './FlowManager';
 
 //Fields
 export { TextField } from './fields/TextField';

@@ -30,3 +30,11 @@ export const enum FlowActionTypes {
   SetVisible = 'SET_VISIBLE',
   ClearValue = 'CLEAR_VALUE',
 }
+
+export const enum AriaAttributes {
+  Hidden = 'aria-hidden',
+  Required = 'aria-required',
+  DescribedBy = 'aria-describedby',
+  Invalid = 'aria-invalid',
+  Disabled = 'aria-disabled',
+}
