@@ -2,6 +2,7 @@ import "./style.css";
 import "../packages/core/css/index.css";
 import {
   Form,
+  Group,
   TextField,
   NumberField,
   requiredValidator,
@@ -186,7 +187,7 @@ const phoneMask = (value) => {
 const validators = [...syncValidators, ...asyncValidators];
 
 function initForm() {
-  const fields = {
+  /*const fields = {
     firstName: new TextField({
       id: "firstName",
       label: "First Name",
@@ -213,15 +214,49 @@ function initForm() {
     phone: new TextField({
       id: "phone",
       label: "Phone",
+      placeholder: "Phone",
       mask: phoneMask,
     }),
-  };
-  const myForm = new Form(fields, {}, rules);
+  };*/
+
+  const field1 = new TextField({ id: "name", initialValue: "John" });
+  const field2 = new TextField({
+    id: "email",
+    initialValue: "john@example.com",
+  });
+
+  const addressField = new TextField({ id: "address", initialValue: "" });
+  const cityField = new TextField({ id: "city", initialValue: "" });
+  const addressGroup = new Group("addressDetails", {
+    fields: {
+      address: addressField,
+      city: cityField,
+    },
+  });
+  const group1 = new Group("userDetails", {
+    fields: { name: field1, email: field2 },
+    groups: { addressDetails: addressGroup },
+  });
+
+  // Watch for reactive data changes
+  group1.watchData((data) => {
+    console.log("Group data updated:", data);
+  });
+
+  const myForm = new Form(
+    {},
+    {
+      group: group1,
+    },
+    {
+      flow: rules,
+    }
+  );
   //nameField.value.subscribe((value) => console.log(value));
 
   const btn = document.getElementById("btn");
   btn.addEventListener("click", () => {
-    console.log(myForm.trackFormProgress());
+    console.log(myForm.progress());
   });
 
   myForm.render();

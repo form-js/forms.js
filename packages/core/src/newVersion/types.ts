@@ -1,4 +1,5 @@
 import { Field } from './Field';
+import { Group } from './Group';
 import { FlowActionTypes } from './utils/enums';
 
 export type SyncValidator<T> = (value: T | null, required: boolean) => string | null;
@@ -14,6 +15,7 @@ export type FieldMask = (value: any) => { raw: any; formatted: any };
 export interface FormConfig {
   autorender?: boolean;
   licenseKey?: string;
+  flow?: FlowConfig;
 }
 
 //Field configs
@@ -43,6 +45,13 @@ export interface NumberFieldConfig extends FieldConfig<string> {
   step?: number;
   min?: number;
   max?: number;
+}
+
+//Group config
+
+export interface GroupConfig{
+  fields?: Record<string, Field<any, any>>;
+  groups?: Record<string, Group<any>>;
 }
 
 //Form flow

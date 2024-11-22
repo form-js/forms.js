@@ -1,10 +1,9 @@
-import { combineLatest, debounceTime, map, Observable } from 'rxjs';
+import { combineLatest, debounceTime, map } from 'rxjs';
 import { Field } from './Field';
-import { mountElement } from './utils/utils';
-import { ClassList } from './utils/enums';
-import { FormConfig, FlowRule, FlowConfig } from './types';
+import { FormConfig, FlowRule } from './types';
 import { FlowManager } from './FlowManager';
 import { objectToFormData } from '../utils';
+import { Group } from './Group';
 
 const defaultFormConfig: FormConfig = {
   autorender: false,
@@ -12,37 +11,32 @@ const defaultFormConfig: FormConfig = {
 
 export class Form<TFields extends Record<string, any>> {
   private fields: Record<keyof TFields, Field<any, any>>;
+  private groups: Record<string, Group<any>> = {};
   private config: FormConfig;
   private flowManager?: FlowManager;
 
   constructor(
     fieldsConfig: { [K in keyof TFields]: Field<TFields[K], any> },
+    groupConfig?: Record<string, Group<any>>,
     formConfig?: FormConfig,
-    flowConfig?: FlowConfig,
   ) {
     this.fields = fieldsConfig;
     this.config = formConfig ?? defaultFormConfig;
+    this.groups = groupConfig || {};
 
     if (this.config.autorender) {
       this.render();
     }
 
-    if (flowConfig) {
-      this.flowManager = new FlowManager(this.fields, flowConfig);
+    if (this.config.flow) {
+      this.flowManager = new FlowManager(this.fields, this.config.flow);
       this.flowManager.initialize();
     }
   }
 
-  render(container?: HTMLElement) {
-    if (container) {
-      const formElement = document.createElement('div');
-      formElement.className = ClassList.Form;
-
-      Object.values(this.fields).forEach((field) => field.render(formElement));
-      mountElement(formElement, container);
-      return;
-    }
+  render() {
     Object.values(this.fields).forEach((field) => field.render());
+    Object.values(this.groups).forEach((group) => group.render());
   }
 
   setFieldValue<K extends keyof TFields>(fieldName: K, value: TFields[K]) {
@@ -73,6 +67,10 @@ export class Form<TFields extends Record<string, any>> {
     return this.fields[fieldName];
   }
 
+  getGroup(groupName: string): Group<TFields> | undefined {
+    return this.groups[groupName];
+  }
+
   addFlowRule(rule: FlowRule) {
     if (!this.flowManager) throw new Error('FlowManager is not initialized.');
     this.flowManager.addRule(rule);
@@ -85,11 +83,20 @@ export class Form<TFields extends Record<string, any>> {
 
   // Synchronous getter for form values
   data(): TFields {
-    return Object.keys(this.fields).reduce((acc, key) => {
-      const fieldKey = key as keyof TFields;
-      acc[fieldKey] = this.fields[fieldKey].getValue(); // Explicitly cast
-      return acc;
-    }, {} as TFields);
+    const formData: Record<string, any> = {};
+
+    // Collect data from individual fields
+    Object.entries(this.fields).forEach(([key, field]) => {
+      formData[key] = field.getValue();
+    });
+
+    // Collect data from groups with prefixes
+    Object.entries(this.groups).forEach(([key, group]) => {
+      const groupData = group.data();
+      Object.assign(formData, groupData);
+    });
+
+    return formData as TFields;
   }
 
   // Synchronous getter for form errors
@@ -110,11 +117,20 @@ export class Form<TFields extends Record<string, any>> {
 
   // Debounced observer for form changes
   watchData(debounceTimeMs: number, callback: (values: TFields) => void) {
-    const formValues$ = combineLatest(
-      Object.entries(this.fields).map(([key, field]) => field.value.pipe(map((value) => ({ [key]: value })))),
-    ).pipe(map((fieldValues) => Object.assign({}, ...fieldValues) as TFields));
+    const fieldObservables = Object.entries(this.fields).map(([key, field]) =>
+      field.value.pipe(map((value) => ({ [key]: value }))),
+    );
 
-    formValues$.pipe(debounceTime(debounceTimeMs)).subscribe(callback);
+    const groupObservables = Object.entries(this.groups).map(([key, group]) =>
+      group.watchDataAsObservable().pipe(map((values) => values)),
+    );
+
+    combineLatest([...fieldObservables, ...groupObservables])
+      .pipe(
+        debounceTime(debounceTimeMs),
+        map((fieldValues) => Object.assign({}, ...fieldValues)),
+      )
+      .subscribe(callback);
   }
 
   // Load a set of values into the form
@@ -134,7 +150,7 @@ export class Form<TFields extends Record<string, any>> {
     Object.values(this.fields).forEach((field) => field.validate());
   }
 
-  trackFormProgress(): {
+  progress(): {
     correctlyFilledFields: number;
     correctlyFilledRequiredFields: number;
     totalRequiredFields: number;
