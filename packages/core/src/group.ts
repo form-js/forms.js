@@ -1,218 +1,173 @@
-import { Form } from './form';
-import {
-  evaluateParsedConditions,
-  getOverwritenDefaults,
-  mountElement,
-  parseConditionString,
-  unmountElement,
-} from './utils';
-import { GroupOptions } from './interfaces';
-import { ParsedCondition } from './types';
-import {
-  GROUP_TYPE_GROUP,
-  DIV_ELEMENT,
-  GROUP_CLASS_DEFAULT,
-  GROUP_CONTAINER_CLASS_DEFAULT,
-  GROUP_CONTAINER_DEFINITION,
-  GROUP_LABEL_CLASS_DEFAULT,
-  H3_ELEMENT,
-  ID_ATTRIBUTE,
-  LABEL_DEFINITION,
-  GroupEvents,
-} from './constants';
+import { BehaviorSubject, combineLatest, debounceTime, map, Observable } from 'rxjs';
+import { Field } from './Field';
+import { GroupConfig } from './types';
 
-export class Group {
-  public options: GroupOptions = {
-    id: '',
-    type: GROUP_TYPE_GROUP,
-    className: GROUP_CLASS_DEFAULT,
-    prefixSchema: false,
-    schema: [],
-  };
-  public containerElement: HTMLElement | null = null;
-  public schemaContainerElement: HTMLElement | null = null;
-  public labelElement: HTMLElement | null = null;
+export class Group<TFields extends Record<string, any>> {
+  private fields: Record<string, Field<any, any>> = {};
+  private groups: Record<string, Group<any>> = {};
 
-  private _id: string;
-  private _parent: HTMLElement;
-  private _form: Form;
-  private _isMounted: boolean = false;
-  private _isVisible: boolean = true;
-  private _type: string;
-  private _parsedConditions: ParsedCondition[] | null = null;
+  private disabled$ = new BehaviorSubject<boolean>(false);
+  private visible$ = new BehaviorSubject<boolean>(true);
+  private required$ = new BehaviorSubject<boolean>(false);
 
-  /**
-   * Creates a new group.
-   * @param parent - The parent element to which this group belongs.
-   * @param form - The form associated with the group.
-   * @param options - The configuration options for the group.
-   */
-  constructor(parent: HTMLElement, form: Form, options: GroupOptions) {
-    this.initializeOptions(options);
-    this._parent = parent;
-    this._form = form;
-    this._id = this.options.id;
-    this._type = options.type;
-    this.onGui();
-    this.initialize();
+  constructor(
+    private id: string,
+    config: GroupConfig,
+  ) {
+    this.fields = config.fields || {};
+    this.groups = config.groups || {};
   }
 
-  /**
-   * Initializes or updates the options of the group.
-   * @param options - The new configuration options to apply.
-   */
-  initializeOptions(options: GroupOptions): void {
-    this.options = Object.assign({}, this.options, getOverwritenDefaults(this.options.type, options));
+  // Add a field to the group
+  addField(fieldName: string, field: Field<any, any>) {
+    this.fields[fieldName] = field;
+    this.propagateState(); // Update field states
   }
 
-  /** Initializes the group and sets up its initial visibility. */
-  async initialize(): Promise<void> {
-    this.parseStringConditions();
-    await this.reset();
+  // Add a sub-group to the group
+  addGroup(groupName: string, group: Group<any>) {
+    this.groups[groupName] = group;
+    this.propagateState(); // Update nested group states
   }
 
-  /** Parse conditions from string if needed */
-  private parseStringConditions(): void {
-    if (typeof this.options.conditions === 'string') {
-      this._parsedConditions = parseConditionString(this.options.conditions);
-    }
+  render() {   
+    Object.values(this.fields).forEach((field) => field.render());
+    Object.values(this.groups).forEach((group) => group.render());
   }
 
-  /** Returns the ID of the group. */
-  getId(): string {
-    return this._id;
+  // Propagate global state changes (disabled, visible, required)
+  private propagateState() {
+    const disabled = this.disabled$.getValue();
+    const visible = this.visible$.getValue();
+    const required = this.required$.getValue();
+
+    Object.values(this.fields).forEach((field) => {
+      field.setDisabled(disabled);
+      field.setVisible(visible);
+      field.setRequired(required);
+    });
+
+    Object.values(this.groups).forEach((group) => {
+      group.setDisabled(disabled);
+      group.setVisible(visible);
+      group.setRequired(required);
+    });
   }
 
-  /** Returns the container element of the group. */
-  getContainer(): HTMLElement | null {
-    return this.containerElement;
+  // Reactive data method
+  watchData(callback: (values: Record<string, any>) => void) {
+    const fieldObservables = Object.entries(this.fields).map(([key, field]) =>
+      field.value.pipe(map((value) => ({ [key]: value }))),
+    );
+
+    const groupObservables = Object.entries(this.groups).map(([key, group]) =>
+      group.watchDataAsObservable().pipe(map((values) => ({ [key]: values }))),
+    );
+
+    combineLatest([...fieldObservables, ...groupObservables])
+      .pipe(
+        debounceTime(300), // Optional: Adjust debounce time as needed
+        map((fieldValues) => Object.assign({}, ...fieldValues)), // Combine all data
+        map((combinedValues) => ({ [this.id]: combinedValues })), // Prefix with group ID
+      )
+      .subscribe(callback);
   }
 
-  /** Returns the that group schema should be build in. */
-  getSchemaContainer(): HTMLElement | null {
-    return this.schemaContainerElement;
+  // Helper for returning observable of group data
+  watchDataAsObservable(): Observable<Record<string, any>> {
+    const fieldObservables = Object.entries(this.fields).map(([key, field]) =>
+      field.value.pipe(map((value) => ({ [key]: value }))),
+    );
+
+    const groupObservables = Object.entries(this.groups).map(([key, group]) =>
+      group.watchDataAsObservable().pipe(map((values) => ({ [key]: values }))),
+    );
+
+    return combineLatest([...fieldObservables, ...groupObservables]).pipe(
+      map((fieldValues) => Object.assign({}, ...fieldValues)), // Combine into a single object
+    );
   }
 
-  /** Returns the group type. */
-  getType(): string {
-    return this._type;
+  // Group-level controls for state
+  setDisabled(value: boolean) {
+    this.disabled$.next(value);
+    Object.values(this.fields).forEach((field) => {
+      field.setDisabled(value);
+    });
+
+    Object.values(this.groups).forEach((group) => {
+      group.setDisabled(value);
+    });
   }
 
-  /** Returns the visibility status of the group. */
-  getVisibility(): boolean {
-    return this._isVisible;
+  setVisible(value: boolean) {
+    this.visible$.next(value);
+    Object.values(this.fields).forEach((field) => {
+      field.setVisible(value);
+    });
+
+    Object.values(this.groups).forEach((group) => {
+      group.setVisible(value);
+    });
   }
 
-  /** Creates and sets up the container element for the group. */
-  createContainerElement(): void {
-    this.containerElement = document.createElement(DIV_ELEMENT);
-    this.containerElement.className = GROUP_CONTAINER_CLASS_DEFAULT;
-    this.containerElement.setAttribute(ID_ATTRIBUTE, this._id + GROUP_CONTAINER_DEFINITION);
+  setRequired(value: boolean) {
+    this.required$.next(value);
+    Object.values(this.fields).forEach((field) => {
+      field.setRequired(value);
+    });
+
+    Object.values(this.groups).forEach((group) => {
+      group.setRequired(value);
+    });
   }
 
-  /** Creates and sets up the container element for the group. */
-  createSchemaContainerElement(): void {
-    this.schemaContainerElement = document.createElement(DIV_ELEMENT);
-    this.schemaContainerElement.className = this.options.className!;
-    this.schemaContainerElement.setAttribute(ID_ATTRIBUTE, this._id);
+  // Collect and prefix group data
+  data(): Record<string, any> {
+    // Collect data from fields, prefixing with the group's ID
+    const fieldData: Record<string, any> = {};
+    Object.entries(this.fields).forEach(([key, field]) => {
+      fieldData[key] = field.getValue();
+    });
+
+    // Add fields data under the group's ID
+    const groupData: Record<string, any> = { ...fieldData };
+
+    // Collect and nest data from sub-groups
+    Object.entries(this.groups).forEach(([key, group]) => {
+      groupData[key] = group.data();
+    });
+
+    return groupData;
   }
 
-  /** Creates and sets up the label element for the group. */
-  createLabelElement(): void {
-    this.labelElement = document.createElement(H3_ELEMENT);
-    if (this.options.label) {
-      if (typeof this.options.label === 'string') {
-        this.labelElement.innerText = this.options.label;
-      } else if (typeof this.options.label === 'function') {
-        this.labelElement.innerHTML = '';
-        this.labelElement.append(this.options.label());
-      }
-    }
-    this.labelElement.setAttribute(ID_ATTRIBUTE, this._id + LABEL_DEFINITION);
-    this.labelElement.className = GROUP_LABEL_CLASS_DEFAULT;
-  }
+  // Track progress
+  progress() {
+    let correctlyFilledFields = 0;
+    let correctlyFilledRequiredFields = 0;
+    let totalRequiredFields = 0;
+    let totalFields = 0;
 
-  /** Initializes the GUI components of the group. */
-  onGui(): void {
-    this.createContainerElement();
-    this.createSchemaContainerElement();
-    this.createLabelElement();
-    if (this.containerElement && this.labelElement && this.options.label)
-      mountElement(this.labelElement, this.containerElement);
-    if (this.containerElement && this.schemaContainerElement)
-      mountElement(this.schemaContainerElement, this.containerElement);
-  }
+    Object.values(this.fields).forEach((field) => {
+      totalFields++;
+      if (field.isValid()) correctlyFilledFields++;
+      if (field.isRequired() && field.isValid()) correctlyFilledRequiredFields++;
+      if (field.isRequired()) totalRequiredFields++;
+    });
 
-  /** Mounts the group to the DOM. */
-  private mount(): void {
-    if (this.containerElement) mountElement(this.containerElement, this._parent);
-    this._isMounted = true;
-  }
+    Object.values(this.groups).forEach((group) => {
+      const groupProgress = group.progress();
+      correctlyFilledFields += groupProgress.correctlyFilledFields;
+      correctlyFilledRequiredFields += groupProgress.correctlyFilledRequiredFields;
+      totalRequiredFields += groupProgress.totalRequiredFields;
+      totalFields += groupProgress.totalFields;
+    });
 
-  /** Unmounts the group from the DOM. */
-  private unmount(): void {
-    if (this.containerElement) unmountElement(this.containerElement);
-    this._isMounted = false;
-  }
-
-  /** Fully removes the element from the DOM. */
-  destroy(): void {
-    if (this._parent) this._parent.remove();
-  }
-
-  /** Handles the visibility of the group, mounting or unmounting as needed. */
-  handleVisibility(): void {
-    if (this._isVisible && !this._isMounted) this.mount();
-    if (!this._isVisible && this._isMounted) this.unmount();
-  }
-
-  /** Resets the group. */
-  async reset(): Promise<void> {
-    this.update();
-  }
-
-  /** Updates the group based on its current state and options. */
-  async update(): Promise<void> {
-    this.updateVisibilityBasedOnConditions();
-    this.handleVisibility();
-  }
-
-  /** Updates visibility based on options. */
-  private updateVisibilityBasedOnConditions(): void {
-    const visibilityNow = this._isVisible;
-    if (this.options.conditions) {
-      if (this._parsedConditions) {
-        this._isVisible = evaluateParsedConditions(this._parsedConditions, this._form.getData()) as boolean;
-      } else if (typeof this.options.conditions === 'function') {
-        this._isVisible = this.options.conditions(this._form.getData());
-      }
-    }
-    if (visibilityNow !== this._isVisible) {
-      this.dispatchEvent(GroupEvents.VisibilityChanged, this._isVisible);
-    }
-  }
-
-  dispatchEvent(event: GroupEvents, data: boolean | null = null) {
-    const dispatched =
-      data !== null
-        ? new CustomEvent(event, {
-            detail: data,
-          })
-        : new CustomEvent(event);
-    this.containerElement?.dispatchEvent(dispatched);
-  }
-
-  /**
-   * Adds event listener to the field.
-   */
-  on(event: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions) {
-    this.containerElement?.addEventListener(event, listener, options);
-  }
-
-  /**
-   * Removes event listener to the field.
-   */
-  off(event: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions) {
-    this.containerElement?.removeEventListener(event, listener, options);
+    return {
+      correctlyFilledFields,
+      correctlyFilledRequiredFields,
+      totalRequiredFields,
+      totalFields,
+    };
   }
 }

@@ -5,7 +5,10 @@ import {
   Group,
   TextField,
   NumberField,
-  requiredValidator,
+  emailValidator,
+  TextAreaField,
+  EmailField,
+  FileField,
 } from "./js/core/index.js";
 
 const options = [
@@ -219,10 +222,11 @@ function initForm() {
     }),
   };*/
 
-  const field1 = new TextField({ id: "name", initialValue: "John" });
-  const field2 = new TextField({
+  const field1 = new FileField({ id: "name"});
+  const field2 = new EmailField({
     id: "email",
     initialValue: "john@example.com",
+    validators: [],
   });
 
   const addressField = new TextField({ id: "address", initialValue: "" });

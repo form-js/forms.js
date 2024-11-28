@@ -1,80 +1,111 @@
-import { fields, formElements } from './constants';
-import { Form } from './form';
+import { Field } from './Field';
+import { Group } from './Group';
+import { FieldTypes, FlowActionTypes } from './utils/enums';
 
-export type Schema = Record<string, unknown>[];
-export type Tabs = Record<string, unknown>[];
+export type SyncValidator<T, C extends FieldConfig<T>> = (value: T | null, state: FieldState<C>) => string | null;
 
-export type HTMLElementEvent<T extends HTMLElement> = Event & {
-  target: T;
-};
+export type AsyncValidator<T, C extends FieldConfig<T>> = (
+  value: T | null,
+  state: FieldState<C>,
+) => Promise<string | string[] | null>;
 
-export type FormData = Record<string, any>;
+export type Validator<T, C extends FieldConfig<T>> = SyncValidator<T, C> | AsyncValidator<T, C>;
 
-export type Option = {
-  value: string;
-  label: string;
-  disabled?: boolean;
-  group?: string;
-};
+export type Renderer<T, C extends FieldConfig<T>> = (
+  container: HTMLElement,
+  field: Field<T, C>,
+  type?: FieldTypes,
+) => HTMLElement;
 
-export type OptionGroup = {
+export type FieldMask = (value: any) => { raw: any; formatted: any };
+
+//Form configs
+export interface FormConfig {
+  autorender?: boolean;
+  licenseKey?: string;
+  flow?: FlowConfig;
+}
+
+export interface FieldState<C extends FieldConfig<any>> {
+  required: boolean;
+  disabled: boolean;
+  visible: boolean;
+  config: C;
+}
+
+//Field configs
+export interface FieldConfig<T> {
   id: string;
-  label: string;
-};
+  name?: string;
+  label?: string; // Add label here
+  description?: string;
+  initialValue?: T;
+  required?: boolean;
+  disabled?: boolean;
+  visible?: boolean;
+  validators?: Validator<T, FieldConfig<T>>[];
+  validatorsDebounce?: number;
+  mask: FieldMask;
+  useDefaultValidators?: boolean;
+}
 
-export type FieldType = (typeof fields)[number];
+export interface TextFieldConfig extends FieldConfig<string> {
+  placeholder?: string;
+  maxLength?: number;
+  minLength?: number;
+}
 
-export type FormElementType = (typeof formElements)[number];
+export interface NumberFieldConfig extends FieldConfig<number> {
+  placeholder?: string;
+  step?: number;
+  min?: number;
+  max?: number;
+}
 
-export type FieldValue = any;
+export interface DateFieldConfig extends FieldConfig<string> {
+  placeholder?: string;
+  min?: number;
+  max?: number;
+}
 
-export type SelectFieldValue =
-  | string
-  | null
-  | string[]
-  | number
-  | number[]
-  | Record<string, any>[]
-  | Record<string, any>;
+export interface TextAreaFieldConfig extends FieldConfig<string> {
+  placeholder?: string;
+  maxLength?: number;
+  minLength?: number;
+  rows?: number;
+}
 
-export type FormElement = {
-  new (parent: HTMLElement, form: Form, options: Record<string, any>): any;
-  getId(): string;
-  initialize(): void;
-  getSchemaContainer?(): HTMLElement | null;
-  getKeyIndex?(key: string): number;
-  assignButton?(id: string, key: string, constructed: FormElement): void;
-  assignGroup?(id: string, key: string, constructed: FormElement): void;
-  assignField?(id: string, key: string, constructed: FormElement): void;
-  update(): void;
-  reset?(): void;
-  validate?(): void;
-  save?(): void;
-  load?(): void;
-};
+export interface FileFieldConfig extends FieldConfig<FileList | null> {
+  multiple?: boolean;
+  accept?: string;
+}
 
-export type FormTab = {
-  getBody(): HTMLElement | null;
-  getSchema(): Schema;
-};
+export interface PasswordFieldConfig extends FieldConfig<string> {
+  placeholder?: string;
+  allowPeek?: boolean;
+}
 
-export type PluginSettings = {
-  type: string;
-  constructor: pluginConstructor;
-  constructorType: string;
-  licensed?: boolean;
-};
+//Group config
 
-export type pluginConstructor = new (a: HTMLElement, b: Form, c: any) => any;
+export interface GroupConfig {
+  fields?: Record<string, Field<any, any>>;
+  groups?: Record<string, Group<any>>;
+}
 
-export type Operator = '=' | '!=' | '>' | '<' | '>=' | '<=';
-export type Condition = { left: string; operator: Operator; right: any; isDate?: boolean };
-export type ParsedCondition = { conditions: Condition[][]; returnValue: string };
-export type DataPrefixMap = Record<
-  string,
-  {
-    id: string;
-    dataKey: string;
-    key: string | null; // will be null when group
-  }
->;
+//Form flow
+
+export interface FlowRule {
+  id: string;
+  condition: (fields: Record<string, Field<any, FieldConfig<any>>>) => boolean;
+  actions: FlowAction[];
+  elseActions?: FlowAction[]; // Optional actions when the condition is false
+  triggers?: string[]; // List of field IDs that will trigger this rule
+}
+
+export interface FlowAction {
+  type: FlowActionTypes;
+  payload: any;
+  targetFields: string[];
+}
+
+export type FlowConfig = FlowRule[];

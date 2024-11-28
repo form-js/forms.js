@@ -1,16 +1,14 @@
-import { Field } from '../field';
-import { Form } from '../form';
-import { FieldOptions } from '../interfaces';
+import { RenderTextField } from '../renderers/TextFieldRenderer';
+import { Field } from '../Field';
+import { TextFieldConfig } from '../types';
+import { maxLengthValidator, minLengthValidator } from '../validators/validators';
 
-export class TextField extends Field {
-  constructor(parent: HTMLElement, form: Form, options: FieldOptions) {
-    super(parent, form, options);
-    this.initializeOptions(options);
-    this.onGui();
-    this.initialize();
-  }
-
-  getValue(): string | null {
-    return this._value as string | null;
+export class TextField extends Field<string, TextFieldConfig> {
+  constructor(config: TextFieldConfig) {
+    super(config, RenderTextField);
+    if (config.useDefaultValidators !== false) {
+      this.config$.validators?.push(minLengthValidator);
+      this.config$.validators?.push(maxLengthValidator);
+    }
   }
 }

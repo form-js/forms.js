@@ -54,11 +54,8 @@ span.flatpickr-day.today:not(.selected):hover, span.flatpickr-day.prevMonthDay.t
     border-top-color: currentColor;
 }
 
-.form-field:has(.flatpickr-input){
-    position: relative;
-}
-
-.form-field:has(.flatpickr-input)::after{
+/*
+.form-field.datetime-local::after .form-field.date::after{
     position: absolute;
     bottom: 5px;
     right: 5px;
@@ -72,15 +69,15 @@ span.flatpickr-day.today:not(.selected):hover, span.flatpickr-day.prevMonthDay.t
     pointer-events: none;
 }
 
-.form-field.time:has(.flatpickr-input)::after{
+.form-field.time::after{
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" /><path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M15 3v4" /><path d="M7 3v4" /><path d="M3 11h16" /><path d="M18 16.496v1.504l1 1" /></svg>');
 }
 
-.form-field.daterange:has(.flatpickr-input)::after{
+.form-field.daterange::after{
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-month" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />  <path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>');
 }
 
 
 .form-field:has(.flatpickr-input) .form-input.form-control{
     padding-right: 34px;
-}
+}*/

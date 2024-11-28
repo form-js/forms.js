@@ -1,10 +1,10 @@
 {
   "name": "@forms.js/core",
-  "version": "1.1.12",
+  "version": "2.0.0.alpha.1",
   "description": "Javascript form generator that streamlines web forms",
-  "module": "dist/index.js",
+  "module": "dist/bundle.js",
   "type": "module",
-  "types": "dist/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "files": [
     "dist/**/*",
     "css/**/*"
@@ -19,8 +19,8 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/cjs/index.js"
+      "import": "./dist/bundle.js",
+      "require": "./dist/bundle.js"
     },
     "./css/index.css": {
       "import": "./css/index.css",

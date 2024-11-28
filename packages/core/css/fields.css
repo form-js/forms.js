@@ -10,3 +10,6 @@
 @import './fields/rating.css';
 /*@import './fields/richtext.css';*/
 @import './fields/select.css';
+@import './fields/phone.css';
+@import './fields/email.css';
+@import './fields/url.css';

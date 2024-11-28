@@ -1,37 +1,16 @@
-import {
-  DEFAULT_REQUIRED_VALIDATION_MESSAGE,
-  FIELD_TYPE_EMAIL,
-  INPUT_CLASS_DEFAULT,
-  INVALID_EMAIL_VALIDATION_MESSAGE,
-} from '../constants';
-import { Field } from '../field';
-import { Form } from '../form';
-import { FieldOptions } from '../interfaces';
+import { RenderTextField } from '../renderers/TextFieldRenderer';
+import { Field } from '../Field';
+import { TextFieldConfig } from '../types';
+import { emailValidator, maxLengthValidator, minLengthValidator } from '../validators/validators';
+import { FieldTypes } from '../utils/enums';
 
-export class EmailField extends Field {
-  public options: FieldOptions = {
-    id: '',
-    type: FIELD_TYPE_EMAIL,
-    required: false,
-    validation: (value, data, required) => {
-      if (required && !value) return DEFAULT_REQUIRED_VALIDATION_MESSAGE;
-      if (value && typeof value === 'string' && !value.match(this.mailFormat)) return INVALID_EMAIL_VALIDATION_MESSAGE;
-      return true;
-    },
-    default: '',
-    className: INPUT_CLASS_DEFAULT,
-  };
-
-  public mailFormat = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-  constructor(parent: HTMLElement, form: Form, options: FieldOptions) {
-    super(parent, form, options);
-    this.initializeOptions(options);
-    this.onGui();
-    this.initialize();
-  }
-
-  getValue(): string | null {
-    return this._value as string | null;
+export class EmailField extends Field<string, TextFieldConfig> {
+  constructor(config: TextFieldConfig) {
+    super(config, RenderTextField, FieldTypes.Email);
+    if (config.useDefaultValidators !== false) {
+      this.config$.validators?.push(minLengthValidator);
+      this.config$.validators?.push(maxLengthValidator);
+      this.config$.validators?.push(emailValidator);
+    }
   }
 }
