@@ -595,14 +595,7 @@ export class Form {
   }
 
   private createInvalidElement() {
-    const invalid = document.createElement(LINK_ELEMENT);
-    invalid.setAttribute(HREF_ATTRIBUTE, PACKAGE_LICENSE_URL);
-    invalid.className = licensePlateClass;
-    invalid.style.cssText = licensePlateStyle;
-    const text = document.createElement(SPAN_ELEMENT);
-    text.innerText = getLicenseText(this._licenseState);
-    mountElement(text, invalid);
-    if (this._parent) mountElement(invalid, this._parent);
+    
   }
 
   /**
