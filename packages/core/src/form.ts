@@ -1,5 +1,5 @@
 import { combineLatest, debounceTime, map } from 'rxjs';
-import { Field } from './Field';
+import { Field } from './field';
 import { FormConfig, FlowRule } from './types';
 import { FlowManager } from './FlowManager';
 import { objectToFormData } from './utils/utils';
