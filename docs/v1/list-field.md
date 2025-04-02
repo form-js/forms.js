@@ -18,7 +18,7 @@ usePlugin(ListFieldPlugin);
 window.Form = Form;
 ```
 
-To get valid license please look at <a class="link" href="https://formsjs.io/documentation/v1/licensing">licensing page</a>.
+To get valid license please look at <a class="link" href="https://github.com/form-js/forms.js/tree/master/docs/v1/licensing">licensing page</a>.
 
 #### Options
 

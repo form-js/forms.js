@@ -1,19 +1,18 @@
 <div align="center">
 
-![Forms.js](https://formsjs.io/images/formsjs-banner.png)
+![Forms.js](https://github.com/form-js/forms.js/tree/master/docs/formsjs-banner.png)
 
 </div>
 
 <p align="center">
-    <a href="https://formsjs.io/"><b>Website</b></a> •
-    <a href="https://formsjs.io/documentation/v1/getting-started"><b>Documentation</b></a>
+    <a href="https://github.com/form-js/forms.js/tree/master/docs/v1/getting-started"><b>Documentation</b></a>
 </p>
 
 # Forms.js Vue Component
 
-The official <a href="https://vuejs.org/" target="_blank">Vue</a> component for <a href="https://formsjs.io/" target="_blank">Forms.js</a>
+The official <a href="https://vuejs.org/" target="_blank">Vue</a> component for <a href="https://github.com/form-js" target="_blank">Forms.js</a>
 
-[Get Started with Forms.js](https://formsjs.io/documentation/v1/getting-started) ⚡️
+[Get Started with Forms.js](https://github.com/form-js/forms.js/tree/master/docs/v1/getting-started) ⚡️
 
 <h2 id="instalation">Instalation</h2>
 
@@ -58,12 +57,7 @@ export default {
 </template>
 ```
 
-Dive deeper into Forms.js with the [official documentation](https://formsjs.io/documentation/v1/getting-started)
-
-## Support Forms.js Development:
-
-Purchase an software [license](https://formsjs.io/pricing).
-
+Dive deeper into Forms.js with the [official documentation](https://github.com/form-js/forms.js/tree/master/docs/v1/getting-started)
 
 ## Contributing
 

@@ -1,12 +1,11 @@
 <div align="center">
 
-![Forms.js](https://formsjs.io/images/formsjs-banner.png)
+![Forms.js](https://github.com/form-js/forms.js/tree/master/docs/formsjs-banner.png)
 
 </div>
 
 <p align="center">
-    <a href="https://formsjs.io/"><b>Website</b></a> •
-    <a href="https://formsjs.io/documentation/v1/getting-started"><b>Documentation</b></a>
+    <a href="https://github.com/form-js/forms.js/tree/master/docs/v1/getting-started"><b>Documentation</b></a>
 </p>
 
 <div align="center">
@@ -14,11 +13,10 @@
 [![Npm package total downloads](https://badgen.net/npm/dt/@forms.js/core)](https://npmjs.com/package/@forms.js/core)
 [![Code Coverage](https://img.shields.io/badge/code_coverage-99%25-brightgreen)](https://github.com/form-js/forms.js)
 [![GitHub issues](https://img.shields.io/github/issues/form-js/forms.js)](https://github.com/form-js/forms.js/issues)
-[![License](https://img.shields.io/badge/license-3_LICENSED-green.svg)](https://formsjs.io/documentation/v1/licensing)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/form-js/forms.js/tree/master/docs/v1/licensing)
 [![GitHub stars](https://img.shields.io/github/stars/form-js/forms.js)](https://github.com/form-js/forms.js/stargazers)  
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/form-js/forms.js/pulls)
 [![Node.js Version](https://img.shields.io/node/v/@forms.js/core)](https://nodejs.org/en/)
-[![Maintenance](https://img.shields.io/maintenance/yes/2024)](https://github.com/form-js/forms.js)
 [![TypeScript Supported](https://img.shields.io/badge/TypeScript-Supported-blue.svg)](https://www.typescriptlang.org/)
 
 </div>
@@ -27,7 +25,7 @@
 
 **Forms.js** is an advanced, lightweight JavaScript library designed to ease form creation and management. Utilizing JSON for data input, it generates dynamic, user-centric forms, offering an unparalleled development experience.
 
-[Get Started with Forms.js](https://formsjs.io/documentation/v1/getting-started) ⚡️
+[Get Started with Forms.js](https://github.com/form-js/forms.js/tree/master/docs/v1/getting-started) ⚡️
 
 ## Features at a Glance
 
@@ -68,11 +66,7 @@ const form = new Form("form-element", options);
 @import '@forms.js/core/css/index.css';
 ```
 
-Dive deeper into Forms.js with the [official documentation](https://formsjs.io/documentation/v1/getting-started)
-
-## Support Forms.js Development:
-
-Purchase an software [license](https://formsjs.io/pricing).
+Dive deeper into Forms.js with the [official documentation](https://github.com/form-js/forms.js/tree/master/docs/v1/getting-started).
 
 ## Contributing
 

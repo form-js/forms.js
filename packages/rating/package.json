@@ -40,7 +40,7 @@
     "bugs": {
         "url": "https://github.com/form-js/forms.js/issues"
     },
-    "homepage": "https://formsjs.io/",
+    "homepage": "https://github.com/form-js",
     "devDependencies": {
         "@babel/preset-env": "^7.24.5",
         "@babel/preset-typescript": "^7.24.1",

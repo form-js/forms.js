@@ -50,7 +50,7 @@ export default {
 
 ### Props
 
-- `options: FormOptions` - <span class="badge warning">required</span> The form options (<a href="https://formsjs.io/documentation/v1/form">see more</a>).
+- `options: FormOptions` - <span class="badge warning">required</span> The form options (<a href="https://github.com/form-js/forms.js/tree/master/docs/v1/form">see more</a>).
 - `plugins: PluginSettings | PluginSettings[]` - if form needs to use any plugins you can pass them into the form through this options.
 - `licenseKey: string` - if you want to use premium features you can assign your license key through this prop.
 
@@ -187,4 +187,4 @@ You can access methods and variables through the component instance.
 
 <h2 id="license">License</h2>
 
-MIT. See more at <a href="https://formsjs.io/documentation/v1/licensing">licensing page</a>.
+MIT. See more at <a href="https://github.com/form-js/forms.js/tree/master/docs/v1/licensing">licensing page</a>.

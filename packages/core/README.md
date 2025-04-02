@@ -1,12 +1,11 @@
 <div align="center">
 
-![Forms.js](https://formsjs.io/images/formsjs-banner.png)
+![Forms.js](https://github.com/form-js/forms.js/tree/master/docs/formsjs-banner.png)
 
 </div>
 
 <p align="center">
-    <a href="https://formsjs.io/"><b>Website</b></a> •
-    <a href="https://formsjs.io/documentation/v1/getting-started"><b>Documentation</b></a>
+    <a href="https://github.com/form-js/forms.js/tree/master/docs/v1/getting-started"><b>Documentation</b></a>
 </p>
 
 <div align="center">
@@ -27,7 +26,7 @@
 
 **Forms.js** is an advanced, lightweight JavaScript library designed to ease form creation and management. Utilizing JSON for data input, it generates dynamic, user-centric forms, offering an unparalleled development experience.
 
-[Get Started with Forms.js](https://formsjs.io/documentation/v1/getting-started) ⚡️
+[Get Started with Forms.js](https://github.com/form-js/forms.js/tree/master/docs/v1/getting-started) ⚡️
 
 ## Features at a Glance
 
@@ -68,12 +67,7 @@ const form = new Form("form-element", options);
 @import '@forms.js/core/css/index.css';
 ```
 
-Dive deeper into Forms.js with the [official documentation](https://formsjs.io/documentation/v1/getting-started)
-
-## Support Forms.js Development:
-
-Purchase an software [license](https://formsjs.io/pricing).
-
+Dive deeper into Forms.js with the [official documentation](https://github.com/form-js/forms.js/tree/master/docs/v1/getting-started)
 
 ## Contributing
 

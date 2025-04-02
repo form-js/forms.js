@@ -36,7 +36,7 @@
   "bugs": {
     "url": "https://github.com/form-js/forms.js/issues"
   },
-  "homepage": "https://formsjs.io/",
+  "homepage": "https://github.com/form-js",
   "devDependencies": {
     "@types/jest": "^29.5.12",
     "@types/quill": "^2.0.14",
